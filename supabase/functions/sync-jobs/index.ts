@@ -19,15 +19,45 @@ interface JobData {
 async function fetchPageContent(url: string): Promise<string> {
   const scrapingBeeKey = Deno.env.get('SCRAPINGBEE_API_KEY');
 
+  async function fetchWithBee(params: Record<string, string | number | boolean>) {
+    const qp = new URLSearchParams({
+      api_key: scrapingBeeKey!,
+      url,
+      // sensible defaults
+      render_js: 'true',
+      block_resources: 'false',
+      wait: '3000',
+      ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
+    });
+    const apiUrl = `https://app.scrapingbee.com/api/v1/?${qp.toString()}`;
+    const res = await fetch(apiUrl, { method: 'GET' });
+    const body = await res.text();
+    if (!res.ok) {
+      throw new Error(`ScrapingBee failed: HTTP ${res.status} ${body}`);
+    }
+    return body;
+  }
+
   // If a ScrapingBee key is configured, use it to bypass bot protection
   if (scrapingBeeKey) {
-    const apiUrl = `https://app.scrapingbee.com/api/v1/?api_key=${scrapingBeeKey}&url=${encodeURIComponent(url)}&render_js=true&block_resources=false`;
-    const res = await fetch(apiUrl, { method: 'GET' });
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`ScrapingBee failed: HTTP ${res.status} ${text}`);
+    const isIndeed = /indeed\./i.test(url);
+    const isUk = /\.co\.uk|uk\./i.test(url);
+    const country = isUk ? 'gb' : 'us';
+
+    try {
+      // Attempt 1: premium proxy (cheaper, often enough), JS rendering, proper country
+      console.log('ScrapingBee attempt 1: premium_proxy');
+      return await fetchWithBee({ premium_proxy: true, country_code: country });
+    } catch (e1) {
+      // Attempt 2: stealth proxy for heavy bot protection (Indeed often needs it)
+      console.warn('ScrapingBee attempt 1 failed, trying stealth_proxy...', e1 instanceof Error ? e1.message : e1);
+      try {
+        return await fetchWithBee({ premium_proxy: true, stealth_proxy: true, country_code: country });
+      } catch (e2) {
+        console.error('ScrapingBee stealth attempt failed:', e2);
+        throw e2;
+      }
     }
-    return await res.text();
   }
 
   // Fallback: direct fetch (may be blocked by some sites)
