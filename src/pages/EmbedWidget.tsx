@@ -15,6 +15,8 @@ interface EmbedConfig {
   backgroundColor?: string;
   textColor?: string;
   buttonStyle?: "filled" | "outline";
+  headerText?: string;
+  fontFamily?: string;
 }
 
 export default function EmbedWidget() {
@@ -72,21 +74,39 @@ export default function EmbedWidget() {
     );
   }
 
+  const fontFamily = config.fontFamily || 'Inter';
+  const fontUrl = `https://fonts.googleapis.com/css2?family=${fontFamily.replace(' ', '+')}:wght@400;600;700&display=swap`;
+
   return (
-    <div className="p-4 space-y-4" style={{ backgroundColor: config.backgroundColor }}>
+    <div className="p-6 space-y-6" style={{ backgroundColor: config.backgroundColor, fontFamily }}>
+      <link rel="stylesheet" href={fontUrl} />
       <style>{`
         :root {
-          --embed-primary: ${config.primaryColor || 'hsl(221.2, 83.2%, 53.3%)'};
-          --embed-bg: ${config.backgroundColor || 'hsl(0, 0%, 100%)'};
-          --embed-text: ${config.textColor || 'hsl(222.2, 84%, 4.9%)'};
+          --embed-primary: ${config.primaryColor || '#3b82f6'};
+          --embed-bg: ${config.backgroundColor || '#ffffff'};
+          --embed-text: ${config.textColor || '#1e293b'};
         }
       `}</style>
+
+      {config.headerText && (
+        <div className="border-b pb-4" style={{ borderColor: config.primaryColor + '20' }}>
+          <h2 
+            className="text-3xl font-bold"
+            style={{ color: config.textColor }}
+          >
+            {config.headerText}
+          </h2>
+        </div>
+      )}
 
       {jobs.map((job) => (
         <Card 
           key={job.id} 
-          className="p-6 hover:shadow-lg transition-shadow"
-          style={{ borderColor: 'hsl(214.3, 31.8%, 91.4%)' }}
+          className="p-6 hover:shadow-lg transition-shadow border"
+          style={{ 
+            borderColor: config.primaryColor + '20',
+            backgroundColor: config.backgroundColor
+          }}
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1 space-y-3">
@@ -134,10 +154,10 @@ export default function EmbedWidget() {
               href={job.job_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all hover:opacity-90"
               style={{
                 backgroundColor: config.buttonStyle === 'filled' ? config.primaryColor : 'transparent',
-                color: config.buttonStyle === 'filled' ? 'white' : config.primaryColor,
+                color: config.buttonStyle === 'filled' ? '#ffffff' : config.primaryColor,
                 border: config.buttonStyle === 'outline' ? `2px solid ${config.primaryColor}` : 'none'
               }}
             >
