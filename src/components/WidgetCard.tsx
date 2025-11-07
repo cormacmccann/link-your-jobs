@@ -1,13 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { RefreshCw, ExternalLink, Trash2, Eye } from "lucide-react";
+import { RefreshCw, ExternalLink, Trash2, Eye, Code } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { EmbedConfigurator } from "./EmbedConfigurator";
 
 interface WidgetCardProps {
   source: {
@@ -17,6 +18,7 @@ interface WidgetCardProps {
     last_synced_at?: string;
     is_active: boolean;
     created_at: string;
+    embed_config?: any;
   };
   onUpdate: () => void;
 }
@@ -27,6 +29,7 @@ export const WidgetCard = ({ source, onUpdate }: WidgetCardProps) => {
   const navigate = useNavigate();
   const [isSyncing, setIsSyncing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [embedOpen, setEmbedOpen] = useState(false);
 
   // Get job count for this source
   const { data: jobCount } = useQuery({
@@ -174,6 +177,15 @@ export const WidgetCard = ({ source, onUpdate }: WidgetCardProps) => {
             <RefreshCw className={`w-4 h-4 mr-2 ${isSyncing ? 'animate-spin' : ''}`} />
             {isSyncing ? 'Syncing...' : 'Sync'}
           </Button>
+
+          <Button
+            onClick={() => setEmbedOpen(true)}
+            variant="outline"
+            size="sm"
+            title="Configure Embed"
+          >
+            <Code className="w-4 h-4" />
+          </Button>
           
           <Button
             onClick={handleDelete}
@@ -185,6 +197,13 @@ export const WidgetCard = ({ source, onUpdate }: WidgetCardProps) => {
           </Button>
         </div>
       </div>
+
+      <EmbedConfigurator
+        jobSourceId={source.id}
+        open={embedOpen}
+        onOpenChange={setEmbedOpen}
+        currentConfig={source.embed_config}
+      />
     </Card>
   );
 };

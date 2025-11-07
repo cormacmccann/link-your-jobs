@@ -17,6 +17,7 @@ export type Database = {
       job_sources: {
         Row: {
           created_at: string
+          embed_config: Json | null
           id: string
           is_active: boolean
           last_synced_at: string | null
@@ -27,6 +28,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          embed_config?: Json | null
           id?: string
           is_active?: boolean
           last_synced_at?: string | null
@@ -37,6 +39,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          embed_config?: Json | null
           id?: string
           is_active?: boolean
           last_synced_at?: string | null

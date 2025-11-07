@@ -2,3 +2,6 @@ project_id = "nwmwwpwpokcwwjhgxwxe"
 
 [functions.sync-jobs]
 verify_jwt = false
+
+[functions.sync-all-sources]
+verify_jwt = false

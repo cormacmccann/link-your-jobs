@@ -1,4 +1,3 @@
-import { EmbedConfigurator } from "@/components/EmbedConfigurator";
 import { Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -39,9 +38,6 @@ const Index = () => {
               Get Started Free
             </Button>
           </div>
-
-          {/* Configurator */}
-          <EmbedConfigurator />
 
           {/* Instructions */}
           <div className="mt-16 bg-card rounded-2xl p-8 shadow-[var(--shadow-card)] border border-border">
