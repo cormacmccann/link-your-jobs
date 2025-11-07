@@ -1,0 +1,4 @@
+project_id = "nwmwwpwpokcwwjhgxwxe"
+
+[functions.sync-jobs]
+verify_jwt = false

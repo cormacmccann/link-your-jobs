@@ -3,26 +3,29 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, ExternalLink } from "lucide-react";
+import { Copy, Check, ExternalLink, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { JobsDisplay } from "./JobsDisplay";
+import { SyncJobsButton } from "./SyncJobsButton";
 
 export const EmbedConfigurator = () => {
   const { toast } = useToast();
   const [linkedInUrl, setLinkedInUrl] = useState("");
-  const [width, setWidth] = useState("100%");
-  const [height, setHeight] = useState("600");
   const [copied, setCopied] = useState(false);
 
   const generateEmbedCode = () => {
     if (!linkedInUrl) return "";
     
+    // Generate embed code that points to our app with the LinkedIn URL as a parameter
+    const embedUrl = `${window.location.origin}/?linkedin=${encodeURIComponent(linkedInUrl)}`;
+    
     return `<iframe 
-  src="${linkedInUrl}" 
-  width="${width}" 
-  height="${height}px" 
+  src="${embedUrl}" 
+  width="100%" 
+  height="800px" 
   frameborder="0" 
   allowfullscreen
-  title="LinkedIn Careers">
+  title="LinkedIn Careers Widget">
 </iframe>`;
   };
 
@@ -56,12 +59,15 @@ export const EmbedConfigurator = () => {
   };
 
   return (
-    <div className="grid lg:grid-cols-2 gap-8">
+    <div className="space-y-8">
       {/* Configuration Panel */}
       <Card className="p-6 space-y-6 shadow-[var(--shadow-card)] border-border">
-        <div>
-          <h2 className="text-2xl font-semibold text-foreground mb-2">Configure Your Embed</h2>
-          <p className="text-muted-foreground">Customize your LinkedIn careers widget</p>
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold text-foreground mb-2">Configure Your Jobs Feed</h2>
+            <p className="text-muted-foreground">Sync and display LinkedIn careers on your site</p>
+          </div>
+          <SyncJobsButton linkedinUrl={linkedInUrl} />
         </div>
 
         <div className="space-y-4">
@@ -81,38 +87,8 @@ export const EmbedConfigurator = () => {
               <ExternalLink className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             </div>
             <p className="text-xs text-muted-foreground">
-              Enter your company's LinkedIn careers page URL
+              Jobs are automatically synced every 24 hours
             </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="width" className="text-foreground">
-                Width
-              </Label>
-              <Input
-                id="width"
-                type="text"
-                placeholder="100%"
-                value={width}
-                onChange={(e) => setWidth(e.target.value)}
-                className="transition-[var(--transition-smooth)]"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="height" className="text-foreground">
-                Height (px)
-              </Label>
-              <Input
-                id="height"
-                type="number"
-                placeholder="600"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                className="transition-[var(--transition-smooth)]"
-              />
-            </div>
           </div>
         </div>
 
@@ -145,32 +121,14 @@ export const EmbedConfigurator = () => {
         </div>
       </Card>
 
-      {/* Preview Panel */}
-      <Card className="p-6 space-y-4 shadow-[var(--shadow-card)] border-border">
-        <div>
-          <h2 className="text-2xl font-semibold text-foreground mb-2">Live Preview</h2>
-          <p className="text-muted-foreground">See how your embed will look</p>
+      {/* Jobs Display */}
+      <Card className="p-6 shadow-[var(--shadow-card)] border-border">
+        <div className="mb-4">
+          <h2 className="text-2xl font-semibold text-foreground mb-2">Synced Jobs</h2>
+          <p className="text-muted-foreground">Jobs pulled from LinkedIn and stored in your database</p>
         </div>
-
-        <div className="border-2 border-dashed border-border rounded-lg p-4 min-h-[500px] bg-muted/30">
-          {linkedInUrl ? (
-            <iframe
-              src={linkedInUrl}
-              width={width}
-              height={`${height}px`}
-              frameBorder="0"
-              allowFullScreen
-              title="LinkedIn Careers Preview"
-              className="w-full rounded-md"
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-muted-foreground text-center">
-                Enter a LinkedIn URL to see the preview
-              </p>
-            </div>
-          )}
-        </div>
+        
+        <JobsDisplay linkedinUrl={linkedInUrl} />
       </Card>
     </div>
   );
