@@ -151,7 +151,7 @@ export default function EmbedWidget() {
             </div>
 
             <a
-              href={job.job_url}
+              href={jobSource?.source_url || job.job_url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all hover:opacity-90"
