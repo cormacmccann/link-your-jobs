@@ -10,6 +10,8 @@ import Index from "./pages/Index";
 import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
+import Policies from "./pages/Policies";
+import PolicyDetail from "./pages/PolicyDetail";
 import { Auth } from "./components/Auth";
 import { Dashboard } from "./components/Dashboard";
 
@@ -53,6 +55,8 @@ const App = () => {
             <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
+            <Route path="/policies" element={session ? <Policies /> : <Navigate to="/auth" />} />
+            <Route path="/policies/:id" element={session ? <PolicyDetail /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

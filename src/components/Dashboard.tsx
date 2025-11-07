@@ -2,14 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, LogOut, Briefcase } from "lucide-react";
+import { Plus, LogOut, Briefcase, FileText } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AddWidgetDialog } from "./AddWidgetDialog";
 import { WidgetCard } from "./WidgetCard";
 import { useToast } from "@/hooks/use-toast";
 
 export const Dashboard = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [showAddDialog, setShowAddDialog] = useState(false);
 
   const { data: jobSources, refetch } = useQuery({
@@ -63,6 +65,39 @@ export const Dashboard = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <Card 
+            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            onClick={() => setShowAddDialog(true)}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Briefcase className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-1">Job Widgets</h3>
+                <p className="text-sm text-muted-foreground">Sync and embed job listings</p>
+              </div>
+            </div>
+          </Card>
+          
+          <Card 
+            className="p-6 hover:shadow-lg transition-shadow cursor-pointer"
+            onClick={() => navigate('/policies')}
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <FileText className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-1">Policy Generator</h3>
+                <p className="text-sm text-muted-foreground">Create legal policies with AI</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-foreground mb-2">Your Career Widgets</h2>
