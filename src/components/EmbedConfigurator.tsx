@@ -6,9 +6,11 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Copy, Check, Palette } from "lucide-react";
+import { Copy, Check, Palette, ExternalLink, MapPin } from "lucide-react";
 
 interface EmbedConfig {
   showLogo?: boolean;
@@ -21,6 +23,7 @@ interface EmbedConfig {
   buttonStyle?: "filled" | "outline";
   headerText?: string;
   fontFamily?: string;
+  buttonText?: string;
 }
 
 interface EmbedConfiguratorProps {
@@ -47,6 +50,7 @@ export const EmbedConfigurator = ({
     buttonStyle: "filled",
     headerText: "Latest Job Openings",
     fontFamily: "Inter",
+    buttonText: "View Job",
     ...currentConfig
   });
   const [copied, setCopied] = useState(false);
@@ -83,8 +87,9 @@ export const EmbedConfigurator = ({
         </DialogHeader>
 
         <Tabs defaultValue="customize">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="customize">Customize</TabsTrigger>
+            <TabsTrigger value="preview">Preview</TabsTrigger>
             <TabsTrigger value="embed">Embed Code</TabsTrigger>
           </TabsList>
 
@@ -174,6 +179,17 @@ export const EmbedConfigurator = ({
                   </SelectContent>
                 </Select>
               </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="buttonText">Button Text</Label>
+                <Input
+                  id="buttonText"
+                  type="text"
+                  value={config.buttonText}
+                  onChange={(e) => setConfig({ ...config, buttonText: e.target.value })}
+                  placeholder="View Job"
+                />
+              </div>
             </div>
 
             <div className="space-y-4">
@@ -243,6 +259,72 @@ export const EmbedConfigurator = ({
             <Button onClick={handleSave} className="w-full">
               Save Configuration
             </Button>
+          </TabsContent>
+
+          <TabsContent value="preview" className="space-y-4 mt-4">
+            <div className="border rounded-lg p-6" style={{ backgroundColor: config.backgroundColor }}>
+              <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?family=${config.fontFamily?.replace(' ', '+')}:wght@400;600;700&display=swap`} />
+              
+              {config.headerText && (
+                <div className="border-b pb-4 mb-6" style={{ borderColor: config.primaryColor + '20', fontFamily: config.fontFamily }}>
+                  <h2 className="text-2xl font-bold" style={{ color: config.textColor }}>
+                    {config.headerText}
+                  </h2>
+                </div>
+              )}
+
+              <Card 
+                className="p-6 border hover:shadow-lg transition-shadow"
+                style={{ 
+                  borderColor: config.primaryColor + '20',
+                  backgroundColor: config.backgroundColor,
+                  fontFamily: config.fontFamily
+                }}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1 space-y-3">
+                    <div>
+                      <h3 className="text-xl font-semibold mb-1" style={{ color: config.textColor }}>
+                        Senior Software Engineer
+                      </h3>
+                      <p className="font-medium" style={{ color: config.primaryColor }}>
+                        Tech Company Inc.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3 text-sm" style={{ color: config.textColor }}>
+                      {config.showLocation && (
+                        <div className="flex items-center gap-1 opacity-70">
+                          <MapPin className="w-4 h-4" />
+                          London, UK
+                        </div>
+                      )}
+                      {config.showJobType && (
+                        <Badge variant="secondary">Full-time</Badge>
+                      )}
+                    </div>
+
+                    {config.showDescription && (
+                      <p className="line-clamp-2 opacity-70" style={{ color: config.textColor }}>
+                        This is a sample job description to show how your embedded widget will appear on your website. Customize the colors and text to match your brand.
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all hover:opacity-90"
+                    style={{
+                      backgroundColor: config.buttonStyle === 'filled' ? config.primaryColor : 'transparent',
+                      color: config.buttonStyle === 'filled' ? '#ffffff' : config.primaryColor,
+                      border: config.buttonStyle === 'outline' ? `2px solid ${config.primaryColor}` : 'none'
+                    }}
+                  >
+                    {config.buttonText || 'View Job'}
+                    <ExternalLink className="w-4 h-4" />
+                  </button>
+                </div>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="embed" className="space-y-4 mt-4">

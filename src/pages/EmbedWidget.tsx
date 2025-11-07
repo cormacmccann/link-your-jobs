@@ -17,6 +17,7 @@ interface EmbedConfig {
   buttonStyle?: "filled" | "outline";
   headerText?: string;
   fontFamily?: string;
+  buttonText?: string;
 }
 
 export default function EmbedWidget() {
@@ -161,7 +162,7 @@ export default function EmbedWidget() {
                 border: config.buttonStyle === 'outline' ? `2px solid ${config.primaryColor}` : 'none'
               }}
             >
-              View Job
+              {config.buttonText || 'View Job'}
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
