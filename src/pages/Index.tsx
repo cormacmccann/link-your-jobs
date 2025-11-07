@@ -25,12 +25,12 @@ const Index = () => {
           {/* Hero Section */}
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Embed LinkedIn Careers
-              <span className="block text-primary mt-2">Anywhere You Want</span>
+              LinkedIn Careers Job Sync
+              <span className="block text-primary mt-2">Automated & Always Fresh</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Generate customizable embed codes for LinkedIn career pages. 
-              Perfect for company websites, job boards, and recruitment portals.
+              Pull job listings from LinkedIn, store them in your database, and display them anywhere. 
+              Automatically syncs every 24 hours to keep your careers page up-to-date.
             </p>
           </div>
 
@@ -39,7 +39,7 @@ const Index = () => {
 
           {/* Instructions */}
           <div className="mt-16 bg-card rounded-2xl p-8 shadow-[var(--shadow-card)] border border-border">
-            <h3 className="text-2xl font-semibold text-foreground mb-6">How to Use</h3>
+            <h3 className="text-2xl font-semibold text-foreground mb-6">How It Works</h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
@@ -47,25 +47,25 @@ const Index = () => {
                 </div>
                 <h4 className="font-semibold text-foreground">Enter LinkedIn URL</h4>
                 <p className="text-sm text-muted-foreground">
-                  Paste your company's LinkedIn careers page URL into the input field.
+                  Paste your company's LinkedIn careers page URL and click "Sync Jobs Now" to pull the latest listings.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   2
                 </div>
-                <h4 className="font-semibold text-foreground">Customize Dimensions</h4>
+                <h4 className="font-semibold text-foreground">Jobs Stored in Database</h4>
                 <p className="text-sm text-muted-foreground">
-                  Adjust the width and height to fit your website's layout perfectly.
+                  Job listings are saved to your database and automatically re-synced every 24 hours.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   3
                 </div>
-                <h4 className="font-semibold text-foreground">Copy & Embed</h4>
+                <h4 className="font-semibold text-foreground">Embed Anywhere</h4>
                 <p className="text-sm text-muted-foreground">
-                  Copy the generated code and paste it into your website's HTML.
+                  Copy the embed code and paste it on any website to display your synced job listings.
                 </p>
               </div>
             </div>
