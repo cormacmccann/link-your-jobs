@@ -19,7 +19,7 @@ export const SyncJobsButton = ({ linkedinUrl, disabled }: SyncJobsButtonProps) =
     if (!linkedinUrl) {
       toast({
         title: "Missing URL",
-        description: "Please enter a LinkedIn URL first",
+        description: "Please enter a job board URL first",
         variant: "destructive",
       });
       return;
@@ -37,9 +37,13 @@ export const SyncJobsButton = ({ linkedinUrl, disabled }: SyncJobsButtonProps) =
 
       console.log('Sync response:', data);
 
+      const successMessage = data.synced 
+        ? `Successfully synced ${data.synced} job${data.synced !== 1 ? 's' : ''}${data.errors ? ` (${data.errors} failed)` : ''}`
+        : data.message || 'Sync completed';
+
       toast({
         title: "Sync Complete",
-        description: data.message || `Successfully synced ${data.total} jobs`,
+        description: successMessage,
       });
 
       // Refresh the jobs list

@@ -12,8 +12,8 @@ const Index = () => {
               <Briefcase className="w-5 h-5 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Job Listings Manager</h1>
-              <p className="text-sm text-muted-foreground">Manage and embed job listings anywhere</p>
+              <h1 className="text-2xl font-bold text-foreground">AI Job Sync</h1>
+              <p className="text-sm text-muted-foreground">Extract & embed jobs from any career site</p>
             </div>
           </div>
         </div>
@@ -25,12 +25,12 @@ const Index = () => {
           {/* Hero Section */}
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              Job Listings Manager
-              <span className="block text-primary mt-2">Store & Display Anywhere</span>
+              AI-Powered Job Sync
+              <span className="block text-primary mt-2">From Any Career Site</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Manage your job listings in a centralized database and embed them on any website. 
-              Add jobs manually or integrate with job board APIs.
+              Use AI to intelligently extract job listings from LinkedIn, Indeed, or any career page. 
+              Store them in your database and embed anywhere.
             </p>
           </div>
 
@@ -45,37 +45,38 @@ const Index = () => {
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   1
                 </div>
-                <h4 className="font-semibold text-foreground">Enter Source URL</h4>
+                <h4 className="font-semibold text-foreground">Enter Career Page URL</h4>
                 <p className="text-sm text-muted-foreground">
-                  Add your job board URL as a reference. This helps organize your listings by source.
+                  Paste any job board URL (LinkedIn, Indeed, company career pages) and click "Sync Jobs Now".
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   2
                 </div>
-                <h4 className="font-semibold text-foreground">Add Jobs Manually</h4>
+                <h4 className="font-semibold text-foreground">AI Extracts Jobs</h4>
                 <p className="text-sm text-muted-foreground">
-                  Use the manual entry form to add job listings. All data is stored securely in your database.
+                  Our AI intelligently reads the page and extracts all job listings, titles, locations, and details.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   3
                 </div>
-                <h4 className="font-semibold text-foreground">Embed & Display</h4>
+                <h4 className="font-semibold text-foreground">Store & Display</h4>
                 <p className="text-sm text-muted-foreground">
-                  Copy the embed code to display your job listings on any website with automatic updates.
+                  Jobs are saved to your database. Copy the embed code to display them on any website.
                 </p>
               </div>
             </div>
             
-            <div className="mt-8 p-4 bg-muted/50 rounded-lg border border-border">
-              <h4 className="font-semibold text-foreground mb-2">💡 Why No Automated Scraping?</h4>
+            <div className="mt-8 p-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
+              <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                <span className="text-2xl">✨</span> AI-Powered Extraction
+              </h4>
               <p className="text-sm text-muted-foreground">
-                LinkedIn and Indeed actively block automated scraping to protect their data. The proper way to integrate 
-                is through their official APIs (which require API keys and authentication). Manual entry ensures you have 
-                full control over your job listings without violating any Terms of Service.
+                Unlike traditional scraping that gets blocked, our AI understands page content and intelligently extracts 
+                job data from any career site - no matter the structure. Works with LinkedIn, Indeed, and custom career pages.
               </p>
             </div>
           </div>

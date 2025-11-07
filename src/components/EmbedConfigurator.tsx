@@ -63,17 +63,18 @@ export const EmbedConfigurator = () => {
     <div className="space-y-8">
       {/* Configuration Panel */}
       <Card className="p-6 space-y-6 shadow-[var(--shadow-card)] border-border">
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div>
             <h2 className="text-2xl font-semibold text-foreground mb-2">Configure Your Jobs Feed</h2>
-            <p className="text-muted-foreground">Enter your source URL to manage job listings</p>
+            <p className="text-muted-foreground">AI-powered sync from any job board</p>
           </div>
+          <SyncJobsButton linkedinUrl={linkedInUrl} />
         </div>
 
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="linkedin-url" className="text-foreground">
-              Source URL (LinkedIn, Indeed, or Custom)
+              Job Board URL (LinkedIn, Indeed, or Any Career Site)
             </Label>
             <div className="relative">
               <Input
@@ -87,7 +88,7 @@ export const EmbedConfigurator = () => {
               <ExternalLink className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             </div>
             <p className="text-xs text-muted-foreground">
-              Note: LinkedIn and Indeed block automated scraping. Use manual entry below.
+              ✨ Powered by AI - intelligently extracts jobs from any career page
             </p>
           </div>
         </div>
