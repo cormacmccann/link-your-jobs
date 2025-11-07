@@ -16,6 +16,42 @@ interface JobData {
   linkedin_url: string;
 }
 
+async function fetchPageContent(url: string): Promise<string> {
+  const scrapingBeeKey = Deno.env.get('SCRAPINGBEE_API_KEY');
+
+  // If a ScrapingBee key is configured, use it to bypass bot protection
+  if (scrapingBeeKey) {
+    const apiUrl = `https://app.scrapingbee.com/api/v1/?api_key=${scrapingBeeKey}&url=${encodeURIComponent(url)}&render_js=true&block_resources=false`;
+    const res = await fetch(apiUrl, { method: 'GET' });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`ScrapingBee failed: HTTP ${res.status} ${text}`);
+    }
+    return await res.text();
+  }
+
+  // Fallback: direct fetch (may be blocked by some sites)
+  const response = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.5',
+      'Connection': 'keep-alive',
+      'Upgrade-Insecure-Requests': '1',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Cache-Control': 'max-age=0',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: Could not fetch page content`);
+  }
+
+  return await response.text();
+}
+
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -42,33 +78,15 @@ Deno.serve(async (req) => {
 
     console.log('Fetching page content from:', linkedinUrl);
 
-    // Fetch the job board page with realistic browser headers
+    // Fetch content (uses ScrapingBee if configured)
     let html: string;
     try {
-      const response = await fetch(linkedinUrl, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.5',
-          'Connection': 'keep-alive',
-          'Upgrade-Insecure-Requests': '1',
-          'Sec-Fetch-Dest': 'document',
-          'Sec-Fetch-Mode': 'navigate',
-          'Sec-Fetch-Site': 'none',
-          'Cache-Control': 'max-age=0',
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to fetch page:', response.status, response.statusText);
-        throw new Error(`HTTP ${response.status}: Could not fetch page content`);
-      }
-
-      html = await response.text();
+      html = await fetchPageContent(linkedinUrl);
       console.log(`Successfully fetched page content (${html.length} characters)`);
     } catch (fetchError) {
       console.error('Fetch error:', fetchError);
-      throw new Error(`Failed to fetch page: ${fetchError instanceof Error ? fetchError.message : 'Network error'}`);
+      const hint = Deno.env.get('SCRAPINGBEE_API_KEY') ? '' : ' Tip: add a SCRAPINGBEE_API_KEY secret to bypass anti-bot protections.';
+      throw new Error(`Failed to fetch page: ${fetchError instanceof Error ? fetchError.message : 'Network error'}.${hint}`);
     }
 
     // Truncate HTML if too long (to stay within AI token limits)
