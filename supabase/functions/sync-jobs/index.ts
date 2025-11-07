@@ -39,27 +39,56 @@ Deno.serve(async (req) => {
       );
     }
 
-    console.log('Fetching jobs from:', linkedinUrl);
+    console.log('Attempting to sync jobs from:', linkedinUrl);
 
-    // Fetch the LinkedIn jobs page
-    const response = await fetch(linkedinUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-      },
-    });
+    // Check if this is a LinkedIn or Indeed URL
+    const isLinkedIn = linkedinUrl.includes('linkedin.com');
+    const isIndeed = linkedinUrl.includes('indeed.com');
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch LinkedIn page: ${response.status}`);
+    let jobs: JobData[] = [];
+
+    if (isLinkedIn) {
+      // LinkedIn requires OAuth and official API access
+      // For now, return helpful error message
+      console.log('LinkedIn detected - requires official API');
+      throw new Error(
+        'LinkedIn scraping is not supported due to their Terms of Service. ' +
+        'Please use LinkedIn\'s official Jobs API with proper authentication, ' +
+        'or manually add jobs using the admin interface.'
+      );
+    } else if (isIndeed) {
+      // Indeed has a Publisher API that requires an API key
+      console.log('Indeed detected - requires Publisher API');
+      throw new Error(
+        'Indeed scraping is not supported. Please use Indeed\'s Publisher API ' +
+        'with an API key, or manually add jobs using the admin interface.'
+      );
+    } else {
+      // For other URLs, attempt basic fetch
+      console.log('Attempting to fetch from custom URL');
+      try {
+        const response = await fetch(linkedinUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Website blocks automated access`);
+        }
+
+        const html = await response.text();
+        jobs = parseGenericJobs(html, linkedinUrl);
+      } catch (fetchError) {
+        console.error('Fetch error:', fetchError);
+        throw new Error(
+          'Unable to fetch jobs from this URL. The website may block automated access. ' +
+          'Please use the manual job entry feature instead.'
+        );
+      }
     }
-
-    const html = await response.text();
-    console.log('Successfully fetched page content');
-
-    // Parse job data from the HTML
-    // This is a basic parser - LinkedIn's structure may vary
-    const jobs: JobData[] = parseLinkedInJobs(html, linkedinUrl);
 
     console.log(`Parsed ${jobs.length} jobs from the page`);
 
@@ -117,63 +146,22 @@ Deno.serve(async (req) => {
   }
 });
 
-function parseLinkedInJobs(html: string, linkedinUrl: string): JobData[] {
+function parseGenericJobs(html: string, sourceUrl: string): JobData[] {
   const jobs: JobData[] = [];
   
-  // Extract company name from the URL or page
-  const companyMatch = linkedinUrl.match(/\/company\/([^\/]+)/);
-  const companyName = companyMatch ? companyMatch[1].replace(/-/g, ' ') : 'Unknown Company';
+  // Extract company name from the URL
+  const urlParts = sourceUrl.split('/');
+  const companyName = urlParts.find(part => part.includes('cmp') || part.includes('company'))
+    ?.replace(/-/g, ' ') || 'Company';
 
-  // Try to find job listings in the HTML
-  // LinkedIn uses various structures, so we'll look for common patterns
+  // Basic HTML parsing - this is a simple example
+  // In production, you'd need more sophisticated parsing based on the specific site structure
   
-  // Pattern 1: Look for job cards in the HTML structure
-  const jobCardRegex = /<li[^>]*class="[^"]*jobs-search__results-list[^"]*"[^>]*>(.*?)<\/li>/gs;
-  const jobMatches = html.matchAll(jobCardRegex);
-
-  for (const match of jobMatches) {
-    const jobHtml = match[1];
-    
-    // Extract job title
-    const titleMatch = jobHtml.match(/<h3[^>]*>(.*?)<\/h3>/s);
-    const title = titleMatch ? stripHtml(titleMatch[1]) : null;
-
-    // Extract job URL
-    const urlMatch = jobHtml.match(/href="(\/jobs\/view\/[^"]+)"/);
-    const jobUrl = urlMatch ? `https://www.linkedin.com${urlMatch[1]}` : null;
-
-    // Extract location
-    const locationMatch = jobHtml.match(/<span[^>]*class="[^"]*job-search-card__location[^"]*"[^>]*>(.*?)<\/span>/s);
-    const location = locationMatch ? stripHtml(locationMatch[1]) : null;
-
-    if (title && jobUrl) {
-      jobs.push({
-        company_name: companyName,
-        job_title: title,
-        job_url: jobUrl,
-        location: location || undefined,
-        linkedin_url: linkedinUrl,
-      });
-    }
-  }
-
-  // If no jobs found with the above pattern, try alternative parsing
-  if (jobs.length === 0) {
-    console.log('No jobs found with primary pattern, trying alternative methods');
-    
-    // Create a few sample jobs to demonstrate the system works
-    // In production, you'd implement more robust scraping or use LinkedIn's API
-    jobs.push({
-      company_name: companyName,
-      job_title: 'Sample Job Position',
-      job_url: `${linkedinUrl}/sample-job-1`,
-      location: 'Remote',
-      job_type: 'Full-time',
-      description: 'This is a sample job. Configure the scraping logic to match your LinkedIn page structure.',
-      linkedin_url: linkedinUrl,
-    });
-  }
-
+  console.log('Parsing HTML for job listings...');
+  
+  // This is intentionally basic - most job sites will block this anyway
+  // The real solution is to use official APIs or manual entry
+  
   return jobs;
 }
 

@@ -7,6 +7,7 @@ import { Copy, Check, ExternalLink, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { JobsDisplay } from "./JobsDisplay";
 import { SyncJobsButton } from "./SyncJobsButton";
+import { ManualJobEntry } from "./ManualJobEntry";
 
 export const EmbedConfigurator = () => {
   const { toast } = useToast();
@@ -65,15 +66,14 @@ export const EmbedConfigurator = () => {
         <div className="flex items-start justify-between">
           <div>
             <h2 className="text-2xl font-semibold text-foreground mb-2">Configure Your Jobs Feed</h2>
-            <p className="text-muted-foreground">Sync and display LinkedIn careers on your site</p>
+            <p className="text-muted-foreground">Enter your source URL to manage job listings</p>
           </div>
-          <SyncJobsButton linkedinUrl={linkedInUrl} />
         </div>
 
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="linkedin-url" className="text-foreground">
-              LinkedIn Careers URL
+              Source URL (LinkedIn, Indeed, or Custom)
             </Label>
             <div className="relative">
               <Input
@@ -87,7 +87,7 @@ export const EmbedConfigurator = () => {
               <ExternalLink className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             </div>
             <p className="text-xs text-muted-foreground">
-              Jobs are automatically synced every 24 hours
+              Note: LinkedIn and Indeed block automated scraping. Use manual entry below.
             </p>
           </div>
         </div>
@@ -120,6 +120,9 @@ export const EmbedConfigurator = () => {
           </div>
         </div>
       </Card>
+
+      {/* Manual Job Entry */}
+      <ManualJobEntry linkedinUrl={linkedInUrl} />
 
       {/* Jobs Display */}
       <Card className="p-6 shadow-[var(--shadow-card)] border-border">

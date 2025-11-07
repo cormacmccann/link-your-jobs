@@ -12,8 +12,8 @@ const Index = () => {
               <Briefcase className="w-5 h-5 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">LinkedIn Careers Embed</h1>
-              <p className="text-sm text-muted-foreground">Embed LinkedIn careers on any website</p>
+              <h1 className="text-2xl font-bold text-foreground">Job Listings Manager</h1>
+              <p className="text-sm text-muted-foreground">Manage and embed job listings anywhere</p>
             </div>
           </div>
         </div>
@@ -25,12 +25,12 @@ const Index = () => {
           {/* Hero Section */}
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              LinkedIn Careers Job Sync
-              <span className="block text-primary mt-2">Automated & Always Fresh</span>
+              Job Listings Manager
+              <span className="block text-primary mt-2">Store & Display Anywhere</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Pull job listings from LinkedIn, store them in your database, and display them anywhere. 
-              Automatically syncs every 24 hours to keep your careers page up-to-date.
+              Manage your job listings in a centralized database and embed them on any website. 
+              Add jobs manually or integrate with job board APIs.
             </p>
           </div>
 
@@ -45,29 +45,38 @@ const Index = () => {
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   1
                 </div>
-                <h4 className="font-semibold text-foreground">Enter LinkedIn URL</h4>
+                <h4 className="font-semibold text-foreground">Enter Source URL</h4>
                 <p className="text-sm text-muted-foreground">
-                  Paste your company's LinkedIn careers page URL and click "Sync Jobs Now" to pull the latest listings.
+                  Add your job board URL as a reference. This helps organize your listings by source.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   2
                 </div>
-                <h4 className="font-semibold text-foreground">Jobs Stored in Database</h4>
+                <h4 className="font-semibold text-foreground">Add Jobs Manually</h4>
                 <p className="text-sm text-muted-foreground">
-                  Job listings are saved to your database and automatically re-synced every 24 hours.
+                  Use the manual entry form to add job listings. All data is stored securely in your database.
                 </p>
               </div>
               <div className="space-y-2">
                 <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                   3
                 </div>
-                <h4 className="font-semibold text-foreground">Embed Anywhere</h4>
+                <h4 className="font-semibold text-foreground">Embed & Display</h4>
                 <p className="text-sm text-muted-foreground">
-                  Copy the embed code and paste it on any website to display your synced job listings.
+                  Copy the embed code to display your job listings on any website with automatic updates.
                 </p>
               </div>
+            </div>
+            
+            <div className="mt-8 p-4 bg-muted/50 rounded-lg border border-border">
+              <h4 className="font-semibold text-foreground mb-2">💡 Why No Automated Scraping?</h4>
+              <p className="text-sm text-muted-foreground">
+                LinkedIn and Indeed actively block automated scraping to protect their data. The proper way to integrate 
+                is through their official APIs (which require API keys and authentication). Manual entry ensures you have 
+                full control over your job listings without violating any Terms of Service.
+              </p>
             </div>
           </div>
         </div>
