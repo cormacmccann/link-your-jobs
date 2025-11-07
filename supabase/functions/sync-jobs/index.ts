@@ -66,15 +66,15 @@ Deno.serve(async (req) => {
     const lovableApiKey = Deno.env.get('LOVABLE_API_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Get the job board URL from the request body
-    const { linkedinUrl } = await req.json();
+// Update the sync function to use job_source_id
+const { linkedinUrl, jobSourceId } = await req.json();
 
-    if (!linkedinUrl) {
-      return new Response(
-        JSON.stringify({ error: 'Job board URL is required' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
+if (!linkedinUrl) {
+  return new Response(
+    JSON.stringify({ error: 'Job board URL is required' }),
+    { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
+}
 
     console.log('Fetching page content from:', linkedinUrl);
 
@@ -192,17 +192,18 @@ If no jobs are found, return an empty array: []`
 
     for (const job of jobs) {
       try {
-        const { error } = await supabase
-          .from('jobs')
-          .upsert(
-            {
-              ...job,
-              last_synced_at: new Date().toISOString(),
-            },
-            {
-              onConflict: 'job_url,linkedin_url',
-            }
-          );
+      const { error } = await supabase
+        .from('jobs')
+        .upsert(
+          {
+            ...job,
+            job_source_id: jobSourceId || null,
+            last_synced_at: new Date().toISOString(),
+          },
+          {
+            onConflict: 'job_url,linkedin_url',
+          }
+        );
 
         if (error) {
           console.error('Error upserting job:', error);

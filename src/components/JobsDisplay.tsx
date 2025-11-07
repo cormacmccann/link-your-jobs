@@ -18,24 +18,38 @@ interface Job {
   created_at: string;
 }
 
-export const JobsDisplay = ({ linkedinUrl }: { linkedinUrl: string }) => {
+interface JobsDisplayProps {
+  linkedinUrl?: string;
+  jobSourceId?: string;
+}
+
+export const JobsDisplay = ({ linkedinUrl, jobSourceId }: JobsDisplayProps) => {
   const { data: jobs, isLoading, error } = useQuery({
-    queryKey: ['jobs', linkedinUrl],
+    queryKey: ['jobs', linkedinUrl, jobSourceId],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from('jobs')
         .select('*')
-        .eq('linkedin_url', linkedinUrl)
         .order('posted_date', { ascending: false, nullsFirst: false })
         .order('created_at', { ascending: false });
+
+      if (jobSourceId) {
+        query = query.eq('job_source_id', jobSourceId);
+      } else if (linkedinUrl) {
+        query = query.eq('linkedin_url', linkedinUrl);
+      } else {
+        return [];
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       return data as Job[];
     },
-    enabled: !!linkedinUrl,
+    enabled: !!(linkedinUrl || jobSourceId),
   });
 
-  if (!linkedinUrl) {
+  if (!linkedinUrl && !jobSourceId) {
     return (
       <div className="text-center py-12">
         <Briefcase className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -72,10 +86,10 @@ export const JobsDisplay = ({ linkedinUrl }: { linkedinUrl: string }) => {
         <Briefcase className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-foreground mb-2">No Jobs Found</h3>
         <p className="text-muted-foreground mb-4">
-          No jobs have been synced for this LinkedIn URL yet.
+          No jobs have been synced yet.
         </p>
         <p className="text-sm text-muted-foreground">
-          Click "Sync Jobs Now" to fetch the latest job listings.
+          Click "Sync" to fetch the latest job listings.
         </p>
       </Card>
     );

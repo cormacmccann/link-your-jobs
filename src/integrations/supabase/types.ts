@@ -14,12 +14,46 @@ export type Database = {
   }
   public: {
     Tables: {
+      job_sources: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          last_synced_at: string | null
+          name: string
+          source_url: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name: string
+          source_url: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name?: string
+          source_url?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       jobs: {
         Row: {
           company_name: string
           created_at: string
           description: string | null
           id: string
+          job_source_id: string | null
           job_title: string
           job_type: string | null
           job_url: string
@@ -34,6 +68,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          job_source_id?: string | null
           job_title: string
           job_type?: string | null
           job_url: string
@@ -48,6 +83,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          job_source_id?: string | null
           job_title?: string
           job_type?: string | null
           job_url?: string
@@ -57,6 +93,35 @@ export type Database = {
           posted_date?: string | null
           updated_at?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "jobs_job_source_id_fkey"
+            columns: ["job_source_id"]
+            isOneToOne: false
+            referencedRelation: "job_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          updated_at?: string
+        }
         Relationships: []
       }
     }
@@ -64,7 +129,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      sync_all_linkedin_jobs: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

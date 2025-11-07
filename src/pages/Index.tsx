@@ -1,5 +1,6 @@
 import { EmbedConfigurator } from "@/components/EmbedConfigurator";
 import { Briefcase } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
@@ -22,16 +23,21 @@ const Index = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* Hero Section */}
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-              AI-Powered Job Sync
-              <span className="block text-primary mt-2">From Any Career Site</span>
+              AI-Powered Job Sync Platform
+              <span className="block text-primary mt-2">For Teams & Recruiters</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Use AI to intelligently extract job listings from LinkedIn, Indeed, or any career page. 
-              Store them in your database and embed anywhere.
+              Create an account to save multiple career widgets, sync jobs automatically, and embed them anywhere.
             </p>
+            <Button 
+              size="lg"
+              className="bg-primary hover:bg-accent text-lg px-8 py-6"
+              onClick={() => window.location.href = '/auth'}
+            >
+              Get Started Free
+            </Button>
           </div>
 
           {/* Configurator */}
