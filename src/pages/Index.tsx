@@ -168,11 +168,8 @@ const Index = () => {
       </section>
 
       {/* Scroll Animation Section */}
-      <section className="bg-bg-0">
-        <ContainerScroll titleComponent={<>
-              
-              
-            </>}>
+      <section className="bg-bg-0 -mt-32 md:-mt-40">
+        <ContainerScroll titleComponent={<></>}>
           <img src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=3840&q=75" alt="CRM Dashboard Preview" className="mx-auto rounded-2xl object-cover h-full object-left-top" draggable={false} />
         </ContainerScroll>
       </section>
