@@ -73,9 +73,17 @@ export function ProjectSchedule({ projectId }: ProjectScheduleProps) {
     }
   };
 
-  const upcomingMilestones = milestones?.filter(m => !m.completed && m.due_date) || [];
-  const completedMilestones = milestones?.filter(m => m.completed) || [];
-  const noDateMilestones = milestones?.filter(m => !m.completed && !m.due_date) || [];
+  // Safe array operations
+  const safeMilestones = Array.isArray(milestones) ? milestones : [];
+  
+  // Dev mode warnings
+  if (process.env.NODE_ENV === 'development' && milestones !== undefined && !Array.isArray(milestones)) {
+    console.warn('Expected milestones to be an array but got:', typeof milestones, milestones);
+  }
+
+  const upcomingMilestones = safeMilestones.filter(m => !m.completed && m.due_date);
+  const completedMilestones = safeMilestones.filter(m => m.completed);
+  const noDateMilestones = safeMilestones.filter(m => !m.completed && !m.due_date);
 
   return (
     <div className="space-y-6">

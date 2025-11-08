@@ -144,8 +144,16 @@ export function DealKanbanBoard({ organizationId }: DealKanbanBoardProps) {
     },
   });
 
+  // Safe array operations
+  const safeDeals = Array.isArray(deals) ? deals : [];
+  
+  // Dev mode warning
+  if (process.env.NODE_ENV === 'development' && deals !== undefined && !Array.isArray(deals)) {
+    console.warn('Expected deals to be an array but got:', typeof deals, deals);
+  }
+
   const handleDragStart = (event: any) => {
-    const deal = deals?.find((d) => d.id === event.active.id);
+    const deal = safeDeals.find((d) => d.id === event.active.id);
     setActiveDeal(deal || null);
   };
 
@@ -158,7 +166,7 @@ export function DealKanbanBoard({ organizationId }: DealKanbanBoardProps) {
     const dealId = active.id as string;
     const newStage = over.id as string;
 
-    const deal = deals?.find((d) => d.id === dealId);
+    const deal = safeDeals.find((d) => d.id === dealId);
     if (deal && deal.stage !== newStage) {
       updateDealMutation.mutate({ dealId, stage: newStage });
     }
@@ -166,10 +174,10 @@ export function DealKanbanBoard({ organizationId }: DealKanbanBoardProps) {
 
   const dealsByStage = stages.map((stage) => ({
     ...stage,
-    deals: deals?.filter((deal) => deal.stage === stage.value) || [],
-    totalValue: deals
-      ?.filter((deal) => deal.stage === stage.value)
-      .reduce((sum, deal) => sum + (deal.value || 0), 0) || 0,
+    deals: safeDeals.filter((deal) => deal.stage === stage.value),
+    totalValue: safeDeals
+      .filter((deal) => deal.stage === stage.value)
+      .reduce((sum, deal) => sum + (deal.value || 0), 0),
   }));
 
   if (isLoading) {

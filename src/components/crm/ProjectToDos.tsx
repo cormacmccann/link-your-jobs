@@ -44,6 +44,14 @@ export function ProjectToDos({ projectId }: ProjectToDosProps) {
     },
   });
 
+  // Safe array operations
+  const safeTodoLists = Array.isArray(todoLists) ? todoLists : [];
+  
+  // Dev mode warnings
+  if (process.env.NODE_ENV === 'development' && todoLists !== undefined && !Array.isArray(todoLists)) {
+    console.warn('Expected todoLists to be an array but got:', typeof todoLists, todoLists);
+  }
+
   const handleAddList = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -133,13 +141,19 @@ export function ProjectToDos({ projectId }: ProjectToDosProps) {
         </Dialog>
       </div>
 
-      <div className="space-y-4">
-        {todoLists?.map((list: any) => {
-          const items = list.todo_items || [];
-          const completedCount = items.filter((item: any) => item.completed).length;
-          const totalCount = items.length;
+      {safeTodoLists.length === 0 ? (
+        <Card className="p-12 text-center">
+          <ListTodo className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+          <p className="text-muted-foreground">No to-do lists yet. Create one to get started!</p>
+        </Card>
+      ) : (
+        <div className="space-y-4">
+          {safeTodoLists.map((list: any) => {
+            const items = Array.isArray(list.todo_items) ? list.todo_items : [];
+            const completedCount = items.filter((item: any) => item.completed).length;
+            const totalCount = items.length;
 
-          return (
+            return (
             <Card key={list.id} className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
@@ -212,14 +226,8 @@ export function ProjectToDos({ projectId }: ProjectToDosProps) {
             </Card>
           );
         })}
-
-        {(!todoLists || todoLists.length === 0) && (
-          <Card className="p-12 text-center">
-            <ListTodo className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-            <p className="text-muted-foreground">No to-do lists yet. Create one to get started!</p>
-          </Card>
-        )}
-      </div>
+        </div>
+      )}
 
       <Dialog open={isAddItemOpen} onOpenChange={setIsAddItemOpen}>
         <DialogContent>

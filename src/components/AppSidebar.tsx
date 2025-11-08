@@ -59,13 +59,21 @@ export function AppSidebar() {
 
       if (error) throw error;
       
-      // Set first org as current if none selected
-      if (data && data.length > 0 && !currentOrgId) {
-        setCurrentOrgId(data[0].id);
-        localStorage.setItem("currentOrgId", data[0].id);
+      // Ensure data is an array
+      const safeData = Array.isArray(data) ? data : [];
+      
+      // Dev mode warning
+      if (process.env.NODE_ENV === 'development' && !Array.isArray(data)) {
+        console.warn('Expected organizations to be an array but got:', typeof data, data);
       }
       
-      return data;
+      // Set first org as current if none selected
+      if (safeData.length > 0 && !currentOrgId) {
+        setCurrentOrgId(safeData[0].id);
+        localStorage.setItem("currentOrgId", safeData[0].id);
+      }
+      
+      return safeData;
     },
   });
 
@@ -87,7 +95,9 @@ export function AppSidebar() {
     },
   });
 
-  const currentOrg = organizations?.find((org: any) => org.id === currentOrgId);
+  // Safe array operations
+  const safeOrganizations = Array.isArray(organizations) ? organizations : [];
+  const currentOrg = safeOrganizations.find((org: any) => org.id === currentOrgId);
 
   const handleOrgSwitch = (orgId: string) => {
     setCurrentOrgId(orgId);
@@ -115,7 +125,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         {/* Workspace Switcher - Only show if user has access to multiple workspaces */}
-        {organizations && organizations.length > 1 && (
+        {safeOrganizations.length > 1 && (
           <SidebarGroup>
             <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -137,7 +147,7 @@ export function AppSidebar() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-56">
-                  {organizations.map((org: any) => (
+                  {safeOrganizations.map((org: any) => (
                     <DropdownMenuItem
                       key={org.id}
                       onClick={() => handleOrgSwitch(org.id)}

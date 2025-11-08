@@ -135,6 +135,20 @@ export function CardFormDialog({
     }
   });
 
+  // Safe array operations
+  const safeCompanies = Array.isArray(companies) ? companies : [];
+  const safeContacts = Array.isArray(contacts) ? contacts : [];
+  
+  // Dev mode warnings
+  if (process.env.NODE_ENV === 'development') {
+    if (companies !== undefined && !Array.isArray(companies)) {
+      console.warn('Expected companies to be an array but got:', typeof companies, companies);
+    }
+    if (contacts !== undefined && !Array.isArray(contacts)) {
+      console.warn('Expected contacts to be an array but got:', typeof contacts, contacts);
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -274,11 +288,15 @@ export function CardFormDialog({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {companies?.map((company) => (
-                          <SelectItem key={company.id} value={company.id}>
-                            {company.name}
-                          </SelectItem>
-                        ))}
+                        {safeCompanies.length === 0 ? (
+                          <div className="p-2 text-sm text-muted-foreground">No companies available</div>
+                        ) : (
+                          safeCompanies.map((company) => (
+                            <SelectItem key={company.id} value={company.id}>
+                              {company.name}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -299,11 +317,15 @@ export function CardFormDialog({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {contacts?.map((contact) => (
-                          <SelectItem key={contact.id} value={contact.id}>
-                            {contact.first_name} {contact.last_name}
-                          </SelectItem>
-                        ))}
+                        {safeContacts.length === 0 ? (
+                          <div className="p-2 text-sm text-muted-foreground">No contacts available</div>
+                        ) : (
+                          safeContacts.map((contact) => (
+                            <SelectItem key={contact.id} value={contact.id}>
+                              {contact.first_name} {contact.last_name}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                     <FormMessage />

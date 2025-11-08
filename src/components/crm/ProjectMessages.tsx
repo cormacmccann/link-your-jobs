@@ -98,7 +98,21 @@ export function ProjectMessages({ projectId, orgId }: ProjectMessagesProps) {
     }
   };
 
-  const selectedBoardData = messageBoards?.find(b => b.id === selectedBoard);
+  // Safe array operations
+  const safeMessageBoards = Array.isArray(messageBoards) ? messageBoards : [];
+  const safeMessages = Array.isArray(messages) ? messages : [];
+  
+  // Dev mode warnings
+  if (process.env.NODE_ENV === 'development') {
+    if (messageBoards !== undefined && !Array.isArray(messageBoards)) {
+      console.warn('Expected messageBoards to be an array but got:', typeof messageBoards, messageBoards);
+    }
+    if (messages !== undefined && !Array.isArray(messages)) {
+      console.warn('Expected messages to be an array but got:', typeof messages, messages);
+    }
+  }
+
+  const selectedBoardData = safeMessageBoards.find(b => b.id === selectedBoard);
 
   return (
     <div className="space-y-6">
@@ -128,8 +142,14 @@ export function ProjectMessages({ projectId, orgId }: ProjectMessagesProps) {
             </Dialog>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {messageBoards?.map((board) => (
+          {safeMessageBoards.length === 0 ? (
+            <Card className="p-12 text-center">
+              <MessageSquare className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">No message boards yet. Create one to get started!</p>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {safeMessageBoards.map((board) => (
               <Card
                 key={board.id}
                 className="p-6 cursor-pointer hover:shadow-lg transition-shadow border-l-4 border-l-primary"
@@ -148,13 +168,8 @@ export function ProjectMessages({ projectId, orgId }: ProjectMessagesProps) {
                 </div>
               </Card>
             ))}
-            {(!messageBoards || messageBoards.length === 0) && (
-              <Card className="p-12 text-center col-span-full">
-                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground">No message boards yet. Create one to start discussions!</p>
-              </Card>
-            )}
-          </div>
+            </div>
+          )}
         </>
       ) : (
         <Card className="p-6">
@@ -166,7 +181,12 @@ export function ProjectMessages({ projectId, orgId }: ProjectMessagesProps) {
           </div>
 
           <div className="space-y-4 mb-4 max-h-96 overflow-y-auto">
-            {messages?.map((message: any) => (
+            {safeMessages.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-muted-foreground">
+                <p>No messages yet. Start the conversation!</p>
+              </div>
+            ) : (
+              safeMessages.map((message: any) => (
               <div key={message.id} className="p-4 border rounded-lg hover:bg-accent/5">
                 <div className="flex items-start justify-between mb-2">
                   <p className="font-medium text-sm">
@@ -178,12 +198,7 @@ export function ProjectMessages({ projectId, orgId }: ProjectMessagesProps) {
                 </div>
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
               </div>
-            ))}
-            {(!messages || messages.length === 0) && (
-              <p className="text-sm text-muted-foreground text-center py-8">
-                No messages yet. Start the conversation!
-              </p>
-            )}
+            )))}
           </div>
 
           <div className="flex gap-2">

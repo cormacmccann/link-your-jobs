@@ -146,7 +146,7 @@ export function ContactInsightsPanel({ contactId, organizationId }: ContactInsig
                   Key Insights
                 </h4>
                 <ul className="space-y-2">
-                  {insights.insights?.map((insight: string, i: number) => (
+                  {Array.isArray(insights.insights) && insights.insights.map((insight: string, i: number) => (
                     <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
                       <span>{insight}</span>
@@ -163,7 +163,7 @@ export function ContactInsightsPanel({ contactId, organizationId }: ContactInsig
                   Recommended Actions
                 </h4>
                 <ul className="space-y-2">
-                  {insights.nextActions?.map((action: string, i: number) => (
+                  {Array.isArray(insights.nextActions) && insights.nextActions.map((action: string, i: number) => (
                     <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
                       <span className="text-primary mt-1">→</span>
                       <span>{action}</span>
@@ -172,7 +172,7 @@ export function ContactInsightsPanel({ contactId, organizationId }: ContactInsig
                 </ul>
               </div>
 
-              {insights.risks && insights.risks.length > 0 && (
+              {Array.isArray(insights.risks) && insights.risks.length > 0 && (
                 <>
                   <Separator />
                   <div>
