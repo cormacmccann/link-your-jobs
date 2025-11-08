@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 export const ContainerScroll = ({
   titleComponent,
@@ -10,12 +10,16 @@ export const ContainerScroll = ({
   children: React.ReactNode;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const {
     scrollYProgress
   } = useScroll({
     target: containerRef
   });
   const [isMobile, setIsMobile] = React.useState(false);
+  const [isScrolling, setIsScrolling] = React.useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   React.useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -26,6 +30,50 @@ export const ContainerScroll = ({
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
+
+  // Handle scroll-based video playback
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true);
+      
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Control video playback
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isScrolling) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isScrolling]);
+
+  // Find video element in children
+  useEffect(() => {
+    if (containerRef.current) {
+      const video = containerRef.current.querySelector('video');
+      if (video) {
+        videoRef.current = video;
+      }
+    }
+  }, [children]);
   const scaleDimensions = () => {
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
