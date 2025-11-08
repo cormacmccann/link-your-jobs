@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Plus, Search, Mail, Phone, Building2, Sparkles, Brain } from "lucide-react";
+import { Search, Mail, Phone, Building2, Sparkles, Brain, Plus } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -12,7 +11,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Sheet,
@@ -20,10 +18,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AIEmailComposer } from "@/components/crm/AIEmailComposer";
 import { ContactInsightsPanel } from "@/components/crm/ContactInsightsPanel";
+import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
+import { MobileOptimizedForm, MobileFormField, MobileFormInput, MobileFormButton } from "@/components/crm/MobileOptimizedForm";
 
 export default function Contacts() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +31,13 @@ export default function Contacts() {
   const [isEmailComposerOpen, setIsEmailComposerOpen] = useState(false);
   const [isInsightsOpen, setIsInsightsOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<any>(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    title: "",
+  });
   const currentOrgId = localStorage.getItem("currentOrgId");
 
   const { data: contacts, refetch } = useQuery({
@@ -64,7 +71,6 @@ export default function Contacts() {
 
   const handleAddContact = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user || !currentOrgId) {
@@ -74,11 +80,11 @@ export default function Contacts() {
 
     const { error } = await supabase.from("contacts").insert({
       organization_id: currentOrgId,
-      first_name: formData.get("first_name") as string,
-      last_name: formData.get("last_name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      title: formData.get("title") as string,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      title: formData.title,
       created_by: user.id,
     });
 
@@ -88,6 +94,7 @@ export default function Contacts() {
     } else {
       toast.success("Contact added successfully");
       setIsAddDialogOpen(false);
+      setFormData({ firstName: "", lastName: "", email: "", phone: "", title: "" });
       refetch();
     }
   };
@@ -134,76 +141,36 @@ export default function Contacts() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-gobold uppercase tracking-tight mb-1">Contacts</h1>
-          <p className="text-muted-foreground">Manage your customer relationships</p>
-        </div>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Contact
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add New Contact</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleAddContact} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="first_name">First Name</Label>
-                  <Input id="first_name" name="first_name" required />
-                </div>
-                <div>
-                  <Label htmlFor="last_name">Last Name</Label>
-                  <Input id="last_name" name="last_name" required />
-                </div>
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email" type="email" />
-              </div>
-              <div>
-                <Label htmlFor="phone">Phone</Label>
-                <Input id="phone" name="phone" type="tel" />
-              </div>
-              <div>
-                <Label htmlFor="title">Job Title</Label>
-                <Input id="title" name="title" />
-              </div>
-              <Button type="submit" className="w-full">Add Contact</Button>
-            </form>
-          </DialogContent>
-        </Dialog>
+    <div className="p-4 md:p-8 pb-24">
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-gobold uppercase tracking-tight mb-1">Contacts</h1>
+        <p className="text-sm text-muted-foreground">Manage your customer relationships</p>
       </div>
 
       <div className="mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             placeholder="Search contacts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-12 h-12 rounded-xl text-base md:text-sm"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredContacts?.map((contact) => (
-          <Card key={contact.id} className="p-6 hover:shadow-lg transition-shadow">
+          <Card key={contact.id} className="p-6 hover:shadow-xl transition-all duration-200 animate-fade-in touch-manipulation">
             <div className="flex items-start gap-4">
-              <Avatar className="h-12 w-12">
-                <AvatarFallback className="bg-gradient-to-br from-pink-500 to-purple-500 text-white">
+              <Avatar className="h-14 w-14 ring-2 ring-primary/20">
+                <AvatarFallback className="bg-gradient-to-br from-pink-500 to-purple-500 text-white text-lg font-bold">
                   {contact.first_name?.charAt(0)}{contact.last_name?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between mb-1">
-                  <h3 className="font-semibold text-lg truncate">
+                  <h3 className="font-bold text-lg truncate">
                     {contact.first_name} {contact.last_name}
                   </h3>
                   {contact.contact_scores?.[0] && (
@@ -216,38 +183,38 @@ export default function Contacts() {
                   )}
                 </div>
                 {contact.title && (
-                  <p className="text-sm text-muted-foreground truncate">{contact.title}</p>
+                  <p className="text-sm text-muted-foreground truncate mb-1">{contact.title}</p>
                 )}
                 {contact.companies && (
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground mb-3">
                     <Building2 className="h-3 w-3" />
                     <span className="truncate">{contact.companies.name}</span>
                   </div>
                 )}
-                <div className="flex flex-col gap-1 mt-3">
+                <div className="space-y-1.5 mb-4">
                   {contact.email && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Mail className="h-3 w-3 text-muted-foreground" />
-                      <a href={`mailto:${contact.email}`} className="text-pink-500 hover:underline truncate">
+                      <Mail className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                      <a href={`mailto:${contact.email}`} className="text-primary hover:underline truncate">
                         {contact.email}
                       </a>
                     </div>
                   )}
                   {contact.phone && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Phone className="h-3 w-3 text-muted-foreground" />
-                      <a href={`tel:${contact.phone}`} className="text-pink-500 hover:underline">
+                      <Phone className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                      <a href={`tel:${contact.phone}`} className="text-primary hover:underline">
                         {contact.phone}
                       </a>
                     </div>
                   )}
                 </div>
-                <div className="flex gap-2 mt-4">
+                <div className="flex gap-2">
                   <Button 
                     size="sm" 
                     variant="outline" 
                     onClick={() => handleEmailClick(contact)}
-                    className="flex-1"
+                    className="flex-1 h-9 text-xs rounded-lg"
                   >
                     <Sparkles className="h-3 w-3 mr-1" />
                     AI Email
@@ -256,7 +223,7 @@ export default function Contacts() {
                     size="sm" 
                     variant="outline" 
                     onClick={() => handleInsightsClick(contact)}
-                    className="flex-1"
+                    className="flex-1 h-9 text-xs rounded-lg"
                   >
                     <Brain className="h-3 w-3 mr-1" />
                     Insights
@@ -274,6 +241,66 @@ export default function Contacts() {
         </Card>
       )}
 
+      <FloatingActionButton
+        onClick={() => setIsAddDialogOpen(true)}
+        label="New Contact"
+      />
+
+      <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add New Contact</DialogTitle>
+          </DialogHeader>
+          <MobileOptimizedForm onSubmit={handleAddContact}>
+            <div className="grid grid-cols-2 gap-4">
+              <MobileFormField label="First Name" required>
+                <MobileFormInput
+                  value={formData.firstName}
+                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                  placeholder="John"
+                  required
+                />
+              </MobileFormField>
+              <MobileFormField label="Last Name" required>
+                <MobileFormInput
+                  value={formData.lastName}
+                  onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                  placeholder="Doe"
+                  required
+                />
+              </MobileFormField>
+            </div>
+            <MobileFormField label="Email">
+              <MobileFormInput
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="john@company.com"
+              />
+            </MobileFormField>
+            <MobileFormField label="Phone">
+              <MobileFormInput
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="+1 (555) 123-4567"
+              />
+            </MobileFormField>
+            <MobileFormField label="Job Title">
+              <MobileFormInput
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                placeholder="VP of Sales"
+              />
+            </MobileFormField>
+            <MobileFormButton type="submit">
+              <Plus className="h-5 w-5" />
+              Add Contact
+            </MobileFormButton>
+          </MobileOptimizedForm>
+        </DialogContent>
+      </Dialog>
+
       {selectedContact && (
         <>
           <AIEmailComposer
@@ -284,7 +311,7 @@ export default function Contacts() {
           />
 
           <Sheet open={isInsightsOpen} onOpenChange={setIsInsightsOpen}>
-            <SheetContent className="w-[400px] sm:w-[540px] overflow-y-auto">
+            <SheetContent className="w-full sm:max-w-md overflow-y-auto">
               <SheetHeader>
                 <SheetTitle>
                   {selectedContact.first_name} {selectedContact.last_name}
