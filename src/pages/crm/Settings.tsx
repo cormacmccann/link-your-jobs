@@ -26,7 +26,6 @@ import { Badge } from "@/components/ui/badge";
 
 export default function Settings() {
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
-  const [isCreateOrgDialogOpen, setIsCreateOrgDialogOpen] = useState(false);
   const currentOrgId = localStorage.getItem("currentOrgId");
 
   const { data: currentOrg } = useQuery({
@@ -69,50 +68,6 @@ export default function Settings() {
     enabled: !!currentOrgId,
   });
 
-  const handleCreateOrg = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      toast.error("You must be logged in");
-      return;
-    }
-
-    const name = formData.get("name") as string;
-
-    const { data: org, error: orgError } = await supabase
-      .from("organizations")
-      .insert([{
-        name,
-      }])
-      .select()
-      .single();
-
-    if (orgError) {
-      toast.error("Failed to create organization");
-      console.error(orgError);
-      return;
-    }
-
-    // Add creator as owner
-    const { error: roleError } = await supabase.from("user_roles").insert([{
-      user_id: user.id,
-      organization_id: org.id,
-      role: "owner",
-    }]);
-
-    if (roleError) {
-      toast.error("Failed to set organization owner");
-      console.error(roleError);
-      return;
-    }
-
-    toast.success("Organization created successfully");
-    setIsCreateOrgDialogOpen(false);
-    localStorage.setItem("currentOrgId", org.id);
-    window.location.reload();
-  };
 
   const handleInviteUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -133,62 +88,45 @@ export default function Settings() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-gobold uppercase tracking-tight mb-1">Settings</h1>
-        <p className="text-muted-foreground">Manage your account and organization</p>
+        <h1 className="text-3xl font-bold uppercase tracking-tight mb-1">Settings</h1>
+        <p className="text-muted-foreground">Manage your workspace and team</p>
       </div>
 
-      <Tabs defaultValue="organization" className="space-y-6">
+      <Tabs defaultValue="workspace" className="space-y-6">
         <TabsList>
-          <TabsTrigger value="organization">Organization</TabsTrigger>
+          <TabsTrigger value="workspace">Workspace</TabsTrigger>
           <TabsTrigger value="team">Team</TabsTrigger>
           <TabsTrigger value="profile">Profile</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="organization" className="space-y-6">
-          <Card className="p-6">
+        <TabsContent value="workspace" className="space-y-6">
+          <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-xl font-semibold">Organization Details</h3>
-                <p className="text-sm text-muted-foreground">Manage your organization settings</p>
+                <h3 className="text-xl font-semibold">Workspace Details</h3>
+                <p className="text-sm text-muted-foreground">Your personal workspace for organizing projects</p>
               </div>
-              <Dialog open={isCreateOrgDialogOpen} onOpenChange={setIsCreateOrgDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Create New Org
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Create New Organization</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={handleCreateOrg} className="space-y-4">
-                    <div>
-                      <Label htmlFor="name">Organization Name</Label>
-                      <Input id="name" name="name" required />
-                    </div>
-                    <Button type="submit" className="w-full">Create Organization</Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
             </div>
             {currentOrg && (
               <div className="space-y-4">
                 <div>
-                  <Label>Name</Label>
-                  <Input value={currentOrg.name} readOnly />
+                  <Label>Workspace Name</Label>
+                  <Input value={currentOrg.name} readOnly className="bg-card/40 backdrop-blur-xl border-white/10" />
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  This workspace was automatically created for you when you signed up. You can invite team members to collaborate on projects.
+                </p>
               </div>
             )}
           </Card>
         </TabsContent>
 
         <TabsContent value="team" className="space-y-6">
-          <Card className="p-6">
+          <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h3 className="text-xl font-semibold">Team Members</h3>
-                <p className="text-sm text-muted-foreground">Manage who has access to this organization</p>
+                <p className="text-sm text-muted-foreground">Invite people to collaborate on your projects</p>
               </div>
               <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
                 <DialogTrigger asChild>
@@ -249,7 +187,7 @@ export default function Settings() {
         </TabsContent>
 
         <TabsContent value="profile">
-          <Card className="p-6">
+          <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
             <h3 className="text-xl font-semibold mb-4">Profile Settings</h3>
             <div className="space-y-4">
               <div>

@@ -114,10 +114,10 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        {/* Organization Switcher */}
-        {organizations && organizations.length > 0 && (
+        {/* Workspace Switcher - Only show if user has access to multiple workspaces */}
+        {organizations && organizations.length > 1 && (
           <SidebarGroup>
-            <SidebarGroupLabel>Organization</SidebarGroupLabel>
+            <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -129,7 +129,7 @@ export function AppSidebar() {
                       <Building2 className="h-4 w-4 flex-shrink-0" />
                       {!isCollapsed && (
                         <span className="truncate text-sm">
-                          {currentOrg?.name || "Select org"}
+                          {currentOrg?.name || "Select workspace"}
                         </span>
                       )}
                     </div>
