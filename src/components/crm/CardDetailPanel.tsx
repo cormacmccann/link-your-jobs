@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Briefcase, 
   Target, 
@@ -19,14 +20,20 @@ import {
   Edit,
   Trash2,
   Archive,
-  UserCircle
+  UserCircle,
+  Upload,
+  Download,
+  FileIcon,
+  X,
+  Activity
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { CardFormDialog } from "./CardFormDialog";
+import { formatDistanceToNow } from "date-fns";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 type Priority = "urgent" | "high" | "normal" | "low";
@@ -60,16 +67,11 @@ const cardStyles: Record<CardType, { icon: any; color: string }> = {
   note: { icon: MessageSquare, color: "text-gray-500" }
 };
 
-const mockActivity = [
-  { id: "1", type: "comment", user: "JD", content: "Started working on this", time: "2h ago" },
-  { id: "2", type: "status", user: "System", content: "Status changed to Active", time: "3h ago" },
-  { id: "3", type: "created", user: "SM", content: "Created this card", time: "1d ago" }
-];
-
 export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelProps) {
   const [comment, setComment] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const [uploadingFile, setUploadingFile] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -96,6 +98,108 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
     },
   });
 
+  // Fetch comments with real-time updates
+  const { data: comments = [] } = useQuery({
+    queryKey: ["card-comments", card.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("card_comments")
+        .select("*, profiles(full_name, email)")
+        .eq("card_id", card.id)
+        .order("created_at", { ascending: true });
+
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Fetch activities with real-time updates
+  const { data: activities = [] } = useQuery({
+    queryKey: ["card-activities", card.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("card_activities")
+        .select("*, profiles(full_name, email)")
+        .eq("card_id", card.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Fetch attachments with real-time updates
+  const { data: attachments = [] } = useQuery({
+    queryKey: ["card-attachments", card.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("card_attachments")
+        .select("*, profiles(full_name, email)")
+        .eq("card_id", card.id)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      return data;
+    }
+  });
+
+  // Set up real-time subscriptions
+  useEffect(() => {
+    const commentsChannel = supabase
+      .channel(`card-comments-${card.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'card_comments',
+          filter: `card_id=eq.${card.id}`
+        },
+        () => {
+          queryClient.invalidateQueries({ queryKey: ["card-comments", card.id] });
+        }
+      )
+      .subscribe();
+
+    const activitiesChannel = supabase
+      .channel(`card-activities-${card.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'card_activities',
+          filter: `card_id=eq.${card.id}`
+        },
+        () => {
+          queryClient.invalidateQueries({ queryKey: ["card-activities", card.id] });
+        }
+      )
+      .subscribe();
+
+    const attachmentsChannel = supabase
+      .channel(`card-attachments-${card.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'card_attachments',
+          filter: `card_id=eq.${card.id}`
+        },
+        () => {
+          queryClient.invalidateQueries({ queryKey: ["card-attachments", card.id] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(commentsChannel);
+      supabase.removeChannel(activitiesChannel);
+      supabase.removeChannel(attachmentsChannel);
+    };
+  }, [card.id, queryClient]);
+
   // Delete mutation
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -118,11 +222,22 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
   // Archive mutation
   const archiveMutation = useMutation({
     mutationFn: async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const { error } = await supabase
         .from('cards')
         .update({ status: 'cancelled' })
         .eq('id', card.id);
       if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "archived",
+        activity_data: {}
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cards'] });
@@ -136,6 +251,9 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
   // Status change mutation
   const statusMutation = useMutation({
     mutationFn: async (newStatus: string) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const updates: any = { status: newStatus };
       if (newStatus === 'completed') {
         updates.completed_at = new Date().toISOString();
@@ -145,6 +263,14 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
         .update(updates)
         .eq('id', card.id);
       if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "status_changed",
+        activity_data: { status: newStatus }
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cards'] });
@@ -158,11 +284,22 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
   // Priority change mutation
   const priorityMutation = useMutation({
     mutationFn: async (newPriority: Priority) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const { error } = await supabase
         .from('cards')
         .update({ priority: newPriority })
         .eq('id', card.id);
       if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "priority_changed",
+        activity_data: { priority: newPriority }
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cards'] });
@@ -176,11 +313,22 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
   // Assignment mutation
   const assignMutation = useMutation({
     mutationFn: async (userId: string | null) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       const { error } = await supabase
         .from('cards')
         .update({ assigned_to: userId })
         .eq('id', card.id);
       if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "assigned",
+        activity_data: { assigned_to: userId }
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cards'] });
@@ -191,10 +339,112 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
     },
   });
 
+  // Comment mutation
+  const commentMutation = useMutation({
+    mutationFn: async (text: string) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { error } = await supabase
+        .from("card_comments")
+        .insert({
+          card_id: card.id,
+          user_id: user.id,
+          comment_text: text
+        });
+
+      if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "commented",
+        activity_data: { comment_preview: text.substring(0, 50) }
+      });
+    },
+    onSuccess: () => {
+      setComment("");
+      toast({ title: "Comment added" });
+    },
+    onError: (error: any) => {
+      toast({ title: "Failed to add comment", description: error.message, variant: "destructive" });
+    }
+  });
+
+  // Upload attachment mutation
+  const uploadAttachmentMutation = useMutation({
+    mutationFn: async (file: File) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      // Upload file to Supabase Storage
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${card.id}/${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('card-attachments')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('card-attachments')
+        .getPublicUrl(fileName);
+
+      // Save attachment record
+      const { error } = await supabase
+        .from("card_attachments")
+        .insert({
+          card_id: card.id,
+          uploaded_by: user.id,
+          file_name: file.name,
+          file_url: publicUrl,
+          file_size: file.size,
+          file_type: file.type
+        });
+
+      if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: card.id,
+        user_id: user.id,
+        activity_type: "attachment_added",
+        activity_data: { file_name: file.name }
+      });
+    },
+    onSuccess: () => {
+      toast({ title: "File uploaded successfully" });
+      setUploadingFile(false);
+    },
+    onError: (error: any) => {
+      toast({ title: "Failed to upload file", description: error.message, variant: "destructive" });
+      setUploadingFile(false);
+    }
+  });
+
+  // Delete attachment mutation
+  const deleteAttachmentMutation = useMutation({
+    mutationFn: async (attachmentId: string) => {
+      const { error } = await supabase
+        .from("card_attachments")
+        .delete()
+        .eq("id", attachmentId);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast({ title: "Attachment deleted" });
+    },
+    onError: (error: any) => {
+      toast({ title: "Failed to delete attachment", description: error.message, variant: "destructive" });
+    }
+  });
+
   const handleAddComment = () => {
     if (!comment.trim()) return;
-    console.log("Adding comment:", comment);
-    setComment("");
+    commentMutation.mutate(comment.trim());
   };
 
   const handleDelete = () => {
@@ -205,6 +455,51 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       assignMutation.mutate(user.id);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      toast({ title: "File size must be less than 10MB", variant: "destructive" });
+      return;
+    }
+
+    setUploadingFile(true);
+    uploadAttachmentMutation.mutate(file);
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  const getActivityMessage = (activity: any) => {
+    const userName = activity.profiles?.full_name || activity.profiles?.email || 'Someone';
+    switch (activity.activity_type) {
+      case 'created':
+        return `${userName} created this card`;
+      case 'updated':
+        return `${userName} updated this card`;
+      case 'commented':
+        return `${userName} added a comment`;
+      case 'assigned':
+        return `${userName} assigned this card`;
+      case 'status_changed':
+        return `${userName} changed the status to ${activity.activity_data?.status}`;
+      case 'priority_changed':
+        return `${userName} changed the priority to ${activity.activity_data?.priority}`;
+      case 'attachment_added':
+        return `${userName} uploaded ${activity.activity_data?.file_name}`;
+      case 'archived':
+        return `${userName} archived this card`;
+      case 'deleted':
+        return `${userName} deleted this card`;
+      default:
+        return `${userName} performed an action`;
     }
   };
 
@@ -327,42 +622,151 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
 
               <Separator />
 
-              {/* Attachments */}
-              <div>
-                <h3 className="font-semibold mb-3 flex items-center gap-2">
-                  <Paperclip className="h-4 w-4" />
-                  Attachments
-                  <span className="text-xs text-muted-foreground font-normal">(0)</span>
-                </h3>
-                <Button variant="outline" size="sm" className="w-full">
-                  Add Attachment
-                </Button>
-              </div>
+              {/* Tabs for Comments, Activity, and Attachments */}
+              <Tabs defaultValue="comments" className="w-full">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="comments">
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    Comments ({comments.length})
+                  </TabsTrigger>
+                  <TabsTrigger value="activity">
+                    <Activity className="h-4 w-4 mr-2" />
+                    Activity ({activities.length})
+                  </TabsTrigger>
+                  <TabsTrigger value="attachments">
+                    <Paperclip className="h-4 w-4 mr-2" />
+                    Files ({attachments.length})
+                  </TabsTrigger>
+                </TabsList>
 
-              <Separator />
-
-              {/* Activity Timeline */}
-              <div>
-                <h3 className="font-semibold mb-3">Activity</h3>
-                <div className="space-y-4">
-                  {mockActivity.map((activity) => (
-                    <div key={activity.id} className="flex gap-3">
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback className="text-xs">
-                          {activity.user.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-medium">{activity.user}</span>
-                          <span className="text-xs text-muted-foreground">{activity.time}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground">{activity.content}</p>
+                <TabsContent value="comments" className="space-y-4 mt-4">
+                  {/* Comments List */}
+                  <div className="space-y-4 max-h-[300px] overflow-y-auto">
+                    {comments.length === 0 ? (
+                      <div className="text-sm text-muted-foreground text-center py-8">
+                        No comments yet. Be the first to comment!
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ) : (
+                      comments.map((commentItem: any) => (
+                        <div key={commentItem.id} className="flex gap-3 pb-4 border-b last:border-0">
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback>
+                              {(commentItem.profiles?.full_name || commentItem.profiles?.email || 'U')[0].toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-sm font-medium">
+                                {commentItem.profiles?.full_name || commentItem.profiles?.email}
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                {formatDistanceToNow(new Date(commentItem.created_at), { addSuffix: true })}
+                              </span>
+                            </div>
+                            <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                              {commentItem.comment_text}
+                            </p>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="activity" className="mt-4">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                    {activities.length === 0 ? (
+                      <div className="text-sm text-muted-foreground text-center py-8">
+                        No activity yet
+                      </div>
+                    ) : (
+                      activities.map((activity: any) => (
+                        <div key={activity.id} className="flex gap-3 pb-3 border-b last:border-0">
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback>
+                              {(activity.profiles?.full_name || activity.profiles?.email || 'U')[0].toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <p className="text-sm">
+                              {getActivityMessage(activity)}
+                            </p>
+                            <span className="text-xs text-muted-foreground">
+                              {formatDistanceToNow(new Date(activity.created_at), { addSuffix: true })}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="attachments" className="space-y-4 mt-4">
+                  {/* Upload Button */}
+                  <div>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      className="hidden"
+                      onChange={handleFileUpload}
+                      disabled={uploadingFile}
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => document.getElementById('file-upload')?.click()}
+                      disabled={uploadingFile}
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      {uploadingFile ? 'Uploading...' : 'Upload File'}
+                    </Button>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Maximum file size: 10MB
+                    </p>
+                  </div>
+
+                  {/* Attachments List */}
+                  <div className="space-y-2 max-h-[300px] overflow-y-auto">
+                    {attachments.length === 0 ? (
+                      <div className="text-sm text-muted-foreground text-center py-8">
+                        No attachments yet
+                      </div>
+                    ) : (
+                      attachments.map((attachment: any) => (
+                        <div key={attachment.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors">
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <FileIcon className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium truncate">{attachment.file_name}</p>
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <span>{formatFileSize(attachment.file_size)}</span>
+                                <span>•</span>
+                                <span>{formatDistanceToNow(new Date(attachment.created_at), { addSuffix: true })}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => window.open(attachment.file_url, '_blank')}
+                            >
+                              <Download className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => deleteAttachmentMutation.mutate(attachment.id)}
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </TabsContent>
+              </Tabs>
             </div>
           </ScrollArea>
 
@@ -375,12 +779,20 @@ export function CardDetailPanel({ open, onOpenChange, card }: CardDetailPanelPro
                 placeholder="Add a comment..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                    handleAddComment();
+                  }
+                }}
                 className="min-h-[80px]"
               />
-              <Button onClick={handleAddComment} size="icon" className="shrink-0">
+              <Button onClick={handleAddComment} size="icon" className="shrink-0" disabled={commentMutation.isPending}>
                 <Send className="h-4 w-4" />
               </Button>
             </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Press Cmd/Ctrl + Enter to send
+            </p>
           </div>
         </SheetContent>
       </Sheet>
