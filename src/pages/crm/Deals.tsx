@@ -68,13 +68,13 @@ export default function Deals() {
       return;
     }
 
-    const { error } = await supabase.from("deals").insert({
+    const { error } = await supabase.from("deals").insert([{
       organization_id: currentOrgId,
       title: formData.get("title") as string,
       value: parseFloat(formData.get("value") as string) || null,
-      stage: formData.get("stage") as string,
+      stage: formData.get("stage") as any,
       created_by: user.id,
-    });
+    }]);
 
     if (error) {
       toast.error("Failed to add deal");

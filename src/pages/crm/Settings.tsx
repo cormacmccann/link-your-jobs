@@ -80,15 +80,12 @@ export default function Settings() {
     }
 
     const name = formData.get("name") as string;
-    const slug = name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
     const { data: org, error: orgError } = await supabase
       .from("organizations")
-      .insert({
+      .insert([{
         name,
-        slug,
-        created_by: user.id,
-      })
+      }])
       .select()
       .single();
 
@@ -180,10 +177,6 @@ export default function Settings() {
                 <div>
                   <Label>Name</Label>
                   <Input value={currentOrg.name} readOnly />
-                </div>
-                <div>
-                  <Label>Slug</Label>
-                  <Input value={currentOrg.slug} readOnly />
                 </div>
               </div>
             )}
