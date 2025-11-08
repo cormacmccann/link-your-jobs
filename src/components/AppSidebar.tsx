@@ -1,4 +1,5 @@
-import { Building2, Users, DollarSign, FolderKanban, ListTodo, Settings, ChevronDown, LayoutDashboard, Layers } from "lucide-react";
+import { Zap, Users, MessageSquare, Handshake, FileText, Calendar, Workflow, TrendingUp, Package, Settings, Building2, ChevronDown } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
@@ -27,14 +28,20 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 
-const menuItems = [
-  { title: "Stream", url: "/crm/stream", icon: Layers },
-  { title: "Dashboard", url: "/crm/dashboard", icon: LayoutDashboard },
+const crmItems = [
+  { title: "Today", url: "/crm/today", icon: Zap },
   { title: "Contacts", url: "/crm/contacts", icon: Users },
-  { title: "Companies", url: "/crm/companies", icon: Building2 },
-  { title: "Deals", url: "/crm/deals", icon: DollarSign },
-  { title: "Projects", url: "/crm/projects", icon: FolderKanban },
-  { title: "Tasks", url: "/crm/tasks", icon: ListTodo },
+  { title: "Conversations", url: "/crm/conversations", icon: MessageSquare },
+  { title: "Deals", url: "/crm/deals", icon: Handshake },
+  { title: "Invoices", url: "/crm/invoices", icon: FileText },
+  { title: "Calendar", url: "/crm/calendar", icon: Calendar },
+];
+
+const mainNav = [
+  { title: "CRM", icon: Building2, items: crmItems },
+  { title: "Automations", url: "/crm/automations", icon: Workflow },
+  { title: "Insights", url: "/crm/insights", icon: TrendingUp },
+  { title: "Extras", url: "/crm/extras", icon: Package },
   { title: "Settings", url: "/crm/settings", icon: Settings },
 ];
 
@@ -168,26 +175,57 @@ export function AppSidebar() {
 
         {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>CRM</SidebarGroupLabel>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink
-                        to={item.url}
-                        className="flex items-center gap-3 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
-                        activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                      >
-                        <Icon className="h-4 w-4" />
-                        {!isCollapsed && <span>{item.title}</span>}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+              {mainNav.map((section) => (
+                <div key={section.title}>
+                  {section.items ? (
+                    <Collapsible defaultOpen>
+                      <SidebarMenuItem>
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton className="hover:bg-sidebar-accent">
+                            <section.icon className="h-4 w-4" />
+                            {!isCollapsed && <span>{section.title}</span>}
+                            {!isCollapsed && <ChevronDown className="ml-auto h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />}
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenu className="ml-4 mt-1">
+                            {section.items.map((item) => (
+                              <SidebarMenuItem key={item.title}>
+                                <SidebarMenuButton asChild>
+                                  <NavLink
+                                    to={item.url}
+                                    className="flex items-center gap-3 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors text-sm"
+                                    activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                                  >
+                                    <item.icon className="h-3 w-3" />
+                                    {!isCollapsed && <span>{item.title}</span>}
+                                  </NavLink>
+                                </SidebarMenuButton>
+                              </SidebarMenuItem>
+                            ))}
+                          </SidebarMenu>
+                        </CollapsibleContent>
+                      </SidebarMenuItem>
+                    </Collapsible>
+                  ) : (
+                    <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <NavLink
+                          to={section.url!}
+                          className="flex items-center gap-3 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+                          activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        >
+                          <section.icon className="h-4 w-4" />
+                          {!isCollapsed && <span>{section.title}</span>}
+                        </NavLink>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )}
+                </div>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

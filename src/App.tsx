@@ -12,13 +12,20 @@ import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import CRMLayout from "./pages/crm/CRMLayout";
+import Today from "./pages/crm/Today";
 import Dashboard from "./pages/crm/Dashboard";
 import Stream from "./pages/crm/Stream";
 import Contacts from "./pages/crm/Contacts";
 import Companies from "./pages/crm/Companies";
+import Conversations from "./pages/crm/Conversations";
 import Deals from "./pages/crm/Deals";
+import Invoices from "./pages/crm/Invoices";
+import Calendar from "./pages/crm/Calendar";
 import Tasks from "./pages/crm/Tasks";
 import Projects from "./pages/crm/Projects";
+import Automations from "./pages/crm/Automations";
+import Insights from "./pages/crm/Insights";
+import Extras from "./pages/crm/Extras";
 import Settings from "./pages/crm/Settings";
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
@@ -66,24 +73,32 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={session ? <Navigate to="/crm/stream" /> : <Index />} />
-            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/stream" />} />
+            <Route path="/" element={session ? <Navigate to="/crm/today" /> : <Index />} />
+            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/today" />} />
             
             {/* CRM Routes */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
-              <Route index element={<Navigate to="/crm/stream" />} />
-              <Route path="stream" element={<Stream />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route index element={<Navigate to="/crm/today" />} />
+              <Route path="today" element={<Today />} />
               <Route path="contacts" element={<Contacts />} />
               <Route path="companies" element={<Companies />} />
+              <Route path="conversations" element={<Conversations />} />
               <Route path="deals" element={<Deals />} />
-              <Route path="projects" element={<Projects />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="calendar" element={<Calendar />} />
               <Route path="tasks" element={<Tasks />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="automations" element={<Automations />} />
+              <Route path="insights" element={<Insights />} />
+              <Route path="extras" element={<Extras />} />
               <Route path="settings" element={<Settings />} />
+              {/* Legacy routes */}
+              <Route path="stream" element={<Stream />} />
+              <Route path="dashboard" element={<Dashboard />} />
             </Route>
 
             {/* Legacy Routes */}
-            <Route path="/dashboard" element={session ? <Navigate to="/crm/stream" /> : <Navigate to="/auth" />} />
+            <Route path="/dashboard" element={session ? <Navigate to="/crm/today" /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             
