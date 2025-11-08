@@ -1,4 +1,4 @@
-import { Building2, Users, DollarSign, FolderKanban, ListTodo, Settings, ChevronDown, LayoutDashboard } from "lucide-react";
+import { Building2, Users, DollarSign, FolderKanban, ListTodo, Settings, ChevronDown, LayoutDashboard, Layers } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
@@ -28,6 +28,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 
 const menuItems = [
+  { title: "Stream", url: "/crm/stream", icon: Layers },
   { title: "Dashboard", url: "/crm/dashboard", icon: LayoutDashboard },
   { title: "Contacts", url: "/crm/contacts", icon: Users },
   { title: "Companies", url: "/crm/companies", icon: Building2 },

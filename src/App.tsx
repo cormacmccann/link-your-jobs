@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import CRMLayout from "./pages/crm/CRMLayout";
 import Dashboard from "./pages/crm/Dashboard";
+import Stream from "./pages/crm/Stream";
 import Contacts from "./pages/crm/Contacts";
 import Companies from "./pages/crm/Companies";
 import Deals from "./pages/crm/Deals";
@@ -65,12 +66,13 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={session ? <Navigate to="/crm/dashboard" /> : <Index />} />
-            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/dashboard" />} />
+            <Route path="/" element={session ? <Navigate to="/crm/stream" /> : <Index />} />
+            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/stream" />} />
             
             {/* CRM Routes */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
-              <Route index element={<Navigate to="/crm/dashboard" />} />
+              <Route index element={<Navigate to="/crm/stream" />} />
+              <Route path="stream" element={<Stream />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="contacts" element={<Contacts />} />
               <Route path="companies" element={<Companies />} />
@@ -81,7 +83,7 @@ const App = () => {
             </Route>
 
             {/* Legacy Routes */}
-            <Route path="/dashboard" element={session ? <Navigate to="/crm/dashboard" /> : <Navigate to="/auth" />} />
+            <Route path="/dashboard" element={session ? <Navigate to="/crm/stream" /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             

@@ -65,6 +65,98 @@ export type Database = {
           },
         ]
       }
+      cards: {
+        Row: {
+          assigned_to: string | null
+          card_type: Database["public"]["Enums"]["card_type_enum"]
+          completed_at: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          due_date: string | null
+          id: string
+          metadata: Json | null
+          organization_id: string
+          parent_card_id: string | null
+          position: number
+          priority: Database["public"]["Enums"]["card_priority_enum"]
+          related_company_id: string | null
+          related_contact_id: string | null
+          status: Database["public"]["Enums"]["card_status_enum"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          card_type: Database["public"]["Enums"]["card_type_enum"]
+          completed_at?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          metadata?: Json | null
+          organization_id: string
+          parent_card_id?: string | null
+          position?: number
+          priority?: Database["public"]["Enums"]["card_priority_enum"]
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          status?: Database["public"]["Enums"]["card_status_enum"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          card_type?: Database["public"]["Enums"]["card_type_enum"]
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          metadata?: Json | null
+          organization_id?: string
+          parent_card_id?: string | null
+          position?: number
+          priority?: Database["public"]["Enums"]["card_priority_enum"]
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          status?: Database["public"]["Enums"]["card_status_enum"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cards_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cards_parent_card_id_fkey"
+            columns: ["parent_card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cards_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cards_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           created_at: string
@@ -1390,6 +1482,15 @@ export type Database = {
     }
     Enums: {
       app_role: "owner" | "admin" | "member" | "guest"
+      card_priority_enum: "urgent" | "high" | "normal" | "low"
+      card_status_enum: "active" | "completed" | "archived" | "cancelled"
+      card_type_enum:
+        | "project"
+        | "deal"
+        | "task"
+        | "support"
+        | "milestone"
+        | "note"
       deal_stage:
         | "lead"
         | "qualified"
@@ -1534,6 +1635,16 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["owner", "admin", "member", "guest"],
+      card_priority_enum: ["urgent", "high", "normal", "low"],
+      card_status_enum: ["active", "completed", "archived", "cancelled"],
+      card_type_enum: [
+        "project",
+        "deal",
+        "task",
+        "support",
+        "milestone",
+        "note",
+      ],
       deal_stage: [
         "lead",
         "qualified",
