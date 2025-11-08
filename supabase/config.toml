@@ -5,3 +5,21 @@ verify_jwt = false
 
 [functions.sync-all-sources]
 verify_jwt = false
+
+[functions.policy-chat]
+verify_jwt = false
+
+[functions.scan-cookies]
+verify_jwt = false
+
+[functions.ai-email-composer]
+verify_jwt = false
+
+[functions.ai-contact-insights]
+verify_jwt = false
+
+[functions.ai-lead-scoring]
+verify_jwt = false
+
+[functions.enrich-company]
+verify_jwt = false

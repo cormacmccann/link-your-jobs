@@ -4,8 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Plus, Search, Mail, Phone, Building2 } from "lucide-react";
+import { Plus, Search, Mail, Phone, Building2, Sparkles, Brain } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -13,12 +14,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { AIEmailComposer } from "@/components/crm/AIEmailComposer";
+import { ContactInsightsPanel } from "@/components/crm/ContactInsightsPanel";
 
 export default function Contacts() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEmailComposerOpen, setIsEmailComposerOpen] = useState(false);
+  const [isInsightsOpen, setIsInsightsOpen] = useState(false);
+  const [selectedContact, setSelectedContact] = useState<any>(null);
   const currentOrgId = localStorage.getItem("currentOrgId");
 
   const { data: contacts, refetch } = useQuery({
@@ -33,6 +45,12 @@ export default function Contacts() {
           companies (
             id,
             name
+          ),
+          contact_scores (
+            total_score,
+            engagement_score,
+            fit_score,
+            activity_score
           )
         `)
         .eq("organization_id", currentOrgId)
@@ -72,6 +90,30 @@ export default function Contacts() {
       setIsAddDialogOpen(false);
       refetch();
     }
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-green-500';
+    if (score >= 60) return 'text-yellow-500';
+    if (score >= 40) return 'text-orange-500';
+    return 'text-red-500';
+  };
+
+  const getScoreBadge = (score: number) => {
+    if (score >= 80) return 'A';
+    if (score >= 60) return 'B';
+    if (score >= 40) return 'C';
+    return 'D';
+  };
+
+  const handleEmailClick = (contact: any) => {
+    setSelectedContact(contact);
+    setIsEmailComposerOpen(true);
+  };
+
+  const handleInsightsClick = (contact: any) => {
+    setSelectedContact(contact);
+    setIsInsightsOpen(true);
   };
 
   const filteredContacts = contacts?.filter(contact =>
@@ -160,9 +202,19 @@ export default function Contacts() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-lg truncate">
-                  {contact.first_name} {contact.last_name}
-                </h3>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="font-semibold text-lg truncate">
+                    {contact.first_name} {contact.last_name}
+                  </h3>
+                  {contact.contact_scores?.[0] && (
+                    <Badge 
+                      variant="outline" 
+                      className={getScoreColor(contact.contact_scores[0].total_score)}
+                    >
+                      {getScoreBadge(contact.contact_scores[0].total_score)}
+                    </Badge>
+                  )}
+                </div>
                 {contact.title && (
                   <p className="text-sm text-muted-foreground truncate">{contact.title}</p>
                 )}
@@ -190,6 +242,26 @@ export default function Contacts() {
                     </div>
                   )}
                 </div>
+                <div className="flex gap-2 mt-4">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={() => handleEmailClick(contact)}
+                    className="flex-1"
+                  >
+                    <Sparkles className="h-3 w-3 mr-1" />
+                    AI Email
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    onClick={() => handleInsightsClick(contact)}
+                    className="flex-1"
+                  >
+                    <Brain className="h-3 w-3 mr-1" />
+                    Insights
+                  </Button>
+                </div>
               </div>
             </div>
           </Card>
@@ -200,6 +272,33 @@ export default function Contacts() {
         <Card className="p-12 text-center">
           <p className="text-muted-foreground">No contacts found. Add your first contact to get started!</p>
         </Card>
+      )}
+
+      {selectedContact && (
+        <>
+          <AIEmailComposer
+            open={isEmailComposerOpen}
+            onOpenChange={setIsEmailComposerOpen}
+            contactName={`${selectedContact.first_name} ${selectedContact.last_name}`}
+            companyName={selectedContact.companies?.name}
+          />
+
+          <Sheet open={isInsightsOpen} onOpenChange={setIsInsightsOpen}>
+            <SheetContent className="w-[400px] sm:w-[540px] overflow-y-auto">
+              <SheetHeader>
+                <SheetTitle>
+                  {selectedContact.first_name} {selectedContact.last_name}
+                </SheetTitle>
+              </SheetHeader>
+              <div className="mt-6">
+                <ContactInsightsPanel
+                  contactId={selectedContact.id}
+                  organizationId={currentOrgId!}
+                />
+              </div>
+            </SheetContent>
+          </Sheet>
+        </>
       )}
     </div>
   );

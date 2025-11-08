@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      campaign_recipients: {
+        Row: {
+          campaign_id: string
+          clicked_at: string | null
+          contact_id: string
+          created_at: string
+          id: string
+          opened_at: string | null
+          replied_at: string | null
+          sent_at: string | null
+          status: string
+        }
+        Insert: {
+          campaign_id: string
+          clicked_at?: string | null
+          contact_id: string
+          created_at?: string
+          id?: string
+          opened_at?: string | null
+          replied_at?: string | null
+          sent_at?: string | null
+          status?: string
+        }
+        Update: {
+          campaign_id?: string
+          clicked_at?: string | null
+          contact_id?: string
+          created_at?: string
+          id?: string
+          opened_at?: string | null
+          replied_at?: string | null
+          sent_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_recipients_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "email_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_recipients_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           created_at: string
@@ -45,6 +96,116 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "companies_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_enrichment: {
+        Row: {
+          company_id: string
+          created_at: string
+          description: string | null
+          domain: string | null
+          employee_count: string | null
+          enriched_at: string
+          facebook_url: string | null
+          founded_year: number | null
+          id: string
+          linkedin_url: string | null
+          revenue: string | null
+          technologies: string[] | null
+          twitter_url: string | null
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          description?: string | null
+          domain?: string | null
+          employee_count?: string | null
+          enriched_at?: string
+          facebook_url?: string | null
+          founded_year?: number | null
+          id?: string
+          linkedin_url?: string | null
+          revenue?: string | null
+          technologies?: string[] | null
+          twitter_url?: string | null
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          description?: string | null
+          domain?: string | null
+          employee_count?: string | null
+          enriched_at?: string
+          facebook_url?: string | null
+          founded_year?: number | null
+          id?: string
+          linkedin_url?: string | null
+          revenue?: string | null
+          technologies?: string[] | null
+          twitter_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_enrichment_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contact_scores: {
+        Row: {
+          activity_score: number | null
+          contact_id: string
+          created_at: string
+          engagement_score: number | null
+          fit_score: number | null
+          id: string
+          last_calculated_at: string
+          organization_id: string
+          total_score: number
+          updated_at: string
+        }
+        Insert: {
+          activity_score?: number | null
+          contact_id: string
+          created_at?: string
+          engagement_score?: number | null
+          fit_score?: number | null
+          id?: string
+          last_calculated_at?: string
+          organization_id: string
+          total_score?: number
+          updated_at?: string
+        }
+        Update: {
+          activity_score?: number | null
+          contact_id?: string
+          created_at?: string
+          engagement_score?: number | null
+          fit_score?: number | null
+          id?: string
+          last_calculated_at?: string
+          organization_id?: string
+          total_score?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_scores_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: true
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_scores_organization_id_fkey"
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
@@ -112,8 +273,12 @@ export type Database = {
           contact_id: string | null
           created_at: string
           created_by: string
+          expected_close_date: string | null
           id: string
+          lost_reason: string | null
           organization_id: string
+          position: number | null
+          probability: number | null
           stage: Database["public"]["Enums"]["deal_stage"]
           title: string
           updated_at: string
@@ -124,8 +289,12 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           created_by: string
+          expected_close_date?: string | null
           id?: string
+          lost_reason?: string | null
           organization_id: string
+          position?: number | null
+          probability?: number | null
           stage?: Database["public"]["Enums"]["deal_stage"]
           title: string
           updated_at?: string
@@ -136,8 +305,12 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           created_by?: string
+          expected_close_date?: string | null
           id?: string
+          lost_reason?: string | null
           organization_id?: string
+          position?: number | null
+          probability?: number | null
           stage?: Database["public"]["Enums"]["deal_stage"]
           title?: string
           updated_at?: string
@@ -204,6 +377,318 @@ export type Database = {
             columns: ["policy_id"]
             isOneToOne: false
             referencedRelation: "policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_accounts: {
+        Row: {
+          access_token: string | null
+          created_at: string
+          email_address: string
+          id: string
+          is_active: boolean | null
+          last_synced_at: string | null
+          organization_id: string
+          provider: string
+          refresh_token: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          created_at?: string
+          email_address: string
+          id?: string
+          is_active?: boolean | null
+          last_synced_at?: string | null
+          organization_id: string
+          provider: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          created_at?: string
+          email_address?: string
+          id?: string
+          is_active?: boolean | null
+          last_synced_at?: string | null
+          organization_id?: string
+          provider?: string
+          refresh_token?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_accounts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_campaigns: {
+        Row: {
+          body: string
+          clicked_count: number | null
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+          opened_count: number | null
+          organization_id: string
+          recipient_count: number | null
+          replied_count: number | null
+          scheduled_at: string | null
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          clicked_count?: number | null
+          created_at?: string
+          created_by: string
+          id?: string
+          name: string
+          opened_count?: number | null
+          organization_id: string
+          recipient_count?: number | null
+          replied_count?: number | null
+          scheduled_at?: string | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          clicked_count?: number | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+          opened_count?: number | null
+          organization_id?: string
+          recipient_count?: number | null
+          replied_count?: number | null
+          scheduled_at?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_campaigns_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_messages: {
+        Row: {
+          body_html: string | null
+          body_text: string | null
+          cc_emails: string[] | null
+          clicked_at: string | null
+          created_at: string
+          from_email: string
+          id: string
+          is_outbound: boolean | null
+          message_id: string
+          opened_at: string | null
+          organization_id: string
+          replied_at: string | null
+          sent_at: string
+          subject: string
+          thread_id: string
+          to_emails: string[]
+        }
+        Insert: {
+          body_html?: string | null
+          body_text?: string | null
+          cc_emails?: string[] | null
+          clicked_at?: string | null
+          created_at?: string
+          from_email: string
+          id?: string
+          is_outbound?: boolean | null
+          message_id: string
+          opened_at?: string | null
+          organization_id: string
+          replied_at?: string | null
+          sent_at: string
+          subject: string
+          thread_id: string
+          to_emails: string[]
+        }
+        Update: {
+          body_html?: string | null
+          body_text?: string | null
+          cc_emails?: string[] | null
+          clicked_at?: string | null
+          created_at?: string
+          from_email?: string
+          id?: string
+          is_outbound?: boolean | null
+          message_id?: string
+          opened_at?: string | null
+          organization_id?: string
+          replied_at?: string | null
+          sent_at?: string
+          subject?: string
+          thread_id?: string
+          to_emails?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_messages_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "email_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_templates: {
+        Row: {
+          body: string
+          category: string | null
+          created_at: string
+          created_by: string
+          id: string
+          is_active: boolean | null
+          name: string
+          organization_id: string
+          subject: string
+          updated_at: string
+          usage_count: number | null
+        }
+        Insert: {
+          body: string
+          category?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          organization_id: string
+          subject: string
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Update: {
+          body?: string
+          category?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          organization_id?: string
+          subject?: string
+          updated_at?: string
+          usage_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_templates_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_threads: {
+        Row: {
+          company_id: string | null
+          contact_id: string | null
+          created_at: string
+          deal_id: string | null
+          email_account_id: string
+          id: string
+          last_message_at: string
+          organization_id: string
+          subject: string
+          thread_id: string
+          updated_at: string
+        }
+        Insert: {
+          company_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          deal_id?: string | null
+          email_account_id: string
+          id?: string
+          last_message_at: string
+          organization_id: string
+          subject: string
+          thread_id: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          deal_id?: string | null
+          email_account_id?: string
+          id?: string
+          last_message_at?: string
+          organization_id?: string
+          subject?: string
+          thread_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_threads_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_threads_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_threads_deal_id_fkey"
+            columns: ["deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_threads_email_account_id_fkey"
+            columns: ["email_account_id"]
+            isOneToOne: false
+            referencedRelation: "email_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_threads_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]
