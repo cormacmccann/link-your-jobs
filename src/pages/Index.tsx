@@ -1,112 +1,178 @@
-import { Briefcase, Sparkles, Rocket, Code, Palette, Zap } from "lucide-react";
+import { Briefcase, Sparkles, Rocket, Code, Palette, Zap, Menu, X, Grid3x3, Wrench, Cookie, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import kamrokLogo from "@/assets/kamrok-logo.png";
+import { useState } from "react";
 
 const Index = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {/* Header */}
       <header className="border-b border-white/10 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            {/* Left Menu */}
-            <nav className="hidden md:flex items-center gap-6 flex-1">
-              <a href="#apps" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
+            {/* Left Menu - Desktop */}
+            <nav className="hidden lg:flex items-center gap-6 flex-1">
+              <a href="#apps" className="text-sm font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-2">
+                <Grid3x3 className="w-4 h-4" />
                 Apps
               </a>
-              <a href="#tools" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
+              <a href="#tools" className="text-sm font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
                 Tools
               </a>
-              <a href="#cookies" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
+              <a href="#cookies" className="text-sm font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-2">
+                <Cookie className="w-4 h-4" />
                 Cookies
               </a>
-              <a href="#widgets" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
+              <a href="#widgets" className="text-sm font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-2">
+                <LayoutGrid className="w-4 h-4" />
                 Widgets
               </a>
             </nav>
 
+            {/* Mobile Menu Button */}
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button variant="ghost" size="icon" className="text-white">
+                  <Menu className="w-6 h-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="bg-black border-white/10 text-white w-[300px]">
+                <div className="flex flex-col gap-6 mt-8">
+                  <a href="#apps" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-3">
+                    <Grid3x3 className="w-5 h-5" />
+                    Apps
+                  </a>
+                  <a href="#tools" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-3">
+                    <Wrench className="w-5 h-5" />
+                    Tools
+                  </a>
+                  <a href="#cookies" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-3">
+                    <Cookie className="w-5 h-5" />
+                    Cookies
+                  </a>
+                  <a href="#widgets" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight hover:text-pink-400 transition-colors flex items-center gap-3">
+                    <LayoutGrid className="w-5 h-5" />
+                    Widgets
+                  </a>
+                  <div className="border-t border-white/10 pt-6">
+                    <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight text-white/60 hover:text-white/80 transition-colors flex items-center gap-3 mb-4">
+                      <Sparkles className="w-5 h-5" />
+                      Services
+                    </a>
+                    <a href="#work" onClick={() => setMobileMenuOpen(false)} className="text-lg font-gobold uppercase tracking-tight text-white/60 hover:text-white/80 transition-colors flex items-center gap-3 mb-4">
+                      <Briefcase className="w-5 h-5" />
+                      Our Work
+                    </a>
+                    <Button 
+                      variant="outline"
+                      className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-500 font-gobold uppercase w-full"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        window.location.href = '/auth';
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+
             {/* Centered Logo */}
-            <div className="flex-shrink-0">
-              <img src={kamrokLogo} alt="KAMROK" className="h-10" />
+            <div className="flex-shrink-0 absolute left-1/2 transform -translate-x-1/2">
+              <img src={kamrokLogo} alt="KAMROK" className="h-14 md:h-16" />
             </div>
 
-            {/* Right Menu */}
-            <nav className="hidden md:flex items-center gap-6 flex-1 justify-end">
-              <a href="#services" className="text-sm font-gobold uppercase tracking-wide text-white/60 hover:text-white/80 transition-colors">
+            {/* Right Menu - Desktop */}
+            <nav className="hidden lg:flex items-center gap-6 flex-1 justify-end">
+              <a href="#services" className="text-sm font-gobold uppercase tracking-tight text-white/60 hover:text-white/80 transition-colors flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
                 Services
               </a>
-              <a href="#work" className="text-sm font-gobold uppercase tracking-wide text-white/60 hover:text-white/80 transition-colors">
+              <a href="#work" className="text-sm font-gobold uppercase tracking-tight text-white/60 hover:text-white/80 transition-colors flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
                 Our Work
               </a>
               <Button 
                 variant="outline"
                 size="sm"
-                className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-500 font-gobold uppercase"
+                className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-500 font-gobold uppercase tracking-tight"
                 onClick={() => window.location.href = '/auth'}
               >
                 Login
               </Button>
             </nav>
+
+            {/* Spacer for mobile to balance centered logo */}
+            <div className="lg:hidden w-10"></div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-80"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-pink-900/60 to-orange-900/80" />
-        
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-gobold mb-6 leading-tight uppercase">
-            IT DOESN'T TAKE A{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-300 to-purple-300">
-              1000
-            </span>{" "}
-            MONKEYS.
-            <br />
-            <span className="text-4xl md:text-6xl lg:text-7xl">
-              JUST ONE WITH THE RIGHT TOOLKIT.
-            </span>
-          </h1>
+      <section className="py-6 px-4 md:px-6 bg-[#0a0a0a]">
+        <div className="relative min-h-[85vh] md:min-h-[90vh] flex items-end overflow-hidden rounded-3xl">
+          {/* Background Video */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-80"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+          </video>
           
-          <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-4">
-            Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
-          </p>
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-pink-900/60 to-orange-900/80" />
           
-          <p className="text-base md:text-lg text-pink-300 italic mb-8">
-            fast, friendly, and totally you
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-lg px-8 py-6 rounded-full font-bold shadow-lg shadow-pink-500/50"
-              onClick={() => document.getElementById('toolkit')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <Rocket className="w-5 h-5 mr-2" />
-              Explore the Toolkit
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="border-2 border-white/30 hover:border-white/60 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-lg px-8 py-6 rounded-full font-bold"
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Work With Us
-            </Button>
+          {/* Content - Positioned at Bottom */}
+          <div className="relative z-10 w-full px-6 md:px-12 pb-12 md:pb-16">
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-gobold mb-4 leading-none uppercase tracking-tighter"
+                style={{ textShadow: '0 0 40px rgba(236, 72, 153, 0.6), 0 0 80px rgba(168, 85, 247, 0.4)' }}>
+              IT DOESN'T TAKE A{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-300 to-purple-300"
+                    style={{ textShadow: '0 0 60px rgba(236, 72, 153, 0.8)' }}>
+                1000
+              </span>{" "}
+              MONKEYS.
+              <br />
+              <span className="text-3xl md:text-5xl lg:text-7xl">
+                JUST ONE WITH THE RIGHT TOOLKIT.
+              </span>
+            </h1>
+            
+            <p className="text-base md:text-lg text-white/90 max-w-3xl mb-3 leading-relaxed">
+              Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
+            </p>
+            
+            <p className="text-sm md:text-base text-pink-300 italic mb-6 font-light">
+              fast, friendly, and totally you
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white text-base md:text-lg px-8 py-6 rounded-full font-gobold uppercase tracking-tight shadow-lg shadow-pink-500/50"
+                onClick={() => document.getElementById('toolkit')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Rocket className="w-5 h-5 mr-2" />
+                Explore the Toolkit
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-2 border-white/30 hover:border-white/60 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-base md:text-lg px-8 py-6 rounded-full font-gobold uppercase tracking-tight"
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Work With Us
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -115,9 +181,11 @@ const Index = () => {
       <section id="toolkit" className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#1a0a1a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-4">
+            <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-4 tracking-tight"
+                style={{ textShadow: '0 0 30px rgba(236, 72, 153, 0.4)' }}>
               Meet the{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400"
+                    style={{ textShadow: '0 0 40px rgba(236, 72, 153, 0.6)' }}>
                 KAMROK Toolkit
               </span>
             </h2>
@@ -134,7 +202,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Apps</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Apps</h3>
                 <p className="text-sm text-white/60 mb-4">Powerful web applications that solve real problems.</p>
                 <Button 
                   variant="ghost" 
@@ -152,7 +220,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mb-4 shadow-lg shadow-orange-500/50">
                   <Code className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Tools</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Tools</h3>
                 <p className="text-sm text-white/60 mb-4">Smart utilities that make your workflow faster.</p>
                 <Button 
                   variant="ghost" 
@@ -170,7 +238,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mb-4 shadow-lg shadow-pink-500/50">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Cookies</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Cookies</h3>
                 <p className="text-sm text-white/60 mb-4">Cookie consent and privacy compliance made simple.</p>
                 <Button 
                   variant="ghost" 
@@ -188,7 +256,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Widgets</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Widgets</h3>
                 <p className="text-sm text-white/60 mb-4">Embeddable components for your website.</p>
                 <Button 
                   variant="ghost" 
@@ -208,9 +276,11 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-6">
+              <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-6 tracking-tight"
+                  style={{ textShadow: '0 0 30px rgba(251, 146, 60, 0.4)' }}>
                 How We{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400"
+                      style={{ textShadow: '0 0 40px rgba(251, 146, 60, 0.6)' }}>
                   Build
                 </span>
               </h2>
@@ -225,7 +295,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-pink-500/50">
                   <Code className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Original Code</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Original Code</h3>
                 <p className="text-sm text-white/60">
                   Written from scratch, optimized for speed and scalability.
                 </p>
@@ -235,7 +305,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/50">
                   <Palette className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Custom Design</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Custom Design</h3>
                 <p className="text-sm text-white/60">
                   Pixel-perfect interfaces that match your brand.
                 </p>
@@ -245,7 +315,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/50">
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-gobold uppercase mb-2">Fast Delivery</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2 tracking-tight">Fast Delivery</h3>
                 <p className="text-sm text-white/60">
                   Launch-ready products without the typical agency timeline.
                 </p>
@@ -259,7 +329,8 @@ const Index = () => {
       <section id="services" className="py-24 bg-gradient-to-b from-[#1a0a1a] to-[#0a0a0a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-4">
+            <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-4 tracking-tight"
+                style={{ textShadow: '0 0 30px rgba(236, 72, 153, 0.4)' }}>
               Services
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
@@ -269,21 +340,21 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-gobold uppercase mb-3">Web Design</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3 tracking-tight">Web Design</h3>
               <p className="text-white/60">
                 Stunning, conversion-focused websites that tell your story and drive results.
               </p>
             </Card>
 
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-gobold uppercase mb-3">App Development</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3 tracking-tight">App Development</h3>
               <p className="text-white/60">
                 Custom web applications built with modern tech stacks for scale and performance.
               </p>
             </Card>
 
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-gobold uppercase mb-3">Branding</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3 tracking-tight">Branding</h3>
               <p className="text-white/60">
                 Complete brand identities that make you memorable and differentiate you from the noise.
               </p>
@@ -297,9 +368,11 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bS00IDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNC00aDF2LTJoLTJ2Mmgxem0wLTRoMXYtMmgtMnYyaDF6bTAtNGgxdi0yaC0ydjJoMXptMC00aDF2LTJoLTJ2MmgxeiIvPjwvZz48L2c+PC9zdmc+')] opacity-20" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-6">
+          <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-6 tracking-tight"
+              style={{ textShadow: '0 0 30px rgba(236, 72, 153, 0.4)' }}>
             The KAMROK Toolkit is{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400"
+                  style={{ textShadow: '0 0 40px rgba(236, 72, 153, 0.6)' }}>
               just the beginning.
             </span>
           </h2>
@@ -308,7 +381,7 @@ const Index = () => {
           </p>
           <Button 
             size="lg"
-            className="bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 text-white text-xl px-12 py-8 rounded-full font-bold shadow-2xl shadow-pink-500/50 hover:shadow-pink-600/60 transition-all"
+            className="bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 text-white text-xl px-12 py-8 rounded-full font-gobold uppercase tracking-tight shadow-2xl shadow-pink-500/50 hover:shadow-pink-600/60 transition-all"
           >
             <Rocket className="w-6 h-6 mr-3" />
             Join Our Orbit
