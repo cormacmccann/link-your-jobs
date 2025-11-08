@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { DealKanbanBoard } from "@/components/crm/DealKanbanBoard";
-import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
+import { LegacyFAB } from "@/components/crm/FloatingActionButton";
 import { MobileOptimizedForm, MobileFormField, MobileFormInput, MobileFormButton } from "@/components/crm/MobileOptimizedForm";
 
 export default function Deals() {
@@ -86,7 +86,7 @@ export default function Deals() {
 
       <DealKanbanBoard organizationId={currentOrgId} />
 
-      <FloatingActionButton
+      <LegacyFAB
         onClick={() => setIsAddDialogOpen(true)}
         label="New Deal"
       />

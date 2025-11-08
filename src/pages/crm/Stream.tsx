@@ -4,13 +4,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { CardStream } from "@/components/crm/CardStream";
 import { CardFormDialog } from "@/components/crm/CardFormDialog";
 import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
-import { Plus } from "lucide-react";
+import { CardDetailPanel } from "@/components/crm/CardDetailPanel";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 
 export default function Stream() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [selectedCardType, setSelectedCardType] = useState<CardType>("project");
+  const [detailPanelOpen, setDetailPanelOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<any>(null);
 
   const { data: userOrgs } = useQuery({
     queryKey: ["user-organizations"],
@@ -36,9 +38,27 @@ export default function Stream() {
     setCreateDialogOpen(true);
   };
 
-  const handleCardClick = (cardId: string) => {
-    console.log("Card clicked:", cardId);
-    // TODO: Navigate to card detail view
+  const handleCardClick = async (cardId: string) => {
+    const { data } = await supabase
+      .from("cards")
+      .select("*")
+      .eq("id", cardId)
+      .single();
+    
+    if (data) {
+      setSelectedCard({
+        id: data.id,
+        cardType: data.card_type,
+        title: data.title,
+        description: data.description,
+        status: data.status,
+        priority: data.priority,
+        assignedTo: data.assigned_to,
+        dueDate: data.due_date,
+        relatedContact: data.related_contact_id
+      });
+      setDetailPanelOpen(true);
+    }
   };
 
   if (!organizationId) {
@@ -57,17 +77,19 @@ export default function Stream() {
         onCardClick={handleCardClick}
       />
 
-      <FloatingActionButton
-        icon={<Plus className="w-5 h-5" />}
-        onClick={() => handleCreateCard("project")}
-        label="New Card"
-      />
+      <FloatingActionButton onCreateCard={handleCreateCard} />
 
       <CardFormDialog
         open={createDialogOpen}
         onOpenChange={setCreateDialogOpen}
         organizationId={organizationId}
         defaultType={selectedCardType}
+      />
+
+      <CardDetailPanel
+        open={detailPanelOpen}
+        onOpenChange={setDetailPanelOpen}
+        card={selectedCard}
       />
     </div>
   );

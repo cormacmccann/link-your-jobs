@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AIEmailComposer } from "@/components/crm/AIEmailComposer";
 import { ContactInsightsPanel } from "@/components/crm/ContactInsightsPanel";
-import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
+import { LegacyFAB } from "@/components/crm/FloatingActionButton";
 import { MobileOptimizedForm, MobileFormField, MobileFormInput, MobileFormButton } from "@/components/crm/MobileOptimizedForm";
 
 export default function Contacts() {
@@ -241,7 +241,7 @@ export default function Contacts() {
         </Card>
       )}
 
-      <FloatingActionButton
+      <LegacyFAB
         onClick={() => setIsAddDialogOpen(true)}
         label="New Contact"
       />

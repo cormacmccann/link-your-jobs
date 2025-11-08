@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Plus, Building2, Users, DollarSign, Globe, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
+import { LegacyFAB } from "@/components/crm/FloatingActionButton";
 import { MobileOptimizedForm, MobileFormField, MobileFormInput, MobileFormButton } from "@/components/crm/MobileOptimizedForm";
 import { cn } from "@/lib/utils";
 
@@ -299,7 +299,7 @@ export default function Companies() {
         </div>
       </div>
 
-      <FloatingActionButton
+      <LegacyFAB
         onClick={() => setIsAddDialogOpen(true)}
         icon={<Plus className="h-6 w-6" />}
         label="New Company"
