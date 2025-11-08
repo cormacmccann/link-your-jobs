@@ -275,8 +275,8 @@ const Index = () => {
                 key={index}
                 className="sticky top-20 mb-8"
                 style={{
-                  zIndex: portfolioItems.length - index,
-                  transform: `scale(${1 - index * 0.05})`,
+                  zIndex: index + 1,
+                  transform: `scale(${1 - (portfolioItems.length - index - 1) * 0.05})`,
                 }}
               >
                 <div
