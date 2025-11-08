@@ -47,6 +47,69 @@ const Index = () => {
     }
   ];
 
+  const complianceApps = [
+    {
+      title: "Privacy & Policy Builder",
+      description: "Generate GDPR, CCPA, and region-specific privacy policies with our Iubenda-style builder",
+      icon: Sparkles,
+      features: ["Multi-region compliance", "Auto-generate policies", "Embed & download", "Version tracking"]
+    },
+    {
+      title: "Terms & Conditions Generator",
+      description: "Business-specific T&Cs with pre-filled templates for e-commerce, services, and apps",
+      icon: Code,
+      features: ["Industry templates", "Toggle clauses", "Export options", "Auto-updates"]
+    },
+    {
+      title: "Cookie Consent Manager",
+      description: "Configurable banner with auto-blocking and consent logging for EU/US compliance",
+      icon: Cookie,
+      features: ["Region detection", "Script blocking", "Consent logs", "Custom branding"]
+    }
+  ];
+
+  const engagementApps = [
+    {
+      title: "Chat & Lead Capture",
+      description: "Live chat + chatbot flows with FAQ builder and CRM integration",
+      icon: Sparkles,
+      features: ["Live chat", "Chatbot flows", "Lead capture", "CRM integration"]
+    },
+    {
+      title: "Popup & Offer Engine",
+      description: "Exit-intent, scroll %, and time-based triggers with A/B testing",
+      icon: Zap,
+      features: ["Smart triggers", "A/B testing", "Custom design", "Analytics"]
+    },
+    {
+      title: "Bookings & Demos",
+      description: "Calendar integration with custom booking links and payment collection",
+      icon: Briefcase,
+      features: ["Multi-calendar", "Custom links", "Payment ready", "Widget embed"]
+    }
+  ];
+
+  const proofApps = [
+    {
+      title: "Review Widget",
+      description: "Connect to Google Reviews, Facebook, and Trustpilot with customizable layouts",
+      icon: Grid3x3,
+      features: ["Multi-source", "Filter by rating", "Multiple layouts", "Auto-refresh"]
+    },
+    {
+      title: "Social Wall",
+      description: "Aggregate posts by hashtag or account with moderation and auto-refresh",
+      icon: LayoutGrid,
+      features: ["Hashtag feed", "Moderation panel", "Auto-refresh", "Lazy load"]
+    },
+    {
+      title: "Trustpilot Integration",
+      description: "Display verified review badges and ratings via Trustpilot API",
+      icon: Sparkles,
+      features: ["API integration", "Verified badge", "Real-time sync", "Custom display"]
+    }
+  ];
+
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 400;
@@ -268,7 +331,6 @@ const Index = () => {
         <div className="relative max-w-6xl mx-auto px-4" style={{ minHeight: '300vh' }}>
           {portfolioItems.map((item, index) => {
             const Icon = item.icon;
-            const isWide = index % 2 === 1;
             
             return (
               <div
@@ -282,14 +344,14 @@ const Index = () => {
                 <div
                   className="relative mx-auto rounded-3xl overflow-hidden transition-all duration-500"
                   style={{
-                    width: isWide ? '100%' : '70%',
-                    maxWidth: isWide ? '1100px' : '700px',
-                    height: isWide ? '600px' : '500px',
+                    width: '100%',
+                    maxWidth: '900px',
+                    height: '550px',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8)',
                   }}
                 >
-                  {/* Card Background */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-20`} />
+                  {/* Card Background - Full opacity gradient */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient}`} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
                   {/* Pattern Overlay */}
@@ -346,8 +408,146 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How We Build Section */}
+      {/* KAMROK Toolkit Section */}
       <section className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#1a0a1a]">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-7xl font-gobold uppercase mb-6 tracking-tight"
+                style={{ textShadow: '0 0 40px rgba(236, 72, 153, 0.4)' }}>
+              THE KAMROK{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-orange-400">
+                TOOLKIT
+              </span>
+            </h2>
+            <p className="text-xl md:text-2xl text-white/70 leading-relaxed max-w-4xl mx-auto mb-4">
+              A unified business-ready toolkit. Full compliance + engagement + performance + analytics.
+            </p>
+            <p className="text-lg text-white/60 max-w-3xl mx-auto">
+              Deploy instantly for any client site. Plug-and-play solution for small businesses who want compliant, conversion-ready digital setup.
+            </p>
+          </div>
+
+          {/* Core Compliance Apps */}
+          <div className="mb-24">
+            <div className="flex items-center gap-3 mb-12">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight">
+                🔐 Core Compliance Apps
+              </h3>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {complianceApps.map((app, index) => {
+                const Icon = app.icon;
+                return (
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-pink-500/50 transition-all p-8 group hover:bg-white/10">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/30">
+                      <Icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
+                    <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
+                    <ul className="space-y-2">
+                      {app.features.map((feature, idx) => (
+                        <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Engagement Suite */}
+          <div className="mb-24">
+            <div className="flex items-center gap-3 mb-12">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight">
+                💬 Engagement Suite
+              </h3>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {engagementApps.map((app, index) => {
+                const Icon = app.icon;
+                return (
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-purple-500/50 transition-all p-8 group hover:bg-white/10">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/30">
+                      <Icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
+                    <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
+                    <ul className="space-y-2">
+                      {app.features.map((feature, idx) => (
+                        <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Proof & Social */}
+          <div>
+            <div className="flex items-center gap-3 mb-12">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center">
+                <Grid3x3 className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight">
+                🌟 Proof & Social
+              </h3>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {proofApps.map((app, index) => {
+                const Icon = app.icon;
+                return (
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-orange-500/50 transition-all p-8 group hover:bg-white/10">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
+                      <Icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
+                    <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
+                    <ul className="space-y-2">
+                      {app.features.map((feature, idx) => (
+                        <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-orange-400" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-16">
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 text-white text-lg px-12 py-7 rounded-full font-gobold uppercase tracking-tight shadow-lg shadow-pink-500/50"
+              onClick={() => window.location.href = '/auth'}
+            >
+              <Rocket className="w-5 h-5 mr-2" />
+              Get Full Access to the Toolkit
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* How We Build Section */}
+      <section className="py-24 bg-gradient-to-b from-[#1a0a1a] to-[#0a0a0a]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
