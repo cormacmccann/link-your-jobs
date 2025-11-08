@@ -11,7 +11,10 @@ import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
-import { Dashboard } from "./components/Dashboard";
+import CRMLayout from "./pages/crm/CRMLayout";
+import Contacts from "./pages/crm/Contacts";
+import Deals from "./pages/crm/Deals";
+import Settings from "./pages/crm/Settings";
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
 import CookieConsentManager from "./pages/CookieConsentManager";
@@ -58,9 +61,23 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={session ? <Navigate to="/dashboard" /> : <Index />} />
-            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/dashboard" />} />
-            <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
+            <Route path="/" element={session ? <Navigate to="/crm/contacts" /> : <Index />} />
+            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/contacts" />} />
+            
+            {/* CRM Routes */}
+            <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
+              <Route index element={<Navigate to="/crm/contacts" />} />
+              <Route path="contacts" element={<Contacts />} />
+              <Route path="companies" element={<Contacts />} />
+              <Route path="deals" element={<Deals />} />
+              <Route path="projects" element={<Contacts />} />
+              <Route path="tasks" element={<Contacts />} />
+              <Route path="messages" element={<Contacts />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+
+            {/* Legacy Routes */}
+            <Route path="/dashboard" element={session ? <Navigate to="/crm/contacts" /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             
