@@ -20,15 +20,17 @@ export function FloatingActionButton({
       onClick={onClick}
       className={cn(
         "fixed bottom-6 right-6 z-50",
-        "h-14 rounded-full shadow-2xl",
-        "bg-gradient-to-r from-pink-500 to-purple-600",
-        "hover:from-pink-600 hover:to-purple-700",
-        "text-white font-medium",
+        "h-14 rounded-full",
+        "bg-gradient-to-r from-pink-500 to-orange-500",
+        "hover:from-pink-600 hover:to-orange-600",
+        "text-white font-semibold",
+        "shadow-[0_8px_32px_rgba(340,75%,60%,0.4)]",
+        "hover:shadow-[0_12px_48px_rgba(340,75%,60%,0.6)]",
+        "backdrop-blur-sm",
         "transition-all duration-300 ease-out",
-        "hover:scale-110 active:scale-95",
+        "hover:scale-105 active:scale-95",
         "focus:outline-none focus:ring-4 focus:ring-pink-500/50",
         "touch-manipulation",
-        "animate-scale-in",
         label ? "px-6 flex items-center gap-2" : "w-14 flex items-center justify-center",
         className
       )}
@@ -56,10 +58,13 @@ export function FABGroup({ items }: FABGroupProps) {
           key={index}
           onClick={item.onClick}
           className={cn(
-            "h-12 rounded-full shadow-xl",
-            "bg-gradient-to-r from-pink-500 to-purple-600",
-            "hover:from-pink-600 hover:to-purple-700",
-            "text-white font-medium text-sm",
+            "h-12 rounded-full",
+            "bg-gradient-to-r from-pink-500 to-orange-500",
+            "hover:from-pink-600 hover:to-orange-600",
+            "text-white font-semibold text-sm",
+            "shadow-[0_8px_32px_rgba(340,75%,60%,0.4)]",
+            "hover:shadow-[0_12px_48px_rgba(340,75%,60%,0.6)]",
+            "backdrop-blur-sm",
             "px-5 flex items-center gap-2",
             "transition-all duration-300 ease-out",
             "hover:scale-105 active:scale-95",

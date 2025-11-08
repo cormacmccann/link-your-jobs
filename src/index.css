@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Simple, clean backgrounds */
+    /* Light mode - Simple, clean backgrounds */
     --background: 0 0% 100%;
     --foreground: 220 10% 15%;
     
@@ -45,7 +45,7 @@ All colors MUST be HSL.
     --input: 220 15% 90%;
     --ring: 220 70% 50%;
     
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 220 10% 15%;
@@ -58,23 +58,24 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark mode - Clean and simple */
-    --background: 220 28% 8%;
+    /* Enhanced dark mode with premium aesthetic */
+    --background: 220 30% 6%;
     --foreground: 220 10% 95%;
     
-    /* Card surfaces - Slightly lighter than background */
-    --card: 220 25% 12%;
+    /* Card surfaces with glassmorphism */
+    --card: 220 28% 10%;
     --card-foreground: 220 10% 95%;
+    --card-glass: 0 0% 100% / 0.05;
     
     /* Popover surfaces */
     --popover: 220 25% 12%;
     --popover-foreground: 220 10% 95%;
     
-    /* Primary - Same blue, works in dark mode */
-    --primary: 220 70% 50%;
+    /* Primary - Vibrant blue */
+    --primary: 220 75% 55%;
     --primary-foreground: 0 0% 100%;
     
-    /* Secondary - Darker surface */
+    /* Secondary - Darker surface with glass effect */
     --secondary: 220 25% 18%;
     --secondary-foreground: 220 10% 95%;
     
@@ -82,27 +83,51 @@ All colors MUST be HSL.
     --muted: 220 25% 16%;
     --muted-foreground: 220 10% 60%;
     
-    /* Accent */
+    /* Accent - Pink/Coral gradient colors */
     --accent: 220 25% 18%;
     --accent-foreground: 220 10% 95%;
+    --accent-pink: 340 75% 60%;
+    --accent-coral: 10 80% 65%;
     
-    /* Destructive */
-    --destructive: 0 70% 50%;
+    /* Destructive with gradient */
+    --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 100%;
     
-    /* Borders - Darker in dark mode */
-    --border: 220 25% 18%;
-    --input: 220 25% 18%;
-    --ring: 220 70% 50%;
+    /* Success gradient colors */
+    --success: 140 70% 50%;
+    --success-alt: 160 75% 45%;
     
-    --sidebar-background: 220 28% 10%;
+    /* Warning gradient colors */
+    --warning: 25 85% 60%;
+    --warning-alt: 35 90% 65%;
+    
+    /* Info gradient colors */
+    --info: 200 75% 55%;
+    --info-alt: 220 80% 60%;
+    
+    /* Metric colors */
+    --metric-red: 0 75% 60%;
+    --metric-green: 140 70% 50%;
+    --metric-blue: 220 75% 55%;
+    --metric-cyan: 180 75% 50%;
+    
+    /* Borders with subtle transparency */
+    --border: 0 0% 100% / 0.1;
+    --input: 220 25% 18%;
+    --ring: 220 75% 55%;
+    
+    /* Enhanced border radius */
+    --radius: 1.25rem;
+    
+    /* Sidebar with gradient */
+    --sidebar-background: 220 30% 8%;
     --sidebar-foreground: 220 10% 95%;
-    --sidebar-primary: 220 70% 50%;
+    --sidebar-primary: 220 75% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 25% 15%;
+    --sidebar-accent: 0 0% 100% / 0.08;
     --sidebar-accent-foreground: 220 10% 95%;
-    --sidebar-border: 220 25% 18%;
-    --sidebar-ring: 220 70% 50%;
+    --sidebar-border: 0 0% 100% / 0.1;
+    --sidebar-ring: 220 75% 55%;
   }
 }
 
@@ -113,5 +138,49 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  .dark body {
+    background: linear-gradient(135deg, hsl(220, 30%, 6%) 0%, hsl(240, 35%, 8%) 50%, hsl(220, 30%, 6%) 100%);
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism utilities */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .glass-hover {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(340, 75%, 60%), hsl(10, 80%, 65%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Metric value styling */
+  .metric-value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .metric-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(220, 10%, 60%);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 }

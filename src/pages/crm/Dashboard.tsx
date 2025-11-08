@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
+import { MetricCard } from "@/components/crm/MetricCard";
 import { Users, Building2, DollarSign, FolderKanban, ListTodo, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -127,38 +128,83 @@ export default function Dashboard() {
     }
   };
 
+  const currentOrgName = localStorage.getItem("currentOrgName") || "Organization";
+  const greeting = new Date().getHours() < 12 ? "Good Morning" : new Date().getHours() < 18 ? "Good Afternoon" : "Good Evening";
+
   return (
-    <div className="p-8">
+    <div className="min-h-screen p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-gobold uppercase tracking-tight mb-1">Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your CRM activity</p>
+        <h1 className="text-3xl font-bold mb-1">
+          {greeting}, {currentOrgName}
+        </h1>
+        <p className="text-muted-foreground">
+          {new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {statCards.map((stat, index) => {
-          const Icon = stat.icon;
-          return (
-            <Card key={index} className={`p-6 bg-gradient-to-br ${stat.color} border-0 text-white`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white/80 text-sm font-medium mb-1">{stat.label}</p>
-                  <p className="text-3xl font-bold">{stat.value}</p>
-                </div>
-                <div className={`p-3 rounded-lg ${stat.iconBg}`}>
-                  <Icon className="h-8 w-8" />
-                </div>
-              </div>
-            </Card>
-          );
-        })}
+      {/* Large Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <MetricCard
+          label="Total Contacts"
+          value={stats?.totalContacts?.toLocaleString() || "0"}
+          icon={<Users className="w-6 h-6" />}
+          color="blue"
+          size="lg"
+        />
+        <MetricCard
+          label="Total Deal Value"
+          value={`$${(stats?.totalDealValue || 0).toLocaleString()}`}
+          icon={<DollarSign className="w-6 h-6" />}
+          color="green"
+          size="lg"
+        />
+      </div>
+
+      {/* Small Metrics Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <MetricCard
+          label="Companies"
+          value={stats?.totalCompanies || 0}
+          color="purple"
+          icon={<Building2 className="w-5 h-5" />}
+          size="sm"
+        />
+        <MetricCard
+          label="Projects"
+          value={stats?.totalProjects || 0}
+          color="cyan"
+          icon={<FolderKanban className="w-5 h-5" />}
+          size="sm"
+        />
+        <MetricCard
+          label="Won Deals"
+          value={stats?.wonDeals || 0}
+          change={{ value: 12, direction: "up" }}
+          color="green"
+          icon={<TrendingUp className="w-5 h-5" />}
+          size="sm"
+        />
+        <MetricCard
+          label="Pending Tasks"
+          value={stats?.pendingTasks || 0}
+          change={{ value: 8, direction: "down" }}
+          color="red"
+          icon={<ListTodo className="w-5 h-5" />}
+          size="sm"
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6">
+        <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
           <h3 className="text-xl font-semibold mb-4">Deals Pipeline</h3>
           <div className="space-y-3">
             {dealsByStage?.map((stage) => (
-              <div key={stage.stage} className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/5 transition-colors">
+              <div key={stage.stage} className="flex items-center justify-between p-3 border border-white/10 rounded-lg hover:bg-white/5 transition-colors backdrop-blur-sm">
                 <div className="flex-1">
                   <p className="font-medium capitalize">{stage.stage.replace("_", " ")}</p>
                   <p className="text-sm text-muted-foreground">{stage.count} deals</p>
@@ -171,7 +217,7 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xl font-semibold">Recent Activity</h3>
             <Clock className="h-5 w-5 text-muted-foreground" />
@@ -180,7 +226,7 @@ export default function Dashboard() {
             {recentActivity?.map((activity, index) => {
               const Icon = getActivityIcon(activity.type);
               return (
-                <div key={index} className="flex items-start gap-3 p-3 border rounded-lg hover:bg-accent/5 transition-colors">
+                <div key={index} className="flex items-start gap-3 p-3 border border-white/10 rounded-lg hover:bg-white/5 transition-colors backdrop-blur-sm">
                   <div className="p-2 rounded-lg bg-primary/10">
                     <Icon className="h-4 w-4 text-primary" />
                   </div>
@@ -199,7 +245,7 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
           <h3 className="text-xl font-semibold mb-4">Task Completion</h3>
           <div className="space-y-4">
             <div>
@@ -241,10 +287,10 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-card/40 backdrop-blur-xl border-white/10">
           <h3 className="text-xl font-semibold mb-4">Quick Stats</h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 border rounded-lg">
+            <div className="flex items-center justify-between p-3 border border-white/10 rounded-lg backdrop-blur-sm">
               <span className="text-sm font-medium">Total Deals</span>
               <span className="text-lg font-bold">{stats?.totalDeals || 0}</span>
             </div>
