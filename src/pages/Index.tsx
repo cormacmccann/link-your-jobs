@@ -10,26 +10,43 @@ const Index = () => {
       <header className="border-b border-white/10 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <img src={kamrokLogo} alt="KAMROK" className="h-10" />
-            <nav className="hidden md:flex items-center gap-8">
-              <a href="#apps" className="text-sm font-medium hover:text-pink-400 transition-colors">
+            {/* Left Menu */}
+            <nav className="hidden md:flex items-center gap-6 flex-1">
+              <a href="#apps" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
                 Apps
               </a>
-              <a href="#tools" className="text-sm font-medium hover:text-pink-400 transition-colors">
+              <a href="#tools" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
                 Tools
               </a>
-              <a href="#cookies" className="text-sm font-medium hover:text-pink-400 transition-colors">
+              <a href="#cookies" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
                 Cookies
               </a>
-              <a href="#widgets" className="text-sm font-medium hover:text-pink-400 transition-colors">
+              <a href="#widgets" className="text-sm font-gobold uppercase tracking-wide hover:text-pink-400 transition-colors">
                 Widgets
               </a>
-              <a href="#services" className="text-sm font-medium text-white/60 hover:text-white/80 transition-colors">
+            </nav>
+
+            {/* Centered Logo */}
+            <div className="flex-shrink-0">
+              <img src={kamrokLogo} alt="KAMROK" className="h-10" />
+            </div>
+
+            {/* Right Menu */}
+            <nav className="hidden md:flex items-center gap-6 flex-1 justify-end">
+              <a href="#services" className="text-sm font-gobold uppercase tracking-wide text-white/60 hover:text-white/80 transition-colors">
                 Services
               </a>
-              <a href="#work" className="text-sm font-medium text-white/60 hover:text-white/80 transition-colors">
+              <a href="#work" className="text-sm font-gobold uppercase tracking-wide text-white/60 hover:text-white/80 transition-colors">
                 Our Work
               </a>
+              <Button 
+                variant="outline"
+                size="sm"
+                className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10 hover:border-pink-500 font-gobold uppercase"
+                onClick={() => window.location.href = '/auth'}
+              >
+                Login
+              </Button>
             </nav>
           </div>
         </div>
@@ -53,7 +70,7 @@ const Index = () => {
         
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-gobold mb-6 leading-tight uppercase">
             IT DOESN'T TAKE A{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-300 to-purple-300">
               1000
@@ -98,7 +115,7 @@ const Index = () => {
       <section id="toolkit" className="py-24 bg-gradient-to-b from-[#0a0a0a] to-[#1a0a1a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4">
+            <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-4">
               Meet the{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
                 KAMROK Toolkit
@@ -117,7 +134,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Apps</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Apps</h3>
                 <p className="text-sm text-white/60 mb-4">Powerful web applications that solve real problems.</p>
                 <Button 
                   variant="ghost" 
@@ -135,7 +152,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mb-4 shadow-lg shadow-orange-500/50">
                   <Code className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Tools</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Tools</h3>
                 <p className="text-sm text-white/60 mb-4">Smart utilities that make your workflow faster.</p>
                 <Button 
                   variant="ghost" 
@@ -153,7 +170,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mb-4 shadow-lg shadow-pink-500/50">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Cookies</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Cookies</h3>
                 <p className="text-sm text-white/60 mb-4">Cookie consent and privacy compliance made simple.</p>
                 <Button 
                   variant="ghost" 
@@ -171,7 +188,7 @@ const Index = () => {
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Widgets</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Widgets</h3>
                 <p className="text-sm text-white/60 mb-4">Embeddable components for your website.</p>
                 <Button 
                   variant="ghost" 
@@ -191,7 +208,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-6">
                 How We{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
                   Build
@@ -208,7 +225,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-pink-500/50">
                   <Code className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Original Code</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Original Code</h3>
                 <p className="text-sm text-white/60">
                   Written from scratch, optimized for speed and scalability.
                 </p>
@@ -218,7 +235,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/50">
                   <Palette className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Custom Design</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Custom Design</h3>
                 <p className="text-sm text-white/60">
                   Pixel-perfect interfaces that match your brand.
                 </p>
@@ -228,7 +245,7 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-500/50">
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
+                <h3 className="text-xl font-gobold uppercase mb-2">Fast Delivery</h3>
                 <p className="text-sm text-white/60">
                   Launch-ready products without the typical agency timeline.
                 </p>
@@ -242,7 +259,7 @@ const Index = () => {
       <section id="services" className="py-24 bg-gradient-to-b from-[#1a0a1a] to-[#0a0a0a]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-gobold uppercase mb-4">
               Services
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
@@ -252,21 +269,21 @@ const Index = () => {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-bold mb-3">Web Design</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3">Web Design</h3>
               <p className="text-white/60">
                 Stunning, conversion-focused websites that tell your story and drive results.
               </p>
             </Card>
 
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-bold mb-3">App Development</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3">App Development</h3>
               <p className="text-white/60">
                 Custom web applications built with modern tech stacks for scale and performance.
               </p>
             </Card>
 
             <Card className="bg-white/5 border-white/10 hover:border-white/20 transition-all p-6">
-              <h3 className="text-2xl font-bold mb-3">Branding</h3>
+              <h3 className="text-2xl font-gobold uppercase mb-3">Branding</h3>
               <p className="text-white/60">
                 Complete brand identities that make you memorable and differentiate you from the noise.
               </p>
@@ -280,7 +297,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bTAtNHYyaDJ2LTJoLTJ6bS00IDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0wIDRoMnYtMmgtMnYyem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNCAwaDF2LTJoLTJ2Mmgxem0tNC00aDF2LTJoLTJ2Mmgxem0wLTRoMXYtMmgtMnYyaDF6bTAtNGgxdi0yaC0ydjJoMXptMC00aDF2LTJoLTJ2MmgxeiIvPjwvZz48L2c+PC9zdmc+')] opacity-20" />
         
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="text-4xl md:text-6xl font-gobold uppercase mb-6">
             The KAMROK Toolkit is{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
               just the beginning.
