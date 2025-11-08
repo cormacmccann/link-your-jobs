@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@tantml:parameter>
-<invoke name="lov-line-replace">
-<parameter name="replace">import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -13,8 +10,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
 import { MobileOptimizedForm, MobileFormField, MobileFormInput, MobileFormButton } from "@/components/crm/MobileOptimizedForm";
-
 import { cn } from "@/lib/utils";
+
+export default function Companies() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -131,7 +129,7 @@ import { cn } from "@/lib/utils";
     return (
       <div className="p-8">
         <Card className="p-8 text-center">
-          <h2 className="text-xl font-gobold mb-2">No Organization Selected</h2>
+          <h2 className="text-xl font-semibold mb-2">No Organization Selected</h2>
           <p className="text-muted-foreground">Please create or select an organization to continue.</p>
         </Card>
       </div>
@@ -141,7 +139,7 @@ import { cn } from "@/lib/utils";
   return (
     <div className="p-4 md:p-8 pb-24">
       <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-gobold uppercase tracking-tight mb-1">Companies</h1>
+        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight mb-1">Companies</h1>
         <p className="text-sm text-muted-foreground">Manage your business relationships</p>
       </div>
 
@@ -188,7 +186,7 @@ import { cn } from "@/lib/utils";
               <Card className="p-6">
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-gobold mb-2">{selectedCompanyData.name}</h2>
+                    <h2 className="text-2xl md:text-3xl font-semibold mb-2">{selectedCompanyData.name}</h2>
                     {selectedCompanyData.industry && (
                       <Badge variant="secondary" className="text-sm">{selectedCompanyData.industry}</Badge>
                     )}
@@ -204,10 +202,10 @@ import { cn } from "@/lib/utils";
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                  <Card className="p-5 bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
+                  <Card className="p-5 bg-accent/50 border-border">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-lg bg-blue-500/20">
-                        <Users className="h-6 w-6 text-blue-600" />
+                      <div className="p-3 rounded-lg bg-primary/10">
+                        <Users className="h-6 w-6 text-primary" />
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Contacts</p>
@@ -215,10 +213,10 @@ import { cn } from "@/lib/utils";
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-5 bg-gradient-to-br from-green-500/10 to-green-600/5 border-green-500/20">
+                  <Card className="p-5 bg-accent/50 border-border">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-lg bg-green-500/20">
-                        <DollarSign className="h-6 w-6 text-green-600" />
+                      <div className="p-3 rounded-lg bg-primary/10">
+                        <DollarSign className="h-6 w-6 text-primary" />
                       </div>
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">Total Deal Value</p>
@@ -277,7 +275,7 @@ import { cn } from "@/lib/utils";
                             </div>
                             {deal.value && (
                               <div className="text-right">
-                                <p className="text-xl font-bold text-green-600">${Number(deal.value).toLocaleString()}</p>
+                                <p className="text-xl font-bold text-primary">${Number(deal.value).toLocaleString()}</p>
                               </div>
                             )}
                           </div>
@@ -335,8 +333,8 @@ import { cn } from "@/lib/utils";
                   className="pr-10"
                 />
                 {formData.website && (
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <Sparkles className="h-4 w-4 text-primary animate-pulse" title="AI Enrichment Active" />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2" title="AI Enrichment Active">
+                    <Sparkles className="h-4 w-4 text-primary animate-pulse" />
                   </div>
                 )}
               </div>
