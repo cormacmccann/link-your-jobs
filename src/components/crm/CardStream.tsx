@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useRef } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { UnifiedCard } from "./UnifiedCard";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useKeyboardShortcuts, commonShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { CommandPalette } from "@/components/CommandPalette";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 type FilterType = "all" | CardType | "assigned-to-me" | "due-today" | "urgent" | "my-projects";
@@ -36,6 +38,10 @@ interface CardStreamProps {
 export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
 
   const { data: userData } = useQuery({
     queryKey: ["user"],
@@ -84,6 +90,64 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
 
   const filteredCards = cards;
 
+  // Set up real-time subscriptions
+  useEffect(() => {
+    const channel = supabase
+      .channel(`cards-${organizationId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'cards',
+          filter: `organization_id=eq.${organizationId}`
+        },
+        () => {
+          // Refresh cards when any change happens
+          queryClient.invalidateQueries({ queryKey: ["cards", organizationId] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [organizationId, queryClient]);
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts([
+    {
+      ...commonShortcuts.commandPalette(() => setCommandPaletteOpen(true)),
+      // Support both Cmd and Ctrl
+      ctrlKey: true,
+    },
+    {
+      ...commonShortcuts.commandPalette(() => setCommandPaletteOpen(true)),
+      metaKey: true,
+    },
+    commonShortcuts.search(() => searchInputRef.current?.focus()),
+    commonShortcuts.arrowUp(() => {
+      if (filteredCards.length > 0) {
+        setSelectedCardIndex((prev) => Math.max(0, prev - 1));
+      }
+    }),
+    commonShortcuts.arrowDown(() => {
+      if (filteredCards.length > 0) {
+        setSelectedCardIndex((prev) => Math.min(filteredCards.length - 1, prev + 1));
+      }
+    }),
+    commonShortcuts.enter(() => {
+      if (filteredCards.length > 0 && filteredCards[selectedCardIndex]) {
+        onCardClick?.(filteredCards[selectedCardIndex].id);
+      }
+    }),
+  ]);
+
+  // Reset selected index when filtered cards change
+  useEffect(() => {
+    setSelectedCardIndex(0);
+  }, [filteredCards.length, searchQuery, activeFilter]);
+
   return (
     <div className="flex flex-col h-full">
       {/* Search Bar */}
@@ -106,7 +170,8 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
         <div className="relative max-w-2xl">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search everything..."
+            ref={searchInputRef}
+            placeholder="Search everything... (press / to focus)"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-9 pr-9"
@@ -119,6 +184,14 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
               <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
             </button>
           )}
+        </div>
+        
+        {/* Keyboard shortcuts hint */}
+        <div className="text-xs text-muted-foreground hidden sm:block">
+          Press <kbd className="px-1.5 py-0.5 bg-muted rounded border">Cmd/Ctrl+K</kbd> for command palette, 
+          <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">/</kbd> to search,
+          <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">↑↓</kbd> to navigate,
+          <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">Enter</kbd> to open
         </div>
 
         {/* Type Filter Pills */}
@@ -148,7 +221,7 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
               <p>No items found</p>
             </div>
           ) : (
-            filteredCards.map((card) => (
+            filteredCards.map((card, index) => (
               <UnifiedCard 
                 key={card.id} 
                 id={card.id}
@@ -161,11 +234,14 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
                 dueDate={card.due_date || undefined}
                 relatedContact={card.related_contact_id || undefined}
                 onClick={() => onCardClick?.(card.id)}
+                className={index === selectedCardIndex ? "ring-2 ring-primary" : ""}
               />
             ))
           )}
         </div>
       </ScrollArea>
+      
+      <CommandPalette />
     </div>
   );
 }

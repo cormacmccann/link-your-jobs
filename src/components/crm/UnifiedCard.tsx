@@ -29,6 +29,7 @@ interface UnifiedCardProps {
   dueDate?: string;
   relatedContact?: string;
   onClick?: () => void;
+  className?: string;
 }
 
 const cardStyles: Record<CardType, { badge: string; icon: any; color: string }> = {
@@ -63,7 +64,8 @@ export function UnifiedCard({
   assignedTo,
   dueDate,
   relatedContact,
-  onClick
+  onClick,
+  className
 }: UnifiedCardProps) {
   const style = cardStyles[cardType];
   const Icon = style.icon;
@@ -71,7 +73,7 @@ export function UnifiedCard({
 
   return (
     <Card 
-      className="p-4 hover:shadow-md transition-shadow cursor-pointer border-l-4"
+      className={cn("p-4 hover:shadow-md transition-shadow cursor-pointer border-l-4 touch-manipulation", className)}
       style={{ borderLeftColor: style.badge.replace('bg-', '#') }}
       onClick={onClick}
     >

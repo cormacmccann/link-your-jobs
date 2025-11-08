@@ -5,6 +5,7 @@ import { CardStream } from "@/components/crm/CardStream";
 import { CardFormDialog } from "@/components/crm/CardFormDialog";
 import { FloatingActionButton } from "@/components/crm/FloatingActionButton";
 import { CardDetailPanel } from "@/components/crm/CardDetailPanel";
+import { MobileBottomNav } from "@/components/crm/MobileBottomNav";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 
@@ -73,7 +74,7 @@ export default function Stream() {
   }
 
   return (
-    <div className="h-full relative">
+    <div className="h-full relative pb-16 md:pb-0">
       <CardStream
         organizationId={organizationId}
         onCreateCard={handleCreateCard}
@@ -94,6 +95,8 @@ export default function Stream() {
         onOpenChange={setDetailPanelOpen}
         card={selectedCard}
       />
+
+      <MobileBottomNav />
     </div>
   );
 }

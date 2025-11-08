@@ -12,7 +12,7 @@ import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import CRMLayout from "./pages/crm/CRMLayout";
-import Today from "./pages/crm/Today";
+import TodayModern from "./pages/crm/TodayModern";
 import Dashboard from "./pages/crm/Dashboard";
 import Stream from "./pages/crm/Stream";
 import Contacts from "./pages/crm/Contacts";
@@ -79,7 +79,7 @@ const App = () => {
             {/* CRM Routes */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
               <Route index element={<Navigate to="/crm/today" />} />
-              <Route path="today" element={<Today />} />
+              <Route path="today" element={<TodayModern />} />
               <Route path="contacts" element={<Contacts />} />
               <Route path="companies" element={<Companies />} />
               <Route path="conversations" element={<Conversations />} />
