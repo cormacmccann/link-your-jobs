@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { CommandPalette } from "@/components/CommandPalette";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -8,8 +8,9 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { LimelightNav } from "@/components/ui/limelight-nav";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { Activity, Calendar, Users, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function CRMLayout() {
@@ -22,11 +23,20 @@ export default function CRMLayout() {
   };
 
   const navLinks = [
-    { to: "/crm/stream", label: "Stream" },
-    { to: "/crm/today", label: "Today" },
-    { to: "/crm/contacts", label: "Contacts" },
-    { to: "/crm/deals", label: "Deals" },
+    { to: "/crm/stream", label: "Stream", icon: <Activity /> },
+    { to: "/crm/today", label: "Today", icon: <Calendar /> },
+    { to: "/crm/contacts", label: "Contacts", icon: <Users /> },
+    { to: "/crm/deals", label: "Deals", icon: <Target /> },
   ];
+
+  const navItems = navLinks.map(link => ({
+    id: link.to,
+    icon: link.icon,
+    label: link.label,
+    onClick: () => navigate(link.to)
+  }));
+
+  const activeIndex = navLinks.findIndex(link => location.pathname === link.to);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -41,21 +51,13 @@ export default function CRMLayout() {
           </Link>
 
           {/* Center Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Button
-                key={link.to}
-                variant="ghost"
-                asChild
-                className={cn(
-                  "font-medium",
-                  location.pathname === link.to && "bg-muted"
-                )}
-              >
-                <Link to={link.to}>{link.label}</Link>
-              </Button>
-            ))}
-          </nav>
+          <div className="hidden md:flex">
+            <LimelightNav 
+              items={navItems}
+              defaultActiveIndex={Math.max(0, activeIndex)}
+              className="bg-background"
+            />
+          </div>
 
           {/* Right: Search + Profile */}
           <div className="flex items-center gap-3">
