@@ -1,6 +1,7 @@
 import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2, Package, Wrench, Cookie, Puzzle, Rocket, Briefcase, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 
 const Index = () => {
@@ -173,19 +174,24 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center px-4 overflow-hidden">
-        {/* Purple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg-0 via-acc-violet/5 to-bg-0"></div>
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg-0 via-bg-1/20 to-bg-0"></div>
         
         <div className="relative z-10 container mx-auto max-w-6xl text-center space-y-8 py-20">
-          {/* Large split hero text */}
+          {/* Hero text - all on one line */}
           <h1 className="font-gobold leading-none tracking-tight uppercase">
-            <span className="block text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-text-1">
-              It doesn't take a
-            </span>
-            <span className="block text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-text-1 mt-2">
-              Monkeys.
-            </span>
-            <span className="block text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-text-1 mt-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
+              <span className="text-4xl md:text-6xl lg:text-7xl text-text-1">
+                IT DOESN'T TAKE A
+              </span>
+              <span className="text-6xl md:text-8xl lg:text-9xl font-black text-text-1">
+                1000
+              </span>
+              <span className="text-4xl md:text-6xl lg:text-7xl text-text-1">
+                MONKEYS.
+              </span>
+            </div>
+            <span className="block text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-text-1 mt-6">
               Just one with the right toolkit.
             </span>
           </h1>
@@ -218,6 +224,29 @@ const Index = () => {
             </Button>
           </div>
         </div>
+      </section>
+
+      {/* Scroll Animation Section */}
+      <section className="bg-bg-0">
+        <ContainerScroll
+          titleComponent={
+            <>
+              <h2 className="text-3xl md:text-5xl font-gobold text-text-1 uppercase mb-4">
+                Experience the calm UI
+              </h2>
+              <p className="text-lg text-text-2 max-w-2xl mx-auto">
+                Simple workflows that help you win work faster
+              </p>
+            </>
+          }
+        >
+          <img
+            src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=3840&q=75"
+            alt="CRM Dashboard Preview"
+            className="mx-auto rounded-2xl object-cover h-full object-left-top"
+            draggable={false}
+          />
+        </ContainerScroll>
       </section>
 
       {/* Why This CRM */}
