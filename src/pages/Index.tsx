@@ -1,4 +1,4 @@
-import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2 } from "lucide-react";
+import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2, Package, Wrench, Cookie, Puzzle, Rocket, Briefcase, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import kamrokLogo from "@/assets/kamrok-logo.png";
@@ -112,69 +112,106 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
       {/* Header */}
-      <header className="border-b border-white/10 bg-bg-1/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+      <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <img src={kamrokLogo} alt="KAMROK" className="h-12" />
-            </div>
-
-            {/* Nav */}
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-sm font-gobold uppercase tracking-tight text-text-2 hover:text-text-1 transition-colors">
-                Features
+            {/* Left nav items */}
+            <nav className="hidden lg:flex items-center gap-6 text-sm flex-1">
+              <a href="#apps" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Package className="w-4 h-4" />
+                Apps
               </a>
-              <a href="#pricing" className="text-sm font-gobold uppercase tracking-tight text-text-2 hover:text-text-1 transition-colors">
-                Pricing
+              <a href="#tools" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Wrench className="w-4 h-4" />
+                Tools
+              </a>
+              <a href="#extras" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Cookie className="w-4 h-4" />
+                Cookies
+              </a>
+              <a href="#features" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Puzzle className="w-4 h-4" />
+                Widgets
+              </a>
+            </nav>
+            
+            {/* Center logo */}
+            <div className="flex-shrink-0">
+              <img src={kamrokLogo} alt="KAMROK" className="h-10" />
+            </div>
+            
+            {/* Right nav items */}
+            <nav className="hidden lg:flex items-center gap-6 text-sm flex-1 justify-end">
+              <a href="#services" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Rocket className="w-4 h-4" />
+                Services
+              </a>
+              <a href="#work" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
+                Our Work
               </a>
               <Button 
                 size="sm"
-                className="bg-accent-cyan hover:bg-accent-cyan/80 text-bg-0 font-gobold uppercase tracking-tight"
+                className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6"
                 onClick={() => window.location.href = '/auth'}
               >
-                Try the CRM
+                Connect
               </Button>
             </nav>
+            
+            {/* Mobile menu button */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="lg:hidden"
+            >
+              <Menu className="w-5 h-5" />
+            </Button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-6">
-        <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-gobold mb-6 leading-none uppercase tracking-tighter">
-            It doesn't take a{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-accent-violet to-accent-cyan">
-              1000
-            </span>{" "}
-            monkeys.
-            <br />
-            <span className="text-4xl md:text-6xl lg:text-7xl text-text-2">
+      <section className="relative min-h-[85vh] flex items-center justify-center px-4 overflow-hidden">
+        {/* Purple gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bg-0 via-acc-violet/5 to-bg-0"></div>
+        
+        <div className="relative z-10 container mx-auto max-w-6xl text-center space-y-8 py-20">
+          {/* Large split hero text */}
+          <h1 className="font-gobold leading-none tracking-tight uppercase">
+            <span className="block text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-text-1">
+              It doesn't take a
+            </span>
+            <span className="block text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-text-1 mt-2">
+              Monkeys.
+            </span>
+            <span className="block text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-text-1 mt-8">
               Just one with the right toolkit.
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-text-2 max-w-3xl mx-auto mb-4">
-            Close deals faster with a calm, future-ready CRM — contacts, conversations, pipeline, invoices, and live chat built in.
-          </p>
+          <div className="space-y-4 pt-8">
+            <p className="text-lg md:text-xl text-text-2 max-w-3xl mx-auto">
+              Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
+            </p>
+            
+            <p className="text-xl md:text-2xl text-text-1 italic">
+              fast, friendly, and totally you
+            </p>
+          </div>
           
-          <p className="text-lg text-accent-pink italic mb-10">
-            Fast, friendly, and totally you.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
             <Button 
-              size="lg"
-              className="bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white text-lg px-10 py-6 rounded-full font-gobold uppercase tracking-tight"
+              size="lg" 
+              className="bg-acc-violet hover:bg-acc-violet/90 text-white px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight"
               onClick={() => window.location.href = '/auth'}
             >
               Try the CRM
             </Button>
             <Button 
-              size="lg"
-              variant="outline"
-              className="border-2 border-accent-cyan text-accent-cyan hover:bg-accent-cyan hover:text-bg-0 text-lg px-10 py-6 rounded-full font-gobold uppercase tracking-tight"
+              size="lg" 
+              variant="outline" 
+              className="border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight"
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
             >
               See how it works
