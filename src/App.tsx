@@ -12,6 +12,15 @@ import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import { Dashboard } from "./components/Dashboard";
+import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
+import TermsGenerator from "./pages/TermsGenerator";
+import CookieConsentManager from "./pages/CookieConsentManager";
+import ChatLeadCapture from "./pages/ChatLeadCapture";
+import PopupOfferEngine from "./pages/PopupOfferEngine";
+import BookingsDemos from "./pages/BookingsDemos";
+import ReviewWidget from "./pages/ReviewWidget";
+import SocialWall from "./pages/SocialWall";
+import TrustpilotIntegration from "./pages/TrustpilotIntegration";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +63,18 @@ const App = () => {
             <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
+            
+            {/* Toolkit App Pages */}
+            <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
+            <Route path="/tools/terms-generator" element={<TermsGenerator />} />
+            <Route path="/tools/cookie-consent-manager" element={<CookieConsentManager />} />
+            <Route path="/tools/chat-lead-capture" element={<ChatLeadCapture />} />
+            <Route path="/tools/popup-offer-engine" element={<PopupOfferEngine />} />
+            <Route path="/tools/bookings-demos" element={<BookingsDemos />} />
+            <Route path="/tools/review-widget" element={<ReviewWidget />} />
+            <Route path="/tools/social-wall" element={<SocialWall />} />
+            <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

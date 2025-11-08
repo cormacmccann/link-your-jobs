@@ -441,14 +441,20 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-6">
               {complianceApps.map((app, index) => {
                 const Icon = app.icon;
+                const paths = [
+                  '/tools/privacy-policy-builder',
+                  '/tools/terms-generator',
+                  '/tools/cookie-consent-manager'
+                ];
                 return (
-                  <Card key={index} className="bg-white/5 border-white/10 hover:border-pink-500/50 transition-all p-8 group hover:bg-white/10">
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-pink-500/50 transition-all p-8 group hover:bg-white/10 cursor-pointer"
+                        onClick={() => window.location.href = paths[index]}>
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/30">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
                     <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 mb-4">
                       {app.features.map((feature, idx) => (
                         <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
                           <div className="w-1.5 h-1.5 rounded-full bg-pink-400" />
@@ -456,6 +462,9 @@ const Index = () => {
                         </li>
                       ))}
                     </ul>
+                    <Button variant="ghost" className="text-pink-400 hover:text-pink-300 p-0 h-auto group">
+                      Learn More <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
                   </Card>
                 );
               })}
@@ -476,14 +485,20 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-6">
               {engagementApps.map((app, index) => {
                 const Icon = app.icon;
+                const paths = [
+                  '/tools/chat-lead-capture',
+                  '/tools/popup-offer-engine',
+                  '/tools/bookings-demos'
+                ];
                 return (
-                  <Card key={index} className="bg-white/5 border-white/10 hover:border-purple-500/50 transition-all p-8 group hover:bg-white/10">
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-purple-500/50 transition-all p-8 group hover:bg-white/10 cursor-pointer"
+                        onClick={() => window.location.href = paths[index]}>
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/30">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
                     <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 mb-4">
                       {app.features.map((feature, idx) => (
                         <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
                           <div className="w-1.5 h-1.5 rounded-full bg-purple-400" />
@@ -491,6 +506,9 @@ const Index = () => {
                         </li>
                       ))}
                     </ul>
+                    <Button variant="ghost" className="text-purple-400 hover:text-purple-300 p-0 h-auto group">
+                      Learn More <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
                   </Card>
                 );
               })}
@@ -511,14 +529,20 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-6">
               {proofApps.map((app, index) => {
                 const Icon = app.icon;
+                const paths = [
+                  '/tools/review-widget',
+                  '/tools/social-wall',
+                  '/tools/trustpilot-integration'
+                ];
                 return (
-                  <Card key={index} className="bg-white/5 border-white/10 hover:border-orange-500/50 transition-all p-8 group hover:bg-white/10">
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-orange-500/50 transition-all p-8 group hover:bg-white/10 cursor-pointer"
+                        onClick={() => window.location.href = paths[index]}>
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-orange-500/30">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <h4 className="text-xl font-gobold uppercase mb-3 tracking-tight">{app.title}</h4>
                     <p className="text-white/60 mb-4 leading-relaxed">{app.description}</p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 mb-4">
                       {app.features.map((feature, idx) => (
                         <li key={idx} className="text-sm text-white/50 flex items-center gap-2">
                           <div className="w-1.5 h-1.5 rounded-full bg-orange-400" />
@@ -526,6 +550,9 @@ const Index = () => {
                         </li>
                       ))}
                     </ul>
+                    <Button variant="ghost" className="text-orange-400 hover:text-orange-300 p-0 h-auto group">
+                      Learn More <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
                   </Card>
                 );
               })}
