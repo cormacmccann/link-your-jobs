@@ -96,11 +96,11 @@ export default function Settings() {
     }
 
     // Add creator as owner
-    const { error: roleError } = await supabase.from("user_roles").insert({
+    const { error: roleError } = await supabase.from("user_roles").insert([{
       user_id: user.id,
       organization_id: org.id,
       role: "owner",
-    });
+    }]);
 
     if (roleError) {
       toast.error("Failed to set organization owner");
