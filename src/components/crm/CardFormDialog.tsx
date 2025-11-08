@@ -41,6 +41,17 @@ interface CardFormDialogProps {
   onOpenChange: (open: boolean) => void;
   organizationId: string;
   defaultType?: CardType;
+  card?: {
+    id: string;
+    card_type: CardType;
+    title: string;
+    description?: string | null;
+    priority: CardPriority;
+    due_date?: string | null;
+    related_contact_id?: string | null;
+    related_company_id?: string | null;
+    assigned_to?: string | null;
+  };
 }
 
 interface CardFormData {
@@ -51,23 +62,30 @@ interface CardFormData {
   due_date?: Date;
   related_contact_id?: string;
   related_company_id?: string;
+  assigned_to?: string;
 }
 
 export function CardFormDialog({
   open,
   onOpenChange,
   organizationId,
-  defaultType = "project"
+  defaultType = "project",
+  card
 }: CardFormDialogProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const isEditing = !!card;
 
   const form = useForm<CardFormData>({
     defaultValues: {
-      card_type: defaultType,
-      title: "",
-      description: "",
-      priority: "normal",
+      card_type: card?.card_type || defaultType,
+      title: card?.title || "",
+      description: card?.description || "",
+      priority: card?.priority || "normal",
+      due_date: card?.due_date ? new Date(card.due_date) : undefined,
+      related_contact_id: card?.related_contact_id || undefined,
+      related_company_id: card?.related_company_id || undefined,
+      assigned_to: card?.assigned_to || undefined,
     }
   });
 
@@ -97,31 +115,68 @@ export function CardFormDialog({
     enabled: open
   });
 
-  const createCardMutation = useMutation({
+  const { data: users } = useQuery({
+    queryKey: ["org-users", organizationId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("user_id, profiles(id, full_name, email)")
+        .eq("organization_id", organizationId);
+      
+      if (error) throw error;
+      return data.map((ur: any) => ({
+        id: ur.user_id,
+        full_name: ur.profiles?.full_name,
+        email: ur.profiles?.email,
+      }));
+    },
+    enabled: open
+  });
+
+  const saveCardMutation = useMutation({
     mutationFn: async (data: CardFormData) => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("cards").insert([{
-        organization_id: organizationId,
-        created_by: user.id,
-        card_type: data.card_type,
-        title: data.title,
-        description: data.description,
-        priority: data.priority,
-        due_date: data.due_date?.toISOString(),
-        related_contact_id: data.related_contact_id,
-        related_company_id: data.related_company_id,
-        status: "active"
-      }]);
+      if (isEditing && card) {
+        const { error } = await supabase
+          .from("cards")
+          .update({
+            card_type: data.card_type,
+            title: data.title,
+            description: data.description,
+            priority: data.priority,
+            due_date: data.due_date?.toISOString(),
+            related_company_id: data.related_company_id,
+            related_contact_id: data.related_contact_id,
+            assigned_to: data.assigned_to,
+          })
+          .eq("id", card.id);
 
-      if (error) throw error;
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from("cards").insert([{
+          organization_id: organizationId,
+          created_by: user.id,
+          card_type: data.card_type,
+          title: data.title,
+          description: data.description,
+          priority: data.priority,
+          due_date: data.due_date?.toISOString(),
+          related_contact_id: data.related_contact_id,
+          related_company_id: data.related_company_id,
+          assigned_to: data.assigned_to,
+          status: "active"
+        }]);
+
+        if (error) throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });
       toast({
-        title: "Card created",
-        description: "Your card has been created successfully"
+        title: isEditing ? "Card updated" : "Card created",
+        description: isEditing ? "Your card has been updated successfully" : "Your card has been created successfully"
       });
       onOpenChange(false);
       form.reset();
@@ -135,36 +190,26 @@ export function CardFormDialog({
     }
   });
 
-  // Safe array operations
   const safeCompanies = Array.isArray(companies) ? companies : [];
   const safeContacts = Array.isArray(contacts) ? contacts : [];
-  
-  // Dev mode warnings
-  if (process.env.NODE_ENV === 'development') {
-    if (companies !== undefined && !Array.isArray(companies)) {
-      console.warn('Expected companies to be an array but got:', typeof companies, companies);
-    }
-    if (contacts !== undefined && !Array.isArray(contacts)) {
-      console.warn('Expected contacts to be an array but got:', typeof contacts, contacts);
-    }
-  }
+  const safeUsers = Array.isArray(users) ? users : [];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create New Card</DialogTitle>
+          <DialogTitle>{isEditing ? 'Edit Card' : 'Create New Card'}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((data) => createCardMutation.mutate(data))} className="space-y-4">
+          <form onSubmit={form.handleSubmit((data) => saveCardMutation.mutate(data))} className="space-y-4">
             <FormField
               control={form.control}
               name="card_type"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Type</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue />
@@ -220,7 +265,7 @@ export function CardFormDialog({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Priority</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue />
@@ -273,6 +318,35 @@ export function CardFormDialog({
                 )}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="assigned_to"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assigned To</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select assignee" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {safeUsers.length === 0 ? (
+                        <div className="p-2 text-sm text-muted-foreground">No users available</div>
+                      ) : (
+                        safeUsers.map((user: any) => (
+                          <SelectItem key={user.id} value={user.id}>
+                            {user.full_name || user.email}
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="grid grid-cols-2 gap-4">
               <FormField
@@ -342,8 +416,8 @@ export function CardFormDialog({
               >
                 Cancel
               </Button>
-              <Button type="submit" disabled={createCardMutation.isPending}>
-                {createCardMutation.isPending ? "Creating..." : "Create Card"}
+              <Button type="submit" disabled={saveCardMutation.isPending}>
+                {saveCardMutation.isPending ? (isEditing ? "Updating..." : "Creating...") : (isEditing ? "Update Card" : "Create Card")}
               </Button>
             </div>
           </form>

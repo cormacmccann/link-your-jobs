@@ -55,7 +55,10 @@ export default function Stream() {
         priority: data.priority,
         assignedTo: data.assigned_to,
         dueDate: data.due_date,
-        relatedContact: data.related_contact_id
+        relatedContact: data.related_contact_id,
+        relatedContactId: data.related_contact_id,
+        relatedCompanyId: data.related_company_id,
+        organizationId: organizationId
       });
       setDetailPanelOpen(true);
     }
