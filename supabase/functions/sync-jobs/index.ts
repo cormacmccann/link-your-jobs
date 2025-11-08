@@ -238,6 +238,16 @@ If no VALID jobs are found, return an empty array: []`
         }));
 
       console.log(`AI extracted ${jobs.length} valid job listings after filtering`);
+
+      // Deduplicate by job_url to avoid repeats
+      const seenUrls = new Set<string>();
+      jobs = jobs.filter((j) => {
+        const key = j.job_url.trim();
+        if (seenUrls.has(key)) return false;
+        seenUrls.add(key);
+        return true;
+      });
+      console.log(`After deduplication: ${jobs.length} job(s)`);
     } catch (parseError) {
       console.error('Failed to parse AI response:', parseError);
       console.error('AI content was:', aiContent);
@@ -245,10 +255,33 @@ If no VALID jobs are found, return an empty array: []`
     }
 
     if (jobs.length === 0) {
+      // No jobs on the source page: clear any previously stored jobs for this source
+      try {
+        if (jobSourceId) {
+          const { data: deletedRows, error: delErr } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('job_source_id', jobSourceId)
+            .select('id');
+          if (delErr) console.error('Error clearing previous jobs by job_source_id:', delErr);
+          else console.log(`Cleared ${deletedRows?.length ?? 0} previous job(s) for source ${jobSourceId}`);
+        } else {
+          const { data: deletedRows, error: delErr } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('linkedin_url', linkedinUrl)
+            .select('id');
+          if (delErr) console.error('Error clearing previous jobs by linkedin_url:', delErr);
+          else console.log(`Cleared ${deletedRows?.length ?? 0} previous job(s) for ${linkedinUrl}`);
+        }
+      } catch (clearErr) {
+        console.error('Exception while clearing previous jobs:', clearErr);
+      }
+
       return new Response(
         JSON.stringify({
           success: true,
-          message: 'No job listings found on this page. The page may require login or have no active postings.',
+          message: 'No active postings detected; cleared previous jobs for this source.',
           total: 0,
           errors: 0,
         }),
@@ -289,12 +322,42 @@ If no VALID jobs are found, return an empty array: []`
 
     console.log(`Sync complete: ${successCount} successful, ${errorCount} errors`);
 
+    // Remove stale jobs that are no longer present on the source page
+    let removedStale = 0;
+    try {
+      const currentUrls = Array.from(new Set(jobs.map((j) => j.job_url.trim())));
+      if (currentUrls.length > 0) {
+        if (jobSourceId) {
+          const { data: deletedRows, error: delErr } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('job_source_id', jobSourceId)
+            .not('job_url', 'in', currentUrls)
+            .select('id');
+          if (delErr) console.error('Error deleting stale jobs by job_source_id:', delErr);
+          else removedStale = deletedRows?.length ?? 0;
+        } else {
+          const { data: deletedRows, error: delErr } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('linkedin_url', linkedinUrl)
+            .not('job_url', 'in', currentUrls)
+            .select('id');
+          if (delErr) console.error('Error deleting stale jobs by linkedin_url:', delErr);
+          else removedStale = deletedRows?.length ?? 0;
+        }
+      }
+    } catch (staleErr) {
+      console.error('Exception while deleting stale jobs:', staleErr);
+    }
+
     return new Response(
       JSON.stringify({
         success: true,
-        message: `Successfully synced ${successCount} job${successCount !== 1 ? 's' : ''}`,
+        message: `Synced ${successCount} job${successCount !== 1 ? 's' : ''}${removedStale ? `, removed ${removedStale} stale` : ''}.`,
         total: jobs.length,
         synced: successCount,
+        removed_stale: removedStale,
         errors: errorCount,
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
