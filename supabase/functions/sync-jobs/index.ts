@@ -139,22 +139,29 @@ if (!linkedinUrl) {
         messages: [
           {
             role: 'system',
-            content: `You are a job listing extraction expert. Extract ALL job listings from the provided HTML content.
-For each job, extract:
-- job_title (required): The job title/position name
-- company_name (required): The company name
-- job_url (required): The full URL to view the job (must be a complete, valid URL)
+            content: `You are a job listing extraction expert. Extract ALL VALID job listings from the provided HTML content.
+
+CRITICAL: Filter out invalid, test, or placeholder jobs. Only extract jobs that meet ALL these criteria:
+- Have a real company name (not "Test Company", "Example Corp", etc.)
+- Have a complete, valid job URL (not placeholder URLs with "1234567890" or "abcdef")
+- Have a posted date after 2024-05-01 (ignore old/expired jobs)
+- Have real job titles (not "Test Job", "Example Position")
+
+For each VALID job, extract:
+- job_title (required): The actual job title/position name
+- company_name (required): The real company name
+- job_url (required): The complete, valid URL to view the job
 - location (optional): Job location (city, country, or "Remote")
 - job_type (optional): Employment type (Full-time, Part-time, Contract, etc.)
 - description (optional): Brief job description or requirements
-- posted_date (optional): When the job was posted (in ISO format if possible)
+- posted_date (optional): When the job was posted (in ISO format YYYY-MM-DD)
 
-Return ONLY a JSON array of job objects. No other text or markdown.
-If no jobs are found, return an empty array: []`
+Return ONLY a JSON array of valid job objects. No other text or markdown.
+If no VALID jobs are found, return an empty array: []`
           },
           {
             role: 'user',
-            content: `Extract all job listings from this ${linkedinUrl.includes('indeed') ? 'Indeed' : linkedinUrl.includes('linkedin') ? 'LinkedIn' : 'job board'} page:\n\n${truncatedHtml}`
+            content: `Extract all VALID job listings from this ${linkedinUrl.includes('indeed') ? 'Indeed' : linkedinUrl.includes('linkedin') ? 'LinkedIn' : 'job board'} page:\n\n${truncatedHtml}`
           }
         ],
         temperature: 0.3,
@@ -183,9 +190,42 @@ If no jobs are found, return an empty array: []`
       
       const extractedJobs = JSON.parse(jsonContent);
       
-      // Validate and format jobs
+      // Validate and filter jobs with comprehensive checks
       jobs = extractedJobs
-        .filter((job: any) => job.job_title && job.company_name && job.job_url)
+        .filter((job: any) => {
+          // Basic required fields
+          if (!job.job_title || !job.company_name || !job.job_url) return false;
+          
+          // Filter out test/placeholder data
+          const lowerTitle = job.job_title.toLowerCase();
+          const lowerCompany = job.company_name.toLowerCase();
+          const lowerUrl = job.job_url.toLowerCase();
+          
+          if (lowerTitle.includes('test') || lowerTitle.includes('example')) return false;
+          if (lowerCompany.includes('test') || lowerCompany.includes('example')) return false;
+          if (lowerUrl.includes('1234567890') || lowerUrl.includes('abcdef')) return false;
+          
+          // Filter out invalid URLs
+          try {
+            const url = new URL(job.job_url);
+            if (!url.protocol.startsWith('http')) return false;
+          } catch {
+            return false;
+          }
+          
+          // Filter out old jobs (before May 2024)
+          if (job.posted_date) {
+            try {
+              const postedDate = new Date(job.posted_date);
+              const cutoffDate = new Date('2024-05-01');
+              if (postedDate < cutoffDate) return false;
+            } catch {
+              // Invalid date format, keep job but without date
+            }
+          }
+          
+          return true;
+        })
         .map((job: any) => ({
           company_name: job.company_name,
           job_title: job.job_title,
@@ -197,7 +237,7 @@ If no jobs are found, return an empty array: []`
           linkedin_url: linkedinUrl,
         }));
 
-      console.log(`AI extracted ${jobs.length} valid job listings`);
+      console.log(`AI extracted ${jobs.length} valid job listings after filtering`);
     } catch (parseError) {
       console.error('Failed to parse AI response:', parseError);
       console.error('AI content was:', aiContent);
