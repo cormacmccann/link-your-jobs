@@ -33,7 +33,6 @@ const menuItems = [
   { title: "Deals", url: "/crm/deals", icon: DollarSign },
   { title: "Projects", url: "/crm/projects", icon: FolderKanban },
   { title: "Tasks", url: "/crm/tasks", icon: ListTodo },
-  { title: "Messages", url: "/crm/messages", icon: MessageSquare },
   { title: "Settings", url: "/crm/settings", icon: Settings },
 ];
 

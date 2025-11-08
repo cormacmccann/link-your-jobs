@@ -13,7 +13,10 @@ import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import CRMLayout from "./pages/crm/CRMLayout";
 import Contacts from "./pages/crm/Contacts";
+import Companies from "./pages/crm/Companies";
 import Deals from "./pages/crm/Deals";
+import Tasks from "./pages/crm/Tasks";
+import Projects from "./pages/crm/Projects";
 import Settings from "./pages/crm/Settings";
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
@@ -68,11 +71,10 @@ const App = () => {
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
               <Route index element={<Navigate to="/crm/contacts" />} />
               <Route path="contacts" element={<Contacts />} />
-              <Route path="companies" element={<Contacts />} />
+              <Route path="companies" element={<Companies />} />
               <Route path="deals" element={<Deals />} />
-              <Route path="projects" element={<Contacts />} />
-              <Route path="tasks" element={<Contacts />} />
-              <Route path="messages" element={<Contacts />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="tasks" element={<Tasks />} />
               <Route path="settings" element={<Settings />} />
             </Route>
 
