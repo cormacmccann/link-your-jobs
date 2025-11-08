@@ -3,115 +3,71 @@ import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import kamrokLogo from "@/assets/kamrok-logo.png";
-
 const Index = () => {
-  const coreFeatures = [
-    {
-      title: "Contacts",
-      description: "People + companies with timeline, tags, and quick actions",
-      icon: Users,
-      color: "purple" as const
-    },
-    {
-      title: "Deals",
-      description: "Kanban pipeline with stages, forecast, and win-rate tracking",
-      icon: TrendingUp,
-      color: "blue" as const
-    },
-    {
-      title: "Conversations",
-      description: "Shared inbox + site chat widget in one unified view",
-      icon: MessageSquare,
-      color: "purple" as const
-    },
-    {
-      title: "Live Chat",
-      description: "Website widget with real-time conversations and lead capture",
-      icon: MessageSquare,
-      color: "orange" as const
-    },
-    {
-      title: "Invoices",
-      description: "Quotes → invoices → payment links with Stripe integration",
-      icon: FileText,
-      color: "blue" as const
-    },
-    {
-      title: "Automations",
-      description: "Trigger → Action flows with visual builder and recipes",
-      icon: Zap,
-      color: "purple" as const
-    },
-    {
-      title: "Analytics",
-      description: "Pipeline value, revenue tracking, and conversion metrics",
-      icon: BarChart3,
-      color: "blue" as const
-    }
-  ];
-
-  const whyCards = [
-    {
-      title: "Less busywork",
-      description: "One clear action per screen. No endless menus or hidden features."
-    },
-    {
-      title: "Chat built in",
-      description: "Website widget + shared inbox means more leads, less context switching."
-    },
-    {
-      title: "Money faster",
-      description: "Quotes → invoices → paid. All integrated, all automatic."
-    }
-  ];
-
-  const pricingPlans = [
-    {
-      name: "Starter",
-      price: "29",
-      description: "Perfect for solo founders",
-      features: [
-        "1 user",
-        "CRM core (contacts, deals, conversations)",
-        "Invoices & payments",
-        "Live chat widget",
-        "3 automations",
-        "All extras included"
-      ]
-    },
-    {
-      name: "Pro",
-      price: "79",
-      description: "Built for teams",
-      features: [
-        "5 users",
-        "Everything in Starter",
-        "Advanced automations",
-        "Bookings & calendar",
-        "Analytics & reports",
-        "Multiple pipelines",
-        "API access"
-      ],
-      highlighted: true
-    },
-    {
-      name: "Agency",
-      price: "199",
-      description: "Scale across clients",
-      features: [
-        "Unlimited users",
-        "Everything in Pro",
-        "Multi-brand workspaces",
-        "Roles & permissions",
-        "White-label embeds",
-        "Priority support",
-        "Custom integrations"
-      ]
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-bg-0 text-text-1">
+  const coreFeatures = [{
+    title: "Contacts",
+    description: "People + companies with timeline, tags, and quick actions",
+    icon: Users,
+    color: "purple" as const
+  }, {
+    title: "Deals",
+    description: "Kanban pipeline with stages, forecast, and win-rate tracking",
+    icon: TrendingUp,
+    color: "blue" as const
+  }, {
+    title: "Conversations",
+    description: "Shared inbox + site chat widget in one unified view",
+    icon: MessageSquare,
+    color: "purple" as const
+  }, {
+    title: "Live Chat",
+    description: "Website widget with real-time conversations and lead capture",
+    icon: MessageSquare,
+    color: "orange" as const
+  }, {
+    title: "Invoices",
+    description: "Quotes → invoices → payment links with Stripe integration",
+    icon: FileText,
+    color: "blue" as const
+  }, {
+    title: "Automations",
+    description: "Trigger → Action flows with visual builder and recipes",
+    icon: Zap,
+    color: "purple" as const
+  }, {
+    title: "Analytics",
+    description: "Pipeline value, revenue tracking, and conversion metrics",
+    icon: BarChart3,
+    color: "blue" as const
+  }];
+  const whyCards = [{
+    title: "Less busywork",
+    description: "One clear action per screen. No endless menus or hidden features."
+  }, {
+    title: "Chat built in",
+    description: "Website widget + shared inbox means more leads, less context switching."
+  }, {
+    title: "Money faster",
+    description: "Quotes → invoices → paid. All integrated, all automatic."
+  }];
+  const pricingPlans = [{
+    name: "Starter",
+    price: "29",
+    description: "Perfect for solo founders",
+    features: ["1 user", "CRM core (contacts, deals, conversations)", "Invoices & payments", "Live chat widget", "3 automations", "All extras included"]
+  }, {
+    name: "Pro",
+    price: "79",
+    description: "Built for teams",
+    features: ["5 users", "Everything in Starter", "Advanced automations", "Bookings & calendar", "Analytics & reports", "Multiple pipelines", "API access"],
+    highlighted: true
+  }, {
+    name: "Agency",
+    price: "199",
+    description: "Scale across clients",
+    features: ["Unlimited users", "Everything in Pro", "Multi-brand workspaces", "Roles & permissions", "White-label embeds", "Priority support", "Custom integrations"]
+  }];
+  return <div className="min-h-screen bg-bg-0 text-text-1">
       {/* Header */}
       <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -151,21 +107,13 @@ const Index = () => {
                 <Briefcase className="w-4 h-4" />
                 Our Work
               </a>
-              <Button 
-                size="sm"
-                className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6"
-                onClick={() => window.location.href = '/auth'}
-              >
+              <Button size="sm" className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6" onClick={() => window.location.href = '/auth'}>
                 Connect
               </Button>
             </nav>
             
             {/* Mobile menu button */}
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="lg:hidden"
-            >
+            <Button variant="ghost" size="sm" className="lg:hidden">
               <Menu className="w-5 h-5" />
             </Button>
           </div>
@@ -207,19 +155,12 @@ const Index = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-            <Button 
-              size="lg" 
-              className="bg-acc-violet hover:bg-acc-violet/90 text-white px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight"
-              onClick={() => window.location.href = '/auth'}
-            >
+            <Button size="lg" className="bg-acc-violet hover:bg-acc-violet/90 text-white px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight" onClick={() => window.location.href = '/auth'}>
               Try the CRM
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight"
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-            >
+            <Button size="lg" variant="outline" className="border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight" onClick={() => document.getElementById('features')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               See how it works
             </Button>
           </div>
@@ -228,24 +169,11 @@ const Index = () => {
 
       {/* Scroll Animation Section */}
       <section className="bg-bg-0">
-        <ContainerScroll
-          titleComponent={
-            <>
-              <h2 className="text-3xl md:text-5xl font-gobold text-text-1 uppercase mb-4">
-                Experience the calm UI
-              </h2>
-              <p className="text-lg text-text-2 max-w-2xl mx-auto">
-                Simple workflows that help you win work faster
-              </p>
-            </>
-          }
-        >
-          <img
-            src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=3840&q=75"
-            alt="CRM Dashboard Preview"
-            className="mx-auto rounded-2xl object-cover h-full object-left-top"
-            draggable={false}
-          />
+        <ContainerScroll titleComponent={<>
+              
+              
+            </>}>
+          <img src="https://ui.aceternity.com/_next/image?url=%2Flinear.webp&w=3840&q=75" alt="CRM Dashboard Preview" className="mx-auto rounded-2xl object-cover h-full object-left-top" draggable={false} />
         </ContainerScroll>
       </section>
 
@@ -257,8 +185,7 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {whyCards.map((card, index) => (
-              <GlowCard key={index} glowColor="purple" customSize className="p-6 flex flex-col h-full">
+            {whyCards.map((card, index) => <GlowCard key={index} glowColor="purple" customSize className="p-6 flex flex-col h-full">
                 <div className="flex-1 flex flex-col justify-center">
                   <h3 className="text-2xl font-gobold uppercase mb-3 text-text-1">
                     {card.title}
@@ -267,8 +194,7 @@ const Index = () => {
                     {card.description}
                   </p>
                 </div>
-              </GlowCard>
-            ))}
+              </GlowCard>)}
           </div>
         </div>
       </section>
@@ -283,9 +209,8 @@ const Index = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {coreFeatures.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <GlowCard key={index} glowColor={feature.color} customSize className="p-6 flex flex-col h-full min-h-[240px]">
+            const Icon = feature.icon;
+            return <GlowCard key={index} glowColor={feature.color} customSize className="p-6 flex flex-col h-full min-h-[240px]">
                   <div className="mb-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center">
                       <Icon className="w-6 h-6 text-white" />
@@ -299,9 +224,8 @@ const Index = () => {
                       {feature.description}
                     </p>
                   </div>
-                </GlowCard>
-              );
-            })}
+                </GlowCard>;
+          })}
           </div>
         </div>
       </section>
@@ -331,20 +255,12 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {pricingPlans.map((plan, index) => (
-              <GlowCard 
-                key={index} 
-                glowColor={plan.highlighted ? "purple" : "blue"} 
-                customSize 
-                className={`p-8 flex flex-col h-full ${plan.highlighted ? 'border-2 border-accent-violet' : ''}`}
-              >
-                {plan.highlighted && (
-                  <div className="mb-4">
+            {pricingPlans.map((plan, index) => <GlowCard key={index} glowColor={plan.highlighted ? "purple" : "blue"} customSize className={`p-8 flex flex-col h-full ${plan.highlighted ? 'border-2 border-accent-violet' : ''}`}>
+                {plan.highlighted && <div className="mb-4">
                     <span className="text-xs font-gobold uppercase tracking-wider text-accent-violet bg-accent-violet/10 px-3 py-1 rounded-full">
                       Most Popular
                     </span>
-                  </div>
-                )}
+                  </div>}
                 <div className="mb-6">
                   <h3 className="text-2xl font-gobold uppercase mb-2 text-text-1">
                     {plan.name}
@@ -359,26 +275,16 @@ const Index = () => {
                 </div>
                 
                 <div className="flex-1 space-y-3 mb-6">
-                  {plan.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-start gap-2">
+                  {plan.features.map((feature, featureIndex) => <div key={featureIndex} className="flex items-start gap-2">
                       <CheckCircle2 className="w-5 h-5 text-accent-cyan flex-shrink-0 mt-0.5" />
                       <span className="text-text-2">{feature}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
                 
-                <Button 
-                  className={`w-full font-gobold uppercase tracking-tight ${
-                    plan.highlighted 
-                      ? 'bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white' 
-                      : 'bg-accent-cyan hover:bg-accent-cyan/80 text-bg-0'
-                  }`}
-                  onClick={() => window.location.href = '/auth'}
-                >
+                <Button className={`w-full font-gobold uppercase tracking-tight ${plan.highlighted ? 'bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white' : 'bg-accent-cyan hover:bg-accent-cyan/80 text-bg-0'}`} onClick={() => window.location.href = '/auth'}>
                   Get Started
                 </Button>
-              </GlowCard>
-            ))}
+              </GlowCard>)}
           </div>
         </div>
       </section>
@@ -405,8 +311,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
