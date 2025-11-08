@@ -256,143 +256,93 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Auto-Scrolling Portfolio Cards */}
-      <section className="py-20 overflow-hidden">
-        <div className="container mx-auto px-4 mb-12">
-          <h3 className="text-2xl md:text-3xl font-gobold uppercase tracking-tight text-center text-white/80 mb-4">
+      {/* Vertical Stacking Cards */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="container mx-auto px-4 mb-16 text-center">
+          <h3 className="text-2xl md:text-3xl font-gobold uppercase tracking-tight text-white/80 mb-4">
             What's Inside KAMROK
           </h3>
+          <p className="text-white/60">Scroll to see all our tools</p>
         </div>
 
-        {/* Infinite Auto-Scroll Container */}
-        <div className="relative">
-          {/* Gradient Masks */}
-          <div 
-            className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{
-              background: 'linear-gradient(to right, rgb(10, 10, 10), transparent)'
-            }}
-          />
-          <div 
-            className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-            style={{
-              background: 'linear-gradient(to left, rgb(10, 10, 10), transparent)'
-            }}
-          />
-
-          <div className="animate-infinite-scroll flex gap-6">
-            {/* First Set */}
-            {portfolioItems.map((item, index) => {
-              const Icon = item.icon;
-              const isWide = index % 2 === 1;
-              return (
-                <div 
-                  key={`first-${index}`}
-                  className="group relative flex-shrink-0"
-                  style={{ 
-                    width: isWide ? '880px' : '250px'
+        <div className="relative max-w-6xl mx-auto px-4" style={{ minHeight: '300vh' }}>
+          {portfolioItems.map((item, index) => {
+            const Icon = item.icon;
+            const isWide = index % 2 === 1;
+            
+            return (
+              <div
+                key={index}
+                className="sticky top-20 mb-8"
+                style={{
+                  zIndex: portfolioItems.length - index,
+                  transform: `scale(${1 - index * 0.05})`,
+                }}
+              >
+                <div
+                  className="relative mx-auto rounded-3xl overflow-hidden transition-all duration-500"
+                  style={{
+                    width: isWide ? '100%' : '70%',
+                    maxWidth: isWide ? '1100px' : '700px',
+                    height: isWide ? '600px' : '500px',
+                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8)',
                   }}
                 >
-                  <div 
-                    className="relative rounded-3xl overflow-hidden transition-all duration-500"
+                  {/* Card Background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-20`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+
+                  {/* Pattern Overlay */}
+                  <div
+                    className="absolute inset-0 opacity-10"
                     style={{
-                      height: '550px',
-                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                      backgroundImage:
+                        'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
+                      backgroundSize: '32px 32px',
                     }}
-                  >
-                    {/* Card Background */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-20`} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                    
-                    {/* Pattern Overlay */}
-                    <div 
-                      className="absolute inset-0 opacity-10"
-                      style={{
-                        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
-                        backgroundSize: '32px 32px'
-                      }}
-                    />
+                  />
 
-                    {/* Icon */}
-                    <div className="absolute top-8 left-8">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg`}>
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <div className="mb-2">
-                        <span className="text-xs font-gobold uppercase tracking-wider text-pink-400/80">
-                          {item.category}
-                        </span>
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-gobold uppercase mb-3 tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-white/70 mb-4">
-                        {item.description}
-                      </p>
+                  {/* Icon */}
+                  <div className="absolute top-8 left-8">
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg`}
+                    >
+                      <Icon className="w-8 h-8 text-white" />
                     </div>
                   </div>
-                </div>
-              );
-            })}
 
-            {/* Duplicate Set for Seamless Loop */}
-            {portfolioItems.map((item, index) => {
-              const Icon = item.icon;
-              const isWide = index % 2 === 1;
-              return (
-                <div 
-                  key={`second-${index}`}
-                  className="group relative flex-shrink-0"
-                  style={{ 
-                    width: isWide ? '880px' : '250px'
-                  }}
-                >
-                  <div 
-                    className="relative rounded-3xl overflow-hidden transition-all duration-500"
-                    style={{
-                      height: '550px',
-                      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
-                    }}
-                  >
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-20`} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                    
-                    <div 
-                      className="absolute inset-0 opacity-10"
-                      style={{
-                        backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
-                        backgroundSize: '32px 32px'
-                      }}
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                    <div className="mb-2">
+                      <span className="text-xs font-gobold uppercase tracking-wider text-pink-400/80">
+                        {item.category}
+                      </span>
+                    </div>
+                    <h3 className="text-3xl md:text-5xl font-gobold uppercase mb-4 tracking-tight">
+                      {item.title}
+                    </h3>
+                    <p className="text-base md:text-lg text-white/70 mb-6 max-w-2xl">
+                      {item.description}
+                    </p>
+                    <Button
+                      variant="ghost"
+                      className="text-pink-400 hover:text-pink-300 hover:bg-pink-500/10 p-0 h-auto font-gobold uppercase tracking-tight group"
+                    >
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </div>
+
+                  {/* Decorative Elements */}
+                  <div className="absolute top-0 right-0 w-64 h-64 opacity-20">
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${item.gradient} blur-3xl`}
                     />
-
-                    <div className="absolute top-8 left-8">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg`}>
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <div className="mb-2">
-                        <span className="text-xs font-gobold uppercase tracking-wider text-pink-400/80">
-                          {item.category}
-                        </span>
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-gobold uppercase mb-3 tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-white/70 mb-4">
-                        {item.description}
-                      </p>
-                    </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -529,23 +479,6 @@ const Index = () => {
       <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
-        }
-        
-        @keyframes infinite-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(calc(-50%));
-          }
-        }
-        
-        .animate-infinite-scroll {
-          animation: infinite-scroll 60s linear infinite;
-        }
-        
-        .animate-infinite-scroll:hover {
-          animation-play-state: paused;
         }
       `}</style>
     </div>
