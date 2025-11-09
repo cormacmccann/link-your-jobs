@@ -26,7 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -72,7 +72,6 @@ export function CardFormDialog({
   defaultType = "project",
   card
 }: CardFormDialogProps) {
-  const { toast } = useToast();
   const queryClient = useQueryClient();
   const isEditing = !!card;
 
@@ -172,21 +171,54 @@ export function CardFormDialog({
         if (error) throw error;
       }
     },
+    onMutate: async (data) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["cards"] });
+
+      // Snapshot previous value
+      const previousCards = queryClient.getQueryData(["cards"]);
+
+      // Optimistically update UI if creating
+      if (!isEditing) {
+        queryClient.setQueryData(
+          ["cards"],
+          (old: any) => {
+            if (!old) return old;
+            return [
+              {
+                id: `temp-${Date.now()}`,
+                organization_id: organizationId,
+                card_type: data.card_type,
+                title: data.title,
+                description: data.description,
+                priority: data.priority,
+                status: "active",
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              ...old,
+            ];
+          }
+        );
+      }
+
+      return { previousCards };
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cards"] });
-      toast({
-        title: isEditing ? "Card updated" : "Card created",
-        description: isEditing ? "Your card has been updated successfully" : "Your card has been created successfully"
-      });
+      toast.success(isEditing ? "Card updated" : "Card created");
       onOpenChange(false);
       form.reset();
     },
-    onError: (error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
+    onError: (error: any, data, context) => {
+      // Rollback on error
+      queryClient.setQueryData(["cards"], context?.previousCards);
+      toast.error("Error", {
+        description: error.message
       });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["cards"] });
     }
   });
 

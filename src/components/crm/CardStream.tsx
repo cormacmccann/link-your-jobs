@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { UnifiedCard } from "./UnifiedCard";
+import { SwipeableCard } from "./SwipeableCard";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, X } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useKeyboardShortcuts, commonShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { CommandPalette } from "@/components/CommandPalette";
+import { toast } from "sonner";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 type FilterType = "all" | CardType | "assigned-to-me" | "due-today" | "urgent" | "my-projects";
@@ -42,6 +44,7 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+  const isMobile = useIsMobile();
 
   const { data: userData } = useQuery({
     queryKey: ["user"],
@@ -148,6 +151,161 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
     setSelectedCardIndex(0);
   }, [filteredCards.length, searchQuery, activeFilter]);
 
+  // Optimistic mutations
+  const completeMutation = useMutation({
+    mutationFn: async (cardId: string) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { error } = await supabase
+        .from("cards")
+        .update({ 
+          status: "completed",
+          completed_at: new Date().toISOString()
+        })
+        .eq("id", cardId);
+
+      if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: cardId,
+        user_id: user.id,
+        activity_type: "status_changed",
+        activity_data: { status: "completed" }
+      });
+    },
+    onMutate: async (cardId) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["cards", organizationId] });
+
+      // Snapshot previous value
+      const previousCards = queryClient.getQueryData(["cards", organizationId, activeFilter, searchQuery, user?.id]);
+
+      // Optimistically update
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        (old: any[]) => old?.map(card => 
+          card.id === cardId 
+            ? { ...card, status: "completed", completed_at: new Date().toISOString() }
+            : card
+        )
+      );
+
+      return { previousCards };
+    },
+    onError: (err, cardId, context) => {
+      // Rollback on error
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        context?.previousCards
+      );
+      toast.error("Failed to complete card");
+    },
+    onSuccess: () => {
+      toast.success("Card completed");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["cards", organizationId] });
+    }
+  });
+
+  const archiveMutation = useMutation({
+    mutationFn: async (cardId: string) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { error } = await supabase
+        .from("cards")
+        .update({ status: "cancelled" })
+        .eq("id", cardId);
+
+      if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: cardId,
+        user_id: user.id,
+        activity_type: "archived",
+        activity_data: {}
+      });
+    },
+    onMutate: async (cardId) => {
+      await queryClient.cancelQueries({ queryKey: ["cards", organizationId] });
+      const previousCards = queryClient.getQueryData(["cards", organizationId, activeFilter, searchQuery, user?.id]);
+
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        (old: any[]) => old?.filter(card => card.id !== cardId)
+      );
+
+      return { previousCards };
+    },
+    onError: (err, cardId, context) => {
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        context?.previousCards
+      );
+      toast.error("Failed to archive card");
+    },
+    onSuccess: () => {
+      toast.success("Card archived");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["cards", organizationId] });
+    }
+  });
+
+  const assignToMeMutation = useMutation({
+    mutationFn: async (cardId: string) => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
+      const { error } = await supabase
+        .from("cards")
+        .update({ assigned_to: user.id })
+        .eq("id", cardId);
+
+      if (error) throw error;
+
+      // Log activity
+      await supabase.from("card_activities").insert({
+        card_id: cardId,
+        user_id: user.id,
+        activity_type: "assigned",
+        activity_data: { assigned_to: user.id }
+      });
+    },
+    onMutate: async (cardId) => {
+      await queryClient.cancelQueries({ queryKey: ["cards", organizationId] });
+      const previousCards = queryClient.getQueryData(["cards", organizationId, activeFilter, searchQuery, user?.id]);
+
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        (old: any[]) => old?.map(card => 
+          card.id === cardId 
+            ? { ...card, assigned_to: user?.id }
+            : card
+        )
+      );
+
+      return { previousCards };
+    },
+    onError: (err, cardId, context) => {
+      queryClient.setQueryData(
+        ["cards", organizationId, activeFilter, searchQuery, user?.id],
+        context?.previousCards
+      );
+      toast.error("Failed to assign card");
+    },
+    onSuccess: () => {
+      toast.success("Card assigned to you");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["cards", organizationId] });
+    }
+  });
+
   return (
     <div className="flex flex-col h-full">
       {/* Search Bar */}
@@ -221,22 +379,48 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
               <p>No items found</p>
             </div>
           ) : (
-            filteredCards.map((card, index) => (
-              <UnifiedCard 
-                key={card.id} 
-                id={card.id}
-                cardType={card.card_type as CardType}
-                title={card.title}
-                description={card.description || undefined}
-                status={card.status as any}
-                priority={card.priority as any}
-                assignedTo={card.assigned_to || undefined}
-                dueDate={card.due_date || undefined}
-                relatedContact={card.related_contact_id || undefined}
-                onClick={() => onCardClick?.(card.id)}
-                className={index === selectedCardIndex ? "ring-2 ring-primary" : ""}
-              />
-            ))
+            filteredCards.map((card, index) => 
+              isMobile ? (
+                <SwipeableCard
+                  key={card.id}
+                  id={card.id}
+                  cardType={card.card_type as CardType}
+                  title={card.title}
+                  description={card.description || undefined}
+                  status={card.status as any}
+                  priority={card.priority as any}
+                  assignedTo={card.assigned_to || undefined}
+                  dueDate={card.due_date || undefined}
+                  relatedContact={card.related_contact_id || undefined}
+                  onClick={() => onCardClick?.(card.id)}
+                  onArchive={() => archiveMutation.mutate(card.id)}
+                  onComplete={() => completeMutation.mutate(card.id)}
+                  onAssignToMe={() => assignToMeMutation.mutate(card.id)}
+                  className={index === selectedCardIndex ? "ring-2 ring-primary" : ""}
+                />
+              ) : (
+                <div
+                  key={card.id}
+                  className={index === selectedCardIndex ? "ring-2 ring-primary rounded-lg" : ""}
+                >
+                  <SwipeableCard
+                    id={card.id}
+                    cardType={card.card_type as CardType}
+                    title={card.title}
+                    description={card.description || undefined}
+                    status={card.status as any}
+                    priority={card.priority as any}
+                    assignedTo={card.assigned_to || undefined}
+                    dueDate={card.due_date || undefined}
+                    relatedContact={card.related_contact_id || undefined}
+                    onClick={() => onCardClick?.(card.id)}
+                    onArchive={() => archiveMutation.mutate(card.id)}
+                    onComplete={() => completeMutation.mutate(card.id)}
+                    onAssignToMe={() => assignToMeMutation.mutate(card.id)}
+                  />
+                </div>
+              )
+            )
           )}
         </div>
       </ScrollArea>
