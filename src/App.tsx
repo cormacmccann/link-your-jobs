@@ -13,6 +13,14 @@ import AppDevelopment from "./pages/services/AppDevelopment";
 import GraphicDesign from "./pages/services/GraphicDesign";
 import VideoDesign from "./pages/services/VideoDesign";
 import Branding from "./pages/services/Branding";
+import Features from "./pages/Features";
+import CRM from "./pages/features/CRM";
+import Chat from "./pages/features/Chat";
+import ProjectsFeature from "./pages/features/Projects";
+import Invoicing from "./pages/features/Invoicing";
+import Tools from "./pages/features/Tools";
+import Clients from "./pages/Clients";
+import Contact from "./pages/Contact";
 import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
@@ -84,9 +92,17 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/services/web-design" element={<WebDesign />} />
             <Route path="/services/app-development" element={<AppDevelopment />} />
-            <Route path="/services/graphic-design" element={<GraphicDesign />} />
-            <Route path="/services/video-design" element={<VideoDesign />} />
-            <Route path="/services/branding" element={<Branding />} />
+        <Route path="/services/graphic-design" element={<GraphicDesign />} />
+        <Route path="/services/video-design" element={<VideoDesign />} />
+        <Route path="/services/branding" element={<Branding />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/features/crm" element={<CRM />} />
+        <Route path="/features/chat" element={<Chat />} />
+        <Route path="/features/projects" element={<ProjectsFeature />} />
+        <Route path="/features/invoicing" element={<Invoicing />} />
+        <Route path="/features/tools" element={<Tools />} />
+        <Route path="/clients" element={<Clients />} />
+        <Route path="/contact" element={<Contact />} />
             
             {/* CRM Routes */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>

@@ -1,7 +1,8 @@
-import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2, Package, Wrench, Cookie, Puzzle, Rocket, Briefcase, Menu } from "lucide-react";
+import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2, Package, Wrench, Cookie, Puzzle, Rocket, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { MobileMenu } from "@/components/MobileMenu";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 const Index = () => {
   const coreFeatures = [{
@@ -107,10 +108,8 @@ const Index = () => {
               </Button>
             </nav>
             
-            {/* Mobile menu button */}
-            <Button variant="ghost" size="sm" className="lg:hidden">
-              <Menu className="w-5 h-5" />
-            </Button>
+            {/* Mobile menu */}
+            <MobileMenu />
           </div>
         </div>
       </header>
@@ -297,9 +296,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-16 px-4 border-t border-white/10 bg-bg-1/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             {/* Brand Column */}
-            <div className="space-y-4">
+            <div className="col-span-2 md:col-span-1 space-y-4">
               <img src={kamrokLogo} alt="KAMROK" className="h-10" />
               <p className="text-text-2 text-sm">
                 Full-stack marketing agency building the tools we wish we had.
@@ -308,8 +307,8 @@ const Index = () => {
             
             {/* Services Column */}
             <div className="space-y-4">
-              <h3 className="font-gobold uppercase text-text-1">Services</h3>
-              <nav className="flex flex-col gap-2">
+              <h3 className="font-gobold uppercase text-text-1 text-sm">Services</h3>
+              <nav className="flex flex-col gap-3">
                 <a href="/services/web-design" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Web Design</a>
                 <a href="/services/app-development" className="text-text-2 hover:text-acc-violet transition-colors text-sm">App Development</a>
                 <a href="/services/graphic-design" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Graphic Design</a>
@@ -318,25 +317,25 @@ const Index = () => {
               </nav>
             </div>
             
-            {/* Work Column */}
+            {/* Company Column */}
             <div className="space-y-4">
-              <h3 className="font-gobold uppercase text-text-1">Our Work</h3>
-              <nav className="flex flex-col gap-2">
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Portfolio</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Case Studies</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Client Reviews</a>
+              <h3 className="font-gobold uppercase text-text-1 text-sm">Company</h3>
+              <nav className="flex flex-col gap-3">
+                <a href="/clients" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Clients</a>
+                <a href="/contact" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Contact</a>
+                <a href="#pricing" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Pricing</a>
               </nav>
             </div>
             
-            {/* Resources Column */}
+            {/* Product Column */}
             <div className="space-y-4">
-              <h3 className="font-gobold uppercase text-text-1">Resources</h3>
-              <nav className="flex flex-col gap-2">
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Docs</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Status</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Privacy</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Terms</a>
-                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Changelog</a>
+              <h3 className="font-gobold uppercase text-text-1 text-sm">Product</h3>
+              <nav className="flex flex-col gap-3">
+                <a href="/features/crm" className="text-text-2 hover:text-acc-violet transition-colors text-sm">CRM</a>
+                <a href="/features/chat" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Chat</a>
+                <a href="/features/projects" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Projects</a>
+                <a href="/features/invoicing" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Invoicing</a>
+                <a href="/features/tools" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Tools</a>
               </nav>
             </div>
           </div>
