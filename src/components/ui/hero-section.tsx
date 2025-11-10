@@ -14,7 +14,7 @@ export function HeroSection() {
       <HeroHeader />
       <main className="overflow-x-hidden">
         <section>
-          <div className="py-24 md:pb-32 lg:pb-36 lg:pt-72">
+          <div className="py-16 md:pb-24 lg:pb-28 lg:pt-56">
             <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 lg:block lg:px-12">
               <div className="mx-auto max-w-lg text-center lg:ml-0 lg:max-w-full lg:text-left">
                 {/* Origin Story Badge */}
@@ -41,7 +41,7 @@ export function HeroSection() {
 
                 
 
-                <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-2 lg:justify-start">
+                <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 lg:justify-start">
                   <Button asChild size="lg" className="h-12 bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-10 font-gobold uppercase tracking-tight">
                     <Link to="/auth">
                       <span className="text-nowrap">Try the CRM</span>
