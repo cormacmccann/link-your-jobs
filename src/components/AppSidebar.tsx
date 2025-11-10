@@ -255,6 +255,10 @@ export function AppSidebar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem onClick={() => (window.location.href = "/crm/mission-control")}>
+              <Zap className="h-4 w-4 mr-2" />
+              Mission Control
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => (window.location.href = "/crm/settings")}>
               <Settings className="h-4 w-4 mr-2" />
               Settings

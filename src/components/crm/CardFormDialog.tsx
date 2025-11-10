@@ -34,6 +34,15 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
+
+const cardTypeLabels: Record<CardType, string> = {
+  project: "Project",
+  deal: "Deal",
+  task: "Task",
+  support: "Support Ticket",
+  milestone: "Milestone",
+  note: "Note",
+};
 type CardPriority = "urgent" | "high" | "normal" | "low";
 
 interface CardFormDialogProps {
