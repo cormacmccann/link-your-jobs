@@ -25,17 +25,17 @@ export function HeroSection() {
                                 </div>
 
                                 <h1 className="mt-8 max-w-2xl font-gobold leading-none tracking-tight uppercase">
-                                    <div className="flex flex-col lg:flex-grow items-start justify-evenly lg:justify-start gap-0 lg:gap-0">
-                                        <span className="text-4xl md:text-5xl text-text-1 lg:text-5xl">
-                                            IT DOESN'T TAKE A
-                                        </span>
-                                        <span className="text-6xl md:text-7xl lg:text-8xl font-black text-text-1">
-                                            1000
-                                        </span>
-                                        <span className="text-4xl md:text-5xl lg:text-6xl text-text-1">
-                                            MONKEYS.
-                                        </span>
-                                    </div>
+                                <div className="flex flex-row flex-wrap items-baseline justify-center lg:justify-start gap-2 lg:gap-3">
+                                    <span className="text-4xl md:text-5xl text-text-1 lg:text-5xl">
+                                        IT DOESN'T TAKE A
+                                    </span>
+                                    <span className="text-6xl md:text-7xl lg:text-8xl font-black text-text-1">
+                                        1000
+                                    </span>
+                                    <span className="text-4xl md:text-5xl lg:text-6xl text-text-1">
+                                        MONKEYS.
+                                    </span>
+                                </div>
                                     <span className="block text-3xl md:text-4xl lg:text-5xl text-text-1 mt-6">
                                         Just one with the right toolkit.
                                     </span>
