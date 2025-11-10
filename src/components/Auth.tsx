@@ -97,7 +97,7 @@ export const Auth = () => {
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-foreground">Welcome back</h1>
             <p className="text-muted-foreground mb-8">Sign in to your account</p>
             
-            <div className="[&_.supabase-auth-ui_button]:w-full [&_.supabase-auth-ui_button]:transition-all [&_.supabase-auth-ui_button]:duration-300 [&_.supabase-auth-ui_button]:bg-gradient-to-r [&_.supabase-auth-ui_button]:from-orange-500 [&_.supabase-auth-ui_button]:via-red-500 [&_.supabase-auth-ui_button]:to-amber-600 [&_.supabase-auth-ui_button]:hover:from-orange-600 [&_.supabase-auth-ui_button]:hover:via-red-600 [&_.supabase-auth-ui_button]:hover:to-amber-700 [&_.supabase-auth-ui_button]:shadow-lg [&_.supabase-auth-ui_button]:shadow-orange-500/30 [&_.supabase-auth-ui_button]:hover:shadow-xl [&_.supabase-auth-ui_button]:hover:shadow-red-500/40">
+            <div className="[&_.supabase-auth-ui_button]:w-full [&_.supabase-auth-ui_button]:transition-all [&_.supabase-auth-ui_button]:duration-300 [&_.supabase-auth-ui_button]:bg-gradient-to-r [&_.supabase-auth-ui_button]:from-orange-500 [&_.supabase-auth-ui_button]:via-red-500 [&_.supabase-auth-ui_button]:to-amber-600 [&_.supabase-auth-ui_button]:hover:from-orange-600 [&_.supabase-auth-ui_button]:hover:via-red-600 [&_.supabase-auth-ui_button]:hover:to-amber-700 [&_.supabase-auth-ui_button]:shadow-lg [&_.supabase-auth-ui_button]:shadow-orange-500/30 [&_.supabase-auth-ui_button]:hover:shadow-xl [&_.supabase-auth-ui_button]:hover:shadow-red-500/40 [&_.supabase-auth-ui_button]:border-0">
               <SupabaseAuth supabaseClient={supabase} appearance={{
               theme: ThemeSupa,
               variables: {
@@ -118,7 +118,7 @@ export const Auth = () => {
                 input: 'bg-card border-border text-foreground',
                 label: 'text-foreground'
               }
-            }} providers={[]} redirectTo={window.location.origin} />
+            }} providers={['google']} redirectTo={window.location.origin} />
             </div>
           </motion.div>
         </div>
