@@ -311,12 +311,16 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
       {/* Search Bar */}
       <div className="sticky top-0 z-10 bg-background border-b p-4 space-y-4">
         {/* Smart Filters */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-center max-w-4xl mx-auto">
           {smartFilterOptions.map((filter) => (
             <Badge
               key={filter.value}
               variant={activeFilter === filter.value ? "default" : "outline"}
-              className="cursor-pointer font-medium"
+              className={`cursor-pointer font-medium transition-colors ${
+                activeFilter === filter.value 
+                  ? "bg-gradient-to-r from-acc-pink to-acc-violet hover:opacity-90 text-white border-0" 
+                  : "border-acc-cyan text-acc-cyan hover:bg-acc-cyan/10"
+              }`}
               onClick={() => setActiveFilter(filter.value)}
             >
               {filter.label}
@@ -325,7 +329,7 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
         </div>
 
         {/* Search Bar */}
-        <div className="relative max-w-2xl">
+        <div className="relative max-w-2xl mx-auto">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             ref={searchInputRef}
@@ -345,7 +349,7 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
         </div>
         
         {/* Keyboard shortcuts hint */}
-        <div className="text-xs text-muted-foreground hidden sm:block">
+        <div className="text-xs text-muted-foreground hidden sm:block text-center max-w-4xl mx-auto">
           Press <kbd className="px-1.5 py-0.5 bg-muted rounded border">Cmd/Ctrl+K</kbd> for command palette, 
           <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">/</kbd> to search,
           <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">↑↓</kbd> to navigate,
@@ -353,12 +357,16 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
         </div>
 
         {/* Type Filter Pills */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap justify-center max-w-4xl mx-auto">
           {typeFilterOptions.map((filter) => (
             <Badge
               key={filter.value}
               variant={activeFilter === filter.value ? "default" : "outline"}
-              className="cursor-pointer"
+              className={`cursor-pointer transition-colors ${
+                activeFilter === filter.value 
+                  ? "bg-acc-violet hover:bg-acc-violet/90 text-white border-0" 
+                  : "border-border hover:bg-accent/50"
+              }`}
               onClick={() => setActiveFilter(filter.value)}
             >
               {filter.label}
