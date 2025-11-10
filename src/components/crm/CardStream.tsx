@@ -10,6 +10,7 @@ import { useKeyboardShortcuts, commonShortcuts } from "@/hooks/useKeyboardShortc
 import { CommandPalette } from "@/components/CommandPalette";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion } from "framer-motion";
 
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 type FilterType = "all" | CardType | "assigned-to-me" | "due-today" | "urgent" | "my-projects";
@@ -45,6 +46,9 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const isMobile = useIsMobile();
+  const smartFilterRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const smartFilterContainerRef = useRef<HTMLDivElement>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
 
   const { data: userData } = useQuery({
     queryKey: ["user"],
@@ -92,6 +96,29 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
   });
 
   const filteredCards = cards;
+
+  // Update indicator for smart filters
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeSmartFilterIndex = smartFilterOptions.findIndex(f => f.value === activeFilter);
+      if (activeSmartFilterIndex !== -1 && smartFilterRefs.current[activeSmartFilterIndex] && smartFilterContainerRef.current) {
+        const btn = smartFilterRefs.current[activeSmartFilterIndex];
+        const container = smartFilterContainerRef.current;
+        if (!btn) return;
+        const btnRect = btn.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        setIndicatorStyle({
+          width: btnRect.width,
+          left: btnRect.left - containerRect.left,
+        });
+      }
+    };
+    
+    updateIndicator();
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [activeFilter]);
 
   // Set up real-time subscriptions
   useEffect(() => {
@@ -310,22 +337,42 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
     <div className="flex flex-col h-full">
       {/* Search Bar */}
       <div className="sticky top-0 z-10 bg-background border-b p-4 space-y-4">
-        {/* Smart Filters */}
-        <div className="flex gap-2 flex-wrap justify-center max-w-4xl mx-auto">
-          {smartFilterOptions.map((filter) => (
-            <Badge
-              key={filter.value}
-              variant={activeFilter === filter.value ? "default" : "outline"}
-              className={`cursor-pointer font-medium transition-colors ${
-                activeFilter === filter.value 
-                  ? "bg-gradient-to-r from-acc-pink to-acc-violet hover:opacity-90 text-white border-0" 
-                  : "border-acc-cyan text-acc-cyan hover:bg-acc-cyan/10"
-              }`}
-              onClick={() => setActiveFilter(filter.value)}
-            >
-              {filter.label}
-            </Badge>
-          ))}
+        {/* Smart Filters - Floating Nav Style */}
+        <div className="flex justify-center">
+          <div 
+            ref={smartFilterContainerRef}
+            className="relative inline-flex items-center bg-card/50 backdrop-blur-sm shadow-lg rounded-full px-1 py-1.5 border border-border max-w-fit"
+          >
+            {smartFilterOptions.map((filter, index) => {
+              const isActive = activeFilter === filter.value;
+              const isSmartFilterActive = smartFilterOptions.some(f => f.value === activeFilter);
+              
+              return (
+                <button
+                  key={filter.value}
+                  ref={(el) => (smartFilterRefs.current[index] = el)}
+                  onClick={() => setActiveFilter(filter.value)}
+                  className={`relative z-10 px-4 py-1.5 text-xs font-medium rounded-full transition-all ${
+                    isActive 
+                      ? "text-white" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+            
+            {/* Sliding Active Indicator */}
+            {smartFilterOptions.some(f => f.value === activeFilter) && (
+              <motion.div
+                animate={indicatorStyle}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                className="absolute top-1.5 bottom-1.5 rounded-full bg-gradient-to-r from-acc-pink to-acc-violet"
+                style={{ width: indicatorStyle.width, left: indicatorStyle.left }}
+              />
+            )}
+          </div>
         </div>
 
         {/* Search Bar */}
