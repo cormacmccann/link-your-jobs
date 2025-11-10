@@ -4,10 +4,17 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { DotMap } from "@/components/ui/dot-map";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 export const Auth = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
   return <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
       <motion.div initial={{
       opacity: 0,
@@ -23,6 +30,7 @@ export const Auth = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-background to-muted">
             {/* Video Background */}
             <video 
+              ref={videoRef}
               autoPlay 
               loop 
               muted 
