@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { DotMap } from "@/components/ui/dot-map";
 import { useState } from "react";
+import kamrokLogo from "@/assets/kamrok-logo.png";
 export const Auth = () => {
   const [isHovered, setIsHovered] = useState(false);
   return <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
@@ -36,7 +37,7 @@ export const Auth = () => {
             }} className="mb-6">
                 
               </motion.div>
-              <motion.h2 initial={{
+              <motion.div initial={{
               opacity: 0,
               y: -20
             }} animate={{
@@ -45,9 +46,9 @@ export const Auth = () => {
             }} transition={{
               delay: 0.7,
               duration: 0.5
-            }} className="text-3xl font-bold mb-2 text-center gradient-text">
-                AI Job Sync
-              </motion.h2>
+            }} className="mb-2 flex justify-center">
+                <img src={kamrokLogo} alt="Kamrok Logo" className="h-16 w-auto" />
+              </motion.div>
               <motion.p initial={{
               opacity: 0,
               y: -20
