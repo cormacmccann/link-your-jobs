@@ -7,6 +7,12 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import Index from "./pages/Index";
+import Services from "./pages/Services";
+import WebDesign from "./pages/services/WebDesign";
+import AppDevelopment from "./pages/services/AppDevelopment";
+import GraphicDesign from "./pages/services/GraphicDesign";
+import VideoDesign from "./pages/services/VideoDesign";
+import Branding from "./pages/services/Branding";
 import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
 import NotFound from "./pages/NotFound";
@@ -73,8 +79,14 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={session ? <Navigate to="/crm/today" /> : <Index />} />
-            <Route path="/auth" element={!session ? <Auth /> : <Navigate to="/crm/today" />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/web-design" element={<WebDesign />} />
+            <Route path="/services/app-development" element={<AppDevelopment />} />
+            <Route path="/services/graphic-design" element={<GraphicDesign />} />
+            <Route path="/services/video-design" element={<VideoDesign />} />
+            <Route path="/services/branding" element={<Branding />} />
             
             {/* CRM Routes */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>

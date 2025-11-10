@@ -99,13 +99,8 @@ const Index = () => {
             
             {/* Right nav items */}
             <nav className="hidden lg:flex items-center gap-6 text-sm flex-1 justify-end">
-              <a href="#services" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Rocket className="w-4 h-4" />
-                Services
-              </a>
-              <a href="#work" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Briefcase className="w-4 h-4" />
-                Our Work
+              <a href="#pricing" className="text-text-2 hover:text-text-1 transition-colors">
+                Pricing
               </a>
               <Button size="sm" className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6" onClick={() => window.location.href = '/auth'}>
                 Connect
@@ -126,6 +121,13 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-bg-0 via-bg-1/20 to-bg-0"></div>
         
         <div className="relative z-10 container mx-auto max-w-6xl text-center space-y-8 py-20">
+          {/* Origin Story Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-bg-1/50 border border-white/10 rounded-full mb-4">
+            <span className="text-sm text-text-2">
+              <span className="text-acc-violet font-gobold">Marketing Agency First,</span> CRM Builders Second
+            </span>
+          </div>
+
           {/* Hero text - all on one line */}
           <h1 className="font-gobold leading-none tracking-tight uppercase">
             <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
@@ -293,23 +295,53 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 border-t border-white/10">
+      <footer className="py-16 px-4 border-t border-white/10 bg-bg-1/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-6">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            {/* Brand Column */}
+            <div className="space-y-4">
               <img src={kamrokLogo} alt="KAMROK" className="h-10" />
+              <p className="text-text-2 text-sm">
+                Full-stack marketing agency building the tools we wish we had.
+              </p>
             </div>
             
-            <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
-              <a href="#" className="text-text-2 hover:text-text-1 transition-colors">Docs</a>
-              <a href="#" className="text-text-2 hover:text-text-1 transition-colors">Status</a>
-              <a href="#" className="text-text-2 hover:text-text-1 transition-colors">Privacy</a>
-              <a href="#" className="text-text-2 hover:text-text-1 transition-colors">Terms</a>
-              <a href="#" className="text-text-2 hover:text-text-1 transition-colors">Changelog</a>
-            </nav>
+            {/* Services Column */}
+            <div className="space-y-4">
+              <h3 className="font-gobold uppercase text-text-1">Services</h3>
+              <nav className="flex flex-col gap-2">
+                <a href="/services/web-design" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Web Design</a>
+                <a href="/services/app-development" className="text-text-2 hover:text-acc-violet transition-colors text-sm">App Development</a>
+                <a href="/services/graphic-design" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Graphic Design</a>
+                <a href="/services/video-design" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Video Design</a>
+                <a href="/services/branding" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Branding</a>
+              </nav>
+            </div>
+            
+            {/* Work Column */}
+            <div className="space-y-4">
+              <h3 className="font-gobold uppercase text-text-1">Our Work</h3>
+              <nav className="flex flex-col gap-2">
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Portfolio</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Case Studies</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Client Reviews</a>
+              </nav>
+            </div>
+            
+            {/* Resources Column */}
+            <div className="space-y-4">
+              <h3 className="font-gobold uppercase text-text-1">Resources</h3>
+              <nav className="flex flex-col gap-2">
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Docs</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Status</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Privacy</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Terms</a>
+                <a href="#" className="text-text-2 hover:text-acc-violet transition-colors text-sm">Changelog</a>
+              </nav>
+            </div>
           </div>
           
-          <div className="mt-8 text-center text-text-2 text-sm">
+          <div className="pt-8 border-t border-white/10 text-center text-text-2 text-sm">
             © 2025 KAMROK. Built for people who want to win work faster.
           </div>
         </div>
