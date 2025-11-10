@@ -64,7 +64,7 @@ export const Auth = () => {
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-foreground">Welcome back</h1>
             <p className="text-muted-foreground mb-8">Sign in to your account</p>
             
-            <div className="[&_.supabase-auth-ui_button]:w-full [&_.supabase-auth-ui_button]:transition-all [&_.supabase-auth-ui_button]:duration-300">
+            <div className="[&_.supabase-auth-ui_button]:w-full [&_.supabase-auth-ui_button]:transition-all [&_.supabase-auth-ui_button]:duration-300 [&_.supabase-auth-ui_button]:bg-gradient-to-r [&_.supabase-auth-ui_button]:from-orange-500 [&_.supabase-auth-ui_button]:via-red-500 [&_.supabase-auth-ui_button]:to-amber-600 [&_.supabase-auth-ui_button]:hover:from-orange-600 [&_.supabase-auth-ui_button]:hover:via-red-600 [&_.supabase-auth-ui_button]:hover:to-amber-700 [&_.supabase-auth-ui_button]:shadow-lg [&_.supabase-auth-ui_button]:shadow-orange-500/30 [&_.supabase-auth-ui_button]:hover:shadow-xl [&_.supabase-auth-ui_button]:hover:shadow-red-500/40">
               <SupabaseAuth
                 supabaseClient={supabase}
                 appearance={{
@@ -72,18 +72,18 @@ export const Auth = () => {
                   variables: {
                     default: {
                       colors: {
-                        brand: 'hsl(201 96% 32%)',
-                        brandAccent: 'hsl(201 96% 45%)',
+                        brand: 'hsl(25 95% 53%)',
+                        brandAccent: 'hsl(0 84% 60%)',
                         inputBackground: 'hsl(var(--card))',
                         inputText: 'hsl(var(--foreground))',
                         inputBorder: 'hsl(var(--border))',
-                        inputBorderFocus: 'hsl(201 96% 32%)',
+                        inputBorderFocus: 'hsl(25 95% 53%)',
                         inputBorderHover: 'hsl(var(--border))',
                       }
                     }
                   },
                   className: {
-                    button: 'bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary transition-all duration-300',
+                    button: 'text-white font-semibold',
                     input: 'bg-card border-border text-foreground',
                     label: 'text-foreground',
                   }
