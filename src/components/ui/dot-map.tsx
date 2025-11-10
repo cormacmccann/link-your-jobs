@@ -14,22 +14,22 @@ export const DotMap = () => {
     {
       start: { x: 100, y: 150, delay: 0 },
       end: { x: 200, y: 80, delay: 2 },
-      color: "hsl(201 96% 32%)",
+      color: "hsl(280 81% 68%)",
     },
     {
       start: { x: 200, y: 80, delay: 2 },
       end: { x: 260, y: 120, delay: 4 },
-      color: "hsl(201 96% 32%)",
+      color: "hsl(330 81% 60%)",
     },
     {
       start: { x: 50, y: 50, delay: 1 },
       end: { x: 150, y: 180, delay: 3 },
-      color: "hsl(201 96% 32%)",
+      color: "hsl(292 84% 61%)",
     },
     {
       start: { x: 280, y: 60, delay: 0.5 },
       end: { x: 180, y: 180, delay: 2.5 },
-      color: "hsl(201 96% 32%)",
+      color: "hsl(330 81% 70%)",
     },
   ];
 
@@ -135,12 +135,12 @@ export const DotMap = () => {
         
         ctx.beginPath();
         ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = "hsl(201 96% 45%)";
+        ctx.fillStyle = "hsl(292 84% 73%)";
         ctx.fill();
         
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = "hsla(201 96% 45% / 0.3)";
+        ctx.fillStyle = "hsla(292 84% 73% / 0.3)";
         ctx.fill();
         
         if (progress === 1) {

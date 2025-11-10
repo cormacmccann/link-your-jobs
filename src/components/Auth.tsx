@@ -21,6 +21,16 @@ export const Auth = () => {
         {/* Left side - Map */}
         <div className="hidden md:block w-1/2 h-[600px] relative overflow-hidden border-r border-border">
           <div className="absolute inset-0 bg-gradient-to-br from-background to-muted">
+            {/* Video Background */}
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-40"
+            >
+              <source src="/kamrok-login-video.mp4" type="video/mp4" />
+            </video>
             <DotMap />
             
             {/* Logo and text overlay */}
