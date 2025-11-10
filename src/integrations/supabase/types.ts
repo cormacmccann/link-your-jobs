@@ -14,6 +14,106 @@ export type Database = {
   }
   public: {
     Tables: {
+      automation_logs: {
+        Row: {
+          actions_executed: Json | null
+          created_at: string | null
+          error_message: string | null
+          execution_time_ms: number | null
+          id: string
+          status: string
+          trigger_data: Json | null
+          workflow_id: string
+        }
+        Insert: {
+          actions_executed?: Json | null
+          created_at?: string | null
+          error_message?: string | null
+          execution_time_ms?: number | null
+          id?: string
+          status: string
+          trigger_data?: Json | null
+          workflow_id: string
+        }
+        Update: {
+          actions_executed?: Json | null
+          created_at?: string | null
+          error_message?: string | null
+          execution_time_ms?: number | null
+          id?: string
+          status?: string
+          trigger_data?: Json | null
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_logs_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "automation_workflows"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      automation_workflows: {
+        Row: {
+          actions: Json
+          conditions: Json | null
+          created_at: string | null
+          created_by: string
+          description: string | null
+          enabled: boolean | null
+          id: string
+          last_run_at: string | null
+          name: string
+          organization_id: string
+          run_count: number | null
+          trigger_config: Json
+          trigger_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          actions?: Json
+          conditions?: Json | null
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          enabled?: boolean | null
+          id?: string
+          last_run_at?: string | null
+          name: string
+          organization_id: string
+          run_count?: number | null
+          trigger_config?: Json
+          trigger_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          actions?: Json
+          conditions?: Json | null
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          enabled?: boolean | null
+          id?: string
+          last_run_at?: string | null
+          name?: string
+          organization_id?: string
+          run_count?: number | null
+          trigger_config?: Json
+          trigger_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_workflows_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaign_recipients: {
         Row: {
           campaign_id: string
@@ -264,6 +364,120 @@ export type Database = {
             columns: ["related_contact_id"]
             isOneToOne: false
             referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_conversations: {
+        Row: {
+          assigned_to: string | null
+          contact_id: string | null
+          created_at: string | null
+          first_message_at: string | null
+          id: string
+          last_message_at: string | null
+          organization_id: string
+          status: string
+          updated_at: string | null
+          visitor_email: string | null
+          visitor_id: string
+          visitor_metadata: Json | null
+          visitor_name: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          first_message_at?: string | null
+          id?: string
+          last_message_at?: string | null
+          organization_id: string
+          status?: string
+          updated_at?: string | null
+          visitor_email?: string | null
+          visitor_id: string
+          visitor_metadata?: Json | null
+          visitor_name?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          first_message_at?: string | null
+          id?: string
+          last_message_at?: string | null
+          organization_id?: string
+          status?: string
+          updated_at?: string | null
+          visitor_email?: string | null
+          visitor_id?: string
+          visitor_metadata?: Json | null
+          visitor_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_conversations_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_conversations_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chat_conversations_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_messages: {
+        Row: {
+          conversation_id: string
+          created_at: string | null
+          file_url: string | null
+          id: string
+          message_content: string
+          message_type: string
+          metadata: Json | null
+          sender_id: string | null
+          sender_type: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string | null
+          file_url?: string | null
+          id?: string
+          message_content: string
+          message_type?: string
+          metadata?: Json | null
+          sender_id?: string | null
+          sender_type: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string | null
+          file_url?: string | null
+          id?: string
+          message_content?: string
+          message_type?: string
+          metadata?: Json | null
+          sender_id?: string | null
+          sender_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "chat_conversations"
             referencedColumns: ["id"]
           },
         ]
@@ -896,6 +1110,157 @@ export type Database = {
           },
         ]
       }
+      invoice_items: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string
+          id: string
+          invoice_id: string
+          quantity: number
+          tax_rate: number | null
+          unit_price: number
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description: string
+          id?: string
+          invoice_id: string
+          quantity?: number
+          tax_rate?: number | null
+          unit_price: number
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string
+          id?: string
+          invoice_id?: string
+          quantity?: number
+          tax_rate?: number | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          currency: string | null
+          customer_email: string
+          customer_name: string
+          discount_amount: number | null
+          due_date: string | null
+          id: string
+          invoice_number: string
+          issue_date: string | null
+          metadata: Json | null
+          notes: string | null
+          organization_id: string
+          paid_at: string | null
+          payment_link: string | null
+          related_company_id: string | null
+          related_contact_id: string | null
+          related_deal_id: string | null
+          status: string
+          stripe_invoice_id: string | null
+          stripe_payment_intent_id: string | null
+          tax_amount: number | null
+          total_amount: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          currency?: string | null
+          customer_email: string
+          customer_name: string
+          discount_amount?: number | null
+          due_date?: string | null
+          id?: string
+          invoice_number: string
+          issue_date?: string | null
+          metadata?: Json | null
+          notes?: string | null
+          organization_id: string
+          paid_at?: string | null
+          payment_link?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          status?: string
+          stripe_invoice_id?: string | null
+          stripe_payment_intent_id?: string | null
+          tax_amount?: number | null
+          total_amount: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          currency?: string | null
+          customer_email?: string
+          customer_name?: string
+          discount_amount?: number | null
+          due_date?: string | null
+          id?: string
+          invoice_number?: string
+          issue_date?: string | null
+          metadata?: Json | null
+          notes?: string | null
+          organization_id?: string
+          paid_at?: string | null
+          payment_link?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          status?: string
+          stripe_invoice_id?: string | null
+          stripe_payment_intent_id?: string | null
+          tax_amount?: number | null
+          total_amount?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_related_deal_id_fkey"
+            columns: ["related_deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       job_sources: {
         Row: {
           created_at: string
@@ -1383,6 +1748,54 @@ export type Database = {
           },
         ]
       }
+      support_email_addresses: {
+        Row: {
+          address_type: string
+          created_at: string | null
+          email_address: string
+          id: string
+          is_active: boolean | null
+          last_used_at: string | null
+          organization_id: string
+          thread_id: string | null
+        }
+        Insert: {
+          address_type: string
+          created_at?: string | null
+          email_address: string
+          id?: string
+          is_active?: boolean | null
+          last_used_at?: string | null
+          organization_id: string
+          thread_id?: string | null
+        }
+        Update: {
+          address_type?: string
+          created_at?: string | null
+          email_address?: string
+          id?: string
+          is_active?: boolean | null
+          last_used_at?: string | null
+          organization_id?: string
+          thread_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_email_addresses_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_email_addresses_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "email_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           assigned_to: string | null
@@ -1568,6 +1981,11 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_invoice_number: { Args: { org_id: string }; Returns: string }
+      generate_thread_email: {
+        Args: { base_domain: string; org_id: string; thread_uuid: string }
+        Returns: string
+      }
       get_user_organizations: {
         Args: { _user_id: string }
         Returns: {

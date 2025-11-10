@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
-import { Copy, Eye } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export function LiveChatWidget() {
   const [config, setConfig] = useState({
@@ -14,21 +15,83 @@ export function LiveChatWidget() {
     widgetColor: "#3b82f6",
     welcomeMessage: "Hi! How can we help you today?",
     position: "bottom-right",
+    organizationId: "",
   });
   const { toast } = useToast();
 
-  const embedCode = `<script>
+  useEffect(() => {
+    loadConfig();
+  }, []);
+
+  const loadConfig = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: orgs } = await supabase.rpc('get_user_organizations', {
+        _user_id: user.id
+      });
+
+      if (orgs && orgs.length > 0) {
+        setConfig(prev => ({ ...prev, organizationId: orgs[0].id }));
+      }
+    } catch (error) {
+      console.error('Error loading config:', error);
+    }
+  };
+
+  const embedCode = `<!-- Kamrok Live Chat Widget -->
+<div id="kamrok-chat-widget"></div>
+<script>
   (function() {
-    var chatWidget = document.createElement('div');
-    chatWidget.id = 'kamrok-chat-widget';
-    chatWidget.style.cssText = 'position:fixed;${config.position.includes('right') ? 'right' : 'left'}:20px;bottom:20px;z-index:9999;';
-    document.body.appendChild(chatWidget);
+    var widgetId = '${config.organizationId}';
+    var ws = new WebSocket('wss://nwmwwpwpokcwwjhgxwxe.supabase.co/functions/v1/chat-websocket?organizationId=' + widgetId);
+    var visitorId = localStorage.getItem('kamrok_visitor_id') || Math.random().toString(36).substring(7);
+    localStorage.setItem('kamrok_visitor_id', visitorId);
     
-    var script = document.createElement('script');
-    script.src = '${window.location.origin}/chat-widget.js';
-    script.dataset.color = '${config.widgetColor}';
-    script.dataset.message = '${config.welcomeMessage}';
-    document.body.appendChild(script);
+    // Create widget UI
+    var bubble = document.createElement('div');
+    bubble.style.cssText = 'position:fixed;${config.position === 'bottom-right' ? 'bottom:20px;right:20px' : 'bottom:20px;left:20px'};width:60px;height:60px;background:${config.widgetColor};border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    bubble.innerHTML = '<svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>';
+    document.body.appendChild(bubble);
+    
+    var chatWindow = document.createElement('div');
+    chatWindow.style.cssText = 'position:fixed;${config.position === 'bottom-right' ? 'bottom:90px;right:20px' : 'bottom:90px;left:20px'};width:350px;height:500px;background:white;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.15);z-index:9998;display:none;flex-direction:column;';
+    chatWindow.innerHTML = '<div style="padding:16px;background:${config.widgetColor};color:white;border-radius:12px 12px 0 0;font-weight:600;">Live Chat</div><div id="messages" style="flex:1;overflow-y:auto;padding:16px;"></div><div style="padding:12px;border-top:1px solid #e5e7eb;"><input type="text" id="messageInput" placeholder="Type a message..." style="width:100%;padding:8px;border:1px solid #e5e7eb;border-radius:6px;"/></div>';
+    document.body.appendChild(chatWindow);
+    
+    var messagesDiv = chatWindow.querySelector('#messages');
+    var messageInput = chatWindow.querySelector('#messageInput');
+    
+    bubble.onclick = function() {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    };
+    
+    ws.onopen = function() {
+      ws.send(JSON.stringify({
+        type: 'init',
+        visitorId: visitorId,
+        metadata: { page: window.location.href, userAgent: navigator.userAgent }
+      }));
+    };
+    
+    ws.onmessage = function(event) {
+      var data = JSON.parse(event.data);
+      if (data.type === 'message') {
+        var msgDiv = document.createElement('div');
+        msgDiv.style.cssText = 'margin-bottom:12px;padding:8px 12px;border-radius:8px;' + (data.sender === 'visitor' ? 'background:#f3f4f6;margin-left:auto;max-width:70%;' : 'background:${config.widgetColor};color:white;max-width:70%;');
+        msgDiv.textContent = data.content;
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+    };
+    
+    messageInput.onkeypress = function(e) {
+      if (e.key === 'Enter' && messageInput.value.trim()) {
+        ws.send(JSON.stringify({ type: 'message', content: messageInput.value }));
+        messageInput.value = '';
+      }
+    };
   })();
 </script>`;
 
@@ -94,14 +157,14 @@ export function LiveChatWidget() {
         </div>
       </div>
 
-      {config.enabled && (
+      {config.enabled && config.organizationId && (
         <Card className="p-4 bg-muted/50">
           <h3 className="font-semibold mb-2">Embed Code</h3>
           <p className="text-sm text-muted-foreground mb-3">
             Copy and paste this code before the closing &lt;/body&gt; tag on your website
           </p>
           <div className="relative">
-            <pre className="bg-background p-3 rounded-md text-xs overflow-x-auto">
+            <pre className="bg-background p-3 rounded-md text-xs overflow-x-auto max-h-[300px]">
               <code>{embedCode}</code>
             </pre>
             <Button
@@ -117,23 +180,14 @@ export function LiveChatWidget() {
         </Card>
       )}
 
-      <div className="flex gap-2">
-        <Button variant="outline" className="flex-1">
-          <Eye className="h-4 w-4 mr-2" />
-          Preview Widget
-        </Button>
-        <Button className="flex-1">Save Settings</Button>
-      </div>
-
       <Card className="p-4 bg-muted/50">
         <h3 className="font-semibold mb-2">Features</h3>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li>✓ Real-time conversations with visitors</li>
+          <li>✓ Real-time WebSocket connections</li>
           <li>✓ Automatic lead capture and CRM integration</li>
           <li>✓ Mobile responsive design</li>
-          <li>✓ Offline message collection</li>
-          <li>✓ File sharing support</li>
-          <li>✓ Chat history and transcripts</li>
+          <li>✓ Chat history and message persistence</li>
+          <li>✓ Agent dashboard for managing conversations</li>
         </ul>
       </Card>
     </div>

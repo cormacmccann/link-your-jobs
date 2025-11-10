@@ -2,8 +2,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, FileText, Zap, BarChart3, Sparkles } from "lucide-react";
 import { LiveChatWidget } from "./mission-control/LiveChatWidget";
+import { LiveChatDashboard } from "./mission-control/LiveChatDashboard";
 import { InvoicesManager } from "./mission-control/InvoicesManager";
 import { AutomationsBuilder } from "./mission-control/AutomationsBuilder";
+import { AutomationCanvas } from "./mission-control/AutomationCanvas";
 import { AnalyticsDashboard } from "./mission-control/AnalyticsDashboard";
 
 export function MissionControl() {
@@ -20,10 +22,14 @@ export function MissionControl() {
       </div>
 
       <Tabs defaultValue="chat" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8">
+        <TabsList className="grid w-full grid-cols-5 mb-8">
           <TabsTrigger value="chat" className="flex items-center gap-2">
             <MessageSquare className="h-4 w-4" />
-            Live Chat
+            Widget Setup
+          </TabsTrigger>
+          <TabsTrigger value="chatDash" className="flex items-center gap-2">
+            <MessageSquare className="h-4 w-4" />
+            Chat Dashboard
           </TabsTrigger>
           <TabsTrigger value="invoices" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
@@ -42,13 +48,27 @@ export function MissionControl() {
         <TabsContent value="chat">
           <Card>
             <CardHeader>
-              <CardTitle>Live Chat</CardTitle>
+              <CardTitle>Live Chat Widget</CardTitle>
               <CardDescription>
-                Website widget with real-time conversations and lead capture
+                Configure and embed live chat on your website
               </CardDescription>
             </CardHeader>
             <CardContent>
               <LiveChatWidget />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="chatDash">
+          <Card>
+            <CardHeader>
+              <CardTitle>Chat Dashboard</CardTitle>
+              <CardDescription>
+                Manage active conversations with visitors
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <LiveChatDashboard />
             </CardContent>
           </Card>
         </TabsContent>
