@@ -31,7 +31,7 @@ export function HeroSection() {
                     <span className="text-6xl md:text-7xl lg:text-8xl font-black text-text-1">1000</span>
                     <span className="text-4xl md:text-5xl lg:text-6xl text-text-1">MONKEYS.</span>
                   </div>
-                  <span className="block text-3xl md:text-4xl lg:text-5xl text-text-1 mt-6">
+                  <span className="block text-3xl md:text-4xl lg:text-5xl text-text-1 mt-2">
                     Just one with the right toolkit.
                   </span>
                 </h1>
