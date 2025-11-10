@@ -1,4 +1,4 @@
-import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, CheckCircle2 } from "lucide-react";
+import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, CheckCircle2, Minimize2, MessagesSquare, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { HeroSection } from "@/components/ui/hero-section";
@@ -42,13 +42,16 @@ const Index = () => {
   }];
   const whyCards = [{
     title: "Less busywork",
-    description: "One clear action per screen. No endless menus or hidden features."
+    description: "One clear action per screen. No endless menus or hidden features.",
+    icon: Minimize2
   }, {
     title: "Chat built in",
-    description: "Website widget + shared inbox means more leads, less context switching."
+    description: "Website widget + shared inbox means more leads, less context switching.",
+    icon: MessagesSquare
   }, {
     title: "Money faster",
-    description: "Quotes → invoices → paid. All integrated, all automatic."
+    description: "Quotes → invoices → paid. All integrated, all automatic.",
+    icon: Coins
   }];
   const pricingPlans = [{
     name: "Starter",
@@ -79,8 +82,15 @@ const Index = () => {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {whyCards.map((card, index) => <GlowCard key={index} glowColor="purple" customSize className="p-6 flex flex-col h-full">
+            {whyCards.map((card, index) => {
+              const Icon = card.icon;
+              return <GlowCard key={index} glowColor="purple" customSize className="p-6 flex flex-col h-full">
                 <div className="flex-1 flex flex-col justify-center">
+                  <div className="mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center">
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
                   <h3 className="text-2xl font-gobold uppercase mb-3 text-text-1">
                     {card.title}
                   </h3>
@@ -88,7 +98,8 @@ const Index = () => {
                     {card.description}
                   </p>
                 </div>
-              </GlowCard>)}
+              </GlowCard>;
+            })}
           </div>
         </div>
       </section>
