@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SwipeableCard } from "./SwipeableCard";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Search, X } from "lucide-react";
+import { Search, X, Grid3x3, FolderKanban, Target, CheckSquare, Headphones, Flag, StickyNote } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useKeyboardShortcuts, commonShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { CommandPalette } from "@/components/CommandPalette";
@@ -15,14 +15,14 @@ import { motion } from "framer-motion";
 type CardType = "project" | "deal" | "task" | "support" | "milestone" | "note";
 type FilterType = "all" | CardType | "assigned-to-me" | "due-today" | "urgent" | "my-projects";
 
-const typeFilterOptions: { value: FilterType; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "project", label: "Projects" },
-  { value: "deal", label: "Deals" },
-  { value: "task", label: "Tasks" },
-  { value: "support", label: "Support" },
-  { value: "milestone", label: "Milestones" },
-  { value: "note", label: "Notes" }
+const typeFilterOptions: { value: FilterType; label: string; icon: React.ReactElement; color: string }[] = [
+  { value: "all", label: "All", icon: <Grid3x3 size={16} />, color: "hsl(var(--muted-foreground))" },
+  { value: "project", label: "Projects", icon: <FolderKanban size={16} />, color: "hsl(210, 70%, 55%)" },
+  { value: "deal", label: "Deals", icon: <Target size={16} />, color: "hsl(145, 65%, 50%)" },
+  { value: "task", label: "Tasks", icon: <CheckSquare size={16} />, color: "hsl(30, 80%, 55%)" },
+  { value: "support", label: "Support", icon: <Headphones size={16} />, color: "hsl(350, 70%, 55%)" },
+  { value: "milestone", label: "Milestones", icon: <Flag size={16} />, color: "hsl(280, 70%, 60%)" },
+  { value: "note", label: "Notes", icon: <StickyNote size={16} />, color: "hsl(50, 80%, 55%)" }
 ];
 
 const smartFilterOptions: { value: FilterType; label: string }[] = [
@@ -49,6 +49,9 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
   const smartFilterRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const smartFilterContainerRef = useRef<HTMLDivElement>(null);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
+  const typeFilterRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const typeFilterContainerRef = useRef<HTMLDivElement>(null);
+  const [typeIndicatorStyle, setTypeIndicatorStyle] = useState({ width: 0, left: 0 });
 
   const { data: userData } = useQuery({
     queryKey: ["user"],
@@ -118,6 +121,29 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
     updateIndicator();
     window.addEventListener("resize", updateIndicator);
     return () => window.removeEventListener("resize", updateIndicator);
+  }, [activeFilter]);
+
+  // Update indicator for type filters
+  useEffect(() => {
+    const updateTypeIndicator = () => {
+      const activeTypeFilterIndex = typeFilterOptions.findIndex(f => f.value === activeFilter);
+      if (activeTypeFilterIndex !== -1 && typeFilterRefs.current[activeTypeFilterIndex] && typeFilterContainerRef.current) {
+        const btn = typeFilterRefs.current[activeTypeFilterIndex];
+        const container = typeFilterContainerRef.current;
+        if (!btn) return;
+        const btnRect = btn.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        setTypeIndicatorStyle({
+          width: btnRect.width,
+          left: btnRect.left - containerRect.left,
+        });
+      }
+    };
+    
+    updateTypeIndicator();
+    window.addEventListener("resize", updateTypeIndicator);
+    return () => window.removeEventListener("resize", updateTypeIndicator);
   }, [activeFilter]);
 
   // Set up real-time subscriptions
@@ -403,22 +429,49 @@ export function CardStream({ organizationId, onCardClick }: CardStreamProps) {
           <kbd className="px-1.5 py-0.5 bg-muted rounded border ml-1">Enter</kbd> to open
         </div>
 
-        {/* Type Filter Pills */}
-        <div className="flex gap-2 flex-wrap justify-center max-w-4xl mx-auto">
-          {typeFilterOptions.map((filter) => (
-            <Badge
-              key={filter.value}
-              variant={activeFilter === filter.value ? "default" : "outline"}
-              className={`cursor-pointer transition-colors ${
-                activeFilter === filter.value 
-                  ? "bg-acc-violet hover:bg-acc-violet/90 text-white border-0" 
-                  : "border-border hover:bg-accent/50"
-              }`}
-              onClick={() => setActiveFilter(filter.value)}
-            >
-              {filter.label}
-            </Badge>
-          ))}
+        {/* Type Filter Pills - Floating Nav Style */}
+        <div className="flex justify-center">
+          <div 
+            ref={typeFilterContainerRef}
+            className="relative inline-flex items-center bg-card/50 backdrop-blur-sm shadow-lg rounded-full px-1 py-1.5 border border-border max-w-fit overflow-x-auto"
+          >
+            {typeFilterOptions.map((filter, index) => {
+              const isActive = activeFilter === filter.value;
+              const activeTypeFilter = typeFilterOptions.find(f => f.value === activeFilter);
+              
+              return (
+                <button
+                  key={filter.value}
+                  ref={(el) => (typeFilterRefs.current[index] = el)}
+                  onClick={() => setActiveFilter(filter.value)}
+                  className={`relative z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full transition-all whitespace-nowrap ${
+                    isActive 
+                      ? "text-white" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <span className={isActive ? "brightness-150" : "opacity-60"}>
+                    {filter.icon}
+                  </span>
+                  <span className="hidden sm:inline">{filter.label}</span>
+                </button>
+              );
+            })}
+            
+            {/* Sliding Active Indicator with dynamic color */}
+            {typeFilterOptions.some(f => f.value === activeFilter) && (
+              <motion.div
+                animate={typeIndicatorStyle}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                className="absolute top-1.5 bottom-1.5 rounded-full"
+                style={{ 
+                  width: typeIndicatorStyle.width, 
+                  left: typeIndicatorStyle.left,
+                  backgroundColor: typeFilterOptions.find(f => f.value === activeFilter)?.color || "hsl(var(--primary))"
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
 
