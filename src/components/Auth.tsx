@@ -5,16 +5,36 @@ import { motion } from "framer-motion";
 import { ArrowRight, Briefcase } from "lucide-react";
 import { DotMap } from "@/components/ui/dot-map";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 export const Auth = () => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 0.5;
     }
   }, []);
+
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        navigate('/crm');
+      }
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (session && event === 'SIGNED_IN') {
+        navigate('/crm');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
   return <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
       <motion.div initial={{
       opacity: 0,
