@@ -1,8 +1,7 @@
-import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, Settings, CheckCircle2, Package, Wrench, Cookie, Puzzle, Rocket, Briefcase } from "lucide-react";
+import { Users, MessageSquare, TrendingUp, FileText, Zap, BarChart3, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { MobileMenu } from "@/components/MobileMenu";
+import { HeroSection } from "@/components/ui/hero-section";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 const Index = () => {
   const coreFeatures = [{
@@ -69,117 +68,8 @@ const Index = () => {
     features: ["Unlimited users", "Everything in Pro", "Multi-brand workspaces", "Roles & permissions", "White-label embeds", "Priority support", "Custom integrations"]
   }];
   return <div className="min-h-screen bg-bg-0 text-text-1">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Left nav items */}
-            <nav className="hidden lg:flex items-center gap-6 text-sm flex-1">
-              <a href="#apps" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Package className="w-4 h-4" />
-                Apps
-              </a>
-              <a href="#tools" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Wrench className="w-4 h-4" />
-                Tools
-              </a>
-              <a href="#extras" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Cookie className="w-4 h-4" />
-                Cookies
-              </a>
-              <a href="#features" className="text-text-2 hover:text-text-1 transition-colors flex items-center gap-2">
-                <Puzzle className="w-4 h-4" />
-                Widgets
-              </a>
-            </nav>
-            
-            {/* Center logo */}
-            <div className="flex-shrink-0">
-              <img src={kamrokLogo} alt="KAMROK" className="h-10" />
-            </div>
-            
-            {/* Right nav items */}
-            <nav className="hidden lg:flex items-center gap-6 text-sm flex-1 justify-end">
-              <a href="#pricing" className="text-text-2 hover:text-text-1 transition-colors">
-                Pricing
-              </a>
-              <Button size="sm" className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6" onClick={() => window.location.href = '/auth'}>
-                Connect
-              </Button>
-            </nav>
-            
-            {/* Mobile menu */}
-            <MobileMenu />
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center px-4 overflow-hidden">
-        {/* Subtle gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg-0 via-bg-1/20 to-bg-0"></div>
-        
-        <div className="relative z-10 container mx-auto max-w-6xl text-center space-y-8 py-20">
-          {/* Origin Story Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-bg-1/50 border border-white/10 rounded-full mb-4">
-            <span className="text-sm text-text-2">
-              <span className="text-acc-violet font-gobold">Marketing Agency First,</span> CRM Builders Second
-            </span>
-          </div>
-
-          {/* Hero text - all on one line */}
-          <h1 className="font-gobold leading-none tracking-tight uppercase">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
-              <span className="text-4xl md:text-6xl lg:text-7xl text-text-1">
-                IT DOESN'T TAKE A
-              </span>
-              <span className="text-6xl md:text-8xl lg:text-9xl font-black text-text-1">
-                1000
-              </span>
-              <span className="text-4xl md:text-6xl lg:text-7xl text-text-1">
-                MONKEYS.
-              </span>
-            </div>
-            <span className="block text-4xl md:text-6xl lg:text-7xl xl:text-8xl text-text-1 mt-6">
-              Just one with the right toolkit.
-            </span>
-          </h1>
-          
-          <div className="space-y-4 pt-8">
-            <p className="text-lg md:text-xl text-text-2 max-w-3xl mx-auto">
-              Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
-            </p>
-            
-            <p className="text-xl md:text-2xl text-text-1 italic">
-              fast, friendly, and totally you
-            </p>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-            <Button size="lg" className="bg-acc-violet hover:bg-acc-violet/90 text-white px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight" onClick={() => window.location.href = '/auth'}>
-              Try the CRM
-            </Button>
-            <Button size="lg" variant="outline" className="border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 px-10 py-6 text-lg rounded-full font-gobold uppercase tracking-tight" onClick={() => document.getElementById('features')?.scrollIntoView({
-            behavior: 'smooth'
-          })}>
-              See how it works
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Scroll Animation Section */}
-      <section className="bg-bg-0 -mt-32 md:-mt-40">
-        <ContainerScroll titleComponent={<></>}>
-          <video 
-            src="/hero-video.mp4" 
-            className="mx-auto rounded-2xl object-cover h-full object-left-top" 
-            muted 
-            playsInline
-            loop
-          />
-        </ContainerScroll>
-      </section>
+      <HeroSection />
 
       {/* Why This CRM */}
       <section className="py-16 px-4">
