@@ -19,19 +19,19 @@ export function HeroSection() {
             <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 lg:block lg:px-12">
               <div className="mx-auto max-w-lg text-center lg:ml-0 lg:max-w-full lg:text-left">
                 {/* Origin Story Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-bg-1/50 border border-white/10 rounded-full mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-bg-1/50 border border-white/10 rounded-full mb-2">
                   <span className="text-sm text-text-2">
                     <span className="text-acc-violet font-gobold">Marketing Agency First,</span> CRM Builders Second
                   </span>
                 </div>
 
-                <h1 className="mt-8 max-w-2xl font-gobold leading-none tracking-tight uppercase">
+                <h1 className="mt-4 max-w-2xl font-gobold leading-none tracking-tight uppercase">
                   <div className="flex flex-row flex-wrap items-baseline justify-center lg:justify-start gap-2 lg:gap-3">
                     <span className="text-4xl md:text-5xl text-text-1 lg:text-5xl">IT DOESN'T TAKE A</span>
                     <span className="text-6xl md:text-7xl lg:text-8xl font-black text-text-1">1000</span>
                     <span className="text-4xl md:text-5xl lg:text-6xl text-text-1">MONKEYS.</span>
                   </div>
-                  <span className="block text-3xl md:text-4xl lg:text-5xl text-text-1 mt-2">
+                  <span className="block text-3xl md:text-4xl lg:text-5xl text-text-1 mt-1">
                     Just one with the right toolkit.
                   </span>
                 </h1>
