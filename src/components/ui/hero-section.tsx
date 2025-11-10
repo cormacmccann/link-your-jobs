@@ -39,7 +39,7 @@ export function HeroSection() {
                   Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
                 </p>
 
-                <p className="mt-1 text-xl md:text-2xl text-text-1 italic">fast, friendly, and totally you</p>
+                
 
                 <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-2 lg:justify-start">
                   <Button asChild size="lg" className="h-12 bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-10 font-gobold uppercase tracking-tight">
