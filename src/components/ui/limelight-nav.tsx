@@ -11,6 +11,7 @@ export type NavItem = {
   icon: React.ReactElement;
   label?: string;
   onClick?: () => void;
+  color?: string;
 };
 
 const defaultNavItems: NavItem[] = [
@@ -72,6 +73,8 @@ export const LimelightNav = ({
     itemOnClick?.();
   };
 
+  const activeColor = items[activeIndex]?.color || 'hsl(var(--primary))';
+
   return (
     <nav className={`relative inline-flex items-center h-16 rounded-lg bg-card text-foreground border px-2 ${className}`}>
       {items.map(({ id, icon, label, onClick }, index) => (
@@ -99,12 +102,21 @@ export const LimelightNav = ({
 
       <div 
         ref={limelightRef}
-        className={`absolute top-0 z-10 w-11 h-[5px] rounded-full bg-primary shadow-[0_50px_15px_var(--primary)] ${
-          isReady ? 'transition-[left] duration-400 ease-in-out' : ''
+        className={`absolute top-0 z-10 w-11 h-[5px] rounded-full transition-all ${
+          isReady ? 'duration-400 ease-in-out' : ''
         } ${limelightClassName}`}
-        style={{ left: '-999px' }}
+        style={{ 
+          left: '-999px',
+          backgroundColor: activeColor,
+          boxShadow: `0 50px 15px ${activeColor}`
+        }}
       >
-        <div className="absolute left-[-30%] top-[5px] w-[160%] h-14 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b from-primary/30 to-transparent pointer-events-none" />
+        <div 
+          className="absolute left-[-30%] top-[5px] w-[160%] h-14 [clip-path:polygon(5%_100%,25%_0,75%_0,95%_100%)] bg-gradient-to-b to-transparent pointer-events-none transition-all duration-400"
+          style={{ 
+            backgroundImage: `linear-gradient(to bottom, ${activeColor}4D, transparent)`
+          }}
+        />
       </div>
     </nav>
   );

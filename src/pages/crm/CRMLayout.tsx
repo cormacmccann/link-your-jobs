@@ -23,16 +23,17 @@ export default function CRMLayout() {
   };
 
   const navLinks = [
-    { to: "/crm/stream", label: "Stream", icon: <Activity /> },
-    { to: "/crm/today", label: "Today", icon: <Calendar /> },
-    { to: "/crm/contacts", label: "Contacts", icon: <Users /> },
-    { to: "/crm/deals", label: "Deals", icon: <Target /> },
+    { to: "/crm/stream", label: "Stream", icon: <Activity />, color: "hsl(180, 70%, 50%)" }, // Cyan
+    { to: "/crm/today", label: "Today", icon: <Calendar />, color: "hsl(280, 70%, 60%)" }, // Purple
+    { to: "/crm/contacts", label: "Contacts", icon: <Users />, color: "hsl(330, 70%, 60%)" }, // Pink
+    { to: "/crm/deals", label: "Deals", icon: <Target />, color: "hsl(45, 90%, 55%)" }, // Orange/Gold
   ];
 
   const navItems = navLinks.map(link => ({
     id: link.to,
     icon: link.icon,
     label: link.label,
+    color: link.color,
     onClick: () => navigate(link.to)
   }));
 
