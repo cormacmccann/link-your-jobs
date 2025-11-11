@@ -2,13 +2,16 @@ import { Auth as SupabaseAuth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
-import { ArrowRight, Briefcase } from "lucide-react";
+import { ArrowRight, Briefcase, AlertCircle, UserPlus } from "lucide-react";
 import { DotMap } from "@/components/ui/dot-map";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
 export const Auth = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [authError, setAuthError] = useState<string>("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
 
@@ -26,10 +29,23 @@ export const Auth = () => {
       }
     });
 
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session && event === 'SIGNED_IN') {
+    // Listen for auth state changes and errors
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        setAuthError("");
         navigate('/crm');
+      } else if (event === 'USER_UPDATED' && session) {
+        setAuthError("");
+      } else if (event === 'PASSWORD_RECOVERY') {
+        setAuthError("");
+      }
+      
+      // Check for sign-in errors
+      if (event === 'SIGNED_OUT') {
+        const { error } = await supabase.auth.getSession();
+        if (error && error.message.includes("Invalid login credentials")) {
+          setAuthError("Invalid credentials. Don't have an account? Sign up below!");
+        }
       }
     });
 
@@ -115,30 +131,53 @@ export const Auth = () => {
           duration: 0.5
         }}>
             <h1 className="text-2xl md:text-3xl font-bold mb-1 text-foreground">Welcome back</h1>
-            <p className="text-muted-foreground mb-8">Sign in to your account</p>
+            <p className="text-muted-foreground mb-4">Sign in to your account</p>
+            
+            {/* Helper text for new users */}
+            <Alert className="mb-4 bg-muted/50 border-border">
+              <UserPlus className="h-4 w-4" />
+              <AlertDescription className="text-sm">
+                New here? Click "Sign up" below to create your account
+              </AlertDescription>
+            </Alert>
+
+            {/* Auth error message */}
+            {authError && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription className="text-sm">
+                  {authError}
+                </AlertDescription>
+              </Alert>
+            )}
             
             <div className="[&_.supabase-auth-ui_button]:w-full [&_.supabase-auth-ui_button]:transition-all [&_.supabase-auth-ui_button]:duration-300 [&_.supabase-auth-ui_button]:bg-gradient-to-r [&_.supabase-auth-ui_button]:from-orange-500 [&_.supabase-auth-ui_button]:via-red-500 [&_.supabase-auth-ui_button]:to-amber-600 [&_.supabase-auth-ui_button]:hover:from-orange-600 [&_.supabase-auth-ui_button]:hover:via-red-600 [&_.supabase-auth-ui_button]:hover:to-amber-700 [&_.supabase-auth-ui_button]:shadow-lg [&_.supabase-auth-ui_button]:shadow-orange-500/30 [&_.supabase-auth-ui_button]:hover:shadow-xl [&_.supabase-auth-ui_button]:hover:shadow-red-500/40 [&_.supabase-auth-ui_button]:border-0">
-              <SupabaseAuth supabaseClient={supabase} appearance={{
-              theme: ThemeSupa,
-              variables: {
-                default: {
-                  colors: {
-                    brand: 'hsl(25 95% 53%)',
-                    brandAccent: 'hsl(0 84% 60%)',
-                    inputBackground: 'hsl(var(--card))',
-                    inputText: 'hsl(var(--foreground))',
-                    inputBorder: 'hsl(var(--border))',
-                    inputBorderFocus: 'hsl(25 95% 53%)',
-                    inputBorderHover: 'hsl(var(--border))'
+              <SupabaseAuth 
+                supabaseClient={supabase} 
+                appearance={{
+                  theme: ThemeSupa,
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: 'hsl(25 95% 53%)',
+                        brandAccent: 'hsl(0 84% 60%)',
+                        inputBackground: 'hsl(var(--card))',
+                        inputText: 'hsl(var(--foreground))',
+                        inputBorder: 'hsl(var(--border))',
+                        inputBorderFocus: 'hsl(25 95% 53%)',
+                        inputBorderHover: 'hsl(var(--border))'
+                      }
+                    }
+                  },
+                  className: {
+                    button: 'text-white font-semibold',
+                    input: 'bg-card border-border text-foreground',
+                    label: 'text-foreground'
                   }
-                }
-              },
-              className: {
-                button: 'text-white font-semibold',
-                input: 'bg-card border-border text-foreground',
-                label: 'text-foreground'
-              }
-            }} providers={['google']} redirectTo={window.location.origin} />
+                }} 
+                providers={['google']} 
+                redirectTo={window.location.origin}
+              />
             </div>
           </motion.div>
         </div>
