@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { MetricCard } from "@/components/crm/MetricCard";
 import { Users, Building2, DollarSign, FolderKanban, ListTodo, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 import { format } from "date-fns";
+import { UpcomingTasksWidget } from "@/components/crm/UpcomingTasksWidget";
 
 export default function Dashboard() {
   const currentOrgId = localStorage.getItem("currentOrgId");
@@ -314,6 +315,11 @@ export default function Dashboard() {
             </div>
           </div>
         </Card>
+      </div>
+
+      {/* Upcoming Tasks Footer Widget */}
+      <div className="mt-8">
+        <UpcomingTasksWidget />
       </div>
     </div>
   );

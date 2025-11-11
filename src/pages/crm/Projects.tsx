@@ -15,6 +15,7 @@ import { ProjectToDos } from "@/components/crm/ProjectToDos";
 import { ProjectDocs } from "@/components/crm/ProjectDocs";
 import { ProjectSchedule } from "@/components/crm/ProjectSchedule";
 import { ProjectMessages } from "@/components/crm/ProjectMessages";
+import { ProjectActivityFeed } from "@/components/crm/ProjectActivityFeed";
 
 export default function Projects() {
   const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
@@ -188,6 +189,10 @@ export default function Projects() {
                     <MessageSquare className="h-4 w-4 mr-2" />
                     <span className="hidden sm:inline">Messages</span>
                   </TabsTrigger>
+                  <TabsTrigger value="activity">
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    <span className="hidden sm:inline">Activity</span>
+                  </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="overview">
@@ -208,6 +213,10 @@ export default function Projects() {
 
                 <TabsContent value="messages">
                   <ProjectMessages projectId={selectedProject} orgId={currentOrgId} />
+                </TabsContent>
+
+                <TabsContent value="activity">
+                  <ProjectActivityFeed projectId={selectedProject} orgId={currentOrgId} />
                 </TabsContent>
               </Tabs>
             </div>

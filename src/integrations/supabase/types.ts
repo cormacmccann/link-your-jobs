@@ -482,6 +482,67 @@ export type Database = {
           },
         ]
       }
+      client_portals: {
+        Row: {
+          client_company_id: string | null
+          client_contact_id: string | null
+          created_at: string
+          created_by: string
+          id: string
+          is_active: boolean | null
+          organization_id: string
+          portal_name: string
+          updated_at: string
+          welcome_message: string | null
+        }
+        Insert: {
+          client_company_id?: string | null
+          client_contact_id?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_active?: boolean | null
+          organization_id: string
+          portal_name: string
+          updated_at?: string
+          welcome_message?: string | null
+        }
+        Update: {
+          client_company_id?: string | null
+          client_contact_id?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_active?: boolean | null
+          organization_id?: string
+          portal_name?: string
+          updated_at?: string
+          welcome_message?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_portals_client_company_id_fkey"
+            columns: ["client_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_portals_client_contact_id_fkey"
+            columns: ["client_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_portals_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           created_at: string
@@ -1569,6 +1630,108 @@ export type Database = {
           },
         ]
       }
+      portal_responses: {
+        Row: {
+          completed_at: string | null
+          contact_id: string | null
+          created_at: string
+          id: string
+          portal_id: string
+          response_data: Json | null
+          section_id: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          contact_id?: string | null
+          created_at?: string
+          id?: string
+          portal_id: string
+          response_data?: Json | null
+          section_id: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          contact_id?: string | null
+          created_at?: string
+          id?: string
+          portal_id?: string
+          response_data?: Json | null
+          section_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_responses_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_responses_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_responses_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "portal_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_sections: {
+        Row: {
+          content: Json | null
+          created_at: string
+          description: string | null
+          id: string
+          is_required: boolean | null
+          portal_id: string
+          position: number | null
+          section_type: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_required?: boolean | null
+          portal_id: string
+          position?: number | null
+          section_type: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_required?: boolean | null
+          portal_id?: string
+          position?: number | null
+          section_type?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_sections_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -1706,6 +1869,70 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_posts: {
+        Row: {
+          assigned_to: string | null
+          attachments: Json | null
+          content: string
+          created_at: string
+          created_by: string
+          id: string
+          organization_id: string
+          parent_post_id: string | null
+          post_type: string | null
+          project_id: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          attachments?: Json | null
+          content: string
+          created_at?: string
+          created_by: string
+          id?: string
+          organization_id: string
+          parent_post_id?: string | null
+          post_type?: string | null
+          project_id: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          attachments?: Json | null
+          content?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          organization_id?: string
+          parent_post_id?: string | null
+          post_type?: string | null
+          project_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_posts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_posts_parent_post_id_fkey"
+            columns: ["parent_post_id"]
+            isOneToOne: false
+            referencedRelation: "project_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_posts_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
             referencedColumns: ["id"]
           },
         ]
@@ -2010,7 +2237,7 @@ export type Database = {
       sync_all_linkedin_jobs: { Args: never; Returns: undefined }
     }
     Enums: {
-      app_role: "owner" | "admin" | "member" | "guest"
+      app_role: "owner" | "admin" | "member" | "guest" | "super_admin"
       card_priority_enum: "urgent" | "high" | "normal" | "low"
       card_status_enum: "active" | "completed" | "archived" | "cancelled"
       card_type_enum:
@@ -2163,7 +2390,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["owner", "admin", "member", "guest"],
+      app_role: ["owner", "admin", "member", "guest", "super_admin"],
       card_priority_enum: ["urgent", "high", "normal", "low"],
       card_status_enum: ["active", "completed", "archived", "cancelled"],
       card_type_enum: [

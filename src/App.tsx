@@ -42,6 +42,9 @@ import Insights from "./pages/crm/Insights";
 import Extras from "./pages/crm/Extras";
 import Settings from "./pages/crm/Settings";
 import MissionControl from "./pages/crm/MissionControl";
+import SuperAdmin from "./pages/crm/SuperAdmin";
+import ClientPortals from "./pages/crm/ClientPortals";
+import TeamSettings from "./pages/crm/TeamSettings";
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
 import CookieConsentManager from "./pages/CookieConsentManager";
@@ -122,6 +125,9 @@ const App = () => {
               <Route path="extras" element={<Extras />} />
               <Route path="settings" element={<Settings />} />
               <Route path="mission-control" element={<MissionControl />} />
+              <Route path="super-admin" element={<SuperAdmin />} />
+              <Route path="client-portals" element={<ClientPortals />} />
+              <Route path="team" element={<TeamSettings />} />
               {/* Legacy routes */}
               <Route path="stream" element={<Stream />} />
               <Route path="dashboard" element={<Dashboard />} />
