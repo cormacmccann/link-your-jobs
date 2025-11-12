@@ -89,6 +89,10 @@ serve(async (req) => {
       contact = newContact;
     }
 
+    if (!contact) {
+      throw new Error('Failed to create or find contact');
+    }
+
     // Generate ticket number
     const { count } = await supabase
       .from('cards')

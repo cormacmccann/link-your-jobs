@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { Plus, Trash2, Mail } from "lucide-react";
+import { OrganizationBranding } from "@/components/crm/OrganizationBranding";
 import {
   Dialog,
   DialogContent,
@@ -95,6 +96,7 @@ export default function Settings() {
       <Tabs defaultValue="workspace" className="space-y-6">
         <TabsList>
           <TabsTrigger value="workspace">Workspace</TabsTrigger>
+          <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="team">Team</TabsTrigger>
           <TabsTrigger value="profile">Profile</TabsTrigger>
         </TabsList>
@@ -119,6 +121,10 @@ export default function Settings() {
               </div>
             )}
           </Card>
+        </TabsContent>
+
+        <TabsContent value="branding" className="space-y-6">
+          <OrganizationBranding />
         </TabsContent>
 
         <TabsContent value="team" className="space-y-6">

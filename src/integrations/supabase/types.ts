@@ -484,38 +484,65 @@ export type Database = {
       }
       client_portals: {
         Row: {
+          allow_support_tickets: boolean | null
           client_company_id: string | null
           client_contact_id: string | null
           created_at: string
           created_by: string
+          custom_domain: string | null
           id: string
           is_active: boolean | null
+          logo_url: string | null
           organization_id: string
           portal_name: string
+          primary_color: string | null
+          secondary_color: string | null
+          show_products: boolean | null
+          show_services: boolean | null
+          support_ticket_limit: number | null
+          support_tickets_used: number | null
           updated_at: string
           welcome_message: string | null
         }
         Insert: {
+          allow_support_tickets?: boolean | null
           client_company_id?: string | null
           client_contact_id?: string | null
           created_at?: string
           created_by: string
+          custom_domain?: string | null
           id?: string
           is_active?: boolean | null
+          logo_url?: string | null
           organization_id: string
           portal_name: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          show_products?: boolean | null
+          show_services?: boolean | null
+          support_ticket_limit?: number | null
+          support_tickets_used?: number | null
           updated_at?: string
           welcome_message?: string | null
         }
         Update: {
+          allow_support_tickets?: boolean | null
           client_company_id?: string | null
           client_contact_id?: string | null
           created_at?: string
           created_by?: string
+          custom_domain?: string | null
           id?: string
           is_active?: boolean | null
+          logo_url?: string | null
           organization_id?: string
           portal_name?: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          show_products?: boolean | null
+          show_services?: boolean | null
+          support_ticket_limit?: number | null
+          support_tickets_used?: number | null
           updated_at?: string
           welcome_message?: string | null
         }
@@ -1496,22 +1523,37 @@ export type Database = {
       }
       organizations: {
         Row: {
+          company_description: string | null
           created_at: string
           id: string
+          logo_url: string | null
           name: string
+          primary_color: string | null
+          secondary_color: string | null
           updated_at: string
+          website_url: string | null
         }
         Insert: {
+          company_description?: string | null
           created_at?: string
           id?: string
+          logo_url?: string | null
           name: string
+          primary_color?: string | null
+          secondary_color?: string | null
           updated_at?: string
+          website_url?: string | null
         }
         Update: {
+          company_description?: string | null
           created_at?: string
           id?: string
+          logo_url?: string | null
           name?: string
+          primary_color?: string | null
+          secondary_color?: string | null
           updated_at?: string
+          website_url?: string | null
         }
         Relationships: []
       }
@@ -1630,6 +1672,175 @@ export type Database = {
           },
         ]
       }
+      portal_products: {
+        Row: {
+          created_at: string | null
+          currency: string | null
+          display_order: number | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          organization_id: string
+          portal_id: string
+          price: number | null
+          product_description: string | null
+          product_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          currency?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          organization_id: string
+          portal_id: string
+          price?: number | null
+          product_description?: string | null
+          product_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          organization_id?: string
+          portal_id?: string
+          price?: number | null
+          product_description?: string | null
+          product_name?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_products_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_products_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_questionnaire_responses: {
+        Row: {
+          client_contact_id: string | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          portal_id: string
+          questionnaire_id: string
+          responses: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          client_contact_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          portal_id: string
+          questionnaire_id: string
+          responses?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          client_contact_id?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          portal_id?: string
+          questionnaire_id?: string
+          responses?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_questionnaire_responses_client_contact_id_fkey"
+            columns: ["client_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_questionnaire_responses_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_questionnaire_responses_questionnaire_id_fkey"
+            columns: ["questionnaire_id"]
+            isOneToOne: false
+            referencedRelation: "portal_questionnaires"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_questionnaires: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          id: string
+          is_required: boolean | null
+          organization_id: string
+          portal_id: string
+          questions: Json | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_required?: boolean | null
+          organization_id: string
+          portal_id: string
+          questions?: Json | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_required?: boolean | null
+          organization_id?: string
+          portal_id?: string
+          questions?: Json | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_questionnaires_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_questionnaires_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_responses: {
         Row: {
           completed_at: string | null
@@ -1725,6 +1936,69 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "portal_sections_portal_id_fkey"
+            columns: ["portal_id"]
+            isOneToOne: false
+            referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_services: {
+        Row: {
+          created_at: string | null
+          currency: string | null
+          display_order: number | null
+          duration: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          organization_id: string
+          portal_id: string
+          price: number | null
+          service_description: string | null
+          service_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          currency?: string | null
+          display_order?: number | null
+          duration?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          organization_id: string
+          portal_id: string
+          price?: number | null
+          service_description?: string | null
+          service_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          currency?: string | null
+          display_order?: number | null
+          duration?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          organization_id?: string
+          portal_id?: string
+          price?: number | null
+          service_description?: string | null
+          service_name?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_services_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_services_portal_id_fkey"
             columns: ["portal_id"]
             isOneToOne: false
             referencedRelation: "client_portals"

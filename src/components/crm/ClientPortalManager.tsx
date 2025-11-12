@@ -10,13 +10,15 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, Users, ExternalLink } from "lucide-react";
+import { Plus, Edit, Trash2, Users, ExternalLink, Settings } from "lucide-react";
+import { PortalBuilder } from "@/components/portals/PortalBuilder";
 
 export function ClientPortalManager() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const currentOrgId = localStorage.getItem("currentOrgId");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedPortalId, setSelectedPortalId] = useState<string | null>(null);
   const [newPortal, setNewPortal] = useState({
     portal_name: "",
     welcome_message: "",
@@ -110,12 +112,26 @@ export function ClientPortalManager() {
     );
   }
 
+  if (selectedPortalId) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Configure Portal</h2>
+          <Button variant="outline" onClick={() => setSelectedPortalId(null)}>
+            Back to Portals
+          </Button>
+        </div>
+        <PortalBuilder portalId={selectedPortalId} />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Client Onboarding Portals</h2>
-          <p className="text-muted-foreground">Create custom portals for client onboarding</p>
+          <p className="text-muted-foreground">Create branded portals for client onboarding with products, services, and support</p>
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -247,8 +263,12 @@ export function ClientPortalManager() {
                     <ExternalLink className="h-4 w-4 mr-1" />
                     Open
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Edit className="h-4 w-4" />
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setSelectedPortalId(portal.id)}
+                  >
+                    <Settings className="h-4 w-4" />
                   </Button>
                   <Button variant="outline" size="sm">
                     <Trash2 className="h-4 w-4" />
