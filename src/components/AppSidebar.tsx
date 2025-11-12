@@ -1,4 +1,4 @@
-import { Zap, Users, MessageSquare, Handshake, FileText, Calendar, Workflow, TrendingUp, Package, Settings, Building2, ChevronDown, Shield, UserPlus, Globe } from "lucide-react";
+import { Zap, Users, MessageSquare, Handshake, FileText, Calendar, Workflow, TrendingUp, Package, Settings, Building2, ChevronDown, Shield, UserPlus, Globe, Star } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -45,6 +45,7 @@ const mainNav = [
   { title: "Mission Control", url: "/crm/mission-control", icon: Zap },
   { title: "Client Portals", url: "/crm/client-portals", icon: Globe },
   { title: "Team", url: "/crm/team", icon: UserPlus },
+  { title: "Reviews", url: "/crm/reviews", icon: Star },
   { title: "Super Admin", url: "/crm/super-admin", icon: Shield },
   { title: "Extras", url: "/crm/extras", icon: Package },
   { title: "Settings", url: "/crm/settings", icon: Settings },

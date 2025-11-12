@@ -1975,6 +1975,65 @@ export type Database = {
           },
         ]
       }
+      reviews: {
+        Row: {
+          content: string
+          created_at: string
+          helpful_count: number | null
+          id: string
+          organization_id: string | null
+          rating: number
+          review_date: string
+          reviewer_avatar: string | null
+          reviewer_name: string
+          source: string
+          source_url: string | null
+          title: string | null
+          updated_at: string
+          verified: boolean | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          helpful_count?: number | null
+          id?: string
+          organization_id?: string | null
+          rating: number
+          review_date?: string
+          reviewer_avatar?: string | null
+          reviewer_name: string
+          source?: string
+          source_url?: string | null
+          title?: string | null
+          updated_at?: string
+          verified?: boolean | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          helpful_count?: number | null
+          id?: string
+          organization_id?: string | null
+          rating?: number
+          review_date?: string
+          reviewer_avatar?: string | null
+          reviewer_name?: string
+          source?: string
+          source_url?: string | null
+          title?: string | null
+          updated_at?: string
+          verified?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       support_email_addresses: {
         Row: {
           address_type: string
