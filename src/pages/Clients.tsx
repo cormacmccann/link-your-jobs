@@ -1,9 +1,31 @@
-import { Building2, Star, TrendingUp, Users } from "lucide-react";
+import { Building2, Star, TrendingUp, Users, ExternalLink, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import kamrokLogo from "@/assets/kamrok-logo.png";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { HeroParallax } from "@/components/ui/hero-parallax";
+import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const Clients = () => {
+  const [selectedIndustry, setSelectedIndustry] = useState<string>("all");
+
+  const { data: portfolioItems } = useQuery({
+    queryKey: ["published-portfolio"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("portfolio_items")
+        .select("*")
+        .eq("is_published", true)
+        .order("is_featured", { ascending: false })
+        .order("display_order");
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const testimonials = [
     {
       company: "TechCorp Inc",
@@ -26,10 +48,29 @@ const Clients = () => {
   ];
 
   const stats = [
-    { icon: Users, value: "500+", label: "Happy Clients" },
+    { icon: Users, value: portfolioItems?.length || "16+", label: "Happy Clients" },
     { icon: TrendingUp, value: "98%", label: "Satisfaction Rate" },
     { icon: Star, value: "4.9/5", label: "Average Rating" }
   ];
+
+  // Get unique industries for filtering
+  const industries = ["all", ...new Set(portfolioItems?.map(item => item.industry).filter(Boolean) || [])];
+
+  // Filter portfolio items by industry
+  const filteredPortfolio = selectedIndustry === "all" 
+    ? portfolioItems 
+    : portfolioItems?.filter(item => item.industry === selectedIndustry);
+
+  // Prepare products for HeroParallax with featured items first
+  const parallaxProducts = (portfolioItems || [])
+    .map(item => ({
+      title: item.client_name,
+      link: item.client_url,
+      thumbnail: item.screenshots?.[0] || null,
+      isFeatured: item.is_featured,
+      clientName: item.client_name,
+    }))
+    .slice(0, 15); // Limit to 15 for parallax
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
@@ -46,18 +87,23 @@ const Clients = () => {
         </div>
       </header>
 
+      {/* Hero Parallax */}
+      {parallaxProducts.length >= 15 && (
+        <HeroParallax products={parallaxProducts} />
+      )}
+
+      {/* Stats Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-7xl font-gobold uppercase tracking-tight mb-6">
-              Trusted by Agencies
+              Trusted by Businesses Worldwide
             </h1>
             <p className="text-xl text-text-2 max-w-3xl mx-auto">
-              Marketing agencies and creative studios choose KAMROK to manage clients and close deals faster
+              From startups to established enterprises, our clients choose KAMROK for results that matter
             </p>
           </div>
 
-          {/* Stats */}
           <div className="grid md:grid-cols-3 gap-6 mb-20">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
@@ -71,20 +117,118 @@ const Clients = () => {
             })}
           </div>
 
-          {/* Testimonials */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((item, index) => (
-              <GlowCard key={index} glowColor="blue" customSize className="p-6">
-                <div className="mb-4">
-                  <Building2 className="w-8 h-8 text-accent-cyan" />
+          {/* Industry Filter */}
+          <div className="flex items-center gap-4 mb-8 flex-wrap">
+            <div className="flex items-center gap-2 text-text-2">
+              <Filter className="w-5 h-5" />
+              <span className="font-medium">Filter by Industry:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {industries.map((industry) => (
+                <Button
+                  key={industry}
+                  variant={selectedIndustry === industry ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedIndustry(industry)}
+                  className={selectedIndustry === industry 
+                    ? "bg-acc-violet hover:bg-acc-violet/90 text-white" 
+                    : "text-text-2 hover:text-text-1 hover:border-accent-violet/50"
+                  }
+                >
+                  {industry === "all" ? "All Industries" : industry}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Portfolio Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            {filteredPortfolio?.map((item) => (
+              <a
+                key={item.id}
+                href={item.client_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
+              >
+                {item.is_featured && (
+                  <div className="absolute top-4 right-4 z-20">
+                    <Badge className="bg-gradient-to-r from-accent-pink to-accent-violet text-white border-0 shadow-lg shadow-accent-violet/50">
+                      <Star className="w-3 h-3 mr-1 fill-current" />
+                      Featured Work
+                    </Badge>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-pink/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  {/* Screenshot or Placeholder */}
+                  <div className="w-full h-48 overflow-hidden bg-bg-2">
+                    {item.screenshots?.[0] ? (
+                      <img
+                        src={item.screenshots[0]}
+                        alt={`${item.client_name} website`}
+                        className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300"
+                      />
+                    ) : (
+                      <PortfolioPlaceholder clientName={item.client_name} className="w-full h-full" />
+                    )}
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6">
+                    {item.logo_url && (
+                      <div className="mb-4 h-12 flex items-center justify-center">
+                        <img
+                          src={item.logo_url}
+                          alt={item.client_name}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
+                          {item.client_name}
+                        </h3>
+                        {item.industry && (
+                          <p className="text-sm text-text-2">{item.industry}</p>
+                        )}
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-text-2 group-hover:text-accent-violet transition-colors flex-shrink-0" />
+                    </div>
+                    {item.description && (
+                      <p className="text-sm text-text-2 mb-3 line-clamp-2">{item.description}</p>
+                    )}
+                    {item.project_type && (
+                      <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
+                        {item.project_type}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <p className="text-text-2 mb-4 italic">"{item.quote}"</p>
-                <div className="border-t border-white/10 pt-4">
-                  <div className="font-gobold text-text-1">{item.author}</div>
-                  <div className="text-sm text-text-2">{item.role}, {item.company}</div>
-                </div>
-              </GlowCard>
+              </a>
             ))}
+          </div>
+
+          {/* Testimonials */}
+          <div className="mb-20">
+            <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight text-center mb-12">
+              What Our Clients Say
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((item, index) => (
+                <GlowCard key={index} glowColor="blue" customSize className="p-6">
+                  <div className="mb-4">
+                    <Building2 className="w-8 h-8 text-accent-cyan" />
+                  </div>
+                  <p className="text-text-2 mb-4 italic">"{item.quote}"</p>
+                  <div className="border-t border-white/10 pt-4">
+                    <div className="font-gobold text-text-1">{item.author}</div>
+                    <div className="text-sm text-text-2">{item.role}, {item.company}</div>
+                  </div>
+                </GlowCard>
+              ))}
+            </div>
           </div>
         </div>
       </section>

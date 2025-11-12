@@ -1,4 +1,4 @@
-import { Monitor, Zap, Smartphone, BarChart3, ArrowRight, ExternalLink, Sparkles } from "lucide-react";
+import { Monitor, Zap, Smartphone, BarChart3, ArrowRight, ExternalLink, Sparkles, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 import { HeroParallax } from "@/components/ui/hero-parallax";
+import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
+import { Badge } from "@/components/ui/badge";
 
 const WebDesign = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const WebDesign = () => {
         .from("portfolio_items")
         .select("*")
         .eq("is_published", true)
+        .order("is_featured", { ascending: false })
         .order("display_order");
       if (error) throw error;
       return data;
@@ -73,14 +76,16 @@ const WebDesign = () => {
       }))
     : fallbackPortfolio;
 
-  // Prepare products for HeroParallax - use screenshots if available, otherwise use a placeholder
-  const parallaxProducts = portfolio
-    .filter(item => item.screenshots && item.screenshots.length > 0)
+  // Prepare products for HeroParallax with featured items first and placeholders
+  const parallaxProducts = (portfolioItems || [])
     .map(item => ({
-      title: item.name,
-      link: item.url,
-      thumbnail: item.screenshots[0],
-    }));
+      title: item.client_name,
+      link: item.client_url,
+      thumbnail: item.screenshots?.[0] || null,
+      isFeatured: item.is_featured,
+      clientName: item.client_name,
+    }))
+    .slice(0, 15);
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
@@ -179,26 +184,36 @@ const WebDesign = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolio.map((client, index) => (
+            {(portfolioItems || []).map((client, index) => (
               <a
                 key={index}
-                href={client.url}
+                href={client.client_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
               >
+                {client.is_featured && (
+                  <div className="absolute top-4 right-4 z-20">
+                    <Badge className="bg-gradient-to-r from-accent-pink to-accent-violet text-white border-0 shadow-lg shadow-accent-violet/50">
+                      <Star className="w-3 h-3 mr-1 fill-current" />
+                      Featured Work
+                    </Badge>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-pink/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative z-10">
-                  {/* Screenshot Preview */}
-                  {client.screenshots && client.screenshots.length > 0 && (
-                    <div className="w-full h-48 overflow-hidden bg-bg-2">
+                  {/* Screenshot Preview or Placeholder */}
+                  <div className="w-full h-48 overflow-hidden bg-bg-2">
+                    {client.screenshots?.[0] ? (
                       <img
                         src={client.screenshots[0]}
-                        alt={`${client.name} website`}
+                        alt={`${client.client_name} website`}
                         className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <PortfolioPlaceholder clientName={client.client_name} className="w-full h-full" />
+                    )}
+                  </div>
                   
                   {/* Content */}
                   <div className="p-6">
@@ -206,7 +221,7 @@ const WebDesign = () => {
                       <div className="mb-4 h-12 flex items-center justify-center">
                         <img
                           src={client.logo_url}
-                          alt={client.name}
+                          alt={client.client_name}
                           className="max-h-full max-w-full object-contain"
                         />
                       </div>
@@ -214,7 +229,7 @@ const WebDesign = () => {
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
-                          {client.name}
+                          {client.client_name}
                         </h3>
                         {client.industry && (
                           <p className="text-sm text-text-2">{client.industry}</p>

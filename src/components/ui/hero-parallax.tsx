@@ -6,6 +6,9 @@ import {
   useSpring,
   MotionValue,
 } from "framer-motion";
+import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
+import { Star } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export const HeroParallax = ({
   products,
@@ -13,7 +16,9 @@ export const HeroParallax = ({
   products: {
     title: string;
     link: string;
-    thumbnail: string;
+    thumbnail: string | null;
+    isFeatured?: boolean;
+    clientName?: string;
   }[];
 }) => {
   const firstRow = products.slice(0, 5);
@@ -120,7 +125,9 @@ export const ProductCard = ({
   product: {
     title: string;
     link: string;
-    thumbnail: string;
+    thumbnail: string | null;
+    isFeatured?: boolean;
+    clientName?: string;
   };
   translate: MotionValue<number>;
 }) => {
@@ -135,17 +142,32 @@ export const ProductCard = ({
       key={product.title}
       className="group/product h-96 w-[30rem] relative flex-shrink-0"
     >
+      {product.isFeatured && (
+        <div className="absolute top-4 right-4 z-20">
+          <Badge className="bg-gradient-to-r from-accent-pink to-accent-violet text-white border-0 shadow-lg shadow-accent-violet/50">
+            <Star className="w-3 h-3 mr-1 fill-current" />
+            Featured
+          </Badge>
+        </div>
+      )}
       <a
         href={product.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="block group-hover/product:shadow-2xl"
+        className="block group-hover/product:shadow-2xl rounded-xl overflow-hidden h-full"
       >
-        <img
-          src={product.thumbnail}
-          className="object-cover object-left-top absolute h-full w-full inset-0 rounded-xl"
-          alt={product.title}
-        />
+        {product.thumbnail ? (
+          <img
+            src={product.thumbnail}
+            className="object-cover object-left-top absolute h-full w-full inset-0 rounded-xl"
+            alt={product.title}
+          />
+        ) : (
+          <PortfolioPlaceholder 
+            clientName={product.clientName || product.title} 
+            className="absolute h-full w-full inset-0 rounded-xl"
+          />
+        )}
       </a>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none rounded-xl transition-opacity duration-300"></div>
       <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white font-gobold uppercase text-lg transition-opacity duration-300">
