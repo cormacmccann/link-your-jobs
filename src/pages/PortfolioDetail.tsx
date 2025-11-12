@@ -103,11 +103,11 @@ export default function PortfolioDetail() {
               </GlowCard>
             )}
 
-            {item.preliminary_gallery && item.preliminary_gallery.length > 0 && (
+            {(item as any).preliminary_gallery && (item as any).preliminary_gallery.length > 0 && (
               <div>
                 <h3 className="text-lg font-semibold mb-4">Preliminary Work</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {item.preliminary_gallery.map((image: string, index: number) => (
+                  {(item as any).preliminary_gallery.map((image: string, index: number) => (
                     <GlowCard key={index} className="overflow-hidden">
                       <img 
                         src={image}
@@ -160,11 +160,11 @@ export default function PortfolioDetail() {
               </GlowCard>
             )}
 
-            {item.services && item.services.length > 0 && (
+            {(item as any).services && (item as any).services.length > 0 && (
               <GlowCard className="p-6">
                 <h2 className="text-xl font-semibold mb-3">Services Provided</h2>
                 <div className="flex flex-wrap gap-2">
-                  {item.services.map((service: string) => (
+                  {(item as any).services.map((service: string) => (
                     <Badge key={service} variant="secondary">
                       {SERVICE_LABELS[service] || service}
                     </Badge>
@@ -173,11 +173,11 @@ export default function PortfolioDetail() {
               </GlowCard>
             )}
 
-            {item.technologies && item.technologies.length > 0 && (
+            {(item as any).technologies && (item as any).technologies.length > 0 && (
               <GlowCard className="p-6">
                 <h2 className="text-xl font-semibold mb-3">Technologies Used</h2>
                 <div className="grid grid-cols-2 gap-3">
-                  {item.technologies.map((tech: string) => (
+                  {(item as any).technologies.map((tech: string) => (
                     <div key={tech} className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-accent-green" />
                       <span className="text-sm">{TECHNOLOGY_LABELS[tech] || tech}</span>

@@ -65,7 +65,7 @@ const Clients = () => {
   // Filter portfolio items by industry and service
   const filteredPortfolio = portfolioItems?.filter(item => {
     const matchesIndustry = selectedIndustry === "all" || item.industry === selectedIndustry;
-    const matchesService = selectedService === "all" || item.services?.includes(selectedService);
+    const matchesService = selectedService === "all" || (item as any).services?.includes(selectedService);
     return matchesIndustry && matchesService;
   });
 
@@ -229,12 +229,12 @@ const Clients = () => {
                       <p className="text-sm text-text-2 mb-3 line-clamp-2">{item.description}</p>
                     )}
                     <div className="flex flex-wrap gap-1 mb-3">
-                      {item.services && item.services.length > 0 && item.services.slice(0, 2).map((service: string) => (
+                      {(item as any).services && (item as any).services.length > 0 && (item as any).services.slice(0, 2).map((service: string) => (
                         <span key={service} className="inline-block text-xs px-2 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
                           {service.replace(/_/g, " ")}
                         </span>
                       ))}
-                      {item.project_type && !item.services?.length && (
+                      {item.project_type && !(item as any).services?.length && (
                         <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
                           {item.project_type}
                         </span>
