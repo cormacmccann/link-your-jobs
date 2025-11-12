@@ -16,6 +16,7 @@ export function PortfolioManager() {
   const queryClient = useQueryClient();
   const currentOrgId = localStorage.getItem("currentOrgId");
   const [uploading, setUploading] = useState(false);
+  const [uploadingScreenshot, setUploadingScreenshot] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -84,7 +85,7 @@ export function PortfolioManager() {
     setUploading(true);
     try {
       const fileExt = file.name.split(".").pop();
-      const fileName = `portfolio-${Date.now()}.${fileExt}`;
+      const fileName = `portfolio-logo-${Date.now()}.${fileExt}`;
       const filePath = `portfolio-logos/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
@@ -111,6 +112,53 @@ export function PortfolioManager() {
     }
   };
 
+  const handleScreenshotUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingScreenshot(true);
+    try {
+      const uploadedUrls: string[] = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileExt = file.name.split(".").pop();
+        const fileName = `portfolio-screenshot-${Date.now()}-${i}.${fileExt}`;
+        const filePath = `portfolio-screenshots/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("portal-assets")
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from("portal-assets")
+          .getPublicUrl(filePath);
+
+        uploadedUrls.push(publicUrl);
+      }
+
+      const currentScreenshots = editingItem?.screenshots || [];
+      setEditingItem({ 
+        ...editingItem, 
+        screenshots: [...currentScreenshots, ...uploadedUrls] 
+      });
+
+      toast({ title: `${uploadedUrls.length} screenshot(s) uploaded successfully` });
+    } catch (error: any) {
+      toast({ title: "Upload failed", description: error.message, variant: "destructive" });
+    } finally {
+      setUploadingScreenshot(false);
+    }
+  };
+
+  const removeScreenshot = (index: number) => {
+    const currentScreenshots = editingItem?.screenshots || [];
+    const newScreenshots = currentScreenshots.filter((_: any, i: number) => i !== index);
+    setEditingItem({ ...editingItem, screenshots: newScreenshots });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -121,6 +169,7 @@ export function PortfolioManager() {
       description: formData.get("description"),
       project_type: formData.get("project_type"),
       logo_url: editingItem?.logo_url,
+      screenshots: editingItem?.screenshots || [],
       is_featured: formData.get("is_featured") === "on",
       is_published: formData.get("is_published") === "on",
     };
@@ -233,6 +282,58 @@ export function PortfolioManager() {
                     defaultValue={editingItem?.description}
                     rows={3}
                   />
+                </div>
+
+                <div>
+                  <Label>Website Screenshots</Label>
+                  <div className="mt-2 space-y-4">
+                    {editingItem?.screenshots && editingItem.screenshots.length > 0 && (
+                      <div className="grid grid-cols-2 gap-4">
+                        {editingItem.screenshots.map((screenshot: string, index: number) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={screenshot}
+                              alt={`Screenshot ${index + 1}`}
+                              className="w-full h-32 object-cover rounded border"
+                            />
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="icon"
+                              className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => removeScreenshot(index)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div>
+                      <input
+                        type="file"
+                        id="screenshot-upload"
+                        className="hidden"
+                        accept="image/*"
+                        multiple
+                        onChange={handleScreenshotUpload}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        disabled={uploadingScreenshot}
+                        asChild
+                      >
+                        <label htmlFor="screenshot-upload" className="cursor-pointer">
+                          <Upload className="h-4 w-4 mr-2" />
+                          {uploadingScreenshot ? "Uploading..." : "Upload Screenshots"}
+                        </label>
+                      </Button>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Select multiple images to upload at once
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between">

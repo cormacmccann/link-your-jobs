@@ -42,22 +42,22 @@ const WebDesign = () => {
 
   // Fallback portfolio data if database is empty
   const fallbackPortfolio = [
-    { name: "Marmion", url: "https://marmion.ie", industry: "Hospitality", logo_url: undefined },
-    { name: "Carlichauns", url: "https://carlichauns.com", industry: "Retail", logo_url: undefined },
-    { name: "Down to Earth Electrical", url: "https://downtoearthelectrical.ie", industry: "Services", logo_url: undefined },
-    { name: "Digital Screen Displays", url: "https://digitalscreendisplays.com", industry: "Technology", logo_url: undefined },
-    { name: "Nude Foods", url: "https://nude-foods.ie", industry: "Food & Beverage", logo_url: undefined },
-    { name: "Greyhound Extreme", url: "https://greyhoundextreme.com", industry: "Sports", logo_url: undefined },
-    { name: "AL Recovery", url: "https://alrecovery.ie", industry: "Services", logo_url: undefined },
-    { name: "Visit Carlingford", url: "https://visitcarlingford.com", industry: "Tourism", logo_url: undefined },
-    { name: "AVTS Tech", url: "https://avts.tech", industry: "Technology", logo_url: undefined },
-    { name: "DSA Cloud", url: "https://dsa-cloud.com", industry: "Technology", logo_url: undefined },
-    { name: "Conekt", url: "https://conekt.ie", industry: "Technology", logo_url: undefined },
-    { name: "The Hen", url: "https://thehen.ie", industry: "Hospitality", logo_url: undefined },
-    { name: "Carlingford Arms", url: "https://carlingfordarms.com", industry: "Hospitality", logo_url: undefined },
-    { name: "DigiBear", url: "https://digibear.net", industry: "Technology", logo_url: undefined },
-    { name: "Global Tiles & Floors", url: "https://globaltilesfloors.com", industry: "Retail", logo_url: undefined },
-    { name: "McKevitts", url: "https://mckevitts.ie", industry: "Hospitality", logo_url: undefined }
+    { name: "Marmion", url: "https://marmion.ie", industry: "Hospitality", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Carlichauns", url: "https://carlichauns.com", industry: "Retail", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Down to Earth Electrical", url: "https://downtoearthelectrical.ie", industry: "Services", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Digital Screen Displays", url: "https://digitalscreendisplays.com", industry: "Technology", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Nude Foods", url: "https://nude-foods.ie", industry: "Food & Beverage", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Greyhound Extreme", url: "https://greyhoundextreme.com", industry: "Sports", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "AL Recovery", url: "https://alrecovery.ie", industry: "Services", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Visit Carlingford", url: "https://visitcarlingford.com", industry: "Tourism", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "AVTS Tech", url: "https://avts.tech", industry: "Technology", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "DSA Cloud", url: "https://dsa-cloud.com", industry: "Technology", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Conekt", url: "https://conekt.ie", industry: "Technology", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "The Hen", url: "https://thehen.ie", industry: "Hospitality", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Carlingford Arms", url: "https://carlingfordarms.com", industry: "Hospitality", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "DigiBear", url: "https://digibear.net", industry: "Technology", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "Global Tiles & Floors", url: "https://globaltilesfloors.com", industry: "Retail", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined },
+    { name: "McKevitts", url: "https://mckevitts.ie", industry: "Hospitality", logo_url: undefined, screenshots: [], description: undefined, project_type: undefined }
   ];
 
   const portfolio = portfolioItems && portfolioItems.length > 0
@@ -66,6 +66,9 @@ const WebDesign = () => {
         url: item.client_url,
         industry: item.industry,
         logo_url: item.logo_url,
+        screenshots: item.screenshots,
+        description: item.description,
+        project_type: item.project_type,
       }))
     : fallbackPortfolio;
 
@@ -161,40 +164,59 @@ const WebDesign = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {portfolio.map((client, index) => (
               <a
                 key={index}
                 href={client.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative p-6 rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20"
+                className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-pink/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative z-10">
-                  {client.logo_url && (
-                    <div className="mb-4 h-16 flex items-center justify-center">
+                  {/* Screenshot Preview */}
+                  {client.screenshots && client.screenshots.length > 0 && (
+                    <div className="w-full h-48 overflow-hidden bg-bg-2">
                       <img
-                        src={client.logo_url}
-                        alt={client.name}
-                        className="max-h-full max-w-full object-contain"
+                        src={client.screenshots[0]}
+                        alt={`${client.name} website`}
+                        className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>
                   )}
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
-                        {client.name}
-                      </h3>
-                      <p className="text-sm text-text-2">{client.industry}</p>
+                  
+                  {/* Content */}
+                  <div className="p-6">
+                    {client.logo_url && (
+                      <div className="mb-4 h-12 flex items-center justify-center">
+                        <img
+                          src={client.logo_url}
+                          alt={client.name}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    )}
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
+                          {client.name}
+                        </h3>
+                        {client.industry && (
+                          <p className="text-sm text-text-2">{client.industry}</p>
+                        )}
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-text-2 group-hover:text-accent-violet transition-colors flex-shrink-0" />
                     </div>
-                    <ExternalLink className="w-4 h-4 text-text-2 group-hover:text-accent-violet transition-colors" />
+                    {client.description && (
+                      <p className="text-sm text-text-2 mb-3 line-clamp-2">{client.description}</p>
+                    )}
+                    {client.project_type && (
+                      <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
+                        {client.project_type}
+                      </span>
+                    )}
                   </div>
-                  {client.url && (
-                    <div className="text-xs text-text-2 font-mono opacity-50 group-hover:opacity-100 transition-opacity">
-                      {client.url.replace('https://', '')}
-                    </div>
-                  )}
                 </div>
               </a>
             ))}
