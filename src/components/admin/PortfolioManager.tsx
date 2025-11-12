@@ -35,6 +35,9 @@ export function PortfolioManager() {
 
   const createMutation = useMutation({
     mutationFn: async (values: any) => {
+      if (!currentOrgId) {
+        throw new Error("No organization selected");
+      }
       const { data: { user } } = await supabase.auth.getUser();
       const { error } = await supabase.from("portfolio_items").insert({
         ...values,
@@ -48,6 +51,13 @@ export function PortfolioManager() {
       queryClient.invalidateQueries({ queryKey: ["portfolio-items"] });
       setIsDialogOpen(false);
       setEditingItem(null);
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Failed to create portfolio item", 
+        description: error.message,
+        variant: "destructive" 
+      });
     },
   });
 
@@ -64,6 +74,13 @@ export function PortfolioManager() {
       queryClient.invalidateQueries({ queryKey: ["portfolio-items"] });
       setIsDialogOpen(false);
       setEditingItem(null);
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Failed to update portfolio item", 
+        description: error.message,
+        variant: "destructive" 
+      });
     },
   });
 
@@ -356,8 +373,14 @@ export function PortfolioManager() {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full">
-                  {editingItem?.id ? "Update" : "Create"} Portfolio Item
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={createMutation.isPending || updateMutation.isPending}
+                >
+                  {createMutation.isPending || updateMutation.isPending 
+                    ? "Saving..." 
+                    : editingItem?.id ? "Update" : "Create"} Portfolio Item
                 </Button>
               </form>
             </DialogContent>
