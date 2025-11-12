@@ -48,7 +48,7 @@ export function ContactDetailView({ contactId, organizationId }: ContactDetailVi
     queryKey: ["contact-activities", contactId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("contact_activities")
+        .from("contact_activities" as any)
         .select("*")
         .eq("contact_id", contactId)
         .order("activity_date", { ascending: false });
@@ -63,14 +63,14 @@ export function ContactDetailView({ contactId, organizationId }: ContactDetailVi
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("contact_activities").insert({
+      const { error } = await supabase.from("contact_activities" as any).insert({
         organization_id: organizationId,
         contact_id: contactId,
         activity_type: activityType,
         title: activityTitle,
         description: activityDescription,
         created_by: user.id,
-      });
+      } as any);
 
       if (error) throw error;
     },

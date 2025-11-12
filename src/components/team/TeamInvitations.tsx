@@ -26,13 +26,13 @@ export function TeamInvitations({ organizationId }: TeamInvitationsProps) {
     queryKey: ["invitations", organizationId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("invitations")
+        .from("invitations" as any)
         .select("*")
         .eq("organization_id", organizationId)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      return data;
+      return data as any[];
     },
   });
 
@@ -41,12 +41,12 @@ export function TeamInvitations({ organizationId }: TeamInvitationsProps) {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("invitations").insert({
+      const { error } = await supabase.from("invitations" as any).insert({
         organization_id: organizationId,
         email,
         role,
         invited_by: user.id,
-      });
+      } as any);
 
       if (error) throw error;
     },
@@ -65,8 +65,8 @@ export function TeamInvitations({ organizationId }: TeamInvitationsProps) {
   const cancelMutation = useMutation({
     mutationFn: async (invitationId: string) => {
       const { error } = await supabase
-        .from("invitations")
-        .update({ status: "cancelled" })
+        .from("invitations" as any)
+        .update({ status: "cancelled" } as any)
         .eq("id", invitationId);
 
       if (error) throw error;
@@ -170,7 +170,7 @@ export function TeamInvitations({ organizationId }: TeamInvitationsProps) {
           </div>
         ) : (
           <div className="space-y-3">
-            {invitations.map((invitation) => (
+            {invitations.map((invitation: any) => (
               <div key={invitation.id} className="flex items-center justify-between p-4 border rounded-lg">
                 <div className="flex items-center gap-3">
                   {getStatusIcon(invitation.status)}

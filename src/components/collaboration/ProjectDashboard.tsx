@@ -44,7 +44,7 @@ export function ProjectDashboard({ projectId, organizationId }: ProjectDashboard
     queryKey: ["documents", projectId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("documents")
+        .from("documents" as any)
         .select(`
           *,
           created_by_user:profiles!documents_created_by_fkey(full_name)
@@ -61,7 +61,7 @@ export function ProjectDashboard({ projectId, organizationId }: ProjectDashboard
     queryKey: ["schedule-events", projectId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("schedule_events")
+        .from("schedule_events" as any)
         .select(`
           *,
           created_by_user:profiles!schedule_events_created_by_fkey(full_name)
@@ -96,13 +96,13 @@ export function ProjectDashboard({ projectId, organizationId }: ProjectDashboard
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("documents").insert({
+      const { error } = await supabase.from("documents" as any).insert({
         organization_id: organizationId,
         project_id: projectId,
         title: newDoc.title,
         content: newDoc.content,
         created_by: user.id,
-      });
+      } as any);
 
       if (error) throw error;
     },
@@ -122,7 +122,7 @@ export function ProjectDashboard({ projectId, organizationId }: ProjectDashboard
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("schedule_events").insert({
+      const { error } = await supabase.from("schedule_events" as any).insert({
         organization_id: organizationId,
         project_id: projectId,
         title: newEvent.title,
@@ -130,7 +130,7 @@ export function ProjectDashboard({ projectId, organizationId }: ProjectDashboard
         event_type: newEvent.event_type,
         start_date: newEvent.start_date,
         created_by: user.id,
-      });
+      } as any);
 
       if (error) throw error;
     },

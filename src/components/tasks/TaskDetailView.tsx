@@ -50,7 +50,7 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
     queryKey: ["time-entries", taskId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("time_entries")
+        .from("time_entries" as any)
         .select("*")
         .eq("card_id", taskId)
         .order("start_time", { ascending: false });
@@ -64,7 +64,7 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
     queryKey: ["task-dependencies", taskId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("task_dependencies")
+        .from("task_dependencies" as any)
         .select(`
           *,
           depends_on:cards!task_dependencies_depends_on_task_id_fkey(id, title, status)
@@ -114,20 +114,20 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
       if (!user) throw new Error("Not authenticated");
 
       const { data, error } = await supabase
-        .from("time_entries")
+        .from("time_entries" as any)
         .insert({
           organization_id: organizationId,
           card_id: taskId,
           user_id: user.id,
           start_time: new Date().toISOString(),
-        })
+        } as any)
         .select()
         .single();
 
       if (error) throw error;
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       setIsTimeTracking(true);
       setCurrentTimeEntryId(data.id);
       toast({ title: "Time tracking started" });
@@ -143,21 +143,21 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
 
       const endTime = new Date();
       const { data: entry } = await supabase
-        .from("time_entries")
+        .from("time_entries" as any)
         .select("start_time")
         .eq("id", currentTimeEntryId)
         .single();
 
       if (!entry) throw new Error("Time entry not found");
 
-      const durationMinutes = Math.floor((endTime.getTime() - new Date(entry.start_time).getTime()) / 60000);
+      const durationMinutes = Math.floor((endTime.getTime() - new Date((entry as any).start_time).getTime()) / 60000);
 
       const { error } = await supabase
-        .from("time_entries")
+        .from("time_entries" as any)
         .update({
           end_time: endTime.toISOString(),
           duration_minutes: durationMinutes,
-        })
+        } as any)
         .eq("id", currentTimeEntryId);
 
       if (error) throw error;
@@ -175,7 +175,7 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
 
   const addDependencyMutation = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.from("task_dependencies").insert({
+      const { error } = await supabase.from("task_dependencies" as any).insert({
         task_id: taskId,
         depends_on_task_id: selectedDependencyTask,
         dependency_type: "blocks",
@@ -290,12 +290,12 @@ export function TaskDetailView({ taskId, organizationId }: TaskDetailViewProps) 
             <div>
               <Label>Assignment</Label>
               <div className="mt-2">
-                {task.assigned ? (
+                {task.assigned_to ? (
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      {task.assigned.full_name?.[0] || "?"}
+                      {(task as any).assigned?.full_name?.[0] || "?"}
                     </div>
-                    <span>{task.assigned.full_name}</span>
+                    <span>{(task as any).assigned?.full_name || "Assigned"}</span>
                   </div>
                 ) : (
                   <span className="text-muted-foreground">Unassigned</span>

@@ -60,7 +60,7 @@ export default function SuperAdmin() {
     queryKey: ["all-invitations"],
     queryFn: async () => {
       const { data } = await supabase
-        .from("invitations")
+        .from("invitations" as any)
         .select("*")
         .order("created_at", { ascending: false })
         .limit(50);

@@ -19,7 +19,7 @@ export function UpcomingTasksWidget() {
         .select("*, assigned_user:profiles!cards_assigned_to_fkey(full_name)")
         .eq("organization_id", currentOrgId)
         .eq("card_type", "task")
-        .neq("status", "done")
+        .neq("status", "completed")
         .order("due_date", { ascending: true })
         .limit(20);
 
@@ -34,7 +34,7 @@ export function UpcomingTasksWidget() {
       if (!currentOrgId) return [];
 
       const { data } = await supabase
-        .from("invitations")
+        .from("invitations" as any)
         .select("*")
         .eq("organization_id", currentOrgId)
         .eq("status", "pending")

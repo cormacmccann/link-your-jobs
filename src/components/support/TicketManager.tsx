@@ -107,7 +107,7 @@ export function TicketManager({ organizationId }: TicketManagerProps) {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error("Not authenticated");
 
-      const { error } = await supabase.from("ticket_responses").insert({
+      const { error } = await supabase.from("ticket_responses" as any).insert({
         organization_id: organizationId,
         ticket_id: selectedTicket!,
         user_id: user.id,
