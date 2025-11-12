@@ -1,7 +1,7 @@
 import { Monitor, Zap, Smartphone, BarChart3, ArrowRight, ExternalLink, Sparkles, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import kamrokLogo from "@/assets/kamrok-logo.png";
@@ -185,11 +185,9 @@ const WebDesign = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {(portfolioItems || []).map((client, index) => (
-              <a
+              <Link
                 key={index}
-                href={client.client_url}
-                target="_blank"
-                rel="noopener noreferrer"
+                to={`/clients/${client.id}`}
                 className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
               >
                 {client.is_featured && (
@@ -247,7 +245,7 @@ const WebDesign = () => {
                     )}
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 
