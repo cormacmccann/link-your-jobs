@@ -718,6 +718,57 @@ export type Database = {
           },
         ]
       }
+      contact_submissions: {
+        Row: {
+          assigned_to: string | null
+          company: string | null
+          created_at: string | null
+          email: string
+          id: string
+          ip_address: string | null
+          message: string
+          name: string
+          notes: string | null
+          phone: string | null
+          source_page: string | null
+          status: string | null
+          updated_at: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          company?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          ip_address?: string | null
+          message: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          source_page?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          company?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          ip_address?: string | null
+          message?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          source_page?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       contacts: {
         Row: {
           company_id: string | null
@@ -2002,6 +2053,71 @@ export type Database = {
             columns: ["portal_id"]
             isOneToOne: false
             referencedRelation: "client_portals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portfolio_items: {
+        Row: {
+          client_name: string
+          client_url: string | null
+          completion_date: string | null
+          created_at: string | null
+          created_by: string
+          description: string | null
+          display_order: number | null
+          id: string
+          industry: string | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          logo_url: string | null
+          organization_id: string
+          project_type: string | null
+          screenshot_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          client_name: string
+          client_url?: string | null
+          completion_date?: string | null
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          industry?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          logo_url?: string | null
+          organization_id: string
+          project_type?: string | null
+          screenshot_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          client_name?: string
+          client_url?: string | null
+          completion_date?: string | null
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          industry?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          logo_url?: string | null
+          organization_id?: string
+          project_type?: string | null
+          screenshot_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portfolio_items_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
             referencedColumns: ["id"]
           },
         ]

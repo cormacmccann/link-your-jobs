@@ -4,7 +4,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, Building2, CreditCard, Shield, CheckCircle, XCircle, Clock } from "lucide-react";
+import { Users, Building2, CreditCard, Shield, CheckCircle, XCircle, Clock, Briefcase, Mail } from "lucide-react";
+import { PortfolioManager } from "@/components/admin/PortfolioManager";
+import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
 
 export default function SuperAdmin() {
   const { data: userRoles } = useQuery({
@@ -100,7 +102,7 @@ export default function SuperAdmin() {
           <Shield className="h-8 w-8 text-primary" />
           <h1 className="text-3xl font-bold">Super Admin Dashboard</h1>
         </div>
-        <p className="text-muted-foreground">System-wide management and oversight</p>
+        <p className="text-muted-foreground">Manage your CRM platform and public website</p>
       </div>
 
       {/* Stats Grid */}
@@ -159,7 +161,14 @@ export default function SuperAdmin() {
           <TabsTrigger value="organizations">Organizations</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
           <TabsTrigger value="invitations">Invitations</TabsTrigger>
-          <TabsTrigger value="billing">Billing</TabsTrigger>
+          <TabsTrigger value="portfolio">
+            <Briefcase className="h-4 w-4 mr-2" />
+            Portfolio
+          </TabsTrigger>
+          <TabsTrigger value="contacts">
+            <Mail className="h-4 w-4 mr-2" />
+            Contact Forms
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="organizations" className="space-y-4">
@@ -257,19 +266,12 @@ export default function SuperAdmin() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="billing" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Billing & Subscriptions</CardTitle>
-              <CardDescription>Manage pricing plans and subscriptions</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-12 text-muted-foreground">
-                <CreditCard className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                <p>Billing management coming soon</p>
-              </div>
-            </CardContent>
-          </Card>
+        <TabsContent value="portfolio">
+          <PortfolioManager />
+        </TabsContent>
+
+        <TabsContent value="contacts">
+          <ContactSubmissions />
         </TabsContent>
       </Tabs>
     </div>

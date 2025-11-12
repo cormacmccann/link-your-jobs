@@ -2,10 +2,25 @@ import { Monitor, Zap, Smartphone, BarChart3, ArrowRight, ExternalLink, Sparkles
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 
 const WebDesign = () => {
   const navigate = useNavigate();
+
+  const { data: portfolioItems } = useQuery({
+    queryKey: ["published-portfolio"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("portfolio_items")
+        .select("*")
+        .eq("is_published", true)
+        .order("display_order");
+      if (error) throw error;
+      return data;
+    },
+  });
 
   const features = [
     {
@@ -25,24 +40,34 @@ const WebDesign = () => {
     }
   ];
 
-  const portfolio = [
-    { name: "Marmion", url: "https://marmion.ie", industry: "Hospitality" },
-    { name: "Carlichauns", url: "https://carlichauns.com", industry: "Retail" },
-    { name: "Down to Earth Electrical", url: "https://downtoearthelectrical.ie", industry: "Services" },
-    { name: "Digital Screen Displays", url: "https://digitalscreendisplays.com", industry: "Technology" },
-    { name: "Nude Foods", url: "https://nude-foods.ie", industry: "Food & Beverage" },
-    { name: "Greyhound Extreme", url: "https://greyhoundextreme.com", industry: "Sports" },
-    { name: "AL Recovery", url: "https://alrecovery.ie", industry: "Services" },
-    { name: "Visit Carlingford", url: "https://visitcarlingford.com", industry: "Tourism" },
-    { name: "AVTS Tech", url: "https://avts.tech", industry: "Technology" },
-    { name: "DSA Cloud", url: "https://dsa-cloud.com", industry: "Technology" },
-    { name: "Conekt", url: "https://conekt.ie", industry: "Technology" },
-    { name: "The Hen", url: "https://thehen.ie", industry: "Hospitality" },
-    { name: "Carlingford Arms", url: "https://carlingfordarms.com", industry: "Hospitality" },
-    { name: "DigiBear", url: "https://digibear.net", industry: "Technology" },
-    { name: "Global Tiles & Floors", url: "https://globaltilesfloors.com", industry: "Retail" },
-    { name: "McKevitts", url: "https://mckevitts.ie", industry: "Hospitality" }
+  // Fallback portfolio data if database is empty
+  const fallbackPortfolio = [
+    { name: "Marmion", url: "https://marmion.ie", industry: "Hospitality", logo_url: undefined },
+    { name: "Carlichauns", url: "https://carlichauns.com", industry: "Retail", logo_url: undefined },
+    { name: "Down to Earth Electrical", url: "https://downtoearthelectrical.ie", industry: "Services", logo_url: undefined },
+    { name: "Digital Screen Displays", url: "https://digitalscreendisplays.com", industry: "Technology", logo_url: undefined },
+    { name: "Nude Foods", url: "https://nude-foods.ie", industry: "Food & Beverage", logo_url: undefined },
+    { name: "Greyhound Extreme", url: "https://greyhoundextreme.com", industry: "Sports", logo_url: undefined },
+    { name: "AL Recovery", url: "https://alrecovery.ie", industry: "Services", logo_url: undefined },
+    { name: "Visit Carlingford", url: "https://visitcarlingford.com", industry: "Tourism", logo_url: undefined },
+    { name: "AVTS Tech", url: "https://avts.tech", industry: "Technology", logo_url: undefined },
+    { name: "DSA Cloud", url: "https://dsa-cloud.com", industry: "Technology", logo_url: undefined },
+    { name: "Conekt", url: "https://conekt.ie", industry: "Technology", logo_url: undefined },
+    { name: "The Hen", url: "https://thehen.ie", industry: "Hospitality", logo_url: undefined },
+    { name: "Carlingford Arms", url: "https://carlingfordarms.com", industry: "Hospitality", logo_url: undefined },
+    { name: "DigiBear", url: "https://digibear.net", industry: "Technology", logo_url: undefined },
+    { name: "Global Tiles & Floors", url: "https://globaltilesfloors.com", industry: "Retail", logo_url: undefined },
+    { name: "McKevitts", url: "https://mckevitts.ie", industry: "Hospitality", logo_url: undefined }
   ];
+
+  const portfolio = portfolioItems && portfolioItems.length > 0
+    ? portfolioItems.map(item => ({
+        name: item.client_name,
+        url: item.client_url,
+        industry: item.industry,
+        logo_url: item.logo_url,
+      }))
+    : fallbackPortfolio;
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
@@ -147,6 +172,15 @@ const WebDesign = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-pink/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="relative z-10">
+                  {client.logo_url && (
+                    <div className="mb-4 h-16 flex items-center justify-center">
+                      <img
+                        src={client.logo_url}
+                        alt={client.name}
+                        className="max-h-full max-w-full object-contain"
+                      />
+                    </div>
+                  )}
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
@@ -156,9 +190,11 @@ const WebDesign = () => {
                     </div>
                     <ExternalLink className="w-4 h-4 text-text-2 group-hover:text-accent-violet transition-colors" />
                   </div>
-                  <div className="text-xs text-text-2 font-mono opacity-50 group-hover:opacity-100 transition-opacity">
-                    {client.url.replace('https://', '')}
-                  </div>
+                  {client.url && (
+                    <div className="text-xs text-text-2 font-mono opacity-50 group-hover:opacity-100 transition-opacity">
+                      {client.url.replace('https://', '')}
+                    </div>
+                  )}
                 </div>
               </a>
             ))}
