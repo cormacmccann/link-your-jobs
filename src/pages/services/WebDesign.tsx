@@ -77,15 +77,23 @@ const WebDesign = () => {
     : fallbackPortfolio;
 
   // Prepare products for HeroParallax with featured items first and placeholders
-  const parallaxProducts = (portfolioItems || [])
-    .map(item => ({
-      title: item.client_name,
-      link: item.client_url,
-      thumbnail: item.screenshots?.[0] || null,
-      isFeatured: item.is_featured,
-      clientName: item.client_name,
-    }))
-    .slice(0, 15);
+  const dbProducts = (portfolioItems || []).map(item => ({
+    title: item.client_name,
+    link: `/clients/${item.id}`,
+    thumbnail: item.screenshots?.[0] || null,
+    isFeatured: item.is_featured,
+    clientName: item.client_name,
+  }));
+
+  const fallbackProducts = fallbackPortfolio.slice(0, 15 - dbProducts.length).map(item => ({
+    title: item.name,
+    link: item.url,
+    thumbnail: null,
+    isFeatured: false,
+    clientName: item.name,
+  }));
+
+  const parallaxProducts = [...dbProducts, ...fallbackProducts].slice(0, 15);
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
@@ -118,31 +126,7 @@ const WebDesign = () => {
       </header>
 
       {/* Hero Parallax */}
-      {parallaxProducts.length >= 15 ? (
-        <HeroParallax products={parallaxProducts} />
-      ) : (
-        <section className="relative py-32 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/20 via-transparent to-accent-pink/20 pointer-events-none" />
-          <div className="container mx-auto max-w-6xl relative z-10">
-            <div className="flex items-center justify-center mb-8 animate-fade-in">
-              <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-accent-pink via-accent-violet to-accent-blue flex items-center justify-center shadow-2xl shadow-accent-violet/50 animate-scale-in">
-                <Monitor className="w-12 h-12 text-white" />
-              </div>
-            </div>
-            <h1 className="text-6xl md:text-8xl font-gobold uppercase tracking-tight text-center mb-6 bg-gradient-to-r from-accent-pink via-accent-violet to-accent-blue bg-clip-text text-transparent animate-fade-in">
-              Web Design
-            </h1>
-            <p className="text-xl md:text-3xl text-text-1 text-center max-w-4xl mx-auto font-medium mb-4 animate-fade-in">
-              Stunning, conversion-focused websites that capture your brand and drive real results
-            </p>
-            <div className="flex items-center justify-center gap-2 text-accent-violet animate-fade-in">
-              <Sparkles className="w-5 h-5" />
-              <p className="text-lg">Trusted by 16+ businesses across Ireland & UK</p>
-              <Sparkles className="w-5 h-5" />
-            </div>
-          </div>
-        </section>
-      )}
+      <HeroParallax products={parallaxProducts} />
 
       {/* What We Deliver */}
       <section className="py-16 px-4">
