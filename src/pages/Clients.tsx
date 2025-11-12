@@ -6,11 +6,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
+import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
 const Clients = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>("all");
+  const [selectedService, setSelectedService] = useState<string>("all");
 
   const { data: portfolioItems } = useQuery({
     queryKey: ["published-portfolio"],
@@ -55,11 +58,16 @@ const Clients = () => {
 
   // Get unique industries for filtering
   const industries = ["all", ...new Set(portfolioItems?.map(item => item.industry).filter(Boolean) || [])];
+  
+  // Available services
+  const services = ["all", "DESIGN", "WEB_DESIGN", "DEVELOPMENT", "BRANDING", "APP_DEVELOPMENT"];
 
-  // Filter portfolio items by industry
-  const filteredPortfolio = selectedIndustry === "all" 
-    ? portfolioItems 
-    : portfolioItems?.filter(item => item.industry === selectedIndustry);
+  // Filter portfolio items by industry and service
+  const filteredPortfolio = portfolioItems?.filter(item => {
+    const matchesIndustry = selectedIndustry === "all" || item.industry === selectedIndustry;
+    const matchesService = selectedService === "all" || item.services?.includes(selectedService);
+    return matchesIndustry && matchesService;
+  });
 
   // Prepare products for HeroParallax with featured items first
   const parallaxProducts = (portfolioItems || [])
@@ -117,6 +125,30 @@ const Clients = () => {
             })}
           </div>
 
+          {/* Service Filter */}
+          <div className="flex items-center gap-4 mb-6 flex-wrap">
+            <div className="flex items-center gap-2 text-text-2">
+              <Filter className="w-5 h-5" />
+              <span className="font-medium">Filter by Service:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {services.map((service) => (
+                <Button
+                  key={service}
+                  variant={selectedService === service ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedService(service)}
+                  className={selectedService === service 
+                    ? "bg-acc-violet hover:bg-acc-violet/90 text-white" 
+                    : "text-text-2 hover:text-text-1 hover:border-accent-violet/50"
+                  }
+                >
+                  {service === "all" ? "All Services" : service.replace(/_/g, " ")}
+                </Button>
+              ))}
+            </div>
+          </div>
+
           {/* Industry Filter */}
           <div className="flex items-center gap-4 mb-8 flex-wrap">
             <div className="flex items-center gap-2 text-text-2">
@@ -144,11 +176,9 @@ const Clients = () => {
           {/* Portfolio Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {filteredPortfolio?.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.client_url}
-                target="_blank"
-                rel="noopener noreferrer"
+                to={`/clients/${item.id}`}
                 className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
               >
                 {item.is_featured && (
@@ -163,11 +193,10 @@ const Clients = () => {
                 <div className="relative z-10">
                   {/* Screenshot or Placeholder */}
                   <div className="w-full h-48 overflow-hidden bg-bg-2">
-                    {item.screenshots?.[0] ? (
-                      <img
-                        src={item.screenshots[0]}
-                        alt={`${item.client_name} website`}
-                        className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300"
+                    {item.screenshots && item.screenshots.length > 0 ? (
+                      <ScreenshotCarousel 
+                        screenshots={item.screenshots}
+                        className="w-full h-full"
                       />
                     ) : (
                       <PortfolioPlaceholder clientName={item.client_name} className="w-full h-full" />
@@ -199,14 +228,21 @@ const Clients = () => {
                     {item.description && (
                       <p className="text-sm text-text-2 mb-3 line-clamp-2">{item.description}</p>
                     )}
-                    {item.project_type && (
-                      <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
-                        {item.project_type}
-                      </span>
-                    )}
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {item.services && item.services.length > 0 && item.services.slice(0, 2).map((service: string) => (
+                        <span key={service} className="inline-block text-xs px-2 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
+                          {service.replace(/_/g, " ")}
+                        </span>
+                      ))}
+                      {item.project_type && !item.services?.length && (
+                        <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
+                          {item.project_type}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 

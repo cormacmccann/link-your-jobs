@@ -10,6 +10,16 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Upload, Trash2, ExternalLink, GripVertical } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const TECHNOLOGIES = [
+  "ADOBE", "WORDPRESS", "ELEMENTOR", "PHP", "OPENAI", 
+  "CLAUDE_SONNET", "SHOPIFY", "HTML5", "CSS", "KINSTA"
+];
+
+const SERVICES = [
+  "DESIGN", "WEB_DESIGN", "DEVELOPMENT", "BRANDING", "APP_DEVELOPMENT"
+];
 
 export function PortfolioManager() {
   const { toast } = useToast();
@@ -17,6 +27,7 @@ export function PortfolioManager() {
   const currentOrgId = localStorage.getItem("currentOrgId");
   const [uploading, setUploading] = useState(false);
   const [uploadingScreenshot, setUploadingScreenshot] = useState(false);
+  const [uploadingPreliminary, setUploadingPreliminary] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -176,6 +187,69 @@ export function PortfolioManager() {
     setEditingItem({ ...editingItem, screenshots: newScreenshots });
   };
 
+  const handlePreliminaryGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingPreliminary(true);
+    try {
+      const uploadedUrls: string[] = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileExt = file.name.split(".").pop();
+        const fileName = `preliminary-${Date.now()}-${i}.${fileExt}`;
+        const filePath = `portfolio-preliminary/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("portal-assets")
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from("portal-assets")
+          .getPublicUrl(filePath);
+
+        uploadedUrls.push(publicUrl);
+      }
+
+      const currentGallery = editingItem?.preliminary_gallery || [];
+      setEditingItem({ 
+        ...editingItem, 
+        preliminary_gallery: [...currentGallery, ...uploadedUrls] 
+      });
+
+      toast({ title: `${uploadedUrls.length} preliminary image(s) uploaded successfully` });
+    } catch (error: any) {
+      toast({ title: "Upload failed", description: error.message, variant: "destructive" });
+    } finally {
+      setUploadingPreliminary(false);
+    }
+  };
+
+  const removePreliminaryImage = (index: number) => {
+    const currentGallery = editingItem?.preliminary_gallery || [];
+    const newGallery = currentGallery.filter((_: any, i: number) => i !== index);
+    setEditingItem({ ...editingItem, preliminary_gallery: newGallery });
+  };
+
+  const toggleTechnology = (tech: string) => {
+    const current = editingItem?.technologies || [];
+    const newTechs = current.includes(tech)
+      ? current.filter((t: string) => t !== tech)
+      : [...current, tech];
+    setEditingItem({ ...editingItem, technologies: newTechs });
+  };
+
+  const toggleService = (service: string) => {
+    const current = editingItem?.services || [];
+    const newServices = current.includes(service)
+      ? current.filter((s: string) => s !== service)
+      : [...current, service];
+    setEditingItem({ ...editingItem, services: newServices });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -187,6 +261,9 @@ export function PortfolioManager() {
       project_type: formData.get("project_type"),
       logo_url: editingItem?.logo_url,
       screenshots: editingItem?.screenshots || [],
+      preliminary_gallery: editingItem?.preliminary_gallery || [],
+      technologies: editingItem?.technologies || [],
+      services: editingItem?.services || [],
       is_featured: formData.get("is_featured") === "on",
       is_published: formData.get("is_published") === "on",
     };
@@ -350,6 +427,97 @@ export function PortfolioManager() {
                         Select multiple images to upload at once
                       </p>
                     </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Preliminary Gallery (Brochures, Sketches, Preparatory Work)</Label>
+                  <div className="mt-2 space-y-4">
+                    {editingItem?.preliminary_gallery && editingItem.preliminary_gallery.length > 0 && (
+                      <div className="grid grid-cols-3 gap-4">
+                        {editingItem.preliminary_gallery.map((image: string, index: number) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={image}
+                              alt={`Preliminary ${index + 1}`}
+                              className="w-full h-24 object-cover rounded border"
+                            />
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="icon"
+                              className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => removePreliminaryImage(index)}
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div>
+                      <input
+                        type="file"
+                        id="preliminary-upload"
+                        className="hidden"
+                        accept="image/*"
+                        multiple
+                        onChange={handlePreliminaryGalleryUpload}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        disabled={uploadingPreliminary}
+                        asChild
+                      >
+                        <label htmlFor="preliminary-upload" className="cursor-pointer">
+                          <Upload className="h-4 w-4 mr-2" />
+                          {uploadingPreliminary ? "Uploading..." : "Upload Preliminary Images"}
+                        </label>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Services</Label>
+                  <div className="mt-2 grid grid-cols-2 gap-3">
+                    {SERVICES.map((service) => (
+                      <div key={service} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`service-${service}`}
+                          checked={editingItem?.services?.includes(service) || false}
+                          onCheckedChange={() => toggleService(service)}
+                        />
+                        <Label 
+                          htmlFor={`service-${service}`}
+                          className="text-sm font-normal cursor-pointer"
+                        >
+                          {service.replace(/_/g, " ")}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Technologies Used</Label>
+                  <div className="mt-2 grid grid-cols-2 gap-3">
+                    {TECHNOLOGIES.map((tech) => (
+                      <div key={tech} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`tech-${tech}`}
+                          checked={editingItem?.technologies?.includes(tech) || false}
+                          onCheckedChange={() => toggleTechnology(tech)}
+                        />
+                        <Label 
+                          htmlFor={`tech-${tech}`}
+                          className="text-sm font-normal cursor-pointer"
+                        >
+                          {tech.replace(/_/g, " ")}
+                        </Label>
+                      </div>
+                    ))}
                   </div>
                 </div>
 

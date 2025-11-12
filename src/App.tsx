@@ -20,6 +20,7 @@ import ProjectsFeature from "./pages/features/Projects";
 import Invoicing from "./pages/features/Invoicing";
 import Tools from "./pages/features/Tools";
 import Clients from "./pages/Clients";
+import PortfolioDetail from "./pages/PortfolioDetail";
 import Contact from "./pages/Contact";
 import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
@@ -107,6 +108,7 @@ const App = () => {
         <Route path="/features/invoicing" element={<Invoicing />} />
         <Route path="/features/tools" element={<Tools />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/clients/:id" element={<PortfolioDetail />} />
         <Route path="/contact" element={<Contact />} />
             
             {/* CRM Routes */}
