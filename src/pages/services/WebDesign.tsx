@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
+import ServicesFooter from "@/components/ServicesFooter";
 import { Badge } from "@/components/ui/badge";
 
 const WebDesign = () => {
@@ -315,6 +316,8 @@ const WebDesign = () => {
           </div>
         </div>
       </section>
+
+      <ServicesFooter />
     </div>
   );
 };

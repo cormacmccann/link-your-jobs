@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { useNavigate } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
+import ServicesFooter from "@/components/ServicesFooter";
 
 const VideoDesign = () => {
   const navigate = useNavigate();
@@ -150,6 +151,8 @@ const VideoDesign = () => {
           </Button>
         </div>
       </section>
+
+      <ServicesFooter />
     </div>
   );
 };
