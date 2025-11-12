@@ -26,6 +26,21 @@ export function HeroSection() {
     },
   });
 
+  // Repeat logos if we don't have enough to fill the slider smoothly
+  const displayLogos = React.useMemo(() => {
+    if (!portfolioItems || portfolioItems.length === 0) return [];
+    
+    const minLogos = 8; // Minimum number of logos to display for smooth scrolling
+    if (portfolioItems.length >= minLogos) return portfolioItems;
+    
+    // Repeat the logos to reach minimum count
+    const repeated = [];
+    while (repeated.length < minLogos) {
+      repeated.push(...portfolioItems);
+    }
+    return repeated.slice(0, minLogos);
+  }, [portfolioItems]);
+
   return <>
       <HeroHeader />
       <main className="overflow-x-hidden">
@@ -85,9 +100,9 @@ export function HeroSection() {
               </div>
               <div className="relative py-6 md:w-[calc(100%-11rem)]">
                 <InfiniteSlider durationOnHover={20} duration={40} gap={112}>
-                  {portfolioItems && portfolioItems.length > 0 ? (
-                    portfolioItems.map((item, index) => (
-                      <div key={index} className="flex items-center justify-center min-w-[120px]">
+                  {displayLogos && displayLogos.length > 0 ? (
+                    displayLogos.map((item, index) => (
+                      <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
                         <img 
                           className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-0 dark:brightness-100 dark:invert opacity-70 hover:opacity-100 transition-opacity" 
                           src={item.logo_url} 
