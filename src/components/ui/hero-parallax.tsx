@@ -6,9 +6,10 @@ import {
   useSpring,
   MotionValue,
 } from "framer-motion";
-import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
-import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
+import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
 
 export const HeroParallax = ({
   products,
@@ -107,12 +108,13 @@ export const HeroParallax = ({
 export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-      <h1 className="text-4xl md:text-7xl font-gobold uppercase tracking-tight bg-gradient-to-r from-accent-pink via-accent-violet to-accent-blue bg-clip-text text-transparent">
-        Web Design Excellence
+      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+        The Ultimate <br /> development studio
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 text-text-1">
-        Stunning, conversion-focused websites that capture your brand and drive real results. 
-        Trusted by 16+ businesses across Ireland & UK.
+      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+        We build beautiful products with the latest technologies and frameworks.
+        We are a team of passionate developers and designers that love to build
+        amazing products.
       </p>
     </div>
   );
@@ -150,27 +152,27 @@ export const ProductCard = ({
           </Badge>
         </div>
       )}
-      <a
-        href={product.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block group-hover/product:shadow-2xl rounded-xl overflow-hidden h-full"
+      <Link
+        to={product.link}
+        className="block group-hover/product:shadow-2xl"
       >
         {product.thumbnail ? (
           <img
             src={product.thumbnail}
-            className="object-cover object-left-top absolute h-full w-full inset-0 rounded-xl"
+            className="object-cover object-left-top absolute h-full w-full inset-0"
             alt={product.title}
           />
         ) : (
-          <PortfolioPlaceholder 
-            clientName={product.clientName || product.title} 
-            className="absolute h-full w-full inset-0 rounded-xl"
-          />
+          <div className="absolute h-full w-full inset-0">
+            <PortfolioPlaceholder 
+              clientName={product.clientName || product.title} 
+              className="w-full h-full"
+            />
+          </div>
         )}
-      </a>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none rounded-xl transition-opacity duration-300"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white font-gobold uppercase text-lg transition-opacity duration-300">
+      </Link>
+      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
+      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
         {product.title}
       </h2>
     </motion.div>
