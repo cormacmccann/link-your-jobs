@@ -12,27 +12,26 @@ import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 export function HeroSection() {
-  const { data: portfolioItems } = useQuery({
+  const {
+    data: portfolioItems
+  } = useQuery({
     queryKey: ["portfolio-items-public"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("portfolio_items")
-        .select("client_name, logo_url")
-        .eq("is_published", true)
-        .not("logo_url", "is", null)
-        .order("display_order");
+      const {
+        data,
+        error
+      } = await supabase.from("portfolio_items").select("client_name, logo_url").eq("is_published", true).not("logo_url", "is", null).order("display_order");
       if (error) throw error;
       return data;
-    },
+    }
   });
 
   // Repeat logos if we don't have enough to fill the slider smoothly
   const displayLogos = React.useMemo(() => {
     if (!portfolioItems || portfolioItems.length === 0) return [];
-    
     const minLogos = 8; // Minimum number of logos to display for smooth scrolling
     if (portfolioItems.length >= minLogos) return portfolioItems;
-    
+
     // Repeat the logos to reach minimum count
     const repeated = [];
     while (repeated.length < minLogos) {
@@ -40,7 +39,6 @@ export function HeroSection() {
     }
     return repeated.slice(0, minLogos);
   }, [portfolioItems]);
-
   return <>
       <HeroHeader />
       <main className="overflow-x-hidden">
@@ -100,18 +98,9 @@ export function HeroSection() {
               </div>
               <div className="relative py-6 md:w-[calc(100%-11rem)]">
                 <InfiniteSlider durationOnHover={20} duration={40} gap={112}>
-                  {displayLogos && displayLogos.length > 0 ? (
-                    displayLogos.map((item, index) => (
-                      <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
-                        <img 
-                          className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-125 dark:brightness-150 dark:invert opacity-90 hover:opacity-100 transition-opacity" 
-                          src={item.logo_url} 
-                          alt={`${item.client_name} Logo`}
-                        />
-                      </div>
-                    ))
-                  ) : (
-                    <>
+                  {displayLogos && displayLogos.length > 0 ? displayLogos.map((item, index) => <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
+                        <img className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-125 dark:brightness-150 dark:invert opacity-90 hover:opacity-100 transition-opacity" src={item.logo_url} alt={`${item.client_name} Logo`} />
+                      </div>) : <>
                       <div className="flex">
                         <img className="mx-auto h-5 w-fit dark:invert" src="https://html.tailus.io/blocks/customers/nvidia.svg" alt="Client Logo" height="20" width="auto" />
                       </div>
@@ -121,8 +110,7 @@ export function HeroSection() {
                       <div className="flex">
                         <img className="mx-auto h-4 w-fit dark:invert" src="https://html.tailus.io/blocks/customers/github.svg" alt="Client Logo" height="16" width="auto" />
                       </div>
-                    </>
-                  )}
+                    </>}
                 </InfiniteSlider>
 
                 <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
@@ -204,7 +192,7 @@ const HeroHeader = () => {
                 </Button>
                 <Button asChild size="sm" className="bg-acc-violet hover:bg-acc-violet/90">
                   <Link to="/auth">
-                    <span>Sign Up</span>
+                    <span className="text-slate-50">Sign Up</span>
                   </Link>
                 </Button>
               </div>
