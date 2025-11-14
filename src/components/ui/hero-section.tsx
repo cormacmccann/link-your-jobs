@@ -104,7 +104,7 @@ export function HeroSection() {
                     displayLogos.map((item, index) => (
                       <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
                         <img 
-                          className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-0 dark:brightness-100 dark:invert opacity-70 hover:opacity-100 transition-opacity" 
+                          className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-125 dark:brightness-150 dark:invert opacity-90 hover:opacity-100 transition-opacity" 
                           src={item.logo_url} 
                           alt={`${item.client_name} Logo`}
                         />

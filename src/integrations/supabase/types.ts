@@ -2072,9 +2072,12 @@ export type Database = {
           is_published: boolean | null
           logo_url: string | null
           organization_id: string
+          preliminary_gallery: string[] | null
           project_type: string | null
           screenshot_url: string | null
           screenshots: string[] | null
+          services: string[] | null
+          technologies: string[] | null
           updated_at: string | null
         }
         Insert: {
@@ -2091,9 +2094,12 @@ export type Database = {
           is_published?: boolean | null
           logo_url?: string | null
           organization_id: string
+          preliminary_gallery?: string[] | null
           project_type?: string | null
           screenshot_url?: string | null
           screenshots?: string[] | null
+          services?: string[] | null
+          technologies?: string[] | null
           updated_at?: string | null
         }
         Update: {
@@ -2110,9 +2116,12 @@ export type Database = {
           is_published?: boolean | null
           logo_url?: string | null
           organization_id?: string
+          preliminary_gallery?: string[] | null
           project_type?: string | null
           screenshot_url?: string | null
           screenshots?: string[] | null
+          services?: string[] | null
+          technologies?: string[] | null
           updated_at?: string | null
         }
         Relationships: [
