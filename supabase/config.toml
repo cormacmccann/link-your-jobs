@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.enrich-company]
 verify_jwt = false
+
+[functions.import-portfolio-url]
+verify_jwt = true
