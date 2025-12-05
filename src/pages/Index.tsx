@@ -157,6 +157,53 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight text-center mb-4">
+            Our Pricing
+          </h2>
+          <p className="text-text-2 text-center mb-12">Transparent pricing for quality work</p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <GlowCard glowColor="purple" customSize className="p-6 text-center">
+              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Free Consultation</h3>
+              <p className="text-3xl font-gobold text-accent-cyan mb-2">Free</p>
+              <p className="text-text-2 text-sm">Let's discuss your project needs</p>
+            </GlowCard>
+            
+            <GlowCard glowColor="blue" customSize className="p-6 text-center">
+              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Web Design</h3>
+              <p className="text-3xl font-gobold text-accent-cyan mb-2">€3,500</p>
+              <p className="text-text-2 text-sm">Custom responsive website</p>
+            </GlowCard>
+            
+            <GlowCard glowColor="purple" customSize className="p-6 text-center">
+              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">WordPress + eCommerce</h3>
+              <p className="text-3xl font-gobold text-accent-cyan mb-2">€4,500</p>
+              <p className="text-text-2 text-sm">Full online store setup</p>
+            </GlowCard>
+            
+            <GlowCard glowColor="blue" customSize className="p-6 text-center">
+              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Shopify Support & Build</h3>
+              <p className="text-3xl font-gobold text-accent-cyan mb-2">€3,500</p>
+              <p className="text-text-2 text-sm">Shopify store setup & support</p>
+            </GlowCard>
+            
+            <GlowCard glowColor="purple" customSize className="p-6 text-center">
+              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Custom Projects</h3>
+              <p className="text-3xl font-gobold text-accent-cyan mb-2">From €5,500</p>
+              <p className="text-text-2 text-sm">Bespoke solutions tailored to you</p>
+            </GlowCard>
+            
+            <GlowCard glowColor="orange" customSize className="p-6 text-center flex flex-col justify-center">
+              <p className="text-accent-pink font-gobold uppercase text-lg">Payment Plans</p>
+              <p className="text-text-2 text-sm mt-2">Flexible payment options available</p>
+            </GlowCard>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
