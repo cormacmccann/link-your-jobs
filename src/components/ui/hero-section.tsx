@@ -11,6 +11,25 @@ import { useScroll, motion } from "framer-motion";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+
+// Client logos
+import centraLogo from "@/assets/clients/centra.webp";
+import dundalkLogo from "@/assets/clients/dundalk-stadium.webp";
+import cocaColaLogo from "@/assets/clients/coca-cola.png";
+import tifcoLogo from "@/assets/clients/tifco.webp";
+import crownePlazaLogo from "@/assets/clients/crowne-plaza.webp";
+import boyleSportsLogo from "@/assets/clients/boylesports.png";
+import guinnessLogo from "@/assets/clients/guinness-storehouse.webp";
+
+const staticClientLogos = [
+  { client_name: "Centra", logo_url: centraLogo },
+  { client_name: "Dundalk Stadium", logo_url: dundalkLogo },
+  { client_name: "Coca-Cola", logo_url: cocaColaLogo },
+  { client_name: "Tifco Hotel Group", logo_url: tifcoLogo },
+  { client_name: "Crowne Plaza", logo_url: crownePlazaLogo },
+  { client_name: "BoyleSports", logo_url: boyleSportsLogo },
+  { client_name: "Guinness Storehouse", logo_url: guinnessLogo },
+];
 export function HeroSection() {
   const {
     data: portfolioItems
@@ -26,18 +45,12 @@ export function HeroSection() {
     }
   });
 
-  // Repeat logos if we don't have enough to fill the slider smoothly
+  // Use static logos, combined with any from database
   const displayLogos = React.useMemo(() => {
-    if (!portfolioItems || portfolioItems.length === 0) return [];
-    const minLogos = 8; // Minimum number of logos to display for smooth scrolling
-    if (portfolioItems.length >= minLogos) return portfolioItems;
-
-    // Repeat the logos to reach minimum count
-    const repeated = [];
-    while (repeated.length < minLogos) {
-      repeated.push(...portfolioItems);
-    }
-    return repeated.slice(0, minLogos);
+    const dbLogos = portfolioItems || [];
+    // Combine database logos with static logos
+    const allLogos = [...dbLogos, ...staticClientLogos];
+    return allLogos;
   }, [portfolioItems]);
   return <>
       <HeroHeader />
@@ -96,19 +109,11 @@ export function HeroSection() {
               </div>
               <div className="relative py-6 md:w-[calc(100%-11rem)]">
                 <InfiniteSlider durationOnHover={20} duration={40} gap={112}>
-                  {displayLogos && displayLogos.length > 0 ? displayLogos.map((item, index) => <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
-                        <img className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-125 dark:brightness-150 dark:invert opacity-90 hover:opacity-100 transition-opacity" src={item.logo_url} alt={`${item.client_name} Logo`} />
-                      </div>) : <>
-                      <div className="flex">
-                        <img className="mx-auto h-5 w-fit dark:invert" src="https://html.tailus.io/blocks/customers/nvidia.svg" alt="Client Logo" height="20" width="auto" />
-                      </div>
-                      <div className="flex">
-                        <img className="mx-auto h-4 w-fit dark:invert" src="https://html.tailus.io/blocks/customers/column.svg" alt="Client Logo" height="16" width="auto" />
-                      </div>
-                      <div className="flex">
-                        <img className="mx-auto h-4 w-fit dark:invert" src="https://html.tailus.io/blocks/customers/github.svg" alt="Client Logo" height="16" width="auto" />
-                      </div>
-                    </>}
+                  {displayLogos.map((item, index) => (
+                    <div key={`${item.client_name}-${index}`} className="flex items-center justify-center min-w-[120px]">
+                      <img className="mx-auto h-8 w-auto max-w-[120px] object-contain filter brightness-125 dark:brightness-150 dark:invert opacity-90 hover:opacity-100 transition-opacity" src={item.logo_url} alt={`${item.client_name} Logo`} />
+                    </div>
+                  ))}
                 </InfiniteSlider>
 
                 <div className="bg-linear-to-r from-background absolute inset-y-0 left-0 w-20"></div>
