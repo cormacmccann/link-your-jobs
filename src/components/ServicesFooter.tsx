@@ -15,7 +15,7 @@ const ServicesFooter = () => {
   return (
     <footer className="border-t border-border/30 bg-bg-1/30 backdrop-blur-sm">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Logo & Description */}
           <div className="space-y-4">
             <img src={kamrokLogo} alt="KAMROK" className="h-10" />
@@ -43,6 +43,34 @@ const ServicesFooter = () => {
                 );
               })}
             </ul>
+          </div>
+
+          {/* Pricing */}
+          <div>
+            <h3 className="text-lg font-gobold uppercase text-text-1 mb-4">Pricing</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex justify-between text-text-2">
+                <span>Free Consultation</span>
+                <span className="text-accent-cyan font-medium">Free</span>
+              </li>
+              <li className="flex justify-between text-text-2">
+                <span>Web Design</span>
+                <span className="text-accent-cyan font-medium">€3,500</span>
+              </li>
+              <li className="flex justify-between text-text-2">
+                <span>WordPress + eCommerce</span>
+                <span className="text-accent-cyan font-medium">€4,500</span>
+              </li>
+              <li className="flex justify-between text-text-2">
+                <span>Shopify Support & Build</span>
+                <span className="text-accent-cyan font-medium">€3,500</span>
+              </li>
+              <li className="flex justify-between text-text-2">
+                <span>Custom Projects</span>
+                <span className="text-accent-cyan font-medium">From €5,500</span>
+              </li>
+            </ul>
+            <p className="text-xs text-accent-pink mt-3 italic">Payment plans available</p>
           </div>
 
           {/* Contact & CTA */}
