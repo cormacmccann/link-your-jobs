@@ -4,9 +4,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Users, Building2, CreditCard, Shield, CheckCircle, XCircle, Clock, Briefcase, Mail } from "lucide-react";
+import { Users, Building2, CreditCard, Shield, CheckCircle, XCircle, Clock, Briefcase, Mail, Sparkles } from "lucide-react";
 import { PortfolioManager } from "@/components/admin/PortfolioManager";
 import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
+import { PortfolioImporter } from "@/components/admin/PortfolioImporter";
 
 export default function SuperAdmin() {
   const { data: userRoles } = useQuery({
@@ -165,6 +166,10 @@ export default function SuperAdmin() {
             <Briefcase className="h-4 w-4 mr-2" />
             Portfolio
           </TabsTrigger>
+          <TabsTrigger value="importer">
+            <Sparkles className="h-4 w-4 mr-2" />
+            AI Importer
+          </TabsTrigger>
           <TabsTrigger value="contacts">
             <Mail className="h-4 w-4 mr-2" />
             Contact Forms
@@ -268,6 +273,10 @@ export default function SuperAdmin() {
 
         <TabsContent value="portfolio">
           <PortfolioManager />
+        </TabsContent>
+
+        <TabsContent value="importer">
+          <PortfolioImporter />
         </TabsContent>
 
         <TabsContent value="contacts">
