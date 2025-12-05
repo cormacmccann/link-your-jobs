@@ -28,17 +28,27 @@ export function ScreenshotCarousel({
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      {screenshots.map((screenshot, index) => (
+      {/* First image is static to establish container height */}
+      <img
+        src={screenshots[0]}
+        alt="Screenshot 1"
+        className={cn(
+          "w-full h-full object-cover transition-opacity duration-1000",
+          currentIndex === 0 ? "opacity-100" : "opacity-0"
+        )}
+      />
+      {/* Remaining images are absolutely positioned */}
+      {screenshots.slice(1).map((screenshot, index) => (
         <div
-          key={index}
+          key={index + 1}
           className={cn(
             "absolute inset-0 transition-opacity duration-1000",
-            index === currentIndex ? "opacity-100" : "opacity-0"
+            index + 1 === currentIndex ? "opacity-100" : "opacity-0"
           )}
         >
           <img
             src={screenshot}
-            alt={`Screenshot ${index + 1}`}
+            alt={`Screenshot ${index + 2}`}
             className="w-full h-full object-cover"
           />
         </div>
