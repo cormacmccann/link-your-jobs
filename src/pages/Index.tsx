@@ -1,4 +1,4 @@
-import { Globe, Palette, Code, Smartphone, Rocket, Award, Sparkles, Clock, HeartHandshake } from "lucide-react";
+import { Globe, Palette, Code, Smartphone, Rocket, Award, Sparkles, Clock, HeartHandshake, Check, Monitor, ShoppingCart, Store, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { HeroSection } from "@/components/ui/hero-section";
@@ -68,6 +68,66 @@ const Index = () => {
     }
   ];
 
+  const pricingPlans = [
+    {
+      title: "Web Design",
+      price: "€3,500",
+      icon: Monitor,
+      color: "purple" as const,
+      features: [
+        "Custom responsive design",
+        "Up to 10 pages",
+        "Mobile optimized",
+        "SEO foundation setup",
+        "Contact forms & integrations",
+        "2 rounds of revisions"
+      ]
+    },
+    {
+      title: "WordPress + eCommerce",
+      price: "€4,500",
+      icon: ShoppingCart,
+      color: "blue" as const,
+      popular: true,
+      features: [
+        "Full WordPress setup",
+        "WooCommerce integration",
+        "Product catalog (up to 50)",
+        "Payment gateway setup",
+        "Shipping configuration",
+        "Admin training included"
+      ]
+    },
+    {
+      title: "Shopify Store",
+      price: "€3,500",
+      icon: Store,
+      color: "purple" as const,
+      features: [
+        "Custom Shopify theme",
+        "Product setup & import",
+        "Payment & checkout config",
+        "App integrations",
+        "Inventory management",
+        "Ongoing support options"
+      ]
+    },
+    {
+      title: "Custom Projects",
+      price: "From €5,500",
+      icon: Layers,
+      color: "orange" as const,
+      features: [
+        "Bespoke web applications",
+        "Complex integrations",
+        "Custom functionality",
+        "API development",
+        "Scalable architecture",
+        "Dedicated project manager"
+      ]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
       {/* Hero Section */}
@@ -101,6 +161,66 @@ const Index = () => {
                 </GlowCard>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* How We Work - Image Section */}
+      <section className="py-20 px-4 bg-bg-1/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight">
+                From Concept to <span className="text-accent-cyan">Launch</span>
+              </h2>
+              <p className="text-text-2 text-lg leading-relaxed">
+                We don't just build websites — we craft digital experiences that drive real business results. 
+                Our process is collaborative, transparent, and focused on your goals.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-accent-violet/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-accent-violet font-gobold text-sm">1</span>
+                  </div>
+                  <div>
+                    <h4 className="font-gobold uppercase text-text-1">Discovery Call</h4>
+                    <p className="text-text-2 text-sm">Free consultation to understand your business goals and vision</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-accent-pink/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-accent-pink font-gobold text-sm">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-gobold uppercase text-text-1">Design & Strategy</h4>
+                    <p className="text-text-2 text-sm">Custom mockups and a clear roadmap for your project</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-full bg-accent-cyan/20 flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="text-accent-cyan font-gobold text-sm">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-gobold uppercase text-text-1">Build & Launch</h4>
+                    <p className="text-text-2 text-sm">Development, testing, and launch with ongoing support</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-square rounded-2xl bg-gradient-to-br from-accent-violet/20 via-accent-pink/10 to-accent-cyan/20 p-1">
+                <div className="w-full h-full rounded-xl bg-bg-0 flex items-center justify-center overflow-hidden">
+                  <div className="text-center p-8">
+                    <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center">
+                      <Rocket className="w-12 h-12 text-white" />
+                    </div>
+                    <p className="text-text-1 font-gobold uppercase text-xl">Your Vision</p>
+                    <p className="text-text-2 text-sm mt-2">Brought to life</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-accent-cyan/30 to-accent-violet/30 rounded-xl blur-2xl -z-10" />
+            </div>
           </div>
         </div>
       </section>
@@ -140,7 +260,72 @@ const Index = () => {
         </div>
       </section>
 
-      {/* What's Included */}
+      {/* What Sets Us Apart - Image Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-accent-pink/20 to-accent-violet/20 p-6 flex flex-col justify-end">
+                    <p className="text-4xl font-gobold text-accent-pink">16+</p>
+                    <p className="text-text-2 text-sm">Happy Clients</p>
+                  </div>
+                  <div className="aspect-square rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent-blue/20 p-6 flex flex-col justify-end">
+                    <p className="text-4xl font-gobold text-accent-cyan">100%</p>
+                    <p className="text-text-2 text-sm">Project Completion</p>
+                  </div>
+                </div>
+                <div className="space-y-4 mt-8">
+                  <div className="aspect-square rounded-xl bg-gradient-to-br from-accent-violet/20 to-accent-pink/20 p-6 flex flex-col justify-end">
+                    <p className="text-4xl font-gobold text-accent-violet">5★</p>
+                    <p className="text-text-2 text-sm">Client Rating</p>
+                  </div>
+                  <div className="aspect-[4/3] rounded-xl bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 p-6 flex flex-col justify-end">
+                    <p className="text-4xl font-gobold text-accent-orange">24h</p>
+                    <p className="text-text-2 text-sm">Response Time</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-6 order-1 lg:order-2">
+              <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight">
+                Results That <span className="text-accent-pink">Speak</span>
+              </h2>
+              <p className="text-text-2 text-lg leading-relaxed">
+                We've helped businesses across Ireland and beyond transform their online presence. 
+                From local shops to international brands, our work delivers measurable results.
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-text-2">
+                  <Check className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                  <span>Websites that convert visitors into customers</span>
+                </li>
+                <li className="flex items-center gap-3 text-text-2">
+                  <Check className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                  <span>SEO-optimized for maximum visibility</span>
+                </li>
+                <li className="flex items-center gap-3 text-text-2">
+                  <Check className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                  <span>Mobile-first design for modern users</span>
+                </li>
+                <li className="flex items-center gap-3 text-text-2">
+                  <Check className="w-5 h-5 text-accent-cyan flex-shrink-0" />
+                  <span>Ongoing support and maintenance</span>
+                </li>
+              </ul>
+              <Button 
+                className="bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white font-gobold uppercase tracking-tight"
+                onClick={() => window.location.href = '/clients'}
+              >
+                View Our Work
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Full Service Agency */}
       <section className="py-16 px-4 bg-bg-1/50">
         <div className="container mx-auto max-w-6xl text-center">
           <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight mb-4">
@@ -158,54 +343,61 @@ const Index = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-5xl">
+      <section className="py-20 px-4">
+        <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight text-center mb-4">
-            Our Pricing
+            Transparent Pricing
           </h2>
-          <p className="text-text-2 text-center mb-12">Transparent pricing for quality work</p>
+          <p className="text-text-2 text-center mb-4">Quality work at fair prices — no hidden fees</p>
+          <p className="text-accent-pink text-center mb-12 italic">Payment plans available on all packages</p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <GlowCard glowColor="purple" customSize className="p-6 text-center">
-              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Free Consultation</h3>
-              <p className="text-3xl font-gobold text-accent-cyan mb-2">Free</p>
-              <p className="text-text-2 text-sm">Let's discuss your project needs</p>
-            </GlowCard>
-            
-            <GlowCard glowColor="blue" customSize className="p-6 text-center">
-              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Web Design</h3>
-              <p className="text-3xl font-gobold text-accent-cyan mb-2">€3,500</p>
-              <p className="text-text-2 text-sm">Custom responsive website</p>
-            </GlowCard>
-            
-            <GlowCard glowColor="purple" customSize className="p-6 text-center">
-              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">WordPress + eCommerce</h3>
-              <p className="text-3xl font-gobold text-accent-cyan mb-2">€4,500</p>
-              <p className="text-text-2 text-sm">Full online store setup</p>
-            </GlowCard>
-            
-            <GlowCard glowColor="blue" customSize className="p-6 text-center">
-              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Shopify Support & Build</h3>
-              <p className="text-3xl font-gobold text-accent-cyan mb-2">€3,500</p>
-              <p className="text-text-2 text-sm">Shopify store setup & support</p>
-            </GlowCard>
-            
-            <GlowCard glowColor="purple" customSize className="p-6 text-center">
-              <h3 className="text-xl font-gobold uppercase mb-2 text-text-1">Custom Projects</h3>
-              <p className="text-3xl font-gobold text-accent-cyan mb-2">From €5,500</p>
-              <p className="text-text-2 text-sm">Bespoke solutions tailored to you</p>
-            </GlowCard>
-            
-            <GlowCard glowColor="orange" customSize className="p-6 text-center flex flex-col justify-center">
-              <p className="text-accent-pink font-gobold uppercase text-lg">Payment Plans</p>
-              <p className="text-text-2 text-sm mt-2">Flexible payment options available</p>
-            </GlowCard>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pricingPlans.map((plan, index) => {
+              const Icon = plan.icon;
+              return (
+                <GlowCard 
+                  key={index} 
+                  glowColor={plan.color} 
+                  customSize 
+                  className={`p-6 flex flex-col h-full ${plan.popular ? 'ring-2 ring-accent-cyan' : ''}`}
+                >
+                  {plan.popular && (
+                    <div className="text-center mb-4">
+                      <span className="bg-accent-cyan text-bg-0 text-xs font-gobold uppercase px-3 py-1 rounded-full">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                  <div className="text-center mb-6">
+                    <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center">
+                      <Icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-lg font-gobold uppercase mb-2 text-text-1">{plan.title}</h3>
+                    <p className="text-3xl font-gobold text-accent-cyan">{plan.price}</p>
+                  </div>
+                  <ul className="space-y-3 flex-1">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-text-2">
+                        <Check className="w-4 h-4 text-accent-cyan flex-shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className="w-full mt-6 bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white font-gobold uppercase text-sm"
+                    onClick={() => window.location.href = '/contact'}
+                  >
+                    Get Started
+                  </Button>
+                </GlowCard>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-gradient-to-b from-bg-0 to-bg-1/50">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-gobold uppercase tracking-tight mb-6">
             Ready to Start Your Project?
