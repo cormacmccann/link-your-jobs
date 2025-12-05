@@ -49,7 +49,7 @@ export function HeroSection() {
                 {/* Origin Story Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-bg-1/50 border border-white/10 rounded-full mb-0.5">
                   <span className="text-sm text-text-2">
-                    <span className="text-acc-violet font-gobold">Marketing Agency First,</span> CRM Builders Second
+                    <span className="text-acc-violet font-gobold">Web Design</span> &amp; Creative Agency
                   </span>
                 </div>
 
@@ -65,21 +65,19 @@ export function HeroSection() {
                 </h1>
 
                 <p className="mt-2 max-w-2xl text-lg text-text-2 md:text-base">
-                  Bold websites, smart marketing, and AI-powered growth strategies that launch your business into orbit.
+                  Bold websites, smart marketing, and creative strategies that launch your business into orbit.
                 </p>
-
-                
 
                 <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 lg:justify-start">
                   <Button asChild size="lg" className="h-12 bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-10 font-gobold uppercase tracking-tight">
-                    <Link to="/auth">
-                      <span className="text-nowrap">Try the CRM</span>
+                    <Link to="/contact">
+                      <span className="text-nowrap">Start a Project</span>
                       <ChevronRight className="ml-1" />
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="ghost" className="h-12 rounded-full px-10 text-base hover:bg-zinc-950/5 dark:hover:bg-white/5 border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 font-gobold uppercase tracking-tight">
-                    <Link to="#features">
-                      <span className="text-nowrap">See how it works</span>
+                    <Link to="/services/web-design">
+                      <span className="text-nowrap">View Our Work</span>
                     </Link>
                   </Button>
                 </div>
@@ -125,14 +123,14 @@ export function HeroSection() {
     </>;
 }
 const menuItems = [{
-  name: "Features",
-  href: "/features"
-}, {
   name: "Services",
   href: "/services"
 }, {
-  name: "Pricing",
-  href: "#pricing"
+  name: "Work",
+  href: "/services/web-design"
+}, {
+  name: "Clients",
+  href: "/clients"
 }, {
   name: "Contact",
   href: "/contact"
@@ -185,14 +183,9 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <Button asChild variant="outline" size="sm">
-                  <Link to="/auth">
-                    <span>Login</span>
-                  </Link>
-                </Button>
                 <Button asChild size="sm" className="bg-acc-violet hover:bg-acc-violet/90">
-                  <Link to="/auth">
-                    <span className="text-slate-50">Sign Up</span>
+                  <Link to="/contact">
+                    <span className="text-slate-50">Get a Quote</span>
                   </Link>
                 </Button>
               </div>
