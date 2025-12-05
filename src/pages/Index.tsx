@@ -90,7 +90,7 @@ const Index = () => {
       color: "blue" as const,
       popular: true,
       features: [
-        "Full WordPress setup",
+        "Up to 5 pages",
         "WooCommerce integration",
         "Product catalog (up to 50)",
         "Payment gateway setup",
