@@ -128,13 +128,13 @@ export function HeroSection() {
     </>;
 }
 const menuItems = [{
+  name: "Free Tools",
+  href: "/tools"
+}, {
   name: "Services",
   href: "/services"
 }, {
-  name: "Work",
-  href: "/services/web-design"
-}, {
-  name: "Clients",
+  name: "Our Work",
   href: "/clients"
 }, {
   name: "Contact",

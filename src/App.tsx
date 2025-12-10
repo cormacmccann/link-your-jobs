@@ -56,6 +56,11 @@ import BookingsDemos from "./pages/BookingsDemos";
 import ReviewWidget from "./pages/ReviewWidget";
 import SocialWall from "./pages/SocialWall";
 import TrustpilotIntegration from "./pages/TrustpilotIntegration";
+import ToolsHub from "./pages/tools/ToolsHub";
+import QRCodeGenerator from "./pages/tools/QRCodeGenerator";
+import PasswordGenerator from "./pages/tools/PasswordGenerator";
+import UTMBuilder from "./pages/tools/UTMBuilder";
+import VATCalculator from "./pages/tools/VATCalculator";
 
 const queryClient = new QueryClient();
 
@@ -142,7 +147,14 @@ const App = () => {
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             
-            {/* Toolkit App Pages */}
+            {/* Tools Hub */}
+            <Route path="/tools" element={<ToolsHub />} />
+            <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
+            <Route path="/tools/password-generator" element={<PasswordGenerator />} />
+            <Route path="/tools/utm-builder" element={<UTMBuilder />} />
+            <Route path="/tools/vat-calculator" element={<VATCalculator />} />
+            
+            {/* Legacy Toolkit Pages */}
             <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
             <Route path="/tools/terms-generator" element={<TermsGenerator />} />
             <Route path="/tools/cookie-consent-manager" element={<CookieConsentManager />} />
