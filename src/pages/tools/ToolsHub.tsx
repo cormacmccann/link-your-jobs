@@ -15,10 +15,10 @@ const ToolsHub = () => {
     {
       name: "Business Essentials",
       tools: [
-        { name: "Email Signature Generator", icon: Mail, href: "/tools/email-signature", status: "coming-soon" },
-        { name: "Invoice Creator", icon: FileText, href: "/tools/invoice-creator", status: "coming-soon" },
-        { name: "Quotation Maker", icon: Receipt, href: "/tools/quotation-maker", status: "coming-soon" },
-        { name: "Business Name Generator", icon: Sparkles, href: "/tools/business-name-generator", status: "coming-soon" },
+        { name: "Email Signature Generator", icon: Mail, href: "/tools/email-signature", status: "live" },
+        { name: "Invoice Creator", icon: FileText, href: "/tools/invoice-creator", status: "live" },
+        { name: "Quotation Maker", icon: Receipt, href: "/tools/quotation-maker", status: "live" },
+        { name: "Business Name Generator", icon: Sparkles, href: "/tools/business-name-generator", status: "live" },
       ]
     },
     {
@@ -43,15 +43,15 @@ const ToolsHub = () => {
       tools: [
         { name: "UTM Builder", icon: Link2, href: "/tools/utm-builder", status: "live" },
         { name: "Meta Tag Preview", icon: Globe, href: "/tools/meta-tag-preview", status: "coming-soon" },
-        { name: "OpenGraph Preview", icon: Share2, href: "/tools/opengraph-preview", status: "coming-soon" },
-        { name: "Hashtag Suggester", icon: Hash, href: "/tools/hashtag-suggester", status: "coming-soon" },
+        { name: "OpenGraph Preview", icon: Share2, href: "/tools/opengraph-preview", status: "live" },
+        { name: "Hashtag Suggester", icon: Hash, href: "/tools/hashtag-suggester", status: "live" },
         { name: "Email Subject Tester", icon: MessageSquare, href: "/tools/email-subject-tester", status: "coming-soon" },
       ]
     },
     {
       name: "Social Media",
       tools: [
-        { name: "Post Size Checker", icon: Square, href: "/tools/social-post-sizes", status: "coming-soon" },
+        { name: "Post Size Checker", icon: Square, href: "/tools/social-post-sizes", status: "live" },
         { name: "Countdown Timer Builder", icon: Clock, href: "/tools/countdown-timer", status: "coming-soon" },
         { name: "Marketing Persona Generator", icon: Users, href: "/tools/persona-generator", status: "coming-soon" },
       ]

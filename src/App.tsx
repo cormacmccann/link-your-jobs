@@ -61,6 +61,13 @@ import QRCodeGenerator from "./pages/tools/QRCodeGenerator";
 import PasswordGenerator from "./pages/tools/PasswordGenerator";
 import UTMBuilder from "./pages/tools/UTMBuilder";
 import VATCalculator from "./pages/tools/VATCalculator";
+import EmailSignatureGenerator from "./pages/tools/EmailSignatureGenerator";
+import InvoiceCreator from "./pages/tools/InvoiceCreator";
+import QuotationMaker from "./pages/tools/QuotationMaker";
+import BusinessNameGenerator from "./pages/tools/BusinessNameGenerator";
+import SocialMediaSizeChecker from "./pages/tools/SocialMediaSizeChecker";
+import OpenGraphPreview from "./pages/tools/OpenGraphPreview";
+import HashtagSuggester from "./pages/tools/HashtagSuggester";
 
 const queryClient = new QueryClient();
 
@@ -153,6 +160,13 @@ const App = () => {
             <Route path="/tools/password-generator" element={<PasswordGenerator />} />
             <Route path="/tools/utm-builder" element={<UTMBuilder />} />
             <Route path="/tools/vat-calculator" element={<VATCalculator />} />
+            <Route path="/tools/email-signature" element={<EmailSignatureGenerator />} />
+            <Route path="/tools/invoice-creator" element={<InvoiceCreator />} />
+            <Route path="/tools/quotation-maker" element={<QuotationMaker />} />
+            <Route path="/tools/business-name-generator" element={<BusinessNameGenerator />} />
+            <Route path="/tools/social-post-sizes" element={<SocialMediaSizeChecker />} />
+            <Route path="/tools/opengraph-preview" element={<OpenGraphPreview />} />
+            <Route path="/tools/hashtag-suggester" element={<HashtagSuggester />} />
             
             {/* Legacy Toolkit Pages */}
             <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
