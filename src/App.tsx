@@ -5,14 +5,32 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
+import { Session } from "@supabase/supabase-js";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import Auth from "./components/Auth";
+import { Auth } from "./components/Auth";
 import Clients from "./pages/Clients";
 import ToolsHub from "./pages/tools/ToolsHub";
 import Features from "./pages/Features";
+import PortfolioDetail from "./pages/PortfolioDetail";
+import WidgetView from "./pages/WidgetView";
+import EmbedWidget from "./pages/EmbedWidget";
+
+// Service Pages
+import WebDesign from "./pages/services/WebDesign";
+import AppDevelopment from "./pages/services/AppDevelopment";
+import GraphicDesign from "./pages/services/GraphicDesign";
+import VideoDesign from "./pages/services/VideoDesign";
+import Branding from "./pages/services/Branding";
+
+// Feature Pages
+import CRM from "./pages/features/CRM";
+import Chat from "./pages/features/Chat";
+import ProjectsFeature from "./pages/features/Projects";
+import Invoicing from "./pages/features/Invoicing";
+import Tools from "./pages/features/Tools";
 
 // Help Pages
 import HelpCenter from "./pages/help/HelpCenter";
@@ -32,6 +50,7 @@ import FreeToolsGuide from "./pages/help/FreeToolsGuide";
 import SuperAdminGuide from "./pages/help/SuperAdminGuide";
 import FAQ from "./pages/help/FAQ";
 
+// CRM Pages
 import CRMLayout from "./pages/crm/CRMLayout";
 import TodayModern from "./pages/crm/TodayModern";
 import Stream from "./pages/crm/Stream";
@@ -39,6 +58,8 @@ import People from "./pages/crm/People";
 import Settings from "./pages/crm/Settings";
 import MissionControl from "./pages/crm/MissionControl";
 import SuperAdmin from "./pages/crm/SuperAdmin";
+
+// Legacy/Tool Pages
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
 import CookieConsentManager from "./pages/CookieConsentManager";
@@ -48,7 +69,6 @@ import BookingsDemos from "./pages/BookingsDemos";
 import ReviewWidget from "./pages/ReviewWidget";
 import SocialWall from "./pages/SocialWall";
 import TrustpilotIntegration from "./pages/TrustpilotIntegration";
-import ToolsHub from "./pages/tools/ToolsHub";
 import QRCodeGenerator from "./pages/tools/QRCodeGenerator";
 import PasswordGenerator from "./pages/tools/PasswordGenerator";
 import UTMBuilder from "./pages/tools/UTMBuilder";
@@ -102,18 +122,36 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/services/web-design" element={<WebDesign />} />
             <Route path="/services/app-development" element={<AppDevelopment />} />
-        <Route path="/services/graphic-design" element={<GraphicDesign />} />
-        <Route path="/services/video-design" element={<VideoDesign />} />
-        <Route path="/services/branding" element={<Branding />} />
-        <Route path="/features" element={<Features />} />
-        <Route path="/features/crm" element={<CRM />} />
-        <Route path="/features/chat" element={<Chat />} />
-        <Route path="/features/projects" element={<ProjectsFeature />} />
-        <Route path="/features/invoicing" element={<Invoicing />} />
-        <Route path="/features/tools" element={<Tools />} />
-        <Route path="/clients" element={<Clients />} />
-        <Route path="/clients/:id" element={<PortfolioDetail />} />
-        <Route path="/contact" element={<Contact />} />
+            <Route path="/services/graphic-design" element={<GraphicDesign />} />
+            <Route path="/services/video-design" element={<VideoDesign />} />
+            <Route path="/services/branding" element={<Branding />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/features/crm" element={<CRM />} />
+            <Route path="/features/chat" element={<Chat />} />
+            <Route path="/features/projects" element={<ProjectsFeature />} />
+            <Route path="/features/invoicing" element={<Invoicing />} />
+            <Route path="/features/tools" element={<Tools />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/clients/:id" element={<PortfolioDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Help Center Routes */}
+            <Route path="/help" element={<HelpCenter />} />
+            <Route path="/help/getting-started" element={<GettingStarted />} />
+            <Route path="/help/stream" element={<StreamGuide />} />
+            <Route path="/help/today" element={<TodayGuide />} />
+            <Route path="/help/people" element={<PeopleGuide />} />
+            <Route path="/help/projects" element={<ProjectsGuide />} />
+            <Route path="/help/deals" element={<DealsGuide />} />
+            <Route path="/help/tasks" element={<TasksGuide />} />
+            <Route path="/help/invoicing" element={<InvoicingGuide />} />
+            <Route path="/help/live-chat" element={<LiveChatGuide />} />
+            <Route path="/help/automations" element={<AutomationsGuide />} />
+            <Route path="/help/client-portals" element={<ClientPortalsGuide />} />
+            <Route path="/help/settings" element={<SettingsGuide />} />
+            <Route path="/help/free-tools" element={<FreeToolsGuide />} />
+            <Route path="/help/super-admin" element={<SuperAdminGuide />} />
+            <Route path="/help/faq" element={<FAQ />} />
             
             {/* CRM Routes - Simplified Basecamp-style */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
