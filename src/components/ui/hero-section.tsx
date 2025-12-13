@@ -128,6 +128,9 @@ export function HeroSection() {
     </>;
 }
 const menuItems = [{
+  name: "Features",
+  href: "/features"
+}, {
   name: "Free Tools",
   href: "/tools"
 }, {
@@ -136,6 +139,9 @@ const menuItems = [{
 }, {
   name: "Our Work",
   href: "/clients"
+}, {
+  name: "Help",
+  href: "/help"
 }, {
   name: "Contact",
   href: "/contact"
@@ -188,9 +194,14 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                <Button asChild variant="ghost" size="sm" className="border border-border hover:bg-accent">
+                  <Link to="/auth">
+                    <span>Login</span>
+                  </Link>
+                </Button>
                 <Button asChild size="sm" className="bg-acc-violet hover:bg-acc-violet/90">
-                  <Link to="/contact">
-                    <span className="text-slate-50">Get a Quote</span>
+                  <Link to="/auth">
+                    <span className="text-slate-50">Sign Up</span>
                   </Link>
                 </Button>
               </div>
