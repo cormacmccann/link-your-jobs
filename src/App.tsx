@@ -28,25 +28,11 @@ import NotFound from "./pages/NotFound";
 import { Auth } from "./components/Auth";
 import CRMLayout from "./pages/crm/CRMLayout";
 import TodayModern from "./pages/crm/TodayModern";
-import Dashboard from "./pages/crm/Dashboard";
 import Stream from "./pages/crm/Stream";
-import Contacts from "./pages/crm/Contacts";
-import Companies from "./pages/crm/Companies";
-import Conversations from "./pages/crm/Conversations";
-import Deals from "./pages/crm/Deals";
-import Invoices from "./pages/crm/Invoices";
-import Calendar from "./pages/crm/Calendar";
-import Tasks from "./pages/crm/Tasks";
-import Projects from "./pages/crm/Projects";
-import Automations from "./pages/crm/Automations";
-import Insights from "./pages/crm/Insights";
-import Extras from "./pages/crm/Extras";
+import People from "./pages/crm/People";
 import Settings from "./pages/crm/Settings";
 import MissionControl from "./pages/crm/MissionControl";
 import SuperAdmin from "./pages/crm/SuperAdmin";
-import ClientPortals from "./pages/crm/ClientPortals";
-import TeamSettings from "./pages/crm/TeamSettings";
-import Reviews from "./pages/crm/Reviews";
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
 import TermsGenerator from "./pages/TermsGenerator";
 import CookieConsentManager from "./pages/CookieConsentManager";
@@ -123,30 +109,22 @@ const App = () => {
         <Route path="/clients/:id" element={<PortfolioDetail />} />
         <Route path="/contact" element={<Contact />} />
             
-            {/* CRM Routes */}
+            {/* CRM Routes - Simplified Basecamp-style */}
             <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
-              <Route index element={<Navigate to="/crm/today" />} />
+              <Route index element={<Navigate to="/crm/stream" />} />
+              <Route path="stream" element={<Stream />} />
               <Route path="today" element={<TodayModern />} />
-              <Route path="contacts" element={<Contacts />} />
-              <Route path="companies" element={<Companies />} />
-              <Route path="conversations" element={<Conversations />} />
-              <Route path="deals" element={<Deals />} />
-              <Route path="invoices" element={<Invoices />} />
-              <Route path="calendar" element={<Calendar />} />
-              <Route path="tasks" element={<Tasks />} />
-              <Route path="projects" element={<Projects />} />
-              <Route path="automations" element={<Automations />} />
-              <Route path="insights" element={<Insights />} />
-              <Route path="extras" element={<Extras />} />
+              <Route path="people" element={<People />} />
               <Route path="settings" element={<Settings />} />
               <Route path="mission-control" element={<MissionControl />} />
               <Route path="super-admin" element={<SuperAdmin />} />
-              <Route path="client-portals" element={<ClientPortals />} />
-              <Route path="team" element={<TeamSettings />} />
-              <Route path="reviews" element={<Reviews />} />
-              {/* Legacy routes */}
-              <Route path="stream" element={<Stream />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              {/* Legacy redirects */}
+              <Route path="contacts" element={<Navigate to="/crm/people" />} />
+              <Route path="companies" element={<Navigate to="/crm/people" />} />
+              <Route path="tasks" element={<Navigate to="/crm/stream" />} />
+              <Route path="projects" element={<Navigate to="/crm/stream" />} />
+              <Route path="deals" element={<Navigate to="/crm/stream" />} />
+              <Route path="dashboard" element={<Navigate to="/crm/stream" />} />
             </Route>
 
             {/* Legacy Routes */}
