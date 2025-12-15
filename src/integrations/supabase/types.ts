@@ -14,6 +14,73 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_log: {
+        Row: {
+          activity_description: string | null
+          activity_metadata: Json | null
+          activity_title: string
+          activity_type: string
+          company_id: string | null
+          contact_id: string | null
+          created_at: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          organization_id: string
+          performed_by: string | null
+        }
+        Insert: {
+          activity_description?: string | null
+          activity_metadata?: Json | null
+          activity_title: string
+          activity_type: string
+          company_id?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          organization_id: string
+          performed_by?: string | null
+        }
+        Update: {
+          activity_description?: string | null
+          activity_metadata?: Json | null
+          activity_title?: string
+          activity_type?: string
+          company_id?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          organization_id?: string
+          performed_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "activity_log_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "activity_log_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       automation_logs: {
         Row: {
           actions_executed: Json | null
@@ -110,6 +177,182 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      booking_slots: {
+        Row: {
+          advance_booking_days: number | null
+          availability: Json
+          buffer_after_minutes: number | null
+          buffer_before_minutes: number | null
+          created_at: string | null
+          duration_minutes: number
+          id: string
+          is_active: boolean | null
+          max_bookings_per_day: number | null
+          organization_id: string
+          slug: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          advance_booking_days?: number | null
+          availability?: Json
+          buffer_after_minutes?: number | null
+          buffer_before_minutes?: number | null
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean | null
+          max_bookings_per_day?: number | null
+          organization_id: string
+          slug?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          advance_booking_days?: number | null
+          availability?: Json
+          buffer_after_minutes?: number | null
+          buffer_before_minutes?: number | null
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean | null
+          max_bookings_per_day?: number | null
+          organization_id?: string
+          slug?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_slots_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calendar_events: {
+        Row: {
+          all_day: boolean | null
+          attendees: Json | null
+          created_at: string | null
+          created_by: string
+          description: string | null
+          ends_at: string
+          event_type: string | null
+          external_calendar_id: string | null
+          external_event_id: string | null
+          id: string
+          is_recurring: boolean | null
+          location: string | null
+          organization_id: string
+          recurrence_rule: string | null
+          related_card_id: string | null
+          related_company_id: string | null
+          related_contact_id: string | null
+          related_deal_id: string | null
+          reminders: Json | null
+          starts_at: string
+          status: string | null
+          timezone: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          all_day?: boolean | null
+          attendees?: Json | null
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          ends_at: string
+          event_type?: string | null
+          external_calendar_id?: string | null
+          external_event_id?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          organization_id: string
+          recurrence_rule?: string | null
+          related_card_id?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          reminders?: Json | null
+          starts_at: string
+          status?: string | null
+          timezone?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          all_day?: boolean | null
+          attendees?: Json | null
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          ends_at?: string
+          event_type?: string | null
+          external_calendar_id?: string | null
+          external_event_id?: string | null
+          id?: string
+          is_recurring?: boolean | null
+          location?: string | null
+          organization_id?: string
+          recurrence_rule?: string | null
+          related_card_id?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          reminders?: Json | null
+          starts_at?: string
+          status?: string | null
+          timezone?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_related_card_id_fkey"
+            columns: ["related_card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "calendar_events_related_deal_id_fkey"
+            columns: ["related_deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
             referencedColumns: ["id"]
           },
         ]
@@ -819,6 +1062,126 @@ export type Database = {
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contracts: {
+        Row: {
+          content: string
+          contract_number: string
+          created_at: string | null
+          created_by: string
+          expires_at: string | null
+          id: string
+          organization_id: string
+          pdf_url: string | null
+          related_company_id: string | null
+          related_contact_id: string | null
+          related_deal_id: string | null
+          related_quote_id: string | null
+          requires_signature: boolean | null
+          sent_at: string | null
+          signature_data: string | null
+          signature_type: string | null
+          signed_at: string | null
+          signed_pdf_url: string | null
+          signer_email: string | null
+          signer_ip: string | null
+          signer_name: string | null
+          status: string
+          title: string
+          updated_at: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          content: string
+          contract_number: string
+          created_at?: string | null
+          created_by: string
+          expires_at?: string | null
+          id?: string
+          organization_id: string
+          pdf_url?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          related_quote_id?: string | null
+          requires_signature?: boolean | null
+          sent_at?: string | null
+          signature_data?: string | null
+          signature_type?: string | null
+          signed_at?: string | null
+          signed_pdf_url?: string | null
+          signer_email?: string | null
+          signer_ip?: string | null
+          signer_name?: string | null
+          status?: string
+          title: string
+          updated_at?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          content?: string
+          contract_number?: string
+          created_at?: string | null
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          organization_id?: string
+          pdf_url?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          related_quote_id?: string | null
+          requires_signature?: boolean | null
+          sent_at?: string | null
+          signature_data?: string | null
+          signature_type?: string | null
+          signed_at?: string | null
+          signed_pdf_url?: string | null
+          signer_email?: string | null
+          signer_ip?: string | null
+          signer_name?: string | null
+          status?: string
+          title?: string
+          updated_at?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contracts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_related_deal_id_fkey"
+            columns: ["related_deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contracts_related_quote_id_fkey"
+            columns: ["related_quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
             referencedColumns: ["id"]
           },
         ]
@@ -2377,6 +2740,180 @@ export type Database = {
           },
         ]
       }
+      quote_items: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string
+          display_order: number | null
+          id: string
+          quantity: number
+          quote_id: string
+          tax_rate: number | null
+          unit_price: number
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description: string
+          display_order?: number | null
+          id?: string
+          quantity?: number
+          quote_id: string
+          tax_rate?: number | null
+          unit_price: number
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string
+          display_order?: number | null
+          id?: string
+          quantity?: number
+          quote_id?: string
+          tax_rate?: number | null
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_items_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotes: {
+        Row: {
+          accepted_at: string | null
+          client_notes: string | null
+          client_signature: string | null
+          converted_to_invoice_id: string | null
+          converted_to_project_id: string | null
+          created_at: string | null
+          created_by: string
+          currency: string | null
+          description: string | null
+          discount_amount: number | null
+          id: string
+          organization_id: string
+          quote_number: string
+          rejected_at: string | null
+          related_company_id: string | null
+          related_contact_id: string | null
+          related_deal_id: string | null
+          sent_at: string | null
+          status: string
+          subtotal: number
+          tax_amount: number | null
+          title: string
+          total_amount: number
+          updated_at: string | null
+          valid_until: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          client_notes?: string | null
+          client_signature?: string | null
+          converted_to_invoice_id?: string | null
+          converted_to_project_id?: string | null
+          created_at?: string | null
+          created_by: string
+          currency?: string | null
+          description?: string | null
+          discount_amount?: number | null
+          id?: string
+          organization_id: string
+          quote_number: string
+          rejected_at?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          sent_at?: string | null
+          status?: string
+          subtotal?: number
+          tax_amount?: number | null
+          title: string
+          total_amount?: number
+          updated_at?: string | null
+          valid_until?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          client_notes?: string | null
+          client_signature?: string | null
+          converted_to_invoice_id?: string | null
+          converted_to_project_id?: string | null
+          created_at?: string | null
+          created_by?: string
+          currency?: string | null
+          description?: string | null
+          discount_amount?: number | null
+          id?: string
+          organization_id?: string
+          quote_number?: string
+          rejected_at?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          sent_at?: string | null
+          status?: string
+          subtotal?: number
+          tax_amount?: number | null
+          title?: string
+          total_amount?: number
+          updated_at?: string | null
+          valid_until?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotes_converted_to_invoice_id_fkey"
+            columns: ["converted_to_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_converted_to_project_id_fkey"
+            columns: ["converted_to_project_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quotes_related_deal_id_fkey"
+            columns: ["related_deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reviews: {
         Row: {
           content: string
@@ -2540,6 +3077,112 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      time_entries: {
+        Row: {
+          created_at: string | null
+          description: string
+          duration_minutes: number | null
+          ended_at: string | null
+          hourly_rate: number | null
+          id: string
+          is_billable: boolean | null
+          is_invoiced: boolean | null
+          organization_id: string
+          related_card_id: string | null
+          related_company_id: string | null
+          related_contact_id: string | null
+          related_deal_id: string | null
+          related_invoice_id: string | null
+          started_at: string
+          total_amount: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          duration_minutes?: number | null
+          ended_at?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_billable?: boolean | null
+          is_invoiced?: boolean | null
+          organization_id: string
+          related_card_id?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          related_invoice_id?: string | null
+          started_at: string
+          total_amount?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          duration_minutes?: number | null
+          ended_at?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_billable?: boolean | null
+          is_invoiced?: boolean | null
+          organization_id?: string
+          related_card_id?: string | null
+          related_company_id?: string | null
+          related_contact_id?: string | null
+          related_deal_id?: string | null
+          related_invoice_id?: string | null
+          started_at?: string
+          total_amount?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_entries_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_entries_related_card_id_fkey"
+            columns: ["related_card_id"]
+            isOneToOne: false
+            referencedRelation: "cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_entries_related_company_id_fkey"
+            columns: ["related_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_entries_related_contact_id_fkey"
+            columns: ["related_contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_entries_related_deal_id_fkey"
+            columns: ["related_deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_entries_related_invoice_id_fkey"
+            columns: ["related_invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
             referencedColumns: ["id"]
           },
         ]
