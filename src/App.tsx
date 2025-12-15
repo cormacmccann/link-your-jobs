@@ -58,6 +58,17 @@ import People from "./pages/crm/People";
 import Settings from "./pages/crm/Settings";
 import MissionControl from "./pages/crm/MissionControl";
 import SuperAdmin from "./pages/crm/SuperAdmin";
+import Client from "./pages/crm/Client";
+import Quotes from "./pages/crm/Quotes";
+import QuoteBuilder from "./pages/crm/QuoteBuilder";
+import Contracts from "./pages/crm/Contracts";
+import ContractBuilder from "./pages/crm/ContractBuilder";
+import CRMCalendar from "./pages/crm/Calendar";
+import TimeTracking from "./pages/crm/TimeTracking";
+
+// Public Pages
+import QuoteView from "./pages/public/QuoteView";
+import ContractSign from "./pages/public/ContractSign";
 
 // Legacy/Tool Pages
 import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
