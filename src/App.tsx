@@ -50,7 +50,7 @@ import FreeToolsGuide from "./pages/help/FreeToolsGuide";
 import SuperAdminGuide from "./pages/help/SuperAdminGuide";
 import FAQ from "./pages/help/FAQ";
 
-// CRM Pages
+// CRM Pages (legacy - redirect to portal)
 import CRMLayout from "./pages/crm/CRMLayout";
 import TodayModern from "./pages/crm/TodayModern";
 import Stream from "./pages/crm/Stream";
@@ -58,13 +58,15 @@ import People from "./pages/crm/People";
 import Settings from "./pages/crm/Settings";
 import MissionControl from "./pages/crm/MissionControl";
 import SuperAdmin from "./pages/crm/SuperAdmin";
-import Client from "./pages/crm/Client";
-import Quotes from "./pages/crm/Quotes";
-import QuoteBuilder from "./pages/crm/QuoteBuilder";
-import Contracts from "./pages/crm/Contracts";
-import ContractBuilder from "./pages/crm/ContractBuilder";
-import CRMCalendar from "./pages/crm/Calendar";
-import TimeTracking from "./pages/crm/TimeTracking";
+
+// Portal Pages
+import PortalLayout from "./pages/crm/PortalLayout";
+import PortalStream from "./pages/portal/PortalStream";
+import PortalProjects from "./pages/portal/PortalProjects";
+import PortalInvoices from "./pages/portal/PortalInvoices";
+import PortalContracts from "./pages/portal/PortalContracts";
+import PortalSettings from "./pages/portal/PortalSettings";
+import NewRequest from "./pages/portal/NewRequest";
 
 // Public Pages
 import QuoteView from "./pages/public/QuoteView";
@@ -164,26 +166,23 @@ const App = () => {
             <Route path="/help/super-admin" element={<SuperAdminGuide />} />
             <Route path="/help/faq" element={<FAQ />} />
             
-            {/* CRM Routes - Simplified Basecamp-style */}
-            <Route path="/crm" element={session ? <CRMLayout /> : <Navigate to="/auth" />}>
-              <Route index element={<Navigate to="/crm/stream" />} />
-              <Route path="stream" element={<Stream />} />
-              <Route path="today" element={<TodayModern />} />
-              <Route path="people" element={<People />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="mission-control" element={<MissionControl />} />
-              <Route path="super-admin" element={<SuperAdmin />} />
-              {/* Legacy redirects */}
-              <Route path="contacts" element={<Navigate to="/crm/people" />} />
-              <Route path="companies" element={<Navigate to="/crm/people" />} />
-              <Route path="tasks" element={<Navigate to="/crm/stream" />} />
-              <Route path="projects" element={<Navigate to="/crm/stream" />} />
-              <Route path="deals" element={<Navigate to="/crm/stream" />} />
-              <Route path="dashboard" element={<Navigate to="/crm/stream" />} />
+            {/* Client Portal Routes */}
+            <Route path="/portal" element={session ? <PortalLayout /> : <Navigate to="/auth" />}>
+              <Route index element={<Navigate to="/portal/stream" />} />
+              <Route path="stream" element={<PortalStream />} />
+              <Route path="projects" element={<PortalProjects />} />
+              <Route path="invoices" element={<PortalInvoices />} />
+              <Route path="contracts" element={<PortalContracts />} />
+              <Route path="settings" element={<PortalSettings />} />
+              <Route path="new-request" element={<NewRequest />} />
             </Route>
 
+            {/* Legacy CRM Routes - Redirect to Portal */}
+            <Route path="/crm" element={session ? <Navigate to="/portal/stream" /> : <Navigate to="/auth" />} />
+            <Route path="/crm/*" element={<Navigate to="/portal/stream" />} />
+
             {/* Legacy Routes */}
-            <Route path="/dashboard" element={session ? <Navigate to="/crm/today" /> : <Navigate to="/auth" />} />
+            <Route path="/dashboard" element={session ? <Navigate to="/portal/stream" /> : <Navigate to="/auth" />} />
             <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
             <Route path="/embed/:id" element={<EmbedWidget />} />
             
