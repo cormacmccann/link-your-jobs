@@ -8,9 +8,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
 
 const ToolsHub = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -95,36 +95,7 @@ const ToolsHub = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation */}
-      <header className="border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-50">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-10">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={kamrokLogo} alt="KAMROK" className="h-8" />
-            </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/clients" className="text-sm font-medium hover:text-accent-pink transition-colors">Portfolio</Link>
-              <Link to="/tools" className="text-sm font-medium text-accent-pink border-b-2 border-accent-pink pb-1">Tools</Link>
-              <Link to="/services/web-design" className="text-sm font-medium hover:text-accent-pink transition-colors">Services</Link>
-              <Link to="/contact" className="text-sm font-medium hover:text-accent-pink transition-colors">Contact</Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="relative hidden lg:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Find a tool..." 
-                className="bg-card border-border pl-10 w-64 focus:border-accent-cyan"
-              />
-            </div>
-            <Button asChild className="bg-accent-pink text-white hover:bg-accent-pink/90">
-              <Link to="/contact">Get a Quote</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-6 py-12">
         {/* Hero Section */}
