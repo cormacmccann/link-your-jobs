@@ -153,8 +153,8 @@ const Index = () => {
             className="max-w-4xl"
           >
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-gobold uppercase tracking-tight text-white/90 mb-8 leading-[1.1]">
-              Designing <span className="font-light opacity-70">a Better</span><br />
-              World <span className="font-light opacity-70">Today</span>
+              Designing <span className="font-light bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet bg-clip-text text-transparent">a Better</span><br />
+              World <span className="font-light bg-gradient-to-r from-acc-cyan to-acc-violet bg-clip-text text-transparent">Today</span>
             </h1>
             
             <div className="max-w-xl mb-12">
@@ -166,7 +166,7 @@ const Index = () => {
             <div className="flex flex-wrap gap-4 items-center">
               <Button 
                 size="lg"
-                className="bg-acc-orange hover:bg-acc-orange/90 text-white font-medium px-8 rounded-full h-14 text-base group"
+                className="bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet hover:opacity-90 text-white font-medium px-8 rounded-full h-14 text-base group"
                 onClick={() => window.location.href = '/services'}
               >
                 What we do
@@ -175,7 +175,7 @@ const Index = () => {
               
               <Link 
                 to="/clients" 
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
+                className="flex items-center gap-2 text-acc-cyan hover:text-white transition-colors group"
               >
                 <span className="text-base">View works</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -220,7 +220,7 @@ const Index = () => {
             <div className="order-2 lg:order-1">
               <motion.div variants={fadeInUp}>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-gobold uppercase tracking-tight mb-8 leading-[1.1]">
-                  Discover <br/>Our <span className="font-light opacity-70">Studio</span>
+                  Discover <br/>Our <span className="font-light bg-gradient-to-r from-acc-orange to-acc-pink bg-clip-text text-transparent">Studio</span>
                 </h2>
                 
                 <p className="text-text-2 text-lg leading-relaxed mb-6">
@@ -231,12 +231,12 @@ const Index = () => {
                   Collaboration is at the heart of what we do. Our team thrives on the synergy that arises when unique perspectives converge, fostering an environment of boundless creativity. By harnessing our collective expertise, we produce extraordinary results that consistently surpass expectations.
                 </p>
 
-                <div className="flex items-center gap-6 p-6 bg-bg-1/50 rounded-2xl border border-white/5">
-                  <div className="w-16 h-16 rounded-full bg-acc-orange/20 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-8 h-8 text-acc-orange" />
+                <div className="flex items-center gap-6 p-6 bg-gradient-to-r from-acc-orange/10 via-acc-pink/10 to-acc-violet/10 rounded-2xl border border-white/10">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-acc-orange to-acc-pink flex items-center justify-center shrink-0">
+                    <Sparkles className="w-8 h-8 text-white" />
                   </div>
                   <p className="text-lg text-text-1">
-                    Passionately Creating <span className="font-light opacity-70">Design Wonders:</span> Unleashing <span className="font-light opacity-70">Boundless Creativity</span>
+                    Passionately Creating <span className="font-light text-acc-cyan">Design Wonders:</span> Unleashing <span className="font-light text-acc-pink">Boundless Creativity</span>
                   </p>
                 </div>
               </motion.div>
@@ -271,13 +271,13 @@ const Index = () => {
         {/* Animated gradient background */}
         <div className="absolute inset-0">
           <motion.div 
-            className="absolute w-[500px] h-[500px] rounded-full bg-acc-violet/10 blur-[150px]"
+            className="absolute w-[500px] h-[500px] rounded-full bg-acc-pink/15 blur-[150px]"
             style={{ top: '20%', right: '-10%' }}
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 8, repeat: Infinity }}
           />
           <motion.div 
-            className="absolute w-[400px] h-[400px] rounded-full bg-acc-orange/10 blur-[120px]"
+            className="absolute w-[400px] h-[400px] rounded-full bg-acc-cyan/10 blur-[120px]"
             style={{ bottom: '10%', left: '-5%' }}
             animate={{ scale: [1.2, 1, 1.2] }}
             transition={{ duration: 10, repeat: Infinity }}
@@ -300,16 +300,16 @@ const Index = () => {
             
             <div className="text-center mb-4">
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-gobold uppercase tracking-tight text-white/90 leading-[1.1]">
-                Unique <span className="font-light opacity-70">Ideas</span>
+                Unique <span className="font-light bg-gradient-to-r from-acc-orange to-acc-pink bg-clip-text text-transparent">Ideas</span>
               </h2>
             </div>
             
             <div className="flex items-center justify-center gap-6">
               <h2 className="text-5xl md:text-6xl lg:text-7xl font-gobold uppercase tracking-tight text-white/90">
-                For Your <span className="font-light opacity-70">Business.</span>
+                For Your <span className="font-light bg-gradient-to-r from-acc-violet to-acc-cyan bg-clip-text text-transparent">Business.</span>
               </h2>
               <Button 
-                className="bg-acc-orange hover:bg-acc-orange/90 text-white rounded-full px-8 h-14 font-medium hidden md:flex"
+                className="bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet hover:opacity-90 text-white rounded-full px-8 h-14 font-medium hidden md:flex"
                 onClick={() => window.location.href = '/services'}
               >
                 What we do
@@ -332,13 +332,13 @@ const Index = () => {
                   to={service.href}
                   className="block p-8 bg-bg-0 hover:bg-bg-1/50 transition-all duration-300 h-full group"
                 >
-                  <h3 className="text-xl font-gobold uppercase text-white/90 mb-4 leading-tight group-hover:text-acc-orange transition-colors">
+                  <h3 className="text-xl font-gobold uppercase text-white/90 mb-4 leading-tight group-hover:bg-gradient-to-r group-hover:from-acc-orange group-hover:to-acc-pink group-hover:bg-clip-text group-hover:text-transparent transition-all">
                     {service.title}
                   </h3>
                   <p className="text-white/40 text-sm leading-relaxed mb-8">
                     {service.description}
                   </p>
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-acc-orange transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-acc-orange group-hover:to-acc-pink transition-all">
                     <ArrowRight className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" />
                   </div>
                 </Link>
@@ -349,7 +349,7 @@ const Index = () => {
           {/* Mobile CTA */}
           <div className="mt-8 md:hidden text-center">
             <Button 
-              className="bg-acc-orange hover:bg-acc-orange/90 text-white rounded-full px-8 h-14 font-medium"
+              className="bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet hover:opacity-90 text-white rounded-full px-8 h-14 font-medium"
               onClick={() => window.location.href = '/services'}
             >
               What we do
@@ -364,13 +364,13 @@ const Index = () => {
         <div className="container mx-auto max-w-7xl">
           <motion.div variants={staggerContainer} className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
-              { value: "150+", label: "Projects Delivered" },
-              { value: "98%", label: "Client Retention" },
-              { value: "24/7", label: "Technical Support" },
-              { value: "5.0", label: "Average Rating" },
+              { value: "150+", label: "Projects Delivered", color: "from-acc-orange to-acc-pink" },
+              { value: "98%", label: "Client Retention", color: "from-acc-pink to-acc-violet" },
+              { value: "24/7", label: "Technical Support", color: "from-acc-violet to-acc-cyan" },
+              { value: "5.0", label: "Average Rating", color: "from-acc-cyan to-acc-orange" },
             ].map((stat, i) => (
               <motion.div key={i} variants={fadeInUp} className="text-center">
-                <p className="text-4xl md:text-5xl lg:text-6xl font-gobold text-acc-orange mb-2">{stat.value}</p>
+                <p className={cn("text-4xl md:text-5xl lg:text-6xl font-gobold bg-gradient-to-r bg-clip-text text-transparent mb-2", stat.color)}>{stat.value}</p>
                 <p className="text-text-2 text-sm uppercase tracking-wider">{stat.label}</p>
               </motion.div>
             ))}
@@ -413,7 +413,7 @@ const Index = () => {
                   onClick={() => setCurrentTestimonial(i)}
                   className={cn(
                     "w-3 h-3 rounded-full transition-all",
-                    currentTestimonial === i ? "bg-acc-orange w-8" : "bg-black/20"
+                    currentTestimonial === i ? "bg-gradient-to-r from-acc-orange to-acc-pink w-8" : "bg-black/20"
                   )}
                 />
               ))}
@@ -506,12 +506,12 @@ const Index = () => {
 
       {/* CTA Section */}
       <AnimatedSection className="py-24 md:py-32 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-acc-violet/10 via-bg-0 to-acc-pink/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-acc-orange/10 via-bg-0 to-acc-cyan/10" />
         
         <div className="container mx-auto max-w-4xl relative z-10">
           <motion.div variants={fadeInUp} className="text-center">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-gobold uppercase tracking-tight mb-6 leading-[1.1]">
-              Ready to Build<br/>Something <span className="text-acc-orange">Amazing</span>?
+              Ready to Build<br/>Something <span className="bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet bg-clip-text text-transparent">Amazing</span>?
             </h2>
             <p className="text-text-2 text-xl mb-10 max-w-2xl mx-auto">
               Let's discuss your vision and create a website that drives real results for your business.
@@ -519,7 +519,7 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg"
-                className="bg-acc-orange hover:bg-acc-orange/90 text-white font-medium px-10 rounded-full h-14 text-lg"
+                className="bg-gradient-to-r from-acc-orange via-acc-pink to-acc-violet hover:opacity-90 text-white font-medium px-10 rounded-full h-14 text-lg"
                 onClick={() => window.location.href = '/contact'}
               >
                 Start Your Project
@@ -528,7 +528,7 @@ const Index = () => {
               <Button 
                 size="lg"
                 variant="outline"
-                className="border-2 border-white/20 text-text-1 hover:bg-white/5 font-medium px-10 rounded-full h-14 text-lg"
+                className="border-2 border-acc-cyan text-acc-cyan hover:bg-acc-cyan hover:text-bg-0 font-medium px-10 rounded-full h-14 text-lg"
                 onClick={() => window.location.href = '/clients'}
               >
                 View Our Work
