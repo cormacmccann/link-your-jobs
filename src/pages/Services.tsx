@@ -122,7 +122,7 @@ const Services = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <span className="text-text-1">Digital </span>
-            <span className="bg-gradient-to-r from-acc-pink via-acc-violet to-acc-cyan bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-acc-orange via-red-500 via-acc-violet to-acc-pink bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(249,115,22,0.4)]">
               Excellence
             </span>
           </motion.h1>
