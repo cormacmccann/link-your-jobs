@@ -15,6 +15,7 @@ import Clients from "./pages/Clients";
 import ToolsHub from "./pages/tools/ToolsHub";
 import Features from "./pages/Features";
 import PortfolioDetail from "./pages/PortfolioDetail";
+import Blog from "./pages/Blog";
 import WidgetView from "./pages/WidgetView";
 import EmbedWidget from "./pages/EmbedWidget";
 
@@ -146,6 +147,7 @@ const App = () => {
             <Route path="/features/tools" element={<Tools />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/clients/:id" element={<PortfolioDetail />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             
             {/* Help Center Routes */}
