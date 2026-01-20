@@ -6,8 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -50,6 +50,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-accent-cyan/30">
+      <SiteHeader />
       <div 
         className="relative flex min-h-screen w-full flex-col overflow-x-hidden"
         style={{
@@ -57,24 +58,6 @@ const Contact = () => {
           backgroundSize: '24px 24px'
         }}
       >
-        {/* Top Navigation */}
-        <header className="flex items-center justify-between whitespace-nowrap border-b border-border px-6 py-4 md:px-20 lg:px-40 bg-background/80 backdrop-blur-md sticky top-0 z-50">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={kamrokLogo} alt="KAMROK" className="h-8" />
-          </Link>
-          <nav className="hidden md:flex flex-1 justify-end gap-10 items-center">
-            <Link to="/clients" className="text-muted-foreground hover:text-accent-cyan text-sm font-medium tracking-wide transition-colors">WORK</Link>
-            <Link to="/services/web-design" className="text-muted-foreground hover:text-accent-cyan text-sm font-medium tracking-wide transition-colors">SERVICES</Link>
-            <Link to="/tools" className="text-muted-foreground hover:text-accent-cyan text-sm font-medium tracking-wide transition-colors">TOOLS</Link>
-            <Link to="/contact" className="text-accent-cyan text-sm font-bold tracking-wide">CONTACT</Link>
-            <Button 
-              asChild
-              className="bg-gradient-to-r from-accent-orange via-accent-pink to-accent-violet hover:scale-105 transition-transform active:scale-95 text-white text-xs font-bold uppercase tracking-widest"
-            >
-              <Link to="/contact">HIRE US</Link>
-            </Button>
-          </nav>
-        </header>
 
         <main className="flex-1 flex flex-col md:flex-row max-w-[1440px] mx-auto w-full px-6 md:px-20 lg:px-40 py-12 md:py-24 gap-12 lg:gap-24 items-start">
           {/* Left Panel: Information Hub */}

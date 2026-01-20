@@ -7,6 +7,7 @@ import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
 import { ArrowLeft, ExternalLink, Check, Calendar, Globe, Briefcase, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
 
 const TECHNOLOGY_LABELS: Record<string, string> = {
   ADOBE: "Adobe Creative Suite",
@@ -101,8 +102,10 @@ export default function PortfolioDetail() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SiteHeader />
+      
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
+      <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           {item.screenshots && item.screenshots.length > 0 ? (
@@ -115,20 +118,6 @@ export default function PortfolioDetail() {
             <div className="w-full h-full bg-gradient-to-br from-accent-pink/20 via-accent-violet/20 to-accent-cyan/20" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-        </div>
-
-        {/* Navigation */}
-        <div className="absolute top-0 left-0 right-0 p-6 z-10">
-          <div className="container mx-auto">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate("/clients")}
-              className="text-white/80 hover:text-white hover:bg-white/10"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
-            </Button>
-          </div>
         </div>
 
         {/* Hero Content */}

@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
-import { ExternalLink, Filter, ArrowRight, MessageSquare, Star } from "lucide-react";
+import { MessageSquare, Star, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
 import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
+import kamrokLogo from "@/assets/kamrok-logo.png";
 
 const Clients = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
@@ -37,26 +38,7 @@ const Clients = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md px-6 lg:px-20 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={kamrokLogo} alt="KAMROK" className="h-8" />
-        </Link>
-        <nav className="hidden md:flex items-center gap-10">
-          <Link to="/" className="text-sm font-medium hover:text-accent-cyan transition-colors">HOME</Link>
-          <Link to="/clients" className="text-sm font-medium text-accent-cyan border-b-2 border-accent-cyan pb-1">WORK</Link>
-          <Link to="/services/web-design" className="text-sm font-medium hover:text-accent-cyan transition-colors">SERVICES</Link>
-          <Link to="/tools" className="text-sm font-medium hover:text-accent-cyan transition-colors">TOOLS</Link>
-        </nav>
-        <div className="flex items-center gap-6">
-          <Button asChild className="hidden sm:flex items-center gap-2 bg-accent-pink hover:bg-accent-pink/90 text-white font-bold text-sm uppercase tracking-wider">
-            <Link to="/contact">
-              Get in Touch
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-6 py-12 lg:py-24">
         {/* Hero Section */}

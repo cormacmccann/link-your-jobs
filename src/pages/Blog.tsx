@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Search, ChevronDown, Twitter, Instagram, Linkedin } from "lucide-react";
+import { ChevronDown, Twitter, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
+import kamrokLogo from "@/assets/kamrok-logo.png";
 
 interface BlogPost {
   id: string;
@@ -111,34 +111,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 border-b border-border backdrop-blur-lg bg-background/80">
-        <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-12">
-            <Link to="/" className="flex items-center gap-3">
-              <img src={kamrokLogo} alt="KAMROK" className="h-8" />
-            </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/clients" className="text-sm font-semibold hover:text-accent-pink transition-colors">Work</Link>
-              <Link to="/blog" className="text-sm font-semibold text-accent-pink">Blog</Link>
-              <Link to="/services/web-design" className="text-sm font-semibold hover:text-accent-pink transition-colors">Services</Link>
-              <Link to="/tools" className="text-sm font-semibold hover:text-accent-pink transition-colors">Tools</Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-6">
-            <div className="relative group hidden lg:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input 
-                placeholder="Search insights..." 
-                className="bg-card border-border pl-10 w-64 focus:border-accent-pink"
-              />
-            </div>
-            <Button asChild className="bg-accent-pink hover:bg-accent-pink/90 text-white font-bold transform hover:scale-105 transition-all">
-              <Link to="/contact">Contact</Link>
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-[1200px] mx-auto px-6 py-12">
         {/* Hero Section: Featured Post */}

@@ -4,11 +4,11 @@ import { GlowCard } from "@/components/ui/GlowCard";
 import { useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
 import ServicesFooter from "@/components/ServicesFooter";
 import { Badge } from "@/components/ui/badge";
+import SiteHeader from "@/components/SiteHeader";
 
 const WebDesign = () => {
   const navigate = useNavigate();
@@ -98,33 +98,7 @@ const WebDesign = () => {
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate('/services')}
-              className="text-text-2 hover:text-text-1"
-            >
-              ← Back to Services
-            </Button>
-            <img 
-              src={kamrokLogo} 
-              alt="KAMROK" 
-              className="h-10 cursor-pointer" 
-              onClick={() => navigate('/')}
-            />
-            <Button 
-              size="sm" 
-              className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6"
-              onClick={() => navigate('/auth')}
-            >
-              Connect
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero Parallax */}
       <HeroParallax products={parallaxProducts} />

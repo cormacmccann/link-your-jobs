@@ -2,9 +2,9 @@ import { Monitor, Smartphone, Palette, Video, Megaphone, Search, ArrowRight, Che
 import { Button } from "@/components/ui/button";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { useNavigate } from "react-router-dom";
-import kamrokLogo from "@/assets/kamrok-logo.png";
 import { motion } from "framer-motion";
 import ServicesFooter from "@/components/ServicesFooter";
+import SiteHeader from "@/components/SiteHeader";
 
 const Services = () => {
   const navigate = useNavigate();
@@ -68,33 +68,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
-      {/* Header */}
-      <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Button 
-              variant="ghost" 
-              onClick={() => navigate('/')}
-              className="text-text-2 hover:text-text-1"
-            >
-              ← Back
-            </Button>
-            <img 
-              src={kamrokLogo} 
-              alt="KAMROK" 
-              className="h-10 cursor-pointer" 
-              onClick={() => navigate('/')}
-            />
-            <Button 
-              size="sm" 
-              className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6"
-              onClick={() => navigate('/contact')}
-            >
-              Contact
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero */}
       <section className="py-24 px-4 relative overflow-hidden">
