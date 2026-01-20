@@ -45,6 +45,10 @@ export default {
           violet: "hsl(var(--acc-violet))",
           cyan: "hsl(var(--acc-cyan))",
         },
+        'acc-orange': 'hsl(24, 94%, 53%)',
+        'acc-pink': 'hsl(var(--acc-pink))',
+        'acc-violet': 'hsl(var(--acc-violet))',
+        'acc-cyan': 'hsl(var(--acc-cyan))',
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

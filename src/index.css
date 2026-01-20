@@ -204,4 +204,9 @@ All colors MUST be HSL.
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+  
+  /* Slow spin animation */
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
 }
