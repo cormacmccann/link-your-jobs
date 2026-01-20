@@ -1,19 +1,17 @@
-import { Building2, Star, TrendingUp, Users, ExternalLink, Filter } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ExternalLink, Filter, ArrowRight, MessageSquare, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GlowCard } from "@/components/ui/GlowCard";
+import { Badge } from "@/components/ui/badge";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { HeroParallax } from "@/components/ui/hero-parallax";
-import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
 import { ScreenshotCarousel } from "@/components/ScreenshotCarousel";
-import { Link } from "react-router-dom";
+import { PortfolioPlaceholder } from "@/components/PortfolioPlaceholder";
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
 
 const Clients = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState<string>("all");
-  const [selectedService, setSelectedService] = useState<string>("all");
+  const [selectedFilter, setSelectedFilter] = useState<string>("all");
 
   const { data: portfolioItems } = useQuery({
     queryKey: ["published-portfolio"],
@@ -29,245 +27,165 @@ const Clients = () => {
     },
   });
 
-  const testimonials = [
-    {
-      company: "TechCorp Inc",
-      quote: "KAMROK transformed how we manage client relationships. The chat widget alone increased our lead capture by 40%.",
-      author: "Sarah Johnson",
-      role: "CEO"
-    },
-    {
-      company: "Growth Labs",
-      quote: "Best CRM we've used. Simple, fast, and actually helps us close deals faster. The invoicing integration is perfect.",
-      author: "Mike Chen",
-      role: "Founder"
-    },
-    {
-      company: "Design Studio",
-      quote: "Finally a tool that doesn't get in our way. We switched from three separate tools to just KAMROK.",
-      author: "Emma Martinez",
-      role: "Creative Director"
-    }
-  ];
-
-  const stats = [
-    { icon: Users, value: portfolioItems?.length || "16+", label: "Happy Clients" },
-    { icon: TrendingUp, value: "98%", label: "Satisfaction Rate" },
-    { icon: Star, value: "4.9/5", label: "Average Rating" }
-  ];
-
-  // Get unique industries for filtering
-  const industries = ["all", ...new Set(portfolioItems?.map(item => item.industry).filter(Boolean) || [])];
+  const filters = ["All", "Web Design", "App Design", "Marketing", "Branding"];
   
-  // Available services
-  const services = ["all", "DESIGN", "WEB_DESIGN", "DEVELOPMENT", "BRANDING", "APP_DEVELOPMENT"];
-
-  // Filter portfolio items by industry and service
   const filteredPortfolio = portfolioItems?.filter(item => {
-    const matchesIndustry = selectedIndustry === "all" || item.industry === selectedIndustry;
-    const matchesService = selectedService === "all" || (item as any).services?.includes(selectedService);
-    return matchesIndustry && matchesService;
+    if (selectedFilter === "all") return true;
+    return item.project_type?.toLowerCase().includes(selectedFilter.toLowerCase()) ||
+           (item as any).services?.some((s: string) => s.toLowerCase().includes(selectedFilter.toLowerCase()));
   });
 
-  // Prepare products for HeroParallax with featured items first
-  const parallaxProducts = (portfolioItems || [])
-    .map(item => ({
-      title: item.client_name,
-      link: item.client_url,
-      thumbnail: item.screenshots?.[0] || null,
-      isFeatured: item.is_featured,
-      clientName: item.client_name,
-    }))
-    .slice(0, 15); // Limit to 15 for parallax
-
   return (
-    <div className="min-h-screen bg-bg-0 text-text-1">
-      <header className="border-b border-white/10 bg-bg-0/90 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <a href="/">
-              <img src={kamrokLogo} alt="KAMROK" className="h-10" />
-            </a>
-            <Button size="sm" className="bg-acc-violet hover:bg-acc-violet/90 text-white rounded-full px-6" onClick={() => window.location.href = '/auth'}>
-              Become a Client
-            </Button>
-          </div>
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navigation */}
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md px-6 lg:px-20 py-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-3">
+          <img src={kamrokLogo} alt="KAMROK" className="h-8" />
+        </Link>
+        <nav className="hidden md:flex items-center gap-10">
+          <Link to="/" className="text-sm font-medium hover:text-accent-cyan transition-colors">HOME</Link>
+          <Link to="/clients" className="text-sm font-medium text-accent-cyan border-b-2 border-accent-cyan pb-1">WORK</Link>
+          <Link to="/services/web-design" className="text-sm font-medium hover:text-accent-cyan transition-colors">SERVICES</Link>
+          <Link to="/tools" className="text-sm font-medium hover:text-accent-cyan transition-colors">TOOLS</Link>
+        </nav>
+        <div className="flex items-center gap-6">
+          <Button asChild className="hidden sm:flex items-center gap-2 bg-accent-pink hover:bg-accent-pink/90 text-white font-bold text-sm uppercase tracking-wider">
+            <Link to="/contact">
+              Get in Touch
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </header>
 
-      {/* Hero Parallax */}
-      {parallaxProducts.length >= 15 && (
-        <HeroParallax products={parallaxProducts} />
-      )}
+      <main className="max-w-7xl mx-auto px-6 py-12 lg:py-24">
+        {/* Hero Section */}
+        <motion.div 
+          className="mb-16 text-center lg:text-left"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl lg:text-8xl font-bold mb-6 leading-[0.9] bg-gradient-to-r from-accent-pink to-accent-orange bg-clip-text text-transparent uppercase tracking-tighter">
+            OUR WORK: <br />CRAFTING DIGITAL <br />DOMINANCE
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl leading-relaxed">
+            We push the boundaries of what's possible in the digital realm. High-impact marketing, immersive interfaces, and strategic design that commands attention.
+          </p>
+        </motion.div>
 
-      {/* Stats Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-gobold uppercase tracking-tight mb-6">
-              Trusted by Businesses Worldwide
-            </h1>
-            <p className="text-xl text-text-2 max-w-3xl mx-auto">
-              From startups to established enterprises, our clients choose KAMROK for results that matter
-            </p>
-          </div>
+        {/* Filter Bar */}
+        <div className="flex flex-wrap gap-4 mb-12 items-center">
+          {filters.map((filter, index) => (
+            <Button
+              key={filter}
+              variant="outline"
+              onClick={() => setSelectedFilter(filter.toLowerCase())}
+              className={`px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${
+                selectedFilter === filter.toLowerCase() || (filter === "All" && selectedFilter === "all")
+                  ? "border-accent-cyan bg-accent-cyan/10 text-accent-cyan shadow-[0_0_15px_rgba(31,225,233,0.2)]"
+                  : "border-border hover:border-accent-cyan hover:text-accent-cyan text-muted-foreground"
+              }`}
+            >
+              {filter}
+            </Button>
+          ))}
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-20">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <GlowCard key={index} glowColor="purple" customSize className="p-8 text-center">
-                  <Icon className="w-8 h-8 text-accent-violet mx-auto mb-4" />
-                  <div className="text-4xl font-gobold text-text-1 mb-2">{stat.value}</div>
-                  <div className="text-text-2">{stat.label}</div>
-                </GlowCard>
-              );
-            })}
-          </div>
-
-          {/* Service Filter */}
-          <div className="flex items-center gap-4 mb-6 flex-wrap">
-            <div className="flex items-center gap-2 text-text-2">
-              <Filter className="w-5 h-5" />
-              <span className="font-medium">Filter by Service:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {services.map((service) => (
-                <Button
-                  key={service}
-                  variant={selectedService === service ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedService(service)}
-                  className={selectedService === service 
-                    ? "bg-acc-violet hover:bg-acc-violet/90 text-white" 
-                    : "text-text-2 hover:text-text-1 hover:border-accent-violet/50"
-                  }
-                >
-                  {service === "all" ? "All Services" : service.replace(/_/g, " ")}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Industry Filter */}
-          <div className="flex items-center gap-4 mb-8 flex-wrap">
-            <div className="flex items-center gap-2 text-text-2">
-              <Filter className="w-5 h-5" />
-              <span className="font-medium">Filter by Industry:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {industries.map((industry) => (
-                <Button
-                  key={industry}
-                  variant={selectedIndustry === industry ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedIndustry(industry)}
-                  className={selectedIndustry === industry 
-                    ? "bg-acc-violet hover:bg-acc-violet/90 text-white" 
-                    : "text-text-2 hover:text-text-1 hover:border-accent-violet/50"
-                  }
-                >
-                  {industry === "all" ? "All Industries" : industry}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-            {filteredPortfolio?.map((item) => (
-              <Link
-                key={item.id}
-                to={`/clients/${item.id}`}
-                className="group relative rounded-xl bg-bg-1/50 border border-border/50 hover:border-accent-violet/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent-violet/20 overflow-hidden"
-              >
-                {item.is_featured && (
-                  <div className="absolute top-4 right-4 z-20">
-                    <Badge className="bg-gradient-to-r from-accent-pink to-accent-violet text-white border-0 shadow-lg shadow-accent-violet/50">
-                      <Star className="w-3 h-3 mr-1 fill-current" />
-                      Featured Work
-                    </Badge>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-violet/10 to-accent-pink/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative z-10">
-                  {/* Screenshot or Placeholder */}
-                  <div className="w-full h-48 overflow-hidden bg-bg-2">
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredPortfolio?.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+            >
+              <Link to={`/clients/${item.id}`}>
+                <div className="group relative rounded-xl overflow-hidden bg-card border border-border hover:border-accent-pink/50 transition-all hover:shadow-[0_0_20px_rgba(31,225,233,0.15)]">
+                  <div className="aspect-[16/10] overflow-hidden relative">
                     {item.screenshots && item.screenshots.length > 0 ? (
-                      <ScreenshotCarousel 
-                        screenshots={item.screenshots}
-                        className="w-full h-full"
-                      />
+                      <ScreenshotCarousel screenshots={item.screenshots} className="w-full h-full" />
                     ) : (
                       <PortfolioPlaceholder clientName={item.client_name} className="w-full h-full" />
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-black/50 backdrop-blur-md px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-accent-cyan border border-accent-cyan/30 rounded">
+                        {item.project_type || "Web Design"}
+                      </span>
+                    </div>
+                    {item.is_featured && (
+                      <div className="absolute top-4 right-4">
+                        <Badge className="bg-gradient-to-r from-accent-pink to-accent-violet text-white border-0">
+                          <Star className="w-3 h-3 mr-1 fill-current" />
+                          Featured
+                        </Badge>
+                      </div>
+                    )}
                   </div>
-                  
-                  {/* Content */}
-                  <div className="p-6">
-                    {item.logo_url && (
-                      <div className="mb-4 h-12 flex items-center justify-center">
-                        <img
-                          src={item.logo_url}
-                          alt={item.client_name}
-                          className="max-h-full max-w-full object-contain"
-                        />
-                      </div>
-                    )}
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-lg font-gobold uppercase text-text-1 mb-1 group-hover:text-accent-violet transition-colors">
-                          {item.client_name}
-                        </h3>
-                        {item.industry && (
-                          <p className="text-sm text-text-2">{item.industry}</p>
-                        )}
-                      </div>
-                      <ExternalLink className="w-4 h-4 text-text-2 group-hover:text-accent-violet transition-colors flex-shrink-0" />
-                    </div>
-                    {item.description && (
-                      <p className="text-sm text-text-2 mb-3 line-clamp-2">{item.description}</p>
-                    )}
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {(item as any).services && (item as any).services.length > 0 && (item as any).services.slice(0, 2).map((service: string) => (
-                        <span key={service} className="inline-block text-xs px-2 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
-                          {service.replace(/_/g, " ")}
-                        </span>
-                      ))}
-                      {item.project_type && !(item as any).services?.length && (
-                        <span className="inline-block text-xs px-3 py-1 bg-accent-cyan/20 text-accent-cyan rounded-full">
-                          {item.project_type}
-                        </span>
-                      )}
-                    </div>
+                  <div className="p-6 bg-card">
+                    <h3 className="font-bold text-2xl mb-2 group-hover:text-accent-cyan transition-colors uppercase tracking-tight">
+                      {item.client_name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-6 leading-relaxed line-clamp-2">
+                      {item.description || "A high-impact digital transformation project."}
+                    </p>
+                    <span className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-muted-foreground group-hover:text-foreground transition-colors">
+                      View Case Study
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
                   </div>
                 </div>
               </Link>
-            ))}
-          </div>
-
-          {/* Testimonials */}
-          <div className="mb-20">
-            <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight text-center mb-12">
-              What Our Clients Say
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {testimonials.map((item, index) => (
-                <GlowCard key={index} glowColor="blue" customSize className="p-6">
-                  <div className="mb-4">
-                    <Building2 className="w-8 h-8 text-accent-cyan" />
-                  </div>
-                  <p className="text-text-2 mb-4 italic">"{item.quote}"</p>
-                  <div className="border-t border-white/10 pt-4">
-                    <div className="font-gobold text-text-1">{item.author}</div>
-                    <div className="text-sm text-text-2">{item.role}, {item.company}</div>
-                  </div>
-                </GlowCard>
-              ))}
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
+
+        {/* CTA Section */}
+        <motion.div 
+          className="mt-32 p-12 lg:p-24 rounded-2xl bg-card border border-border flex flex-col items-center text-center relative overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-pink/20 blur-[100px] -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-cyan/20 blur-[100px] -ml-32 -mb-32"></div>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-8 relative z-10 uppercase tracking-tighter">
+            READY TO <span className="text-accent-cyan">DOMINATE</span>?
+          </h2>
+          <p className="text-muted-foreground max-w-lg mb-12 relative z-10">
+            The digital landscape waits for no one. Let's build your dominance together.
+          </p>
+          <Button 
+            asChild
+            className="bg-accent-pink hover:bg-accent-pink/90 text-white px-10 py-6 rounded-lg font-bold uppercase tracking-widest transition-all scale-100 hover:scale-105 shadow-[0_10px_30px_rgba(255,61,126,0.3)] relative z-10"
+          >
+            <Link to="/contact">Start a Project</Link>
+          </Button>
+        </motion.div>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border bg-background px-6 lg:px-20 py-12 flex flex-col md:flex-row items-center justify-between gap-8">
+        <Link to="/" className="flex items-center gap-3">
+          <img src={kamrokLogo} alt="KAMROK" className="h-6" />
+        </Link>
+        <div className="flex gap-6 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <Link to="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+          <Link to="#" className="hover:text-foreground transition-colors">Terms of Service</Link>
+        </div>
+      </footer>
+
+      {/* Floating Contact Button */}
+      <div className="fixed bottom-8 right-8 z-[100]">
+        <Link to="/contact">
+          <Button className="size-14 rounded-full bg-gradient-to-br from-accent-pink via-accent-orange to-accent-cyan p-0 shadow-xl hover:scale-110 transition-transform">
+            <MessageSquare className="w-6 h-6 text-white" />
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 };

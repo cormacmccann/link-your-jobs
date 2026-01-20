@@ -2,220 +2,291 @@ import { Link } from "react-router-dom";
 import { 
   QrCode, Key, Link2, Calculator, Mail, FileText, Receipt, 
   Sparkles, Image, Palette, Square, Lock, ShieldCheck, Hash,
-  Type, Globe, Share2, Clock, Users, MessageSquare, Percent,
-  PoundSterling, Timer, Clover
+  Globe, Share2, Clock, Users, MessageSquare, Percent,
+  PoundSterling, Clover, Search, ExternalLink, ArrowRight
 } from "lucide-react";
-import { GlowCard } from "@/components/ui/GlowCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import kamrokLogo from "@/assets/kamrok-logo.png";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 const ToolsHub = () => {
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+
   const toolCategories = [
     {
       name: "Business Essentials",
+      category: "business",
       tools: [
-        { name: "Email Signature Generator", icon: Mail, href: "/tools/email-signature", status: "live" },
-        { name: "Invoice Creator", icon: FileText, href: "/tools/invoice-creator", status: "live" },
-        { name: "Quotation Maker", icon: Receipt, href: "/tools/quotation-maker", status: "live" },
-        { name: "Business Name Generator", icon: Sparkles, href: "/tools/business-name-generator", status: "live" },
+        { name: "Email Signature Generator", icon: Mail, href: "/tools/email-signature", status: "live", description: "Professional email signatures in seconds." },
+        { name: "Invoice Creator", icon: FileText, href: "/tools/invoice-creator", status: "live", description: "Create and download invoices instantly." },
+        { name: "Quotation Maker", icon: Receipt, href: "/tools/quotation-maker", status: "live", description: "Generate professional quotations." },
+        { name: "Business Name Generator", icon: Sparkles, href: "/tools/business-name-generator", status: "live", description: "AI-powered business name ideas." },
       ]
     },
     {
       name: "Design & Dev",
+      category: "design",
       tools: [
-        { name: "QR Code Generator", icon: QrCode, href: "/tools/qr-code-generator", status: "live" },
-        { name: "Image Compressor", icon: Image, href: "/tools/image-compressor", status: "coming-soon" },
-        { name: "Colour Palette Picker", icon: Palette, href: "/tools/colour-palette", status: "coming-soon" },
-        { name: "Favicon Generator", icon: Square, href: "/tools/favicon-generator", status: "coming-soon" },
-        { name: "Lorem Ipsum Generator", icon: Clover, href: "/tools/lorem-ipsum", status: "coming-soon" },
+        { name: "QR Code Generator", icon: QrCode, href: "/tools/qr-code-generator", status: "live", description: "Custom QR codes for any URL." },
+        { name: "Image Compressor", icon: Image, href: "/tools/image-compressor", status: "live", description: "Batch compress without losing quality." },
+        { name: "Colour Palette Picker", icon: Palette, href: "/tools/colour-palette", status: "live", description: "Generate harmonic color schemes." },
+        { name: "Favicon Generator", icon: Square, href: "/tools/favicon-generator", status: "coming-soon", description: "Create favicons from any image." },
+        { name: "Irish Lorem Ipsum", icon: Clover, href: "/tools/lorem-ipsum", status: "live", description: "Placeholder text with Irish flair." },
       ]
     },
     {
       name: "Security",
+      category: "security",
       tools: [
-        { name: "Password Generator", icon: Key, href: "/tools/password-generator", status: "live" },
-        { name: "Password Strength Checker", icon: ShieldCheck, href: "/tools/password-checker", status: "coming-soon" },
+        { name: "Password Generator", icon: Key, href: "/tools/password-generator", status: "live", description: "Secure random password generation." },
+        { name: "Password Strength Checker", icon: ShieldCheck, href: "/tools/password-checker", status: "live", description: "Test your password security." },
       ]
     },
     {
       name: "Marketing & SEO",
+      category: "seo",
       tools: [
-        { name: "UTM Builder", icon: Link2, href: "/tools/utm-builder", status: "live" },
-        { name: "Meta Tag Preview", icon: Globe, href: "/tools/meta-tag-preview", status: "coming-soon" },
-        { name: "OpenGraph Preview", icon: Share2, href: "/tools/opengraph-preview", status: "live" },
-        { name: "Hashtag Suggester", icon: Hash, href: "/tools/hashtag-suggester", status: "live" },
-        { name: "Email Subject Tester", icon: MessageSquare, href: "/tools/email-subject-tester", status: "coming-soon" },
-      ]
-    },
-    {
-      name: "Social Media",
-      tools: [
-        { name: "Post Size Checker", icon: Square, href: "/tools/social-post-sizes", status: "live" },
-        { name: "Countdown Timer Builder", icon: Clock, href: "/tools/countdown-timer", status: "coming-soon" },
-        { name: "Marketing Persona Generator", icon: Users, href: "/tools/persona-generator", status: "coming-soon" },
+        { name: "UTM Builder", icon: Link2, href: "/tools/utm-builder", status: "live", description: "Track campaigns with UTM parameters." },
+        { name: "Meta Tag Preview", icon: Globe, href: "/tools/meta-tag-preview", status: "live", description: "Preview your search snippets." },
+        { name: "OpenGraph Preview", icon: Share2, href: "/tools/opengraph-preview", status: "live", description: "Preview social share cards." },
+        { name: "Hashtag Suggester", icon: Hash, href: "/tools/hashtag-suggester", status: "live", description: "AI-powered hashtag suggestions." },
+        { name: "Email Subject Tester", icon: MessageSquare, href: "/tools/email-subject-tester", status: "live", description: "Test subject line effectiveness." },
       ]
     },
     {
       name: "Calculators",
+      category: "calculators",
       tools: [
-        { name: "VAT Calculator", icon: Percent, href: "/tools/vat-calculator", status: "live" },
-        { name: "Break-Even Calculator", icon: Calculator, href: "/tools/break-even-calculator", status: "coming-soon" },
-        { name: "Hourly Rate Calculator", icon: PoundSterling, href: "/tools/hourly-rate-calculator", status: "coming-soon" },
+        { name: "VAT Calculator", icon: Percent, href: "/tools/vat-calculator", status: "live", description: "Calculate VAT for any amount." },
+        { name: "Break-Even Calculator", icon: Calculator, href: "/tools/break-even-calculator", status: "live", description: "Find your break-even point." },
+        { name: "Hourly Rate Calculator", icon: PoundSterling, href: "/tools/hourly-rate-calculator", status: "live", description: "Calculate your ideal hourly rate." },
       ]
     },
     {
       name: "Legal & Compliance",
+      category: "legal",
       tools: [
-        { name: "Privacy Policy Generator", icon: Lock, href: "/tools/privacy-policy-builder", status: "live" },
-        { name: "Terms & Conditions Generator", icon: FileText, href: "/tools/terms-generator", status: "live" },
-        { name: "Cookie Consent Manager", icon: Square, href: "/tools/cookie-consent-manager", status: "live" },
+        { name: "Privacy Policy Generator", icon: Lock, href: "/tools/privacy-policy-builder", status: "live", description: "GDPR-compliant privacy policies." },
+        { name: "Terms & Conditions", icon: FileText, href: "/tools/terms-generator", status: "live", description: "Legal terms generator." },
+        { name: "Cookie Consent Manager", icon: Square, href: "/tools/cookie-consent-manager", status: "live", description: "Cookie consent solution." },
       ]
     },
   ];
 
-  const featuredTools = toolCategories.flatMap(cat => cat.tools).filter(t => t.status === "live").slice(0, 4);
+  const categories = [
+    { id: "all", label: "All Tools" },
+    { id: "seo", label: "SEO & Tech" },
+    { id: "design", label: "Design" },
+    { id: "business", label: "Business" },
+  ];
+
+  const allTools = toolCategories.flatMap(cat => cat.tools.map(t => ({ ...t, categoryId: cat.category })));
+  
+  const filteredTools = allTools.filter(tool => {
+    const matchesCategory = activeCategory === "all" || tool.categoryId === activeCategory;
+    const matchesSearch = tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          tool.description.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && (searchQuery === "" || matchesSearch);
+  });
 
   return (
-    <div className="min-h-screen bg-bg-0 text-text-1">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-0/80 backdrop-blur-xl border-b border-border-1">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={kamrokLogo} alt="KAMROK" className="h-8 w-auto" />
-          </Link>
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-text-2 hover:text-text-1 transition-colors text-sm">Home</Link>
-            <Link to="/tools" className="text-accent-cyan font-medium text-sm">Free Tools</Link>
-            <Link to="/services/web-design" className="text-text-2 hover:text-text-1 transition-colors text-sm">Services</Link>
-            <Link to="/clients" className="text-text-2 hover:text-text-1 transition-colors text-sm">Our Work</Link>
-            <Link to="/contact" className="text-text-2 hover:text-text-1 transition-colors text-sm">Contact</Link>
+      <header className="border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-10">
+            <Link to="/" className="flex items-center gap-3">
+              <img src={kamrokLogo} alt="KAMROK" className="h-8" />
+            </Link>
+            <nav className="hidden md:flex items-center gap-8">
+              <Link to="/clients" className="text-sm font-medium hover:text-accent-pink transition-colors">Portfolio</Link>
+              <Link to="/tools" className="text-sm font-medium text-accent-pink border-b-2 border-accent-pink pb-1">Tools</Link>
+              <Link to="/services/web-design" className="text-sm font-medium hover:text-accent-pink transition-colors">Services</Link>
+              <Link to="/contact" className="text-sm font-medium hover:text-accent-pink transition-colors">Contact</Link>
+            </nav>
           </div>
-          <Button asChild className="bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white font-gobold uppercase text-sm">
-            <Link to="/contact">Get a Quote</Link>
-          </Button>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="pt-32 pb-16 px-4">
-        <div className="container mx-auto max-w-6xl text-center">
-          <Badge className="mb-4 bg-accent-cyan/20 text-accent-cyan border-accent-cyan/30">
-            100% Free • No Sign-up Required
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-gobold uppercase tracking-tight mb-4">
-            Free Business <span className="text-accent-cyan">Tools</span>
-          </h1>
-          <p className="text-text-2 text-lg max-w-2xl mx-auto mb-8">
-            Powerful tools to help you build, market, and grow your business. 
-            No login required, no hidden fees — just useful stuff.
-          </p>
-        </div>
-      </section>
-
-      {/* Featured Tools */}
-      <section className="pb-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-2xl font-gobold uppercase mb-6">Popular Tools</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featuredTools.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <Link key={tool.name} to={tool.href} className="group">
-                  <GlowCard glowColor="purple" customSize className="p-6 h-full transition-transform group-hover:scale-[1.02]">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-gobold uppercase text-text-1 mb-1">{tool.name}</h3>
-                    <p className="text-sm text-text-2">Free to use</p>
-                  </GlowCard>
-                </Link>
-              );
-            })}
+          <div className="flex items-center gap-6">
+            <div className="relative hidden lg:block">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Find a tool..." 
+                className="bg-card border-border pl-10 w-64 focus:border-accent-cyan"
+              />
+            </div>
+            <Button asChild className="bg-accent-pink text-white hover:bg-accent-pink/90">
+              <Link to="/contact">Get a Quote</Link>
+            </Button>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* All Tools by Category */}
-      <section className="py-16 px-4 bg-bg-1/50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-2xl font-gobold uppercase mb-8">All Tools</h2>
-          
-          <div className="space-y-12">
-            {toolCategories.map((category) => (
-              <div key={category.name}>
-                <h3 className="text-lg font-gobold uppercase text-accent-cyan mb-4">{category.name}</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {category.tools.map((tool) => {
-                    const Icon = tool.icon;
-                    const isLive = tool.status === "live";
-                    
-                    if (!isLive) {
-                      return (
-                        <div key={tool.name} className="opacity-60 cursor-not-allowed">
-                          <GlowCard glowColor="blue" customSize className="p-4 h-full">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 rounded-lg bg-bg-2 flex items-center justify-center">
-                                <Icon className="w-5 h-5 text-text-2" />
-                              </div>
-                              <div className="flex-1">
-                                <h4 className="font-medium text-text-2 text-sm">{tool.name}</h4>
-                                <Badge variant="secondary" className="text-xs mt-1">Coming Soon</Badge>
-                              </div>
-                            </div>
-                          </GlowCard>
-                        </div>
-                      );
-                    }
-                    
-                    return (
-                      <Link key={tool.name} to={tool.href} className="group">
-                        <GlowCard glowColor="purple" customSize className="p-4 h-full transition-transform group-hover:scale-[1.02]">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-pink to-accent-violet flex items-center justify-center">
-                              <Icon className="w-5 h-5 text-white" />
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-text-1 text-sm">{tool.name}</h4>
-                              <span className="text-xs text-accent-cyan">Use Now →</span>
-                            </div>
-                          </div>
-                        </GlowCard>
-                      </Link>
-                    );
-                  })}
-                </div>
+      <main className="max-w-7xl mx-auto px-6 py-12">
+        {/* Hero Section */}
+        <section className="mb-16">
+          <motion.div 
+            className="relative overflow-hidden rounded-2xl bg-card p-12 lg:p-20 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, hsl(var(--accent-cyan) / 0.15) 1px, transparent 0)',
+              backgroundSize: '32px 32px'
+            }}
+          >
+            <div className="relative z-10 flex flex-col items-center gap-6">
+              <Badge className="bg-accent-cyan/10 text-accent-cyan border-accent-cyan/30 text-xs font-bold tracking-widest uppercase">
+                Toolkit v2.0
+              </Badge>
+              <h1 className="font-bold text-5xl lg:text-7xl max-w-4xl leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground to-muted-foreground uppercase tracking-tighter">
+                Free Web Utilities
+              </h1>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                High-performance digital marketing and design tools for the modern creator. No subscriptions, no fluff. Just pure utility.
+              </p>
+              <div className="flex gap-4 mt-4">
+                <Button asChild className="bg-gradient-to-r from-accent-pink to-accent-violet text-white px-8 py-6 rounded-xl font-bold flex items-center gap-2 group">
+                  <Link to="#tools">
+                    Explore All Tools
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button variant="outline" className="border-border hover:bg-card px-8 py-6 rounded-xl font-bold">
+                  Documentation
+                </Button>
               </div>
-            ))}
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Tool Categories / Tabs */}
+        <section className="mb-12" id="tools">
+          <div className="flex flex-wrap items-center justify-between gap-6 border-b border-border pb-6">
+            <div className="flex gap-2">
+              {categories.map((cat) => (
+                <Button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  variant={activeCategory === cat.id ? "default" : "ghost"}
+                  className={`px-6 py-2 rounded-full text-sm font-bold ${
+                    activeCategory === cat.id 
+                      ? "bg-accent-pink text-white" 
+                      : "hover:bg-card text-muted-foreground"
+                  }`}
+                >
+                  {cat.label}
+                </Button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <span className="text-xs uppercase font-bold tracking-widest">Sort by:</span>
+              <select className="bg-transparent border-none text-sm font-bold focus:ring-0 cursor-pointer">
+                <option>Most Popular</option>
+                <option>Newly Added</option>
+              </select>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-gobold uppercase tracking-tight mb-4">
-            Need a Custom Solution?
-          </h2>
-          <p className="text-text-2 text-lg mb-8">
-            These tools are great for quick tasks, but for a complete digital transformation, 
-            let's talk about your project.
-          </p>
-          <Button asChild size="lg" className="bg-gradient-to-r from-accent-pink to-accent-violet hover:opacity-90 text-white font-gobold uppercase">
-            <Link to="/contact">Get a Free Quote</Link>
-          </Button>
-        </div>
-      </section>
+        {/* Tools Grid */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredTools.map((tool, index) => {
+            const Icon = tool.icon;
+            const isLive = tool.status === "live";
+            
+            return (
+              <motion.div
+                key={tool.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                {isLive ? (
+                  <Link to={tool.href} className="group">
+                    <div className="bg-card rounded-xl p-8 border border-border hover:border-accent-cyan/50 transition-all hover:shadow-[0_0_15px_rgba(31,225,233,0.1)] flex flex-col h-full">
+                      <div className="flex justify-between items-start mb-6">
+                        <div className="size-14 rounded-lg bg-accent-cyan/10 flex items-center justify-center">
+                          <Icon className="text-accent-cyan w-7 h-7" />
+                        </div>
+                        <span className="text-[10px] font-bold text-accent-cyan tracking-widest uppercase border border-accent-cyan/20 px-2 py-1 rounded">
+                          {tool.categoryId.toUpperCase()}
+                        </span>
+                      </div>
+                      <h3 className="font-bold text-xl mb-2 group-hover:text-accent-cyan transition-colors uppercase tracking-tight">
+                        {tool.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-8 flex-grow">{tool.description}</p>
+                      <Button className="w-full py-3 rounded-lg border border-border bg-transparent text-foreground font-bold text-sm flex items-center justify-center gap-2 group-hover:bg-accent-pink group-hover:border-accent-pink group-hover:text-white transition-all">
+                        Launch Tool
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="opacity-60 cursor-not-allowed">
+                    <div className="bg-card rounded-xl p-8 border border-border flex flex-col h-full">
+                      <div className="flex justify-between items-start mb-6">
+                        <div className="size-14 rounded-lg bg-muted flex items-center justify-center">
+                          <Icon className="text-muted-foreground w-7 h-7" />
+                        </div>
+                        <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
+                      </div>
+                      <h3 className="font-bold text-xl mb-2 text-muted-foreground uppercase tracking-tight">
+                        {tool.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-8 flex-grow">{tool.description}</p>
+                      <Button disabled className="w-full py-3 rounded-lg border border-border text-muted-foreground font-bold text-sm">
+                        Coming Soon
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-border-1">
-        <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={kamrokLogo} alt="KAMROK" className="h-6 w-auto" />
-          </Link>
-          <p className="text-text-2 text-sm">© 2024 KAMROK. All rights reserved.</p>
-        </div>
-      </footer>
+        {/* CTA / Footer Info */}
+        <section className="mt-20 border-t border-border pt-16 flex flex-col items-center">
+          <motion.div 
+            className="bg-accent-violet/10 rounded-3xl p-12 w-full text-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="absolute -right-20 -top-20 size-64 bg-accent-violet opacity-10 blur-[100px]"></div>
+            <h4 className="font-bold text-3xl mb-4 uppercase tracking-tight">Can't find what you need?</h4>
+            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
+              We are constantly building new utilities. Request a feature or a tool you'd like to see in the KAMROK toolkit.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Input placeholder="Suggest a tool..." className="bg-card border-border max-w-sm focus:border-accent-cyan" />
+              <Button className="bg-foreground text-background hover:bg-foreground/90 px-8">
+                Send Suggestion
+              </Button>
+            </div>
+          </motion.div>
+          
+          <footer className="mt-24 pb-12 w-full flex flex-col md:flex-row justify-between items-center gap-8 text-muted-foreground text-sm">
+            <div className="flex items-center gap-2">
+              <span className="font-bold uppercase tracking-tighter">KAMROK</span>
+              <span>© 2024 Digital Utilities Hub.</span>
+            </div>
+            <div className="flex gap-8">
+              <Link to="#" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+              <Link to="#" className="hover:text-foreground transition-colors">Open Source</Link>
+              <Link to="#" className="hover:text-foreground transition-colors">Changelog</Link>
+              <Link to="/contact" className="hover:text-foreground transition-colors">Contact</Link>
+            </div>
+          </footer>
+        </section>
+      </main>
     </div>
   );
 };
