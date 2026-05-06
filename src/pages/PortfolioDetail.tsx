@@ -8,6 +8,7 @@ import { ArrowLeft, ExternalLink, Check, Calendar, Globe, Briefcase, ChevronRigh
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import SiteHeader from "@/components/SiteHeader";
+import { CaseStudySection, type CaseStudy } from "@/components/CaseStudySection";
 
 const TECHNOLOGY_LABELS: Record<string, string> = {
   ADOBE: "Adobe Creative Suite",
