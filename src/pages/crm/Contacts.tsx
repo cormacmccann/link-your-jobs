@@ -85,7 +85,6 @@ export default function Contacts() {
       email: formData.email,
       phone: formData.phone,
       title: formData.title,
-      created_by: user.id,
     });
 
     if (error) {

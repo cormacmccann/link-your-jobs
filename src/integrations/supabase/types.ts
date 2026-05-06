@@ -2422,6 +2422,7 @@ export type Database = {
       }
       portfolio_items: {
         Row: {
+          case_study: Json | null
           client_name: string
           client_url: string | null
           completion_date: string | null
@@ -2444,6 +2445,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          case_study?: Json | null
           client_name: string
           client_url?: string | null
           completion_date?: string | null
@@ -2466,6 +2468,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          case_study?: Json | null
           client_name?: string
           client_url?: string | null
           completion_date?: string | null
