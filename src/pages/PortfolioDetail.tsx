@@ -232,10 +232,10 @@ export default function PortfolioDetail() {
                     </p>
                   </div>
                 </motion.div>
+              )}
 
               {/* Rich Case Study */}
               {caseStudy && <CaseStudySection data={caseStudy} />}
-
 
               {/* Screenshots Gallery */}
               {item.screenshots && item.screenshots.length > 0 && (
