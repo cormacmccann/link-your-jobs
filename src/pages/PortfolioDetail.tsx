@@ -449,7 +449,7 @@ export default function PortfolioDetail() {
                       initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.2 }}
-                      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                      transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
                       className={`relative overflow-hidden rounded-3xl border border-border/40 bg-card/40 ${
                         i % 3 === 0 ? "" : i % 3 === 1 ? "md:ml-12" : "md:mr-12"
                       }`}
