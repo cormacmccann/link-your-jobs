@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import kamrokLogo from "@/assets/kamrok-logo.png";
 import { cn } from "@/lib/utils";
 import SiteHeader from "@/components/SiteHeader";
+import TechStack from "@/components/TechStack";
 
 // Animation variants
 const fadeInUp = {
@@ -377,6 +378,9 @@ const Index = () => {
           </motion.div>
         </div>
       </AnimatedSection>
+
+      {/* Tech Stack marquee */}
+      <TechStack variant="marquee" />
 
       {/* Reviews Section - Light background */}
       <section className="py-24 md:py-32 px-6 bg-[#f5f5f5]">

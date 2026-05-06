@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import ServicesFooter from "@/components/ServicesFooter";
 import SiteHeader from "@/components/SiteHeader";
+import TechStack from "@/components/TechStack";
 
 const Services = () => {
   const navigate = useNavigate();
@@ -213,6 +214,13 @@ const Services = () => {
           </GlowCard>
         </div>
       </section>
+
+      {/* Tech Stack */}
+      <TechStack
+        eyebrow="Tools & Tech"
+        title="The Stack Behind Our Work"
+        description="We combine industry standards like WordPress and PHP with cutting-edge AI builders and platforms — Lovable, Bolt, Base44, Claude, OpenAI and more — to deliver faster, smarter results."
+      />
 
       {/* CTA Section */}
       <section className="py-20 px-4">
