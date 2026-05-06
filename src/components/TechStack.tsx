@@ -1,69 +1,59 @@
 import { GlowCard } from "@/components/ui/GlowCard";
 import { motion } from "framer-motion";
+import {
+  SiWordpress,
+  SiPhp,
+  SiOpenai,
+  SiShopify,
+  SiFigma,
+  SiSupabase,
+  SiReact,
+  SiClaude,
+  SiAnthropic,
+} from "react-icons/si";
+import { Zap } from "lucide-react";
+import lovableLogo from "@/assets/brands/lovable.svg";
+import anthropicLogo from "@/assets/brands/anthropic.svg";
+import type { ComponentType } from "react";
 
 type Tool = {
   name: string;
   category: string;
   description: string;
-  wordmark: string; // short display text
+  icon: ComponentType<{ className?: string }>;
   color: "blue" | "purple" | "green" | "red" | "orange";
-  accent: string; // tailwind text color class
+  accent: string;
+};
+
+const Img = (src: string, alt: string) => {
+  const C = ({ className }: { className?: string }) => (
+    <img src={src} alt={alt} className={className} />
+  );
+  return C;
 };
 
 const tools: Tool[] = [
   {
-    name: "WordPress",
-    category: "CMS",
-    description: "The world's most flexible CMS — powering content-rich sites, blogs and WooCommerce stores we build for clients.",
-    wordmark: "WP",
-    color: "blue",
-    accent: "text-acc-cyan",
-  },
-  {
-    name: "PHP",
-    category: "Backend",
-    description: "Battle-tested server language behind WordPress, Laravel and most of our custom CMS integrations.",
-    wordmark: "PHP",
-    color: "purple",
-    accent: "text-acc-violet",
-  },
-  {
     name: "Lovable",
     category: "AI App Builder",
     description: "Our go-to AI-native build platform for shipping production React apps and CRMs in days, not months.",
-    wordmark: "♥",
+    icon: Img(lovableLogo, "Lovable"),
     color: "red",
     accent: "text-acc-pink",
-  },
-  {
-    name: "Bolt",
-    category: "AI App Builder",
-    description: "StackBlitz Bolt for rapid in-browser prototyping when we need to validate an idea fast.",
-    wordmark: "⚡",
-    color: "orange",
-    accent: "text-acc-orange",
-  },
-  {
-    name: "Base44",
-    category: "AI App Builder",
-    description: "All-in-one app builder we use to spin up internal tools and lightweight client portals.",
-    wordmark: "B44",
-    color: "green",
-    accent: "text-emerald-400",
-  },
-  {
-    name: "Claude",
-    category: "AI Assistant",
-    description: "Anthropic's Claude is our reasoning engine of choice for code, copy and complex agent workflows.",
-    wordmark: "Cl",
-    color: "orange",
-    accent: "text-acc-orange",
   },
   {
     name: "Anthropic",
     category: "AI Platform",
     description: "Safety-first AI lab behind Claude — we plug their APIs into automations, chatbots and content tools.",
-    wordmark: "A",
+    icon: Img(anthropicLogo, "Anthropic"),
+    color: "orange",
+    accent: "text-acc-orange",
+  },
+  {
+    name: "Claude",
+    category: "AI Assistant",
+    description: "Anthropic's Claude is our reasoning engine of choice for code, copy and complex agent workflows.",
+    icon: SiClaude,
     color: "orange",
     accent: "text-acc-orange",
   },
@@ -71,15 +61,39 @@ const tools: Tool[] = [
     name: "OpenAI",
     category: "AI Platform",
     description: "GPT models powering everything from lead scoring to AI email composition inside our CRM.",
-    wordmark: "GPT",
+    icon: SiOpenai,
     color: "green",
     accent: "text-emerald-400",
+  },
+  {
+    name: "Bolt",
+    category: "AI App Builder",
+    description: "StackBlitz Bolt for rapid in-browser prototyping when we need to validate an idea fast.",
+    icon: Zap,
+    color: "orange",
+    accent: "text-acc-orange",
+  },
+  {
+    name: "WordPress",
+    category: "CMS",
+    description: "The world's most flexible CMS — powering content-rich sites, blogs and WooCommerce stores we build for clients.",
+    icon: SiWordpress,
+    color: "blue",
+    accent: "text-acc-cyan",
+  },
+  {
+    name: "PHP",
+    category: "Backend",
+    description: "Battle-tested server language behind WordPress, Laravel and most of our custom CMS integrations.",
+    icon: SiPhp,
+    color: "purple",
+    accent: "text-acc-violet",
   },
   {
     name: "Shopify",
     category: "eCommerce",
     description: "Headless and themed Shopify builds for brands that need a serious storefront.",
-    wordmark: "S",
+    icon: SiShopify,
     color: "green",
     accent: "text-emerald-400",
   },
@@ -87,7 +101,7 @@ const tools: Tool[] = [
     name: "Figma",
     category: "Design",
     description: "Where every brand, wireframe and design system lives before it hits production.",
-    wordmark: "F",
+    icon: SiFigma,
     color: "purple",
     accent: "text-acc-violet",
   },
@@ -95,7 +109,7 @@ const tools: Tool[] = [
     name: "Supabase",
     category: "Backend / DB",
     description: "Postgres, auth, storage and edge functions — the backbone of our custom apps.",
-    wordmark: "Sb",
+    icon: SiSupabase,
     color: "green",
     accent: "text-emerald-400",
   },
@@ -103,7 +117,7 @@ const tools: Tool[] = [
     name: "React",
     category: "Frontend",
     description: "Component-driven UIs with React + Vite + Tailwind for everything we ship.",
-    wordmark: "⚛",
+    icon: SiReact,
     color: "blue",
     accent: "text-acc-cyan",
   },
@@ -138,20 +152,23 @@ export default function TechStack({
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
           >
-            {loop.map((t, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/10 bg-bg-1/60 backdrop-blur min-w-[180px]"
-              >
-                <div className={`w-10 h-10 rounded-xl bg-bg-0 border border-white/10 flex items-center justify-center font-gobold text-lg ${t.accent}`}>
-                  {t.wordmark}
+            {loop.map((t, i) => {
+              const Icon = t.icon;
+              return (
+                <div
+                  key={i}
+                  className="flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/10 bg-bg-1/60 backdrop-blur min-w-[180px]"
+                >
+                  <div className={`w-10 h-10 rounded-xl bg-bg-0 border border-white/10 flex items-center justify-center ${t.accent}`}>
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="font-gobold uppercase text-text-1 text-sm tracking-wide">{t.name}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-text-2">{t.category}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-gobold uppercase text-text-1 text-sm tracking-wide">{t.name}</div>
-                  <div className="text-[10px] uppercase tracking-wider text-text-2">{t.category}</div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -171,20 +188,23 @@ export default function TechStack({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tools.map((t) => (
-            <GlowCard key={t.name} glowColor={t.color} customSize className="p-6">
-              <div className="flex items-start gap-4 mb-4">
-                <div className={`w-14 h-14 rounded-2xl bg-bg-0 border border-white/10 flex items-center justify-center font-gobold text-2xl ${t.accent}`}>
-                  {t.wordmark}
+          {tools.map((t) => {
+            const Icon = t.icon;
+            return (
+              <GlowCard key={t.name} glowColor={t.color} customSize className="p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className={`w-14 h-14 rounded-2xl bg-bg-0 border border-white/10 flex items-center justify-center ${t.accent}`}>
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <div>
+                    <h3 className="font-gobold uppercase text-text-1 text-lg leading-tight">{t.name}</h3>
+                    <p className="text-[11px] uppercase tracking-wider text-text-2 mt-1">{t.category}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-gobold uppercase text-text-1 text-lg leading-tight">{t.name}</h3>
-                  <p className="text-[11px] uppercase tracking-wider text-text-2 mt-1">{t.category}</p>
-                </div>
-              </div>
-              <p className="text-text-2 text-sm leading-relaxed">{t.description}</p>
-            </GlowCard>
-          ))}
+                <p className="text-text-2 text-sm leading-relaxed">{t.description}</p>
+              </GlowCard>
+            );
+          })}
         </div>
       </div>
     </section>
