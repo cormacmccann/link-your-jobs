@@ -100,6 +100,7 @@ export default function PortfolioDetail() {
   const technologies = (item as any).technologies as string[] | null;
   const services = (item as any).services as string[] | null;
   const preliminaryGallery = (item as any).preliminary_gallery as string[] | null;
+  const caseStudy = (item as any).case_study as CaseStudy | null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -231,7 +232,10 @@ export default function PortfolioDetail() {
                     </p>
                   </div>
                 </motion.div>
-              )}
+
+              {/* Rich Case Study */}
+              {caseStudy && <CaseStudySection data={caseStudy} />}
+
 
               {/* Screenshots Gallery */}
               {item.screenshots && item.screenshots.length > 0 && (
