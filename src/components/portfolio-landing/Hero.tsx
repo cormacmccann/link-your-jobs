@@ -88,7 +88,7 @@ export default function Hero() {
               { name: "Lovable", src: lovableLogo },
               { name: "WordPress", src: "https://cdn.simpleicons.org/wordpress/21759b" },
               { name: "Anthropic", src: "https://cdn.simpleicons.org/anthropic/F2F0E9" },
-              { name: "Claude", src: "https://cdn.simpleicons.org/anthropic/D97757" },
+              { name: "Claude", src: "https://cdn.simpleicons.org/claude/D97757" },
               { name: "Gemini", src: "https://cdn.simpleicons.org/googlegemini/8E75B2" },
               { name: "TypeScript", src: "https://cdn.simpleicons.org/typescript/3178C6" },
             ].map((t) => (
