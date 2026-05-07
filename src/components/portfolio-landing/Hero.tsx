@@ -66,10 +66,10 @@ export default function Hero() {
 
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
         <div className="blur-in text-xs text-pl-muted uppercase tracking-[0.3em] mb-8">
-          COLLECTION '26
+          KAMROK · EST 2011 
         </div>
-        <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display leading-[0.9] tracking-tight text-text-primary mb-6">
-          Michael Smith
+        <h1 className="name-reveal md:text-8xl lg:text-9xl font-display leading-[0.9] tracking-tight text-text-primary mb-6 text-7xl">
+          A Studio for the AI-Native Web
         </h1>
         <div className="blur-in text-lg md:text-xl text-text-primary mb-6">
           A{" "}
