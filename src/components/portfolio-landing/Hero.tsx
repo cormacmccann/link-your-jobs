@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import gsap from "gsap";
+import lovableLogo from "@/assets/brands/lovable.svg";
 
 const VIDEO_SRC = "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 const ROLES = ["Creative", "Fullstack", "Founder", "Scholar"];
