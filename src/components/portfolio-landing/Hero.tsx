@@ -80,6 +80,29 @@ export default function Hero() {
           </span>{" "}
           lives in Chicago.
         </div>
+        <div className="blur-in flex flex-col items-center gap-4 mb-10">
+          <div className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">Built with</div>
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4 max-w-xl">
+            {[
+              { name: "Lovable", slug: "lovable" },
+              { name: "WordPress", slug: "wordpress" },
+              { name: "Anthropic", slug: "anthropic" },
+              { name: "Claude", slug: "claude" },
+              { name: "Gemini", slug: "googlegemini" },
+              { name: "TypeScript", slug: "typescript" },
+            ].map((t) => (
+              <img
+                key={t.name}
+                src={`https://cdn.simpleicons.org/${t.slug}/ffffff`}
+                alt={t.name}
+                title={t.name}
+                className="h-5 md:h-6 w-auto opacity-70 hover:opacity-100 transition-opacity"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </div>
+
         <p className="blur-in text-sm md:text-base text-pl-muted max-w-md mb-12">
           Designing seamless digital interactions by focusing on the unique nuances which bring systems to life.
         </p>
