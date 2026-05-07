@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@1&display=swap');
+
+.portfolio-landing-root {
+  --bg: 0 0% 4%;
+  --surface: 0 0% 8%;
+  --text: 0 0% 96%;
+  --pl-muted: 0 0% 53%;
+  --stroke: 0 0% 12%;
+  --accent: 0 0% 96%;
+  font-family: 'Inter', sans-serif;
+  color-scheme: dark;
+}
+
+.portfolio-landing-root .accent-gradient {
+  background: linear-gradient(90deg, #89AACC 0%, #4E85BF 100%);
+}
+
+@keyframes pl-scroll-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+@keyframes pl-role-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pl-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-scroll-down { animation: pl-scroll-down 1.5s ease-in-out infinite; }
+.animate-role-fade-in { animation: pl-role-fade-in 0.4s ease-out; }
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: pl-gradient-shift 6s ease infinite;
+}
+
+.portfolio-landing-root .font-body { font-family: 'Inter', sans-serif; }
+.portfolio-landing-root .font-display { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+.portfolio-landing-root { scroll-behavior: smooth; }
