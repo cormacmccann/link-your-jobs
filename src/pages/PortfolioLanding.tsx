@@ -3,6 +3,7 @@ import "@/styles/portfolio-landing.css";
 import LoadingScreen from "@/components/portfolio-landing/LoadingScreen";
 import Navbar from "@/components/portfolio-landing/Navbar";
 import Hero from "@/components/portfolio-landing/Hero";
+import WhatWeDo from "@/components/portfolio-landing/WhatWeDo";
 import SelectedWorks from "@/components/portfolio-landing/SelectedWorks";
 import Journal from "@/components/portfolio-landing/Journal";
 import Explorations from "@/components/portfolio-landing/Explorations";
@@ -17,6 +18,7 @@ export default function PortfolioLanding() {
       {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       <Navbar />
       <Hero />
+      <WhatWeDo />
       <SelectedWorks />
       <Journal />
       <Explorations />
