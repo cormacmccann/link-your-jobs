@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const LINKS = ["Home", "Work", "Resume"];
+const LINKS = [
+  { label: "Home", to: "/" },
+  { label: "Work", to: "/work" },
+  { label: "Journal", to: "/journal" },
+  { label: "Explorations", to: "/explorations" },
+  { label: "Resume", to: "/resume" },
+];
 
 export default function Navbar() {
-  const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100);
@@ -19,31 +26,29 @@ export default function Navbar() {
           scrolled ? "shadow-md shadow-black/40" : ""
         }`}
       >
-        {/* Logo */}
-        <a href="#home" className="group relative w-9 h-9 rounded-full p-[1.5px] accent-gradient transition-transform hover:scale-110">
+        <Link to="/" className="group relative w-9 h-9 rounded-full p-[1.5px] accent-gradient transition-transform hover:scale-110">
           <span className="absolute inset-0 rounded-full accent-gradient animate-gradient-shift opacity-0 group-hover:opacity-100 transition-opacity" />
           <span className="relative w-full h-full rounded-full bg-bg flex items-center justify-center font-display text-[13px] text-text-primary">
             JA
           </span>
-        </a>
+        </Link>
 
         <span className="hidden sm:block w-px h-5 bg-stroke mx-1" />
 
         {LINKS.map((l) => {
-          const isActive = active === l;
+          const isActive = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
           return (
-            <a
-              key={l}
-              href={l === "Home" ? "#home" : l === "Work" ? "#work" : "#resume"}
-              onClick={() => setActive(l)}
+            <Link
+              key={l.label}
+              to={l.to}
               className={`text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors ${
                 isActive
                   ? "text-text-primary bg-stroke/50"
                   : "text-pl-muted hover:text-text-primary hover:bg-stroke/50"
               }`}
             >
-              {l}
-            </a>
+              {l.label}
+            </Link>
           );
         })}
 
@@ -51,13 +56,13 @@ export default function Navbar() {
 
         <a
           href="mailto:hello@michaelsmith.com"
-          className="group relative text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-text-primary"
+          className="group relative text-xs sm:text-sm rounded-full text-text-primary"
         >
           <span
             className="absolute rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity"
             style={{ inset: -2 }}
           />
-          <span className="relative inline-flex items-center gap-1 rounded-full bg-surface px-3 sm:px-4 py-1.5 sm:py-2 -mx-3 sm:-mx-4 -my-1.5 sm:-my-2 backdrop-blur-md">
+          <span className="relative inline-flex items-center gap-1 rounded-full bg-surface px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
             Say hi <span aria-hidden>↗</span>
           </span>
         </a>
