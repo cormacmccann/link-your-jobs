@@ -56,14 +56,6 @@ import FreeToolsGuide from "./pages/help/FreeToolsGuide";
 import SuperAdminGuide from "./pages/help/SuperAdminGuide";
 import FAQ from "./pages/help/FAQ";
 
-// CRM Pages (legacy - redirect to portal)
-import CRMLayout from "./pages/crm/CRMLayout";
-import TodayModern from "./pages/crm/TodayModern";
-import Stream from "./pages/crm/Stream";
-import People from "./pages/crm/People";
-import Settings from "./pages/crm/Settings";
-import MissionControl from "./pages/crm/MissionControl";
-import SuperAdmin from "./pages/crm/SuperAdmin";
 
 // Portal Pages
 import PortalLayout from "./pages/crm/PortalLayout";
