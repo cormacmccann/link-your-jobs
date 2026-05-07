@@ -72,6 +72,11 @@ export default {
         'bg-2': 'hsl(var(--bg-2))',
         'text-1': 'hsl(var(--text-1))',
         'text-2': 'hsl(var(--text-2))',
+        bg: 'hsl(var(--bg))',
+        surface: 'hsl(var(--surface))',
+        'text-primary': 'hsl(var(--text))',
+        'pl-muted': 'hsl(var(--pl-muted))',
+        stroke: 'hsl(var(--stroke))',
       },
       borderRadius: {
         lg: "var(--radius)",
