@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
-import Index from "./pages/Index";
+
 import PortfolioLanding from "./pages/PortfolioLanding";
 import PortfolioLandingWork from "./pages/PortfolioLandingWork";
 import PortfolioLandingJournal from "./pages/PortfolioLandingJournal";
