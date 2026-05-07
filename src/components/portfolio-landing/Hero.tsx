@@ -4,7 +4,7 @@ import gsap from "gsap";
 import lovableLogo from "@/assets/brands/lovable.svg";
 
 const VIDEO_SRC = "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
-const ROLES = ["Creative", "Fullstack", "Founder", "Scholar"];
+const ROLES = ["Louth", "Ireland", "Dundalk", "Dublin"];
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -72,14 +72,14 @@ export default function Hero() {
           A Studio for the AI-Native Web
         </h1>
         <div className="blur-in text-lg md:text-xl text-text-primary mb-6">
-          A{" "}
+          Built in{" "}
           <span
             key={roleIdx}
             className="font-display text-text-primary animate-role-fade-in inline-block"
           >
             {ROLES[roleIdx]}
-          </span>{" "}
-          lives in Chicago.
+          </span>
+          . Shipped Worldwide
         </div>
         <div className="blur-in flex flex-col items-center gap-4 mb-10">
           <div className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">Built with</div>
