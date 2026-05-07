@@ -104,8 +104,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <p className="blur-in text-sm md:text-base text-pl-muted max-w-md mb-12">
-          Designing seamless digital interactions by focusing on the unique nuances which bring systems to life.
+        <p className="blur-in md:text-base text-pl-muted max-w-md mb-12 text-sm font-light">
+          Websites, Shopify, WordPress, brand and marketing — built by a studio that researches deeper and ships faster than anyone our size should.
         </p>
         <div className="blur-in inline-flex flex-wrap justify-center gap-4">
           <a
