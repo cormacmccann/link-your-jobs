@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import gsap from "gsap";
+import lovableLogo from "@/assets/brands/lovable.svg";
 
 const VIDEO_SRC = "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 const ROLES = ["Creative", "Fullstack", "Founder", "Scholar"];
@@ -84,19 +85,19 @@ export default function Hero() {
           <div className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">Built with</div>
           <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-4 max-w-xl">
             {[
-              { name: "Lovable", slug: "lovable" },
-              { name: "WordPress", slug: "wordpress" },
-              { name: "Anthropic", slug: "anthropic" },
-              { name: "Claude", slug: "claude" },
-              { name: "Gemini", slug: "googlegemini" },
-              { name: "TypeScript", slug: "typescript" },
+              { name: "Lovable", src: lovableLogo },
+              { name: "WordPress", src: "https://cdn.simpleicons.org/wordpress/21759b" },
+              { name: "Anthropic", src: "https://cdn.simpleicons.org/anthropic/F2F0E9" },
+              { name: "Claude", src: "https://cdn.simpleicons.org/claude/D97757" },
+              { name: "Gemini", src: "https://cdn.simpleicons.org/googlegemini/8E75B2" },
+              { name: "TypeScript", src: "https://cdn.simpleicons.org/typescript/3178C6" },
             ].map((t) => (
               <img
                 key={t.name}
-                src={`https://cdn.simpleicons.org/${t.slug}/ffffff`}
+                src={t.src}
                 alt={t.name}
                 title={t.name}
-                className="h-5 md:h-6 w-auto opacity-70 hover:opacity-100 transition-opacity"
+                className="h-5 md:h-6 w-auto opacity-80 hover:opacity-100 transition-opacity"
                 loading="lazy"
               />
             ))}
