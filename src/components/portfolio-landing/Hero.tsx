@@ -129,12 +129,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
-        <span className="text-xs text-pl-muted uppercase tracking-[0.2em]">SCROLL</span>
-        <div className="relative w-px h-10 bg-stroke overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-1/2 accent-gradient animate-scroll-down" />
-        </div>
-      </div>
     </section>
   );
 }
