@@ -3,84 +3,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { useEffect, useState } from "react";
-import { Session } from "@supabase/supabase-js";
 
-import PortfolioLanding from "./pages/PortfolioLanding";
-import PortfolioLandingV2 from "./pages/PortfolioLandingV2";
-import PortfolioLandingWork from "./pages/PortfolioLandingWork";
-import PortfolioLandingJournal from "./pages/PortfolioLandingJournal";
-import PortfolioLandingExplorations from "./pages/PortfolioLandingExplorations";
-import PortfolioLandingResume from "./pages/PortfolioLandingResume";
-import Services from "./pages/Services";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import { Auth } from "./components/Auth";
-import Clients from "./pages/Clients";
+
+// Tools Hub
 import ToolsHub from "./pages/tools/ToolsHub";
-import Features from "./pages/Features";
-import PortfolioDetail from "./pages/PortfolioDetail";
-import Blog from "./pages/Blog";
-import WidgetView from "./pages/WidgetView";
-import EmbedWidget from "./pages/EmbedWidget";
-
-// Service Pages
-import WebDesign from "./pages/services/WebDesign";
-import AppDevelopment from "./pages/services/AppDevelopment";
-import GraphicDesign from "./pages/services/GraphicDesign";
-import VideoDesign from "./pages/services/VideoDesign";
-import Branding from "./pages/services/Branding";
-
-// Feature Pages
-import CRM from "./pages/features/CRM";
-import Chat from "./pages/features/Chat";
-import ProjectsFeature from "./pages/features/Projects";
-import Invoicing from "./pages/features/Invoicing";
-import Tools from "./pages/features/Tools";
-
-// Help Pages
-import HelpCenter from "./pages/help/HelpCenter";
-import GettingStarted from "./pages/help/GettingStarted";
-import StreamGuide from "./pages/help/StreamGuide";
-import TodayGuide from "./pages/help/TodayGuide";
-import PeopleGuide from "./pages/help/PeopleGuide";
-import ProjectsGuide from "./pages/help/ProjectsGuide";
-import DealsGuide from "./pages/help/DealsGuide";
-import TasksGuide from "./pages/help/TasksGuide";
-import InvoicingGuide from "./pages/help/InvoicingGuide";
-import LiveChatGuide from "./pages/help/LiveChatGuide";
-import AutomationsGuide from "./pages/help/AutomationsGuide";
-import ClientPortalsGuide from "./pages/help/ClientPortalsGuide";
-import SettingsGuide from "./pages/help/SettingsGuide";
-import FreeToolsGuide from "./pages/help/FreeToolsGuide";
-import SuperAdminGuide from "./pages/help/SuperAdminGuide";
-import FAQ from "./pages/help/FAQ";
-
-
-// Portal Pages
-import PortalLayout from "./pages/crm/PortalLayout";
-import PortalStream from "./pages/portal/PortalStream";
-import PortalProjects from "./pages/portal/PortalProjects";
-import PortalInvoices from "./pages/portal/PortalInvoices";
-import PortalContracts from "./pages/portal/PortalContracts";
-import PortalSettings from "./pages/portal/PortalSettings";
-import NewRequest from "./pages/portal/NewRequest";
-
-// Public Pages
-import QuoteView from "./pages/public/QuoteView";
-import ContractSign from "./pages/public/ContractSign";
-
-// Legacy/Tool Pages
-import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
-import TermsGenerator from "./pages/TermsGenerator";
-import CookieConsentManager from "./pages/CookieConsentManager";
-import ChatLeadCapture from "./pages/ChatLeadCapture";
-import PopupOfferEngine from "./pages/PopupOfferEngine";
-import BookingsDemos from "./pages/BookingsDemos";
-import ReviewWidget from "./pages/ReviewWidget";
-import SocialWall from "./pages/SocialWall";
-import TrustpilotIntegration from "./pages/TrustpilotIntegration";
 import QRCodeGenerator from "./pages/tools/QRCodeGenerator";
 import PasswordGenerator from "./pages/tools/PasswordGenerator";
 import UTMBuilder from "./pages/tools/UTMBuilder";
@@ -93,35 +20,20 @@ import SocialMediaSizeChecker from "./pages/tools/SocialMediaSizeChecker";
 import OpenGraphPreview from "./pages/tools/OpenGraphPreview";
 import HashtagSuggester from "./pages/tools/HashtagSuggester";
 
+// Legacy tool pages (mounted under /tools/*)
+import PrivacyPolicyBuilder from "./pages/PrivacyPolicyBuilder";
+import TermsGenerator from "./pages/TermsGenerator";
+import CookieConsentManager from "./pages/CookieConsentManager";
+import ChatLeadCapture from "./pages/ChatLeadCapture";
+import PopupOfferEngine from "./pages/PopupOfferEngine";
+import BookingsDemos from "./pages/BookingsDemos";
+import ReviewWidget from "./pages/ReviewWidget";
+import SocialWall from "./pages/SocialWall";
+import TrustpilotIntegration from "./pages/TrustpilotIntegration";
+
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    );
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -129,68 +41,8 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<PortfolioLanding />} />
-            <Route path="/v2" element={<PortfolioLandingV2 />} />
-            <Route path="/work" element={<PortfolioLandingWork />} />
-            <Route path="/journal" element={<PortfolioLandingJournal />} />
-            <Route path="/explorations" element={<PortfolioLandingExplorations />} />
-            <Route path="/resume" element={<PortfolioLandingResume />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/web-design" element={<WebDesign />} />
-            <Route path="/services/app-development" element={<AppDevelopment />} />
-            <Route path="/services/graphic-design" element={<GraphicDesign />} />
-            <Route path="/services/video-design" element={<VideoDesign />} />
-            <Route path="/services/branding" element={<Branding />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/features/crm" element={<CRM />} />
-            <Route path="/features/chat" element={<Chat />} />
-            <Route path="/features/projects" element={<ProjectsFeature />} />
-            <Route path="/features/invoicing" element={<Invoicing />} />
-            <Route path="/features/tools" element={<Tools />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/clients/:id" element={<PortfolioDetail />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Help Center Routes */}
-            <Route path="/help" element={<HelpCenter />} />
-            <Route path="/help/getting-started" element={<GettingStarted />} />
-            <Route path="/help/stream" element={<StreamGuide />} />
-            <Route path="/help/today" element={<TodayGuide />} />
-            <Route path="/help/people" element={<PeopleGuide />} />
-            <Route path="/help/projects" element={<ProjectsGuide />} />
-            <Route path="/help/deals" element={<DealsGuide />} />
-            <Route path="/help/tasks" element={<TasksGuide />} />
-            <Route path="/help/invoicing" element={<InvoicingGuide />} />
-            <Route path="/help/live-chat" element={<LiveChatGuide />} />
-            <Route path="/help/automations" element={<AutomationsGuide />} />
-            <Route path="/help/client-portals" element={<ClientPortalsGuide />} />
-            <Route path="/help/settings" element={<SettingsGuide />} />
-            <Route path="/help/free-tools" element={<FreeToolsGuide />} />
-            <Route path="/help/super-admin" element={<SuperAdminGuide />} />
-            <Route path="/help/faq" element={<FAQ />} />
-            
-            {/* Client Portal Routes */}
-            <Route path="/portal" element={session ? <PortalLayout /> : <Navigate to="/auth" />}>
-              <Route index element={<Navigate to="/portal/stream" />} />
-              <Route path="stream" element={<PortalStream />} />
-              <Route path="projects" element={<PortalProjects />} />
-              <Route path="invoices" element={<PortalInvoices />} />
-              <Route path="contracts" element={<PortalContracts />} />
-              <Route path="settings" element={<PortalSettings />} />
-              <Route path="new-request" element={<NewRequest />} />
-            </Route>
+            <Route path="/" element={<Navigate to="/tools" replace />} />
 
-            {/* Legacy CRM Routes - Redirect to Portal */}
-            <Route path="/crm" element={session ? <Navigate to="/portal/stream" /> : <Navigate to="/auth" />} />
-            <Route path="/crm/*" element={<Navigate to="/portal/stream" />} />
-
-            {/* Legacy Routes */}
-            <Route path="/dashboard" element={session ? <Navigate to="/portal/stream" /> : <Navigate to="/auth" />} />
-            <Route path="/widget/:id" element={session ? <WidgetView /> : <Navigate to="/auth" />} />
-            <Route path="/embed/:id" element={<EmbedWidget />} />
-            
             {/* Tools Hub */}
             <Route path="/tools" element={<ToolsHub />} />
             <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
@@ -204,7 +56,7 @@ const App = () => {
             <Route path="/tools/social-post-sizes" element={<SocialMediaSizeChecker />} />
             <Route path="/tools/opengraph-preview" element={<OpenGraphPreview />} />
             <Route path="/tools/hashtag-suggester" element={<HashtagSuggester />} />
-            
+
             {/* Legacy Toolkit Pages */}
             <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
             <Route path="/tools/terms-generator" element={<TermsGenerator />} />
@@ -215,7 +67,7 @@ const App = () => {
             <Route path="/tools/review-widget" element={<ReviewWidget />} />
             <Route path="/tools/social-wall" element={<SocialWall />} />
             <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
-            
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
