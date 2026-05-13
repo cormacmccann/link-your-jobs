@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 
 import PortfolioLanding from "./pages/PortfolioLanding";
+import PortfolioLandingV2 from "./pages/PortfolioLandingV2";
 import PortfolioLandingWork from "./pages/PortfolioLandingWork";
 import PortfolioLandingJournal from "./pages/PortfolioLandingJournal";
 import PortfolioLandingExplorations from "./pages/PortfolioLandingExplorations";
@@ -129,6 +130,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<PortfolioLanding />} />
+            <Route path="/v2" element={<PortfolioLandingV2 />} />
             <Route path="/work" element={<PortfolioLandingWork />} />
             <Route path="/journal" element={<PortfolioLandingJournal />} />
             <Route path="/explorations" element={<PortfolioLandingExplorations />} />
