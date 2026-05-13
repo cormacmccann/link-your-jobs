@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 const LINKS = [
   { label: "Home", to: "/" },
   { label: "Work", to: "/work" },
+  { label: "Services", to: "/services" },
+  { label: "Tools", to: "/tools" },
   { label: "Journal", to: "/journal" },
-  { label: "Explorations", to: "/explorations" },
-  { label: "Resume", to: "/resume" },
 ];
 
 export default function Navbar() {
@@ -26,10 +26,21 @@ export default function Navbar() {
           scrolled ? "shadow-md shadow-black/40" : ""
         }`}
       >
-        <Link to="/" className="group relative w-9 h-9 rounded-full p-[1.5px] accent-gradient transition-transform hover:scale-110">
-          <span className="absolute inset-0 rounded-full accent-gradient animate-gradient-shift opacity-0 group-hover:opacity-100 transition-opacity" />
-          <span className="relative w-full h-full rounded-full bg-bg flex items-center justify-center font-display text-[13px] text-text-primary">
-            JA
+        <Link
+          to="/"
+          className="group flex items-center gap-2.5 pl-1 pr-3 transition-opacity hover:opacity-90"
+        >
+          <span className="relative w-9 h-9 rounded-full p-[1.5px] accent-gradient transition-transform group-hover:scale-110">
+            <span className="absolute inset-0 rounded-full accent-gradient animate-gradient-shift opacity-0 group-hover:opacity-100 transition-opacity" />
+            <span className="relative w-full h-full rounded-full bg-bg flex items-center justify-center font-display text-[13px] text-text-primary">
+              K
+            </span>
+          </span>
+          <span className="hidden md:flex flex-col leading-tight">
+            <span className="font-display italic text-sm text-text-primary">Kamrok</span>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-pl-muted">
+              Est 2011
+            </span>
           </span>
         </Link>
 
@@ -54,18 +65,18 @@ export default function Navbar() {
 
         <span className="hidden sm:block w-px h-5 bg-stroke mx-1" />
 
-        <a
-          href="mailto:hello@michaelsmith.com"
+        <Link
+          to="/contact"
           className="group relative text-xs sm:text-sm rounded-full text-text-primary"
         >
           <span
-            className="absolute rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute rounded-full accent-gradient opacity-100 transition-opacity"
             style={{ inset: -2 }}
           />
-          <span className="relative inline-flex items-center gap-1 rounded-full bg-surface px-3 sm:px-4 py-1.5 sm:py-2 backdrop-blur-md">
-            Say hi <span aria-hidden>↗</span>
+          <span className="relative inline-flex items-center gap-1.5 rounded-full bg-bg px-3 sm:px-4 py-1.5 sm:py-2 group-hover:bg-transparent transition-colors">
+            Grow Your Business <span aria-hidden>↗</span>
           </span>
-        </a>
+        </Link>
       </div>
     </nav>
   );
