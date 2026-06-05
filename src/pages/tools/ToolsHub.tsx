@@ -7,8 +7,6 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import "@/styles/portfolio-landing.css";
-import Navbar from "@/components/portfolio-landing/Navbar";
-import ContactFooter from "@/components/portfolio-landing/ContactFooter";
 
 const TOOL_CATEGORIES = [
   {
@@ -103,12 +101,10 @@ export default function ToolsHub() {
 
   return (
     <div className="portfolio-landing-root font-body bg-bg text-text-primary min-h-screen">
-      <Navbar />
-
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 px-6">
+      {/* Heading */}
+      <section className="pt-20 pb-12 px-6">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-3 mb-6">
             <span className="h-px w-8 bg-stroke" />
             <span className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">
               Free Toolkit · No login
@@ -117,31 +113,18 @@ export default function ToolsHub() {
           </div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight text-text-primary mb-6"
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="font-display text-4xl md:text-6xl leading-[0.95] tracking-tight text-text-primary mb-8"
           >
-            Small tools.
-            <br />
-            Sharp output.
+            Small tools. Sharp output.
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="text-base md:text-lg text-pl-muted max-w-xl mx-auto font-light mb-10"
-          >
-            Utilities we built for ourselves and gave away. Free forever, no fluff,
-            no signup wall.
-          </motion.p>
-
-          {/* Search */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
             className="max-w-md mx-auto"
           >
             <input
@@ -155,7 +138,7 @@ export default function ToolsHub() {
       </section>
 
       {/* Filter pills */}
-      <section className="px-6 mb-12">
+      <section className="px-6 mb-10">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
           {FILTERS.map((f) => {
             const isActive = active === f.id;
@@ -233,38 +216,6 @@ export default function ToolsHub() {
           )}
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="px-6 py-32 text-center border-t border-stroke">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="h-px w-8 bg-stroke" />
-            <span className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">
-              Need something custom?
-            </span>
-            <span className="h-px w-8 bg-stroke" />
-          </div>
-          <h2 className="font-display text-5xl md:text-7xl text-text-primary mb-8 leading-[1]">
-            We also build
-            <br />
-            the real thing.
-          </h2>
-          <Link
-            to="/contact"
-            className="group relative inline-flex rounded-full text-sm px-8 py-4 bg-text-primary text-bg hover:bg-bg hover:text-text-primary transition-all hover:scale-105"
-          >
-            <span
-              className="absolute inset-0 rounded-full accent-gradient opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ padding: 2 }}
-            >
-              <span className="block w-full h-full rounded-full bg-bg" />
-            </span>
-            <span className="relative">Grow Your Business →</span>
-          </Link>
-        </div>
-      </section>
-
-      <ContactFooter />
     </div>
   );
 }
