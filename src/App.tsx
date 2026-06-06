@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import NotFound from "./pages/NotFound";
 
 // KAMROK site
+import MoonHome from "./pages/kamrok/MoonHome";
 import About from "./pages/kamrok/About";
 import Work from "./pages/kamrok/Work";
 import Skills from "./pages/kamrok/Skills";
