@@ -41,13 +41,6 @@ import TrustpilotIntegration from "./pages/TrustpilotIntegration";
 
 const queryClient = new QueryClient();
 
-const StaticRedirect = ({ to }: { to: string }) => {
-  useEffect(() => {
-    window.location.replace(to);
-  }, [to]);
-  return null;
-};
-
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>

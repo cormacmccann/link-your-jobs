@@ -43,6 +43,11 @@ export default defineConfig(({ mode }) => ({
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
         globIgnores: ["**/index-kamrok.html", "**/moon.html"],
+        // Activate new builds immediately and purge old caches so visitors stop
+        // seeing stale/old content after a deploy.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/nwmwwpwpokcwwjhgxwxe\.supabase\.co\/.*/i,
