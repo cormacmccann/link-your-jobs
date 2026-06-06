@@ -147,11 +147,11 @@
 /* Per-skill flyout */
 .kk-flyout {
   --accent: #8b7dff;
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 46; width: min(420px, 92vw); overflow-y: auto;
-  background: radial-gradient(120% 70% at 90% 0%, rgba(86, 168, 255, .14), transparent 55%), linear-gradient(165deg, #1b1740, #13102b 60%, #1a1236);
-  border-left: 1px solid var(--accent);
-  box-shadow: -36px 0 110px rgba(0, 0, 0, .6);
-  transform: translateX(102%); transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 46; width: min(420px, 92vw); overflow-y: auto;
+  background: radial-gradient(120% 70% at 10% 0%, rgba(86, 168, 255, .14), transparent 55%), linear-gradient(195deg, #1b1740, #13102b 60%, #1a1236);
+  border-right: 1px solid var(--accent);
+  box-shadow: 36px 0 110px rgba(0, 0, 0, .6);
+  transform: translateX(-102%); transition: transform .5s cubic-bezier(.22, .61, .36, 1);
   padding: 38px 24px 28px; text-align: left;
 }
 .kk-flyout.is-open { transform: translateX(0); }

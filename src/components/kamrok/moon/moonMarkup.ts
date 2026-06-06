@@ -15,40 +15,15 @@ export const MOON_MARKUP = `
   <!-- ===== TITLE / INTRO SCREEN ===== -->
   <div class="intro" id="intro">
     <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
-    <div class="title">
-      <span class="word"><img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" /></span>
-      <span class="porthole">
-        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="psky" cx="42%" cy="36%" r="72%"><stop offset="0" stop-color="#1b1d26"/><stop offset="1" stop-color="#070810"/></radialGradient>
-            <radialGradient id="pmoon" cx="38%" cy="20%" r="90%"><stop offset="0" stop-color="#c9c4b5"/><stop offset="1" stop-color="#9b988b"/></radialGradient>
-          </defs>
-          <rect width="300" height="300" fill="url(#psky)"/>
-          <g fill="#e9e3d4">
-            <circle cx="40" cy="40" r="1.1" opacity=".7"/><circle cx="78" cy="26" r="1.4" opacity=".9"/><circle cx="120" cy="52" r="1" opacity=".6"/><circle cx="190" cy="34" r="1.3" opacity=".8"/><circle cx="240" cy="60" r="1" opacity=".6"/><circle cx="265" cy="110" r="1.2" opacity=".7"/><circle cx="150" cy="30" r="1" opacity=".5"/><circle cx="210" cy="96" r="1" opacity=".6"/><circle cx="55" cy="100" r="1" opacity=".55"/>
-          </g>
-          <circle cx="232" cy="78" r="22" fill="#39507e" opacity=".85"/><circle cx="232" cy="78" r="22" fill="none" stroke="#aac3ef" stroke-opacity=".25"/><path d="M222 72 q8 -5 16 1 q-6 7 -16 -1z" fill="#5e79a8" opacity=".7"/>
-          <path d="M-20 214 Q150 172 320 208 L320 320 L-20 320 Z" fill="url(#pmoon)"/>
-          <path d="M-20 214 Q150 172 320 208" fill="none" stroke="#ddd8c8" stroke-opacity=".4"/>
-          <ellipse cx="78" cy="252" rx="18" ry="6" fill="#a8a496" opacity=".7"/><ellipse cx="226" cy="262" rx="24" ry="8" fill="#a8a496" opacity=".7"/><ellipse cx="150" cy="238" rx="10" ry="4" fill="#a8a496" opacity=".6"/>
-          <g fill="#23201b">
-            <rect x="128" y="196" width="46" height="12" rx="3"/>
-            <circle cx="136" cy="210" r="9"/><circle cx="166" cy="210" r="9"/>
-            <rect x="146" y="190" width="9" height="9" rx="2"/>
-            <circle cx="150" cy="184" r="7.5"/>
-            <rect x="171" y="178" width="2.4" height="20"/>
-          </g>
-          <circle cx="150" cy="150" r="148" fill="none" stroke="#000" stroke-opacity=".5" stroke-width="4"/>
-        </svg>
-      </span>
-      <span class="mid"><span>ON&nbsp;THE</span><span>MOON</span></span>
+    <img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" />
+    <div class="intro-foot">
+      <p class="sub">This isn't a normal portfolio. Web portfolios can be boring — so we built a world you can drive through. Take the buggy out across the moon, find the monuments, and see exactly what we can do. <b>This is what we do.</b></p>
+      <div class="btns">
+        <button class="pill solid" id="introEnter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg>ENTER THE MOON</button>
+        <a class="pill" href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 9-9 9-9-9z"/></svg>ABOUT THE PROJECT</a>
+      </div>
+      <div class="credit">KAMROK · CANDY SHOP DIGITAL LTD · DUNDALK</div>
     </div>
-    <p class="sub">This is a portfolio you can drive through. Step off the beaten path — take the buggy out, find the monuments, and chase the things that flash in the dark.</p>
-    <div class="btns">
-      <button class="pill solid" id="introEnter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg>ENTER THE MOON</button>
-      <a class="pill" href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 9-9 9-9-9z"/></svg>ABOUT THE PROJECT</a>
-    </div>
-    <div class="credit">KAMROK · CANDY SHOP DIGITAL LTD · DUNDALK</div>
   </div>
 
   <!-- ===== BOTTOM SETTINGS STRIP ===== -->
@@ -168,8 +143,13 @@ export const MOON_MARKUP = `
   </div>
 
   <div id="loader">
-    <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
-    <div class="bar"><i></i></div>
+    <div class="ldr-stars"></div>
+    <div class="ldr-orb">
+      <span class="ldr-ring"></span>
+      <span class="ldr-core"></span>
+      <span class="ldr-p p1"></span><span class="ldr-p p2"></span><span class="ldr-p p3"></span>
+      <span class="ldr-p p4"></span><span class="ldr-p p5"></span><span class="ldr-p p6"></span>
+    </div>
     <div class="lm" id="loadMsg">CALIBRATING MOONSCAPE…</div>
   </div>
 

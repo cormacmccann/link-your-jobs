@@ -95,7 +95,7 @@ export default function Skills() {
     >
       <Emblem />
       <div className="kk-eyebrow">INSTRUMENTS · 03</div>
-      <h1>What We Do</h1>
+      <h1>Our Skills</h1>
       <Divider />
       <p className="kk-lead-text">
         Tap an icon to open its dossier — the same five you can knock off their pedestals out on the moon.
