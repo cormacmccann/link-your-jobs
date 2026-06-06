@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap');
 
 .im-root {
-  --ink: #f4f1e8;
-  --ink-dim: #b8ac92;
-  --ink-faded: #7a7158;
-  --line: rgba(244, 241, 232, .18);
-  --line-strong: rgba(244, 241, 232, .35);
-  --panel: rgba(10, 10, 12, .82);
-  --accent: #d9a063;
+  --ink: #ece8ff;
+  --ink-dim: #a59ccf;
+  --ink-faded: #6b6499;
+  --line: rgba(180, 170, 255, .22);
+  --line-strong: rgba(180, 170, 255, .42);
+  --panel: rgba(12, 10, 28, .82);
+  --accent: #8b7dff;
+  --accent-2: #4ea8ff;
   --serif: "Cormorant Garamond", Georgia, serif;
   --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   position: relative;
   min-height: 100vh;
-  background: #07070a;
+  background: #07071a;
   color: var(--ink);
   font-family: var(--serif);
   overflow-x: hidden;
@@ -23,22 +24,23 @@
 .im-bg {
   position: fixed; inset: 0;
   background-size: cover; background-position: center;
-  filter: brightness(.78) saturate(.95);
+  filter: brightness(.55) saturate(1.15) hue-rotate(210deg);
   z-index: 0;
 }
 .im-bg-vignette {
   position: fixed; inset: 0; z-index: 1;
   background:
-    radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.55) 100%),
-    linear-gradient(180deg, rgba(7,7,10,.25) 0%, transparent 30%, rgba(7,7,10,.55) 100%);
+    radial-gradient(ellipse at center, transparent 35%, rgba(8,6,30,.7) 100%),
+    linear-gradient(180deg, rgba(20,12,60,.35) 0%, transparent 30%, rgba(8,6,30,.65) 100%),
+    linear-gradient(120deg, rgba(78,168,255,.18), rgba(139,125,255,.18));
   pointer-events: none;
 }
 .im-bg-frame {
   position: fixed; inset: 6px; z-index: 2;
-  border: 1px solid rgba(217, 160, 99, .35);
+  border: 1px solid rgba(139, 125, 255, .35);
   border-radius: 2px;
   pointer-events: none;
-  box-shadow: inset 0 0 60px rgba(217, 160, 99, .08);
+  box-shadow: inset 0 0 60px rgba(78, 168, 255, .1);
 }
 
 /* Left rail */
@@ -117,24 +119,25 @@
   box-shadow: 0 0 10px var(--accent);
 }
 .im-pill--accent {
-  background: rgba(217,160,99,.92);
-  color: #1a140a; border-color: transparent;
+  background: linear-gradient(135deg, #8b7dff, #4ea8ff);
+  color: #0a0820; border-color: transparent;
+  box-shadow: 0 8px 30px rgba(139,125,255,.35);
 }
-.im-pill--accent:hover { background: var(--accent); }
+.im-pill--accent:hover { filter: brightness(1.08); }
 
-/* Floating map */
+/* Floating map (bottom-right so it doesn't sit under settings) */
 .im-map {
-  position: fixed; bottom: 22px; left: 22px; z-index: 25;
+  position: fixed; bottom: 22px; right: 22px; z-index: 25;
   display: inline-flex; align-items: center; gap: 8px;
   padding: 9px 14px;
-  background: rgba(7,7,10,.75);
+  background: rgba(12,10,28,.75);
   border: 1px solid var(--line);
   border-radius: 40px;
   font-family: var(--mono); font-size: 9.5px; letter-spacing: .26em;
-  color: var(--ink); cursor: pointer;
+  color: var(--ink); cursor: pointer; text-decoration: none;
   backdrop-filter: blur(10px);
 }
-.im-map:hover { border-color: var(--line-strong); }
+.im-map:hover { border-color: var(--line-strong); color: var(--accent); }
 
 /* Drawer */
 .im-drawer {
@@ -253,15 +256,24 @@
   color: var(--ink-faded);
 }
 
-/* Main */
+/* Main — content anchored to the right of the page */
 .im-main {
   position: relative; z-index: 10;
-  padding: 96px 24px 96px 96px;
+  padding: 96px 64px 96px 96px;
   min-height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+}
+.im-main > * {
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 @media (max-width: 720px) {
-  .im-main { padding: 110px 18px 110px 80px; }
+  .im-main { padding: 110px 18px 110px 80px; justify-content: stretch; }
+  .im-main > * { max-width: 100%; margin: 0; }
   .im-drawer { padding: 70px 28px 28px; }
   .im-nav-socials { grid-template-columns: 1fr; }
   .im-top { top: 14px; }
