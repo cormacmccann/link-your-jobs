@@ -93,19 +93,6 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         </button>
       </aside>
 
-      {/* Floating top pills — off-moon only (the moon has its own top nav) */}
-      {!onMoon && (
-        <div className="im-top">
-          <Link to="/" className="im-pill">
-            <span className="im-pill-dot" />
-            KAMROK
-          </Link>
-          <Link to="/contact" className="im-pill im-pill--accent">
-            START A PROJECT →
-          </Link>
-        </div>
-      )}
-
       {/* Floating map / back-to-moon — off-moon only */}
       {!onMoon && (
         <Link to="/" className="im-map">
