@@ -71,10 +71,11 @@ export default function Buggy({
     g.position.z += Math.cos(heading.current) * speed.current * dt;
     g.rotation.y = heading.current;
 
+    // Isometric follow: fixed-angle camera that tracks position only (no rotation with heading)
     const camTarget = new THREE.Vector3(
-      g.position.x - Math.sin(heading.current) * 10,
-      g.position.y + 5,
-      g.position.z - Math.cos(heading.current) * 10
+      g.position.x + 60,
+      g.position.y + 60,
+      g.position.z + 60
     );
     camera.position.lerp(camTarget, Math.min(1, dt * 4));
     camera.lookAt(g.position.x, g.position.y + 1.2, g.position.z);
