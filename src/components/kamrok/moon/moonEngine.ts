@@ -997,6 +997,104 @@ export function startMoonExperience(): () => void {
     placeProp(P.rock4,{x:96,z:70,size:15,rotY:2.3,collider:true});
   })();
 
+  /* ===== SKILL ICONS — 3D logos floating on glowing centres around the Skills monument ===== */
+  const SKILL_DEFS=[
+    {key:'react',     name:'React',        k:'FRONT-END',   color:0x61dafb, url:'/skills/react.glb',     size:4.6, info:'Component-driven interfaces in React — hooks, state and the buttery client-side interactions this very page is built on.'},
+    {key:'wordpress', name:'WordPress',    k:'CMS',         color:0x2aa7d0, url:'/skills/wordpress.glb', size:4.6, info:'Custom WordPress themes and blocks — editorial, content-led sites that clients can actually run themselves.'},
+    {key:'google',    name:'Google · SEO', k:'GROWTH',      color:0x4285f4, url:'/skills/google.glb',    size:4.6, info:'Technical SEO, analytics and Core Web Vitals — sites built to be found, measured, and to rank.'},
+    {key:'starburst', name:'Motion',       k:'INTERACTION', color:0xff8a3c, url:'/skills/starburst.glb', size:4.6, info:'Framer Motion, GSAP and real-time WebGL — motion that guides the eye without ever showing off.'},
+    {key:'heart',     name:'Brand & UX',   k:'IDENTITY',    color:0xff4d6d, url:'/skills/heart.glb',     size:4.6, info:'Brand systems and human-centred UX — the craft, polish and care that ties everything together.'},
+  ];
+  const skillIcons=[]; const skillRayTargets=[]; let openSkill=null;
+  const skillPop=document.getElementById('skillPop');
+  function skillHex(c){return '#'+('000000'+c.toString(16)).slice(-6);}
+  function positionSkillPop(){
+    if(!openSkill||!skillPop)return;
+    const p=openSkill.model?openSkill.model.position:openSkill.center;
+    const sp=project(p.x,p.y+2.8,p.z);
+    skillPop.style.left=Math.max(132,Math.min(innerWidth-132,sp.x))+'px';
+    skillPop.style.top=Math.max(118,Math.min(innerHeight-30,sp.y))+'px';
+  }
+  function showSkillPop(ic){
+    if(!skillPop)return; openSkill=ic; ic.flash=1.2;
+    skillPop.style.setProperty('--pc',skillHex(ic.def.color));
+    document.getElementById('skillPopK').textContent=ic.def.k;
+    document.getElementById('skillPopH').textContent=ic.def.name;
+    document.getElementById('skillPopP').textContent=ic.def.info;
+    positionSkillPop(); skillPop.classList.add('open');
+  }
+  function hideSkillPop(){openSkill=null; if(skillPop)skillPop.classList.remove('open');}
+  if(skillPop){const sx=document.getElementById('skillPopX'); if(sx)sx.addEventListener('click',e=>{e.stopPropagation();hideSkillPop();});}
+  (function(){
+    const base=BUILDS.skills.pos, R=11, ray=new T.Raycaster(), ndc=new T.Vector2();
+    SKILL_DEFS.forEach((def,i)=>{
+      const a=(i/SKILL_DEFS.length)*Math.PI*2+0.35;
+      const cx=base.x+Math.cos(a)*R, cz=base.z+Math.sin(a)*R, gy=terrainHeight(cx,cz);
+      const center=new T.Vector3(cx, gy+2.5+(i%2)*0.7, cz);
+      const glow=new T.Mesh(new T.SphereGeometry(0.6,16,16),new T.MeshBasicMaterial({color:def.color,transparent:true,opacity:0.7,blending:T.AdditiveBlending,depthWrite:false}));
+      glow.position.copy(center); scene.add(glow);
+      const ring=new T.Mesh(new T.RingGeometry(1.0,1.3,40),new T.MeshBasicMaterial({color:def.color,transparent:true,opacity:0.5,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      ring.rotation.x=-Math.PI/2; ring.position.set(cx,gy+0.12,cz); scene.add(ring);
+      const light=new T.PointLight(def.color,1.4,26); light.position.copy(center); scene.add(light);
+      const lbl=document.createElement('div'); lbl.className='skill-label'; lbl.innerHTML='<b>'+def.name+'</b><span>'+def.k+'</span>';
+      const ic={def,center,glow,ring,light,model:null,state:'float',vx:0,vy:0,vz:0,spin:0.5+Math.random()*0.5,phase:Math.random()*6.283,baseY:center.y,flash:0,label:lbl};
+      lbl.addEventListener('click',()=>showSkillPop(ic)); nodesWrap.appendChild(lbl); skillIcons.push(ic);
+      new T.GLTFLoader().load(def.url,g=>{
+        const m=g.scene; let box=meshBox(m), sz=box.getSize(new T.Vector3());
+        const s=def.size/Math.max(0.001,Math.max(sz.x,sz.y,sz.z)); m.scale.setScalar(s);
+        box=meshBox(m); const c=box.getCenter(new T.Vector3());
+        const pivot=new T.Group(); m.position.set(-c.x,-c.y,-c.z); pivot.add(m); pivot.position.copy(center);
+        m.traverse(o=>{if(o.isMesh){o.castShadow=true;o.frustumCulled=false;o.userData.skill=ic;skillRayTargets.push(o);}});
+        scene.add(pivot); ic.model=pivot;
+      },undefined,e=>console.warn('skill glb',def.key,e));
+    });
+    __on('pointerdown',e=>{
+      if(!skillRayTargets.length||e.target!==renderer.domElement)return;
+      ndc.x=(e.clientX/innerWidth)*2-1; ndc.y=-(e.clientY/innerHeight)*2+1; ray.setFromCamera(ndc,camera);
+      const hit=ray.intersectObjects(skillRayTargets,true)[0];
+      if(hit){let o=hit.object; while(o&&!o.userData.skill)o=o.parent; if(o&&o.userData.skill){showSkillPop(o.userData.skill);return;}}
+      if(openSkill)hideSkillPop();
+    });
+  })();
+  function updateSkillIcons(dt){
+    for(const ic of skillIcons){
+      const pulse=0.5+Math.sin(clock*2.2+ic.phase)*0.22+ic.flash;
+      ic.glow.material.opacity=Math.min(1,(ic.state==='float'?0.45:0.16)+pulse*0.4);
+      ic.light.intensity=(ic.state==='float'?1.0:0.4)+pulse*1.4;
+      if(ic.ring)ic.ring.material.opacity=Math.min(1,(ic.state==='float'?0.3:0.12)+pulse*0.4);
+      if(ic.flash>0)ic.flash=Math.max(0,ic.flash-dt*2);
+      if(ic.model){
+        if(ic.state==='float'){
+          ic.model.position.set(ic.center.x, ic.baseY+Math.sin(clock*1.4+ic.phase)*0.45, ic.center.z);
+          ic.model.rotation.y+=dt*ic.spin; ic.model.rotation.x=Math.sin(clock*0.8+ic.phase)*0.12;
+          const dx=st.x-ic.center.x, dz=st.z-ic.center.z;
+          if(dx*dx+dz*dz<36&&Math.abs(st.speed)>0.05){      // car drove into the icon's glowing centre
+            ic.state='fall';
+            const nx=(ic.center.x-st.x)||0.1, nz=(ic.center.z-st.z)||0.1, nl=Math.hypot(nx,nz)||1, pw=1.4+Math.abs(st.speed)*7;
+            ic.vx=nx/nl*pw*0.14; ic.vz=nz/nl*pw*0.14; ic.vy=0.18+Math.random()*0.12; ic.spin=2+Math.random()*3;
+            fxBurst(ic.center.clone(),ic.def.color); showToast('✦ '+ic.def.name.toUpperCase());
+            if(openSkill===ic)hideSkillPop();
+          }
+        } else if(ic.state==='fall'){
+          ic.vy-=0.013; const m=ic.model;
+          m.position.x+=ic.vx; m.position.y+=ic.vy; m.position.z+=ic.vz;
+          m.rotation.x+=ic.spin*dt; m.rotation.z+=ic.spin*dt*0.6;
+          const rest=terrainHeight(m.position.x,m.position.z)+2.2;
+          if(m.position.y<=rest){ m.position.y=rest; ic.state='ground';
+            const r=2.1; colliders.push({mesh:m,x:m.position.x,z:m.position.z,r:r,mass:r*r*r*0.7,vx:ic.vx*0.4,vz:ic.vz*0.4,yOff:rest-terrainHeight(m.position.x,m.position.z),baseScale:r}); }
+        }
+      }
+      if(ic.label){
+        if(ic.state==='float'&&ic.model){
+          const sp=project(ic.center.x,ic.baseY-2.3,ic.center.z);
+          ic.label.style.left=sp.x+'px'; ic.label.style.top=sp.y+'px';
+          ic.label.style.opacity=(sp.x>10&&sp.x<innerWidth-10&&sp.y>40&&sp.y<innerHeight-10)?1:0;
+        } else ic.label.style.opacity=0;
+      }
+    }
+    positionSkillPop();
+  }
+
   __on('resize',()=>{setFrustum();renderer.setSize(innerWidth,innerHeight);if(spaceCam){spaceCam.aspect=innerWidth/innerHeight;spaceCam.updateProjectionMatrix();}});
 
   /* ============ LOOP ============ */
@@ -1102,6 +1200,7 @@ export function startMoonExperience(): () => void {
     if(shipSpawned&&Math.hypot(SHIP_POS.x-st.x,SHIP_POS.z-st.z)<13)startTakeoff();   // reach the ship -> liftoff
     updateFx(0.016);
     updateColliders();
+    updateSkillIcons(0.016);
     updateAlien(0.016);
     updateEngine();
     updateHUD();

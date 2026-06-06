@@ -246,3 +246,16 @@
   .wordmark .wm-logo{display:block;height:30px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
   .intro .title .word{display:flex;align-items:center}
   .intro .title .word .intro-logo{display:block;height:clamp(48px,9vw,98px);width:auto;filter:drop-shadow(0 2px 16px rgba(0,0,0,0.5))}
+  /* ===== SKILL ICONS: floating labels + click popup ===== */
+  .skill-label{position:fixed;transform:translate(-50%,0);pointer-events:auto;cursor:pointer;text-align:center;z-index:16;opacity:0;transition:opacity .3s;text-shadow:0 1px 6px #000,0 0 10px #000}
+  .skill-label b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--parch)}
+  .skill-label span{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.28em;color:var(--ink-dim);margin-top:2px}
+  .skill-label:hover b{color:#fff}
+  .skill-pop{position:fixed;z-index:29;width:248px;transform:translate(-50%,-100%);pointer-events:auto;background:rgba(10,12,18,0.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--pc,rgba(244,244,242,0.3));border-radius:7px;padding:16px 18px 17px;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;box-shadow:0 0 36px -8px var(--pc,rgba(0,0,0,0.7))}
+  .skill-pop.open{opacity:1;visibility:visible}
+  .skill-pop__x{position:absolute;top:7px;right:9px;background:none;border:none;color:var(--ink-dim);cursor:pointer;font-family:var(--mono);font-size:12px;line-height:1}
+  .skill-pop__x:hover{color:var(--parch)}
+  .skill-pop__k{font-family:var(--mono);font-size:8.5px;letter-spacing:.34em;color:var(--pc,#9a9a96)}
+  .skill-pop__h{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--parch);margin:5px 0 9px;letter-spacing:.02em}
+  .skill-pop__p{font-family:var(--mono);font-size:11px;line-height:1.75;color:#c9c9c6}
+  .skill-pop::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--pc,rgba(244,244,242,0.3))}

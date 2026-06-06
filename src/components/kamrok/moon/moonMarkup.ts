@@ -159,6 +159,13 @@ export const MOON_MARKUP = `
     <a class="panel-cta" href="/contact">VIEW FULL PAGE →</a>
   </aside>
 
+  <div class="skill-pop" id="skillPop">
+    <button class="skill-pop__x" id="skillPopX">✕</button>
+    <div class="skill-pop__k" id="skillPopK">SKILL</div>
+    <h3 class="skill-pop__h" id="skillPopH"></h3>
+    <p class="skill-pop__p" id="skillPopP"></p>
+  </div>
+
   <div id="loader">
     <div class="bar"><i></i></div>
     <div class="lm" id="loadMsg">CALIBRATING MOONSCAPE…</div>
