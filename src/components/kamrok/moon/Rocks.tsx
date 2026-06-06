@@ -1,10 +1,31 @@
 import { useMemo } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { MOON_ASSETS } from "@/config/moonAssets";
 
-export default function Rocks({ count = 80 }: { count?: number }) {
+useGLTF.preload(MOON_ASSETS.rock4);
+useGLTF.preload(MOON_ASSETS.rock7);
+
+export default function Rocks({ count = 90 }: { count?: number }) {
+  const rock4 = useGLTF(MOON_ASSETS.rock4);
+  const rock7 = useGLTF(MOON_ASSETS.rock7);
+  const [colorMap, normalMap] = useTexture([MOON_ASSETS.rockColor, MOON_ASSETS.rockNormal]);
+  colorMap.colorSpace = THREE.SRGBColorSpace;
+
+  const mat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        map: colorMap,
+        normalMap: normalMap,
+        roughness: 1,
+        metalness: 0,
+      }),
+    [colorMap, normalMap]
+  );
+
   const rocks = useMemo(() => {
-    const out: { pos: [number, number, number]; scale: number; rot: number }[] = [];
-    let seed = 1;
+    const out: { src: THREE.Object3D; pos: [number, number, number]; scale: number; rot: number }[] = [];
+    let seed = 7;
     const rnd = () => {
       seed = (seed * 9301 + 49297) % 233280;
       return seed / 233280;
@@ -12,23 +33,34 @@ export default function Rocks({ count = 80 }: { count?: number }) {
     for (let i = 0; i < count; i++) {
       const r = 30 + rnd() * 220;
       const a = rnd() * Math.PI * 2;
+      const useFour = rnd() > 0.5;
       out.push({
+        src: useFour ? rock4.scene : rock7.scene,
         pos: [Math.sin(a) * r, 0, Math.cos(a) * r],
-        scale: 1 + rnd() * 3,
-        rot: rnd() * Math.PI,
+        scale: 0.8 + rnd() * 2.4,
+        rot: rnd() * Math.PI * 2,
       });
     }
     return out;
-  }, [count]);
+  }, [count, rock4.scene, rock7.scene]);
 
   return (
     <group>
-      {rocks.map((r, i) => (
-        <mesh key={i} position={r.pos} rotation={[0, r.rot, 0]} scale={r.scale} castShadow receiveShadow>
-          <dodecahedronGeometry args={[1, 0]} />
-          <meshStandardMaterial color="#6c6585" roughness={1} />
-        </mesh>
-      ))}
+      {rocks.map((r, i) => {
+        const cloned = useMemo(() => {
+          const c = r.src.clone(true);
+          c.traverse((o) => {
+            if ((o as THREE.Mesh).isMesh) {
+              (o as THREE.Mesh).material = mat;
+              (o as THREE.Mesh).castShadow = true;
+              (o as THREE.Mesh).receiveShadow = true;
+            }
+          });
+          return c;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [r.src, mat]);
+        return <primitive key={i} object={cloned} position={r.pos} rotation={[0, r.rot, 0]} scale={r.scale} />;
+      })}
     </group>
   );
 }
