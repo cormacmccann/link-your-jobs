@@ -9,7 +9,7 @@ import "@/styles/immersive.css";
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/01", note: "The studio & team" },
   { to: "/work", label: "WORK", count: "04/12", note: "Selected projects" },
-  { to: "/skills", label: "SKILLS", count: "05/05", note: "What I do" },
+  { to: "/skills", label: "SKILLS", count: "05/05", note: "What we do" },
   { to: "/tools", label: "TOOLS", count: "24/24", note: "Free toolkit" },
   { to: "/contact", label: "CONTACT", note: "Open channel" },
 ];

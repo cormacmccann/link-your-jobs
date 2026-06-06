@@ -19,7 +19,7 @@ const DETAILS: Record<string, Detail> = {
     kicker: "WEB DESIGN",
     color: "#61dafb",
     tagline: "Web design + animation, built in React.",
-    body: "Design and build, by one person. I take a site from first concept through to a fast, hand-built React front-end — with the motion and micro-interactions that make it feel alive. The moon you're standing on is the demo reel.",
+    body: "Design and build, end to end. We take a site from first concept through to a fast, hand-built React front-end — with the motion and micro-interactions that make it feel alive. The moon you're standing on is the demo reel.",
     services: ["Web & UI design", "Animation & micro-interactions", "Custom React front-ends", "Real-time 3D / WebGL", "Core Web Vitals & performance"],
     tools: ["React", "TypeScript", "Vite", "Framer Motion", "react-three-fiber", "Tailwind"],
   },
@@ -46,7 +46,7 @@ const DETAILS: Record<string, Detail> = {
     kicker: "AI DEV",
     color: "#ff8a3c",
     tagline: "Custom software, built with Claude.",
-    body: "AI-assisted development with Claude — I build custom tools, automations and full applications fast, without cutting corners on quality. From a script that saves you hours to a complete product, done in a fraction of the time.",
+    body: "AI-assisted development with Claude — we build custom tools, automations and full applications fast, without cutting corners on quality. From a script that saves you hours to a complete product, done in a fraction of the time.",
     services: ["Custom tools & automations", "AI-assisted development", "App & API builds", "Workflow automation", "Prototyping at speed"],
     tools: ["Claude", "TypeScript", "Node", "APIs", "Automation"],
   },
@@ -95,7 +95,7 @@ export default function Skills() {
     >
       <Emblem />
       <div className="kk-eyebrow">INSTRUMENTS · 03</div>
-      <h1>What I Do</h1>
+      <h1>What We Do</h1>
       <Divider />
       <p className="kk-lead-text">
         Tap an icon to open its dossier — the same five you can knock off their pedestals out on the moon.

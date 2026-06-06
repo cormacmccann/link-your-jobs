@@ -133,7 +133,7 @@ export const MOON_MARKUP = `
   <aside class="panel" id="panel-skills">
     <button class="close" data-close>✕</button>
     <div class="tag">03 — SKILLS</div>
-    <h2>What I<br/>do.</h2>
+    <h2>What we<br/>do.</h2>
     <div class="rule"></div>
     <ul class="skills-list">
       <li>UI / UX Design <span>CORE</span></li>

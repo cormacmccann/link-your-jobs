@@ -259,11 +259,14 @@
 /* Main — content anchored to the right of the page */
 .im-main {
   position: relative; z-index: 10;
-  padding: 96px 64px 96px 96px;
+  padding: 84px 28px 84px 96px;
   min-height: 100vh;
   display: flex;
   justify-content: flex-end;
+  transition: padding-right .55s cubic-bezier(.22,.61,.36,1);
 }
+/* When a team dossier holds the right, slide the page content left */
+body.kk-codex-open .im-main { padding-right: 484px; }
 .im-main > * {
   width: 100%;
   max-width: 640px;
@@ -273,6 +276,7 @@
 
 @media (max-width: 720px) {
   .im-main { padding: 110px 18px 110px 80px; justify-content: stretch; }
+  body.kk-codex-open .im-main { padding-right: 18px; }
   .im-main > * { max-width: 100%; margin: 0; }
   .im-drawer { padding: 70px 28px 28px; }
   .im-nav-socials { grid-template-columns: 1fr; }

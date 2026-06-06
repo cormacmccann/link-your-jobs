@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
 
@@ -23,9 +23,9 @@ type Member = {
 
 const TEAM: Member[] = [
   {
-    id: "cormac", name: "Cormac McCann", role: "Founder · Design + Build", initials: "CM", color: "#8b7dff",
+    id: "cormac", name: "Cormac McCann", role: "Design + Build", initials: "CM", color: "#8b7dff",
     based: "Dundalk, IE", craft: "Web Design & Front-end",
-    bio: "Cormac is the studio. He designs the brand and the interface, then builds the hand-coded, fast, accessible front-end himself — no hand-offs lost in translation. The moon you just drove across is his.",
+    bio: "Design and front-end, end to end. Cormac shapes the brand and interface, then builds the hand-coded, fast, accessible site that ships it — including the moon you just drove across.",
     does: ["Web & UI design", "React front-ends", "Real-time 3D / WebGL", "Brand systems", "WordPress builds"],
   },
   {
@@ -50,12 +50,25 @@ const TEAM: Member[] = [
 
 export default function About() {
   const [openId, setOpenId] = useState<string | null>(null);
-  const member = TEAM.find((m) => m.id === openId) || null;
+  const [shownId, setShownId] = useState<string>(TEAM[0].id);
+  const member = TEAM.find((m) => m.id === shownId) || TEAM[0];
+
+  const openMember = (id: string) => {
+    setShownId(id);
+    setOpenId(id);
+  };
+  const close = () => setOpenId(null);
+
+  // Slide the page content left while a dossier holds the right.
+  useEffect(() => {
+    document.body.classList.toggle("kk-codex-open", !!openId);
+    return () => document.body.classList.remove("kk-codex-open");
+  }, [openId]);
 
   return (
     <KamrokLayout
       title="About KAMROK — Design Studio & Team in Dundalk | Candy Shop Digital"
-      description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — Cormac plus a small circle of specialists in brand, motion, 3D and WordPress. Meet the team."
+      description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — a small team and a trusted circle of specialists in brand, motion, 3D and WordPress. Meet the team."
     >
       <Emblem />
       <div className="kk-eyebrow">THE STUDIO · 01</div>
@@ -63,13 +76,12 @@ export default function About() {
       <Divider />
       <div className="kk-body">
         <p className="kk-lead">
-          KAMROK is the design studio of Candy Shop Digital Ltd — a small, hands-on practice based in
+          KAMROK is the design studio of Candy Shop Digital Ltd — a small, hands-on team based in
           Dundalk, Ireland, crafting elegant, considered digital products for ambitious people.
         </p>
         <p>
-          It's run by Cormac — a web designer and front-end developer who does both halves of the job:
-          the brand and interface design, and the hand-built code that ships it. For bigger jobs he pulls
-          in a trusted circle of specialists. Same standard, more hands.
+          We design and build, end to end: brand and interface, then the hand-coded front-end that ships
+          it. For bigger jobs we bring in a trusted circle of specialists. Same standard, more hands.
         </p>
 
         <h2>APPROACH</h2>
@@ -98,9 +110,9 @@ export default function About() {
         {TEAM.map((m) => (
           <button
             key={m.id}
-            className="kk-team-card"
+            className={`kk-team-card${openId === m.id ? " is-active" : ""}`}
             style={{ ["--accent" as string]: m.color }}
-            onClick={() => setOpenId(m.id)}
+            onClick={() => openMember(m.id)}
           >
             <span className="kk-team-av" aria-hidden>{m.initials}</span>
             <span className="kk-team-name">{m.name}</span>
@@ -112,40 +124,35 @@ export default function About() {
 
       <Link className="kk-cta" to="/work">VIEW SELECTED WORK →</Link>
 
-      {/* codex profile */}
-      {member && (
-        <div className="kk-codex-backdrop" onClick={() => setOpenId(null)}>
-          <article
-            className="kk-codex"
-            style={{ ["--accent" as string]: member.color }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="kk-codex-x" onClick={() => setOpenId(null)} aria-label="Close">✕</button>
-            <div className="kk-codex-portrait"><span>{member.initials}</span></div>
-            <div className="kk-codex-sigil">
-              <svg viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="19" stroke="currentColor" strokeOpacity=".4" />
-                <path d="M22 9 a11 11 0 1 0 0 22 a8.5 8.5 0 1 1 0 -22 z" fill="currentColor" fillOpacity=".85" />
-              </svg>
-            </div>
-            <h2 className="kk-codex-name">{member.name}</h2>
-            <div className="kk-codex-stats">
-              <div><span>ROLE</span><b>{member.role}</b></div>
-              <div><span>BASED</span><b>{member.based}</b></div>
-              <div><span>CRAFT</span><b>{member.craft}</b></div>
-            </div>
-            <div className="kk-codex-rule" />
-            <p className="kk-codex-bio">{member.bio}</p>
-            <div className="kk-codex-label">DISCIPLINES</div>
-            <ul className="kk-tags">
-              {member.does.map((d) => (
-                <li key={d}>{d}</li>
-              ))}
-            </ul>
-            <Link className="kk-cta" to="/contact" onClick={() => setOpenId(null)}>WORK WITH US →</Link>
-          </article>
+      {/* codex dossier — holds the right, swaps until another is picked */}
+      <aside
+        className={`kk-codex-panel${openId ? " is-open" : ""}`}
+        style={{ ["--accent" as string]: member.color }}
+        aria-hidden={!openId}
+      >
+        <button className="kk-codex-x" onClick={close} aria-label="Close">✕</button>
+        <div className="kk-codex-portrait"><span>{member.initials}</span></div>
+        <div className="kk-codex-sigil">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="19" stroke="currentColor" strokeOpacity=".4" />
+            <path d="M22 9 a11 11 0 1 0 0 22 a8.5 8.5 0 1 1 0 -22 z" fill="currentColor" fillOpacity=".85" />
+          </svg>
         </div>
-      )}
+        <h2 className="kk-codex-name">{member.name}</h2>
+        <div className="kk-codex-stats">
+          <div><span>ROLE</span><b>{member.role}</b></div>
+          <div><span>BASED</span><b>{member.based}</b></div>
+          <div><span>CRAFT</span><b>{member.craft}</b></div>
+        </div>
+        <p className="kk-codex-bio">{member.bio}</p>
+        <div className="kk-codex-label">DISCIPLINES</div>
+        <ul className="kk-tags">
+          {member.does.map((d) => (
+            <li key={d}>{d}</li>
+          ))}
+        </ul>
+        <Link className="kk-cta" to="/contact" onClick={close}>WORK WITH US →</Link>
+      </aside>
     </KamrokLayout>
   );
 }

@@ -2,7 +2,7 @@ import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout"
 
 const NEXT = [
   { n: "01", h: "You say hello", p: "A line about you, the project and roughly when you'd like to start. No formal brief needed." },
-  { n: "02", h: "We talk", p: "A short call to make sure it's a good fit and I understand what success looks like." },
+  { n: "02", h: "We talk", p: "A short call to make sure it's a good fit and we understand what success looks like." },
   { n: "03", h: "A clear proposal", p: "Scope, timeline and a fixed price — no surprises, no hourly guessing games." },
 ];
 
@@ -19,7 +19,7 @@ export default function Contact() {
       <h1>Let's Talk</h1>
       <Divider />
       <p className="kk-contact-lead">
-        Got a project, a rough idea, or just want to compare notes on the moon buggy? I read every
+        Got a project, a rough idea, or just want to compare notes on the moon buggy? We read every
         message and reply within one working day.
       </p>
 
@@ -48,7 +48,7 @@ export default function Contact() {
       <h2 className="kk-sub">Handy to include</h2>
       <p className="kk-contact-lead" style={{ marginTop: 0 }}>
         Links to anything you like (or don't), a rough budget range, your deadline, and the one thing the
-        site absolutely has to do. The more I know, the sharper the proposal.
+        site absolutely has to do. The more we know, the sharper the proposal.
       </p>
 
       <a className="kk-cta-big" href="mailto:cormac@kamrok.com?subject=Project%20enquiry">START AN EMAIL →</a>

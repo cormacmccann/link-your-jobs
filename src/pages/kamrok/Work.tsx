@@ -62,7 +62,7 @@ export default function Work() {
         ))}
       </div>
 
-      <h2 className="kk-sub">What I bring to a project</h2>
+      <h2 className="kk-sub">What we bring to a project</h2>
       <ul className="kk-tags" style={{ justifyContent: "center", maxWidth: "60ch", margin: "0 auto" }}>
         {CAPABILITIES.map((c) => (
           <li key={c}>{c}</li>

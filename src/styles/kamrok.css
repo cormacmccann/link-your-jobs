@@ -163,12 +163,10 @@
 
 /* Skills — 3D showcase + detailed stack + process */
 .kk-showcase {
-  position: relative; height: clamp(240px, 42vw, 340px);
-  max-width: 680px; margin: 8px auto 34px;
-  border-radius: 10px; overflow: hidden;
-  background: radial-gradient(120% 120% at 50% 28%, #15131c, #0a0910);
-  border: 1px solid var(--line);
-  box-shadow: inset 0 0 60px rgba(0,0,0,.6);
+  position: relative; height: clamp(250px, 44vw, 360px);
+  max-width: 720px; margin: 2px auto 30px;
+  /* soft dark pool that melts into the parchment — no hard box */
+  background: radial-gradient(ellipse 72% 82% at 50% 46%, #17141f 0%, #110f19 44%, rgba(17,20,31,0) 78%);
 }
 .kk-showcase canvas { display: block; }
 .kk-showcase__hint {
@@ -279,22 +277,19 @@
 .kk-team-open { font-family: var(--mono); font-size: 8px; letter-spacing: .2em; color: #8a7c5e; margin-top: 3px; opacity: 0; transition: opacity .2s; }
 .kk-team-card:hover .kk-team-open { opacity: 1; }
 
-.kk-codex-backdrop {
-  position: fixed; inset: 0; z-index: 70;
-  background: rgba(8,7,5,.62); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
-  display: grid; place-items: center; padding: 24px; animation: kkFade .3s ease;
-}
-@keyframes kkFade { from { opacity: 0; } }
-.kk-codex {
+.kk-codex-panel {
   --accent: #8a7c5e;
-  position: relative; width: min(460px, 94vw); max-height: 90vh; overflow-y: auto;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 45;
+  width: min(460px, 92vw); overflow-y: auto;
   background: linear-gradient(165deg, #f5f2ea, #e8e4d7);
-  border: 1px solid #cbc4b1; border-radius: 4px;
-  box-shadow: 0 40px 120px rgba(0,0,0,.6);
-  padding: 44px 40px 40px; text-align: center; animation: kkRise .4s cubic-bezier(.22,.61,.36,1);
+  border-left: 1px solid #cbc4b1;
+  box-shadow: -36px 0 110px rgba(0,0,0,.5);
+  padding: 72px 40px 44px; text-align: center;
+  transform: translateX(102%);
+  transition: transform .55s cubic-bezier(.22,.61,.36,1);
 }
-@keyframes kkRise { from { transform: translateY(18px); opacity: 0; } }
-.kk-codex::before { content: ""; position: absolute; inset: 13px; border: 1px solid rgba(74,60,44,.2); pointer-events: none; }
+.kk-codex-panel.is-open { transform: translateX(0); }
+.kk-codex-panel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
 .kk-codex-x {
   position: absolute; top: 18px; right: 20px; width: 30px; height: 30px; border-radius: 50%;
   border: 1px solid var(--line); background: rgba(255,255,255,.3); color: #6a5f4a; cursor: pointer;
@@ -317,8 +312,8 @@
 .kk-codex-bio { font-family: var(--serif); font-size: 16px; line-height: 1.72; color: #4a4236; text-align: left; margin-bottom: 8px; }
 .kk-codex-bio::first-letter { float: left; font-size: 3.4em; line-height: .74; padding: 8px 12px 0 0; color: #241f19; font-weight: 600; }
 .kk-codex-label { font-family: var(--mono); font-size: 8px; letter-spacing: .3em; color: var(--dim); margin: 20px 0 12px; text-align: left; }
-.kk-codex .kk-tags { justify-content: flex-start; }
-.kk-codex .kk-cta { margin-top: 24px; }
+.kk-codex-panel .kk-tags { justify-content: flex-start; }
+.kk-codex-panel .kk-cta { margin-top: 24px; }
 
 @media (max-width: 600px) {
   .kk-team { grid-template-columns: 1fr; }
