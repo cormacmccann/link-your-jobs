@@ -36,8 +36,13 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        maximumFileSizeToCacheInBytes: 25 * 1024 * 1024, // 25 MB — index-kamrok.html is 20.6 MB
+        // Keep the SW precache to the app shell. The moon homepage is a React
+        // component that streams its assets from the CDN, so the 20 MB
+        // public/index-kamrok.html (kept only as the generator source / fallback)
+        // is intentionally left out of the precache.
+        maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // 3 MB
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff,woff2}"],
+        globIgnores: ["**/index-kamrok.html", "**/moon.html"],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/nwmwwpwpokcwwjhgxwxe\.supabase\.co\/.*/i,
