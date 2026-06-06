@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +34,13 @@ import TrustpilotIntegration from "./pages/TrustpilotIntegration";
 
 const queryClient = new QueryClient();
 
+const StaticRedirect = ({ to }: { to: string }) => {
+  useEffect(() => {
+    window.location.replace(to);
+  }, [to]);
+  return null;
+};
+
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -41,7 +49,12 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/tools" replace />} />
+            {/* Static KAMROK site served from public/ */}
+            <Route path="/" element={<StaticRedirect to="/index-kamrok.html" />} />
+            <Route path="/about" element={<StaticRedirect to="/about.html" />} />
+            <Route path="/work" element={<StaticRedirect to="/work.html" />} />
+            <Route path="/skills" element={<StaticRedirect to="/skills.html" />} />
+            <Route path="/contact" element={<StaticRedirect to="/contact.html" />} />
 
             {/* Tools Hub */}
             <Route path="/tools" element={<ToolsHub />} />
