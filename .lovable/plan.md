@@ -1,65 +1,46 @@
-# Replace homepage with dark portfolio landing
+## Goal
+Rebuild `public/index-kamrok.html` (the Three.js moon‑buggy + spaceship experience) as a React route at `/`, using `@react-three/fiber` and `@react-three/drei`, keeping the immersive purple/blue shell intact for the panels.
 
-Build the Michael Smith single-page dark portfolio exactly as specified and mount it at `/`, replacing the current KAMROK homepage. Existing CRM, /clients, portfolio detail pages, and all other routes stay untouched.
+## Asset reality check
+- `public/assets/` does **not** exist in this project. The static HTML expects: `chimp.glb`, `ship.glb`, `alien_idle/walk/run/wave.glb`, `rock4.glb`, `rock7.glb`, `platform.glb`, `termL.glb`, `termS.glb`, `groundColor/Normal/Rough.jpg`, `rockColor/Normal.jpg`, `trackColor.jpg`, `engine.mp3`, `music.mp3`.
+- Without the real .glb files I can only ship placeholder geometry (boxes/spheres) and silent audio. **You'll need to upload the `/assets` folder** for the real moonscape to render. Phase 1 below ships a working skeleton with placeholders so the rest of the work is unblocked.
 
-## Scope
+## Phased build
 
-- New homepage only. No changes to KAMROK brand globally — design tokens are scoped to the new page.
-- Placeholder content verbatim ("Michael Smith", Chicago, "hello@michaelsmith.com", etc.).
-- No database, no auth, no CMS wiring.
+### Phase 1 — Foundation (this turn)
+- Install `@react-three/fiber@^8.18`, `@react-three/drei@^9.122.0`, `three@^0.160`.
+- New `src/pages/kamrok/MoonHome.tsx` mounted at `/` in `App.tsx` (replacing the current `StaticRedirect` to `index-kamrok.html`).
+- `src/components/kamrok/moon/` directory containing:
+  - `MoonScene.tsx` — `<Canvas>` with starfield, lighting, fog, camera rig.
+  - `Terrain.tsx` — procedural displaced plane with noise (no textures yet → solid color until assets arrive).
+  - `Buggy.tsx` — placeholder buggy (low‑poly geo) with WASD/Arrow driving controls, velocity + steering, chase camera.
+  - `Monuments.tsx` — 4 obelisks at fixed coords (About / Work / Skills / Contact). Proximity triggers a panel.
+  - `Rocks.tsx` — scattered boulder instancing (placeholder spheres) with simple collision.
+  - `HUD.tsx` — overlay using the existing immersive purple/blue tokens: top‑center KAMROK pill, bottom controls hint, monument labels.
+  - `MonumentPanel.tsx` — when a monument is reached (or double‑clicked from a nav), open a glass panel using `ImmersiveShell` styling and route to `/about|work|skills|contact` on "Enter".
 
-## File changes
+### Phase 2 — Real assets (after you upload `/assets`)
+- Drop `.glb`/`.jpg`/`.mp3` into `public/assets/` (or upload via Lovable Assets if large).
+- Swap placeholders for `useGLTF` loads of chimp, ship, rocks, platform, terminals.
+- Wire PBR textures into the terrain and rocks.
+- Add `music.mp3` + `engine.mp3` with Music/Sound toggles in a settings strip.
 
-**New files**
-- `src/pages/PortfolioLanding.tsx` — page shell, loading-screen state, GSAP setup, smooth-scroll
-- `src/components/portfolio-landing/LoadingScreen.tsx` — counter 000→100, rotating words, progress bar
-- `src/components/portfolio-landing/Navbar.tsx` — floating pill nav with gradient logo + Say hi
-- `src/components/portfolio-landing/Hero.tsx` — HLS bg video, name reveal, rotating role, CTAs, scroll cue
-- `src/components/portfolio-landing/SelectedWorks.tsx` — bento 7/5/5/7 with 4 placeholder project cards
-- `src/components/portfolio-landing/Journal.tsx` — 4 horizontal pill entries
-- `src/components/portfolio-landing/Explorations.tsx` — pinned center + 2-column GSAP parallax + lightbox
-- `src/components/portfolio-landing/Stats.tsx` — 3-column stats
-- `src/components/portfolio-landing/ContactFooter.tsx` — flipped HLS bg, GSAP marquee, mailto CTA, social row
-- `src/styles/portfolio-landing.css` — Inter + Instrument Serif imports, `--bg/--surface/--text/--muted/--stroke/--accent` HSL tokens scoped under `.portfolio-landing-root`, keyframes `scroll-down`, `role-fade-in`, `gradient-shift`, `.accent-gradient` utility
+### Phase 3 — Anomalies + endgame
+- Scatter glowing anomaly nodes, collect-on-proximity, counter in HUD.
+- On full collection, land the ship at a monument; drive to it to enter flight mode.
 
-**Edited files**
-- `src/App.tsx` — change the `/` route element from the current `Index` to `PortfolioLanding`. Keep `Index` importable for now (not deleted) so nothing else breaks.
-- `tailwind.config.ts` — add `bg`, `surface`, `text-primary`, `muted`, `stroke` colors (HSL var driven), `font-body`/`font-display` families, and the three keyframes/animations. All additive — no existing tokens removed.
-- `index.html` — add Google Fonts preconnect + Inter (300–700) and Instrument Serif italic 400 link tags.
+### Phase 4 — Flight mode
+- Swap controls to ship (WASD/Arrows steer, Q/E roll, Shift boost, Space fire), free‑flight starfield scene, target cubes + score.
+- `warp` keyboard cheat.
 
-**Dependencies to install**
-- `gsap` (with ScrollTrigger), `hls.js`. `framer-motion` is already in the project.
+## Out of scope (for now)
+- 1:1 visual parity with the original (geometry tweaks, exact buggy proportions, alien NPCs) — those come in phases 2–4.
+- Mobile touch controls — added in a later pass.
 
-## Implementation notes (technical)
+## Technical notes
+- All UI overlays use existing `--accent` (#8b7dff) and `--accent-2` (#4ea8ff) tokens from `src/styles/immersive.css` so the moonscape matches the rest of the site.
+- Routes `/about`, `/work`, `/skills`, `/contact` stay as the React pages already built.
+- The old `public/index-kamrok.html` stays on disk so nothing breaks if we need to fall back; `/` no longer redirects to it.
 
-- The page wraps everything in a `<div className="portfolio-landing-root font-body bg-bg text-text-primary">` so the dark tokens, fonts, and overrides only apply inside this page. KAMROK pages remain unchanged.
-- GSAP `ScrollTrigger` registered once in `PortfolioLanding.tsx`; pinning logic for Explorations uses `useLayoutEffect` + `gsap.context` for cleanup on unmount.
-- HLS video: feature-detect `Hls.isSupported()`, fall back to native `canPlayType('application/vnd.apple.mpegurl')`. Source: `https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8`.
-- Loading screen counter via `requestAnimationFrame` over 2700ms; calls `onComplete` after 400ms post-100.
-- Rotating hero role uses `key={roleIndex}` + `animate-role-fade-in` to retrigger CSS animation.
-- Bento grid images: use Unsplash placeholders (Automotive, Architecture, Portrait, Branding) so the page renders without uploads.
-- Explorations gallery: 6 placeholder images, click-to-lightbox via a small in-component modal (no extra lib).
-- Marquee: GSAP `to(..., { xPercent: -50, duration: 40, ease: 'none', repeat: -1 })` over a doubled string of "BUILDING THE FUTURE • ".
-- Smooth scroll: native `html { scroll-behavior: smooth }` scoped under the page root; nav links use hash anchors (`#work`, `#resume` placeholder).
-- Page transitions on `/` are not needed since it's a single-page layout; Framer Motion `whileInView` handles section reveals.
-
-## Section structure
-
-```text
-<PortfolioLanding>
-  <LoadingScreen/>            // overlay, unmounts on complete
-  <Navbar/>                   // fixed
-  <Hero id="home"/>           // 100vh, HLS bg
-  <SelectedWorks id="work"/>  // bento 7/5/5/7
-  <Journal/>                  // pill list
-  <Explorations/>             // 300vh pinned + parallax
-  <Stats/>                    // 3-up
-  <ContactFooter/>            // marquee + mailto + socials
-</PortfolioLanding>
-```
-
-## Out of scope
-
-- Real content wiring (DB-driven projects/journal). Can be a follow-up.
-- Restoring the old KAMROK homepage anywhere else — `Index.tsx` stays in the repo but unmounted.
-- Mobile-only redesign work beyond what the spec already states (responsive classes are in the spec).
+## What I'll do right now if you approve
+Phase 1 only: install deps, scaffold the R3F scene with placeholder geometry, hook up driving + 4 monuments + HUD, mount it at `/`. Then you upload `/assets` and I do Phase 2.
