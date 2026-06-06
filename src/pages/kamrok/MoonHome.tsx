@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import MoonScene from "@/components/kamrok/moon/MoonScene";
-import "@/styles/moon.css";
+import MoonExperience from "@/components/kamrok/moon/MoonExperience";
 
 export default function MoonHome() {
   useEffect(() => {
@@ -17,5 +16,5 @@ export default function MoonHome() {
     }
   }, []);
 
-  return <MoonScene />;
+  return <MoonExperience />;
 }
