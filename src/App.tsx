@@ -7,6 +7,12 @@ import { useEffect } from "react";
 
 import NotFound from "./pages/NotFound";
 
+// KAMROK site
+import About from "./pages/kamrok/About";
+import Work from "./pages/kamrok/Work";
+import Skills from "./pages/kamrok/Skills";
+import Contact from "./pages/kamrok/Contact";
+
 // Tools Hub
 import ToolsHub from "./pages/tools/ToolsHub";
 import QRCodeGenerator from "./pages/tools/QRCodeGenerator";
@@ -51,10 +57,10 @@ const App = () => {
           <Routes>
             {/* Static KAMROK site served from public/ */}
             <Route path="/" element={<StaticRedirect to="/index-kamrok.html" />} />
-            <Route path="/about" element={<StaticRedirect to="/about.html" />} />
-            <Route path="/work" element={<StaticRedirect to="/work.html" />} />
-            <Route path="/skills" element={<StaticRedirect to="/skills.html" />} />
-            <Route path="/contact" element={<StaticRedirect to="/contact.html" />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/contact" element={<Contact />} />
 
             {/* Tools Hub */}
             <Route path="/tools" element={<ToolsHub />} />
