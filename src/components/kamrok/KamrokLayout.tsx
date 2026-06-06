@@ -1,14 +1,10 @@
-import { ReactNode, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { ReactNode } from "react";
+import ImmersiveShell from "./ImmersiveShell";
 import "@/styles/kamrok.css";
 
-const NAV = [
-  { href: "/", label: "PLAY", external: true },
-  { href: "/about", label: "ABOUT" },
-  { href: "/work", label: "WORK" },
-  { href: "/skills", label: "SKILLS" },
-  { href: "/contact", label: "CONTACT" },
-];
+
+// Nav now lives in ImmersiveShell
+
 
 const Corner = ({ pos }: { pos: "tl" | "tr" | "bl" | "br" }) => (
   <span className={`kk-pc kk-${pos}`}>
@@ -64,49 +60,21 @@ interface Props {
 }
 
 export default function KamrokLayout({ title, description, maxWidth = 880, footerRight, children }: Props) {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    document.title = title;
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", description);
-  }, [title, description]);
-
   return (
-    <div className="kk-root">
-      <div className="kk-page" style={{ maxWidth }}>
-        <header className="kk-header">
-          <a className="kk-mark" href="/">KAMROK</a>
-          <nav className="kk-nav">
-            {NAV.map((n) =>
-              n.external ? (
-                <a key={n.href} href={n.href}>{n.label}</a>
-              ) : (
-                <Link
-                  key={n.href}
-                  to={n.href}
-                  aria-current={pathname === n.href ? "page" : undefined}
-                >
-                  {n.label}
-                </Link>
-              )
-            )}
-          </nav>
-        </header>
-        <article className="kk-card">
-          <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
-          {children}
-        </article>
-        <footer className="kk-footer">
-          <span>© {new Date().getFullYear()} KAMROK — Candy Shop Digital Ltd</span>
-          {footerRight ?? <a href="mailto:cormac@kamrok.com">cormac@kamrok.com</a>}
-        </footer>
+    <ImmersiveShell title={title} description={description}>
+      <div className="kk-root kk-root--transparent">
+        <div className="kk-page" style={{ maxWidth }}>
+          <article className="kk-card">
+            <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
+            {children}
+          </article>
+          <footer className="kk-footer">
+            <span>© {new Date().getFullYear()} KAMROK — Candy Shop Digital Ltd</span>
+            {footerRight ?? <a href="mailto:cormac@kamrok.com">cormac@kamrok.com</a>}
+          </footer>
+        </div>
       </div>
-    </div>
+    </ImmersiveShell>
   );
 }
+
