@@ -24,22 +24,23 @@
 .im-bg {
   position: fixed; inset: 0;
   background-size: cover; background-position: center;
-  filter: brightness(.78) saturate(.95);
+  filter: brightness(.55) saturate(1.15) hue-rotate(210deg);
   z-index: 0;
 }
 .im-bg-vignette {
   position: fixed; inset: 0; z-index: 1;
   background:
-    radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.55) 100%),
-    linear-gradient(180deg, rgba(7,7,10,.25) 0%, transparent 30%, rgba(7,7,10,.55) 100%);
+    radial-gradient(ellipse at center, transparent 35%, rgba(8,6,30,.7) 100%),
+    linear-gradient(180deg, rgba(20,12,60,.35) 0%, transparent 30%, rgba(8,6,30,.65) 100%),
+    linear-gradient(120deg, rgba(78,168,255,.18), rgba(139,125,255,.18));
   pointer-events: none;
 }
 .im-bg-frame {
   position: fixed; inset: 6px; z-index: 2;
-  border: 1px solid rgba(217, 160, 99, .35);
+  border: 1px solid rgba(139, 125, 255, .35);
   border-radius: 2px;
   pointer-events: none;
-  box-shadow: inset 0 0 60px rgba(217, 160, 99, .08);
+  box-shadow: inset 0 0 60px rgba(78, 168, 255, .1);
 }
 
 /* Left rail */
