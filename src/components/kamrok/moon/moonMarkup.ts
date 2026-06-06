@@ -15,7 +15,7 @@ export const MOON_MARKUP = `
   <!-- ===== TITLE / INTRO SCREEN ===== -->
   <div class="intro" id="intro">
     <div class="title">
-      <span class="word">KAMROK</span>
+      <span class="word"><img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" /></span>
       <span class="porthole">
         <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -58,7 +58,7 @@ export const MOON_MARKUP = `
   </div>
 
   <nav class="nav">
-    <div class="wordmark">KAMROK<small>CANDY SHOP DIGITAL · DUNDALK</small></div>
+    <div class="wordmark"><img class="wm-logo" src="/kamrok-logo.png" alt="KAMROK" /><small>CANDY SHOP DIGITAL · DUNDALK</small></div>
     <div class="nav-items" id="navItems">
       <button data-build="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>ABOUT</button>
       <button data-build="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg>WORK</button>

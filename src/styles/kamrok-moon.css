@@ -242,3 +242,7 @@
   body.space-mode .sp-score,body.space-mode .sp-ctrl{display:block}
   body.is-touch .settings{bottom:96px;gap:18px}
   @media(max-width:620px){.corner{width:84px;height:84px}.intro .title{flex-direction:column;gap:14px}}
+  /* ===== BRAND LOGO (replaces serif KAMROK wordmark) ===== */
+  .wordmark .wm-logo{display:block;height:30px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
+  .intro .title .word{display:flex;align-items:center}
+  .intro .title .word .intro-logo{display:block;height:clamp(48px,9vw,98px);width:auto;filter:drop-shadow(0 2px 16px rgba(0,0,0,0.5))}

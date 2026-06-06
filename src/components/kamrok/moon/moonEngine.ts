@@ -604,7 +604,7 @@ export function startMoonExperience(): () => void {
   let pinned=null;   // a panel opened directly (double-click) stays open regardless of distance
   navBtns.forEach(b=>{
     b.addEventListener('click',()=>{autoTarget=BUILDS[b.dataset.build].pos;manualClose=null;hideHint();});
-    b.addEventListener('dblclick',()=>{const k=b.dataset.build;openPanel(k);pinned=k;autoTarget=null;manualClose=null;hideHint();});
+    b.addEventListener('dblclick',()=>{const k=b.dataset.build;openPanel(k);pinned=k;autoTarget=BUILDS[k].pos;manualClose=null;hideHint();});
   });
   document.querySelectorAll('[data-close]').forEach(c=>c.addEventListener('click',()=>{manualClose=openBuild;pinned=null;openPanel(null);autoTarget=null;}));
   const hintEl=document.getElementById('hint');setTimeout(hideHint,7000);function hideHint(){hintEl.classList.add('gone');}
