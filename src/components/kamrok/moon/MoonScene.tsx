@@ -6,14 +6,19 @@ import Terrain from "./Terrain";
 import Buggy from "./Buggy";
 import Monuments, { MONUMENTS, type MonumentKey } from "./Monuments";
 import Rocks from "./Rocks";
+import Ship from "./Ship";
 import HUD from "./HUD";
 import MonumentPanel from "./MonumentPanel";
+import MoonAudio from "./Audio";
 
 const PROXIMITY = 12;
 
 export default function MoonScene() {
   const [near, setNear] = useState<MonumentKey | null>(null);
   const [openPanel, setOpenPanel] = useState<MonumentKey | null>(null);
+  const [music, setMusic] = useState(false);
+  const [sound, setSound] = useState(false);
+  const [speed, setSpeed] = useState(0);
   const lastNearRef = useRef<MonumentKey | null>(null);
 
   const handlePos = useCallback((pos: THREE.Vector3) => {
@@ -60,11 +65,20 @@ export default function MoonScene() {
           <Terrain />
           <Rocks />
           <Monuments />
-          <Buggy onPosition={handlePos} />
+          <Ship />
+          <Buggy onPosition={handlePos} onSpeed={setSpeed} />
         </Suspense>
       </Canvas>
 
-      <HUD near={near} onJump={(k) => setOpenPanel(k)} />
+      <MoonAudio music={music} sound={sound} speed={speed} />
+      <HUD
+        near={near}
+        onJump={(k) => setOpenPanel(k)}
+        music={music}
+        sound={sound}
+        onToggleMusic={() => setMusic((v) => !v)}
+        onToggleSound={() => setSound((v) => !v)}
+      />
       {openPanel && <MonumentPanel monument={openPanel} onClose={() => setOpenPanel(null)} />}
     </div>
   );
