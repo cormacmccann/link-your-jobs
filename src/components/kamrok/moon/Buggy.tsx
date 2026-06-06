@@ -1,19 +1,37 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { useGLTF } from "@react-three/drei";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { MOON_ASSETS } from "@/config/moonAssets";
+
+useGLTF.preload(MOON_ASSETS.chimp);
 
 type Keys = { f: boolean; b: boolean; l: boolean; r: boolean };
 
 export default function Buggy({
   onPosition,
+  onSpeed,
 }: {
   onPosition?: (pos: THREE.Vector3, heading: number) => void;
+  onSpeed?: (speed: number) => void;
 }) {
   const group = useRef<THREE.Group>(null!);
   const keys = useRef<Keys>({ f: false, b: false, l: false, r: false });
   const speed = useRef(0);
   const heading = useRef(0);
   const { camera } = useThree();
+  const chimp = useGLTF(MOON_ASSETS.chimp);
+
+  const chimpScene = useMemo(() => {
+    const c = chimp.scene.clone(true);
+    c.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) {
+        (o as THREE.Mesh).castShadow = true;
+        (o as THREE.Mesh).receiveShadow = true;
+      }
+    });
+    return c;
+  }, [chimp.scene]);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -42,7 +60,6 @@ export default function Buggy({
     const k = keys.current;
     const accel = k.f ? 18 : k.b ? -12 : 0;
     speed.current += accel * dt;
-    // friction
     speed.current *= 1 - Math.min(1, dt * (accel === 0 ? 1.6 : 0.3));
     speed.current = THREE.MathUtils.clamp(speed.current, -14, 28);
 
@@ -54,7 +71,6 @@ export default function Buggy({
     g.position.z += Math.cos(heading.current) * speed.current * dt;
     g.rotation.y = heading.current;
 
-    // chase cam
     const camTarget = new THREE.Vector3(
       g.position.x - Math.sin(heading.current) * 10,
       g.position.y + 5,
@@ -64,6 +80,7 @@ export default function Buggy({
     camera.lookAt(g.position.x, g.position.y + 1.2, g.position.z);
 
     onPosition?.(g.position, heading.current);
+    onSpeed?.(Math.abs(speed.current));
   });
 
   return (
@@ -73,11 +90,13 @@ export default function Buggy({
         <boxGeometry args={[2, 0.4, 3]} />
         <meshStandardMaterial color="#1b1830" metalness={0.6} roughness={0.4} />
       </mesh>
-      {/* roll cage */}
+      {/* roll cage glow */}
       <mesh position={[0, 1, -0.4]} castShadow>
         <boxGeometry args={[1.6, 0.9, 1.2]} />
         <meshStandardMaterial color="#8b7dff" emissive="#4ea8ff" emissiveIntensity={0.25} metalness={0.4} roughness={0.5} />
       </mesh>
+      {/* chimp pilot */}
+      <primitive object={chimpScene} position={[0, 0.9, 0.2]} scale={0.6} rotation={[0, Math.PI, 0]} />
       {/* wheels */}
       {[
         [-1.1, 0, 1.1],
