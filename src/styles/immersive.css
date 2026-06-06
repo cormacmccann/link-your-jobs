@@ -279,3 +279,34 @@
   .im-top { top: 14px; }
   .im-pill { padding: 9px 14px; font-size: 9px; letter-spacing: .24em; }
 }
+
+/* Shared nav root — provides design tokens when the nav is mounted standalone
+   (e.g. over the moon canvas), and inherits them inside .im-root otherwise. */
+.im-nav-root {
+  --ink: #ece8ff; --ink-dim: #a59ccf; --ink-faded: #6b6499;
+  --line: rgba(180, 170, 255, .22); --line-strong: rgba(180, 170, 255, .42);
+  --panel: rgba(12, 10, 28, .82); --accent: #8b7dff; --accent-2: #4ea8ff;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.im-nav-root * { box-sizing: border-box; }
+/* Over the moon, lift the rail clear of the moon's filigree corner */
+.im-nav-root--moon .im-rail { padding-top: 70px; }
+
+/* Settings popover (fullscreen / volume) */
+.im-settings {
+  position: fixed; left: 70px; bottom: 16px; z-index: 41; width: 214px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding: 14px 16px 15px; color: var(--ink);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .25s, visibility .25s, transform .25s;
+}
+.im-settings.is-open { opacity: 1; visibility: visible; transform: none; }
+.im-settings-h { font-family: var(--mono); font-size: 8.5px; letter-spacing: .34em; color: var(--ink-faded); margin-bottom: 12px; }
+.im-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-family: var(--mono); font-size: 9px; letter-spacing: .2em; color: var(--ink-dim); }
+.im-settings-row > span:first-child { display: inline-flex; align-items: center; }
+.im-toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+.im-toggle button { appearance: none; background: none; border: none; color: var(--ink-dim); font-family: var(--mono); font-size: 8.5px; letter-spacing: .16em; padding: 5px 12px; cursor: pointer; }
+.im-toggle button.is-on { background: var(--accent); color: #0a0820; }
+.im-settings-row--vol input[type="range"] { flex: 1; accent-color: var(--accent); height: 3px; cursor: pointer; }

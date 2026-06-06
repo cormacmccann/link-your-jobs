@@ -587,9 +587,11 @@ export function startMoonExperience(): () => void {
   __on('keydown',startEngine);__on('pointerdown',startEngine);__on('touchstart',startEngine,{passive:true});
   __on('keydown',e=>{if(e.key==='m'||e.key==='M'){muted=!muted;}});
   function updateEngine(){
+    const gv=(window.__kamrokVol==null)?1:window.__kamrokVol;   // global volume from the nav settings
+    if(music&&musicOn)music.volume=0.18*gv;
     if(!engine||!engineReady)return;
     const sp=Math.abs(st.speed)/MAXS;
-    const target=muted?0:(sp>0.02?0.16+sp*0.6:0);
+    const target=(muted?0:(sp>0.02?0.16+sp*0.6:0))*gv;
     engine.volume+=(Math.min(1,target)-engine.volume)*0.12;
     engine.playbackRate=0.8+sp*1.05;
   }

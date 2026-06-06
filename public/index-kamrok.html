@@ -190,11 +190,11 @@
 
   /* keep the chrome clear of the filigree corners */
   .nav{padding:40px 154px!important}
-  .hud-radar{top:142px!important;left:48px!important}
-  .hud-obj{left:48px!important}
-  .hud-stat{left:48px!important;bottom:152px!important}
+  .hud-radar{top:142px!important;left:104px!important}
+  .hud-obj{left:104px!important}
+  .hud-stat{left:104px!important;bottom:152px!important}
   .compass{right:152px!important}
-  @media(max-width:760px){.nav{padding:30px 96px!important}.hud-radar,.hud-obj,.hud-stat{left:26px!important}.compass{right:96px!important}}
+  @media(max-width:760px){.nav{padding:30px 96px!important}.hud-radar,.hud-obj,.hud-stat{left:82px!important}.compass{right:96px!important}}
 
   /* ===== PARCHMENT LORE PANELS ===== */
   .panel{background:linear-gradient(165deg,#f4f1e8,#e7e3d6)!important;color:#2b2620!important;border-left:1px solid #cbc4b1!important;box-shadow:-36px 0 100px rgba(0,0,0,.55)!important;font-family:var(--serif)!important;padding:58px 46px 50px!important;text-align:center;width:min(460px,92vw)!important}
@@ -4647,9 +4647,11 @@
   addEventListener('keydown',startEngine);addEventListener('pointerdown',startEngine);addEventListener('touchstart',startEngine,{passive:true});
   addEventListener('keydown',e=>{if(e.key==='m'||e.key==='M'){muted=!muted;}});
   function updateEngine(){
+    const gv=(window.__kamrokVol==null)?1:window.__kamrokVol;   // global volume from the nav settings
+    if(music&&musicOn)music.volume=0.18*gv;
     if(!engine||!engineReady)return;
     const sp=Math.abs(st.speed)/MAXS;
-    const target=muted?0:(sp>0.02?0.16+sp*0.6:0);
+    const target=(muted?0:(sp>0.02?0.16+sp*0.6:0))*gv;
     engine.volume+=(Math.min(1,target)-engine.volume)*0.12;
     engine.playbackRate=0.8+sp*1.05;
   }
