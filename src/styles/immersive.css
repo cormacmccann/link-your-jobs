@@ -261,7 +261,7 @@
 /* Main — content anchored to the right of the page */
 .im-main {
   position: relative; z-index: 10;
-  padding: 84px 28px 84px 96px;
+  padding: 22px 76px 56px 96px;
   min-height: 100vh;
   display: flex;
   justify-content: flex-end;
@@ -269,6 +269,23 @@
 }
 /* When a team dossier holds the right, slide the page content left */
 body.kk-codex-open .im-main { padding-right: 484px; }
+
+/* Floating, interactive client showcase in the empty left space */
+.im-float { position: fixed; left: 0; top: 0; width: 38%; height: 100%; z-index: 6; pointer-events: none; overflow: hidden; }
+.im-float-logo, .im-float-card { position: absolute; pointer-events: auto; text-decoration: none; animation: imFloat ease-in-out infinite; will-change: transform; }
+@keyframes imFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+.im-float-logo img { height: 30px; width: auto; opacity: .28; filter: brightness(0) invert(1); transition: opacity .3s, transform .3s; }
+.im-float-logo:hover img { opacity: .85; transform: scale(1.12); }
+.im-float-card {
+  display: flex; flex-direction: column; gap: 3px; max-width: 188px; padding: 11px 14px; border-radius: 8px;
+  background: rgba(12, 10, 28, .5); border: 1px solid var(--line);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: border-color .3s, background .3s, transform .3s;
+}
+.im-float-card:hover { border-color: var(--accent); background: rgba(22, 17, 46, .82); transform: scale(1.05); }
+.im-float-card__name { font-family: var(--serif); font-size: 16px; color: var(--ink); }
+.im-float-card__desc { font-family: var(--mono); font-size: 8px; letter-spacing: .14em; color: var(--ink-dim); }
+@media (max-width: 1180px) { .im-float { display: none; } }
 .im-main > * {
   width: 100%;
   max-width: 640px;

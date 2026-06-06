@@ -1,6 +1,7 @@
 import { ReactNode, useEffect } from "react";
 import heroBg from "@/assets/immersive-hero.jpg";
 import KamrokNav from "./KamrokNav";
+import FloatingShowcase from "./FloatingShowcase";
 import "@/styles/immersive.css";
 
 interface Props {
@@ -27,6 +28,9 @@ export default function ImmersiveShell({ title, description, children }: Props) 
       <div className="im-bg" style={{ backgroundImage: `url(${heroBg})` }} aria-hidden />
       <div className="im-bg-vignette" aria-hidden />
       <div className="im-bg-frame" aria-hidden />
+
+      {/* Interactive showcase floating in the empty left space */}
+      <FloatingShowcase />
 
       <KamrokNav onMoon={false} />
 

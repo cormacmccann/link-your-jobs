@@ -14,6 +14,7 @@ export const MOON_MARKUP = `
 
   <!-- ===== TITLE / INTRO SCREEN ===== -->
   <div class="intro" id="intro">
+    <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
     <div class="title">
       <span class="word"><img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" /></span>
       <span class="porthole">
@@ -167,6 +168,7 @@ export const MOON_MARKUP = `
   </div>
 
   <div id="loader">
+    <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
     <div class="bar"><i></i></div>
     <div class="lm" id="loadMsg">CALIBRATING MOONSCAPE…</div>
   </div>
