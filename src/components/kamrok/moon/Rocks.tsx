@@ -16,7 +16,7 @@ export default function Rocks({ count = 90 }: { count?: number }) {
     () =>
       new THREE.MeshStandardMaterial({
         map: colorMap,
-        normalMap: normalMap,
+        normalMap,
         roughness: 1,
         metalness: 0,
       }),
@@ -24,7 +24,7 @@ export default function Rocks({ count = 90 }: { count?: number }) {
   );
 
   const rocks = useMemo(() => {
-    const out: { src: THREE.Object3D; pos: [number, number, number]; scale: number; rot: number }[] = [];
+    const out: { node: THREE.Object3D; pos: [number, number, number]; scale: number; rot: number }[] = [];
     let seed = 7;
     const rnd = () => {
       seed = (seed * 9301 + 49297) % 233280;
@@ -33,34 +33,30 @@ export default function Rocks({ count = 90 }: { count?: number }) {
     for (let i = 0; i < count; i++) {
       const r = 30 + rnd() * 220;
       const a = rnd() * Math.PI * 2;
-      const useFour = rnd() > 0.5;
+      const src = rnd() > 0.5 ? rock4.scene : rock7.scene;
+      const node = src.clone(true);
+      node.traverse((o) => {
+        if ((o as THREE.Mesh).isMesh) {
+          (o as THREE.Mesh).material = mat;
+          (o as THREE.Mesh).castShadow = true;
+          (o as THREE.Mesh).receiveShadow = true;
+        }
+      });
       out.push({
-        src: useFour ? rock4.scene : rock7.scene,
+        node,
         pos: [Math.sin(a) * r, 0, Math.cos(a) * r],
         scale: 0.8 + rnd() * 2.4,
         rot: rnd() * Math.PI * 2,
       });
     }
     return out;
-  }, [count, rock4.scene, rock7.scene]);
+  }, [count, rock4.scene, rock7.scene, mat]);
 
   return (
     <group>
-      {rocks.map((r, i) => {
-        const cloned = useMemo(() => {
-          const c = r.src.clone(true);
-          c.traverse((o) => {
-            if ((o as THREE.Mesh).isMesh) {
-              (o as THREE.Mesh).material = mat;
-              (o as THREE.Mesh).castShadow = true;
-              (o as THREE.Mesh).receiveShadow = true;
-            }
-          });
-          return c;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [r.src, mat]);
-        return <primitive key={i} object={cloned} position={r.pos} rotation={[0, r.rot, 0]} scale={r.scale} />;
-      })}
+      {rocks.map((r, i) => (
+        <primitive key={i} object={r.node} position={r.pos} rotation={[0, r.rot, 0]} scale={r.scale} />
+      ))}
     </group>
   );
 }
