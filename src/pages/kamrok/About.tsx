@@ -4,9 +4,9 @@ import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout"
 
 const PRINCIPLES = [
   { h: "Clarity over decoration", p: "Every element earns its place. If it doesn't help the visitor, it goes." },
-  { h: "Performance is a feature", p: "Fast is a design decision. Core Web Vitals are budgeted from day one, not bolted on." },
-  { h: "Accessible by default", p: "Semantics, contrast and keyboard paths are the baseline — not an upgrade." },
-  { h: "Built to last", p: "Work that still looks considered, and still runs clean, five years from now." },
+  { h: "Performance is a feature", p: "Fast is a design decision — Core Web Vitals budgeted from day one." },
+  { h: "Accessible by default", p: "Semantics, contrast and keyboard paths are the baseline, not an upgrade." },
+  { h: "Built to last", p: "Work that still looks considered, and runs clean, five years from now." },
 ];
 
 type Member = {
@@ -15,6 +15,7 @@ type Member = {
   role: string;
   initials: string;
   color: string;
+  photo: string;
   based: string;
   craft: string;
   bio: string;
@@ -23,30 +24,33 @@ type Member = {
 
 const TEAM: Member[] = [
   {
-    id: "cormac", name: "Cormac McCann", role: "Design + Build", initials: "CM", color: "#8b7dff",
-    based: "Dundalk, IE", craft: "Web Design & Front-end",
-    bio: "Design and front-end, end to end. Cormac shapes the brand and interface, then builds the hand-coded, fast, accessible site that ships it — including the moon you just drove across.",
-    does: ["Web & UI design", "React front-ends", "Real-time 3D / WebGL", "Brand systems", "WordPress builds"],
+    id: "cormac", name: "Cormac McCann", role: "Founder · Design + Build", initials: "CM",
+    color: "#8b7dff", photo: "/team/cormac.png", based: "Dundalk, IE", craft: "Web Design & Code",
+    bio: "Founder, designer and programmer. Cormac builds the studio's sites end to end and has shipped projects across the board — with a background spanning hospitality, sales and marketing before the screen. A musician and artist at heart, and cautiously curious about AI: where it earns its place, and why that matters.",
+    does: ["Design & front-end", "Projects, launched", "Hospitality → sales → marketing", "Music & art", "AI, used with intent"],
   },
   {
-    id: "brand", name: "The Brand Hand", role: "Brand & Identity", initials: "BH", color: "#4ea8ff",
-    based: "Remote, IE", craft: "Logos & Visual Systems",
-    bio: "Wordmarks, type systems and the visual language that ties a project together. When a build needs an identity with real backbone, this is where it starts — marks that work at a favicon and a billboard alike.",
-    does: ["Logos & wordmarks", "Type systems", "Brand guidelines", "Art direction"],
-  },
-  {
-    id: "motion", name: "The Motion Smith", role: "Motion & 3D", initials: "MS", color: "#7be7ff",
-    based: "Remote, EU", craft: "Animation & WebGL",
-    bio: "Brings interfaces to life — scroll-driven stories, micro-interactions and the occasional moonscape. Motion that guides the eye and never shows off, always with a budget for performance and reduced-motion.",
-    does: ["Framer Motion / GSAP", "WebGL & shaders", "3D modelling", "Interaction design"],
-  },
-  {
-    id: "build", name: "The Back-end", role: "WordPress & Systems", initials: "WB", color: "#c4a3ff",
-    based: "Remote, IE", craft: "CMS & Integrations",
-    bio: "The plumbing that keeps it standing: complete WordPress builds, databases, payments, automations and the boring-but-vital security and speed work. Sites clients can actually run, that don't fall over.",
-    does: ["WordPress & ACF", "Databases & APIs", "Payments & auth", "Hosting & security"],
+    id: "kayla", name: "Kayla Minto", role: "Creative & Client", initials: "KM",
+    color: "#56a8ff", photo: "/team/kayla.png", based: "Dundalk, IE", craft: "Creative Media",
+    bio: "A Creative Media graduate from DKIT, Kayla brings a route that runs sales → hardware → software → back to sales — equal parts creative and commercial. She keeps projects (and clients) moving, and brings a fresh creative eye to everything the studio makes.",
+    does: ["Creative Media (DKIT)", "Sales & accounts", "Hardware → software → sales", "Client & content"],
   },
 ];
+
+function Portrait({ m, big }: { m: Member; big?: boolean }) {
+  return (
+    <span className={big ? "kk-codex-portrait" : "kk-team-av"}>
+      <span className="kk-av-mono">{m.initials}</span>
+      <img
+        src={m.photo}
+        alt={m.name}
+        loading="lazy"
+        onLoad={(e) => e.currentTarget.parentElement?.classList.add("has-img")}
+        onError={(e) => e.currentTarget.remove()}
+      />
+    </span>
+  );
+}
 
 export default function About() {
   const [openId, setOpenId] = useState<string | null>(null);
@@ -59,7 +63,6 @@ export default function About() {
   };
   const close = () => setOpenId(null);
 
-  // Slide the page content left while a dossier holds the right.
   useEffect(() => {
     document.body.classList.toggle("kk-codex-open", !!openId);
     return () => document.body.classList.remove("kk-codex-open");
@@ -68,7 +71,7 @@ export default function About() {
   return (
     <KamrokLayout
       title="About KAMROK — Design Studio & Team in Dundalk | Candy Shop Digital"
-      description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — a small team and a trusted circle of specialists in brand, motion, 3D and WordPress. Meet the team."
+      description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — Cormac McCann and Kayla Minto, plus a trusted circle of specialists. Meet the team."
     >
       <Emblem />
       <div className="kk-eyebrow">THE STUDIO · 01</div>
@@ -76,8 +79,8 @@ export default function About() {
       <Divider />
       <div className="kk-body">
         <p className="kk-lead">
-          KAMROK is the design studio of Candy Shop Digital Ltd — a small, hands-on team based in
-          Dundalk, Ireland, crafting elegant, considered digital products for ambitious people.
+          KAMROK is the design studio of Candy Shop Digital Ltd — a small, hands-on team in Dundalk,
+          Ireland, crafting elegant, considered digital products for ambitious people.
         </p>
         <p>
           We design and build, end to end: brand and interface, then the hand-coded front-end that ships
@@ -96,16 +99,10 @@ export default function About() {
             <strong>{pr.h}.</strong> {pr.p}
           </p>
         ))}
-
-        <h2>WHY THE MOON?</h2>
-        <p>
-          The home page is a portfolio you can drive across. It's the argument, in one interaction: this
-          studio can build real-time 3D in the browser, make it run smoothly, and still keep it usable.
-        </p>
       </div>
 
       <h2 className="kk-sub">The Team — open a dossier</h2>
-      <p className="kk-lead-text">One studio, a small circle of specialists. Tap a card for the full breakdown.</p>
+      <p className="kk-lead-text">Tap a card for the full breakdown.</p>
       <div className="kk-team">
         {TEAM.map((m) => (
           <button
@@ -114,7 +111,7 @@ export default function About() {
             style={{ ["--accent" as string]: m.color }}
             onClick={() => openMember(m.id)}
           >
-            <span className="kk-team-av" aria-hidden>{m.initials}</span>
+            <Portrait m={m} />
             <span className="kk-team-name">{m.name}</span>
             <span className="kk-team-role">{m.role}</span>
             <span className="kk-team-open">VIEW DOSSIER →</span>
@@ -124,14 +121,13 @@ export default function About() {
 
       <Link className="kk-cta" to="/work">VIEW SELECTED WORK →</Link>
 
-      {/* codex dossier — holds the right, swaps until another is picked */}
       <aside
         className={`kk-codex-panel${openId ? " is-open" : ""}`}
         style={{ ["--accent" as string]: member.color }}
         aria-hidden={!openId}
       >
         <button className="kk-codex-x" onClick={close} aria-label="Close">✕</button>
-        <div className="kk-codex-portrait"><span>{member.initials}</span></div>
+        <Portrait m={member} big />
         <div className="kk-codex-sigil">
           <svg viewBox="0 0 40 40" fill="none">
             <circle cx="20" cy="20" r="19" stroke="currentColor" strokeOpacity=".4" />
