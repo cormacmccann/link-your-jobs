@@ -57,7 +57,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             {/* Static KAMROK site served from public/ */}
-            <Route path="/" element={<StaticRedirect to="/index-kamrok.html" />} />
+            <Route path="/" element={<MoonHome />} />
             <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
             <Route path="/skills" element={<Skills />} />
