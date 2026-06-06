@@ -42,7 +42,8 @@ export default function MoonScene() {
     <div className="moon-stage">
       <Canvas
         shadows
-        camera={{ position: [0, 6, 14], fov: 55, near: 0.1, far: 1200 }}
+        orthographic
+        camera={{ position: [60, 60, 60], zoom: 38, near: 0.1, far: 2000 }}
         gl={{ antialias: true }}
         dpr={[1, 1.8]}
       >
