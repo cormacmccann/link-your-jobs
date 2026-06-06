@@ -99,10 +99,10 @@ export default function ImmersiveShell({ title, description, pageLabel = "KAMROK
         </Link>
       </div>
 
-      {/* Floating map / locator */}
-      <button className="im-map">
-        <MapIcon size={12} strokeWidth={1.4} /> MAP
-      </button>
+      {/* Floating back-to-moon */}
+      <Link to="/" className="im-map">
+        <MapIcon size={12} strokeWidth={1.4} /> BACK TO MOON
+      </Link>
 
       {/* Drawer */}
       <div className={`im-drawer ${open ? "im-drawer--open" : ""}`} aria-hidden={!open}>
