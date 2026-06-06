@@ -1161,7 +1161,7 @@ export function startMoonExperience(): () => void {
         for(let ci=0;ci<colliders.length;ci++){const c=colliders[ci],ox=c.x-st.x,oz=c.z-st.z,od=Math.hypot(ox,oz);
           if(od<c.r+BUGGY_R+17){const fd=(ox*fdx+oz*fdz)/(od||1);if(fd>0.15&&od<bD){bD=od;bCross=fdx*oz-fdz*ox;}}}
         if(bD<1e9){st.heading+=(bCross>0?1:-1)*TURN*1.9*(1-Math.min(1,bD/28));st.steer+= (bCross>0?1:-1)*0.5;}}
-      if(dist>TRIGGER-2)st.speed=Math.min(MAXS,st.speed+ACC);else{st.speed*=0.9;if(st.speed<0.02)autoTarget=null;}
+      if(dist>TRIGGER-2)st.speed=Math.min(MAXS*2.1,st.speed+ACC*2.6);else{st.speed*=0.9;if(st.speed<0.02)autoTarget=null;}  /* quick-travel: zip to the monument */
     } else {
       if(keys.up)st.speed=Math.min(MAXS,st.speed+ACC);
       else if(keys.down)st.speed=Math.max(-MAXS*0.5,st.speed-REV);

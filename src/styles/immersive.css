@@ -36,7 +36,7 @@
   pointer-events: none;
 }
 .im-bg-frame {
-  position: fixed; inset: 6px; z-index: 2;
+  position: fixed; inset: 6px; right: 66px; z-index: 2;
   border: 1px solid rgba(139, 125, 255, .35);
   border-radius: 2px;
   pointer-events: none;

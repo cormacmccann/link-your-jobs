@@ -5,6 +5,7 @@ const FEATURED = [
   {
     n: "FEATURED · OWN PRODUCT",
     title: "Clubrovia",
+    slug: "clubrovia",
     url: "https://clubrovia.com",
     body: "A complete club operating system — registration, finances, fundraising, communications and a generated club website, multi-tenant across many clubs. Designed and built end to end as our own product.",
     outcome: "Hundreds of members managed from one place, by people who aren't techies.",
@@ -13,6 +14,7 @@ const FEATURED = [
   {
     n: "FEATURED · CLIENT",
     title: "McKevitt's",
+    slug: "mckevitts",
     url: "https://mckevitts.com",
     body: "A warm, modern website for a long-standing Irish business — clean structure, strong imagery and content the team can keep up to date themselves.",
     outcome: "A site that finally matches the reputation behind it.",
@@ -60,7 +62,10 @@ export default function Work() {
               <p>{p.body}</p>
               <p style={{ color: "#a59ccf", fontStyle: "italic" }}>{p.outcome}</p>
               <div className="kk-meta">{p.meta}</div>
-              <a className="kk-visit" href={p.url} target="_blank" rel="noopener">VISIT SITE ↗</a>
+              <div className="kk-proj-links">
+                <Link className="kk-visit kk-visit--solid" to={`/work/${p.slug}`}>CASE STUDY →</Link>
+                <a className="kk-visit" href={p.url} target="_blank" rel="noopener">VISIT SITE ↗</a>
+              </div>
             </div>
           </div>
         ))}

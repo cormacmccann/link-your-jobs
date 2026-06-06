@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import MoonHome from "./pages/kamrok/MoonHome";
 import About from "./pages/kamrok/About";
 import Work from "./pages/kamrok/Work";
+import CaseStudy from "./pages/kamrok/CaseStudy";
 import Skills from "./pages/kamrok/Skills";
 import Contact from "./pages/kamrok/Contact";
 
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/" element={<MoonHome />} />
             <Route path="/about" element={<About />} />
             <Route path="/work" element={<Work />} />
+            <Route path="/work/:slug" element={<CaseStudy />} />
             <Route path="/skills" element={<Skills />} />
             <Route path="/contact" element={<Contact />} />
 

@@ -175,6 +175,9 @@
   .settings{display:none!important}              /* music/sound/fullscreen now live in SETTINGS */
   .hud-stat{display:none!important}
   .nav{padding:36px 84px 36px 30px!important}     /* clear the right bar */
+  .frame{right:74px!important}                    /* push the filigree frame left of the bar, not under it */
+  .c-tr,.c-br{right:66px!important}
+  .edge{right:60px!important}
   .hud-radar,.hud-obj{left:24px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
   .hud-radar{top:74px!important}
   .hud-obj{top:256px!important;bottom:auto!important}
