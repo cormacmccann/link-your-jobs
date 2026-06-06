@@ -147,3 +147,16 @@
   .kk-grid { grid-template-columns: 1fr; }
   .kk-grid section:nth-child(odd) { border-right: none; }
 }
+
+/* When inside immersive shell, drop the solid bg and let backdrop show */
+.kk-root--transparent {
+  background: transparent;
+  min-height: auto;
+}
+.kk-root--transparent .kk-page {
+  padding: 0;
+}
+.kk-root--transparent .kk-footer {
+  color: rgba(244,241,232,.55);
+}
+.kk-root--transparent .kk-footer a { border-bottom-color: rgba(244,241,232,.25); }
