@@ -5061,11 +5061,11 @@
   /* ===== SKILL ICONS — 3D logos floating on glowing centres around the Skills monument ===== */
   const SG=window.SKILLS_GLB||{};
   const SKILL_DEFS=[
-    {key:'react',     name:'React',        k:'FRONT-END',   color:0x61dafb, url:SG.react,     size:4.6, info:'Component-driven interfaces in React — hooks, state and the buttery client-side interactions this very page is built on.'},
-    {key:'wordpress', name:'WordPress',    k:'CMS',         color:0x2aa7d0, url:SG.wordpress, size:4.6, info:'Custom WordPress themes and blocks — editorial, content-led sites that clients can actually run themselves.'},
-    {key:'google',    name:'Google · SEO', k:'GROWTH',      color:0x4285f4, url:SG.google,    size:4.6, info:'Technical SEO, analytics and Core Web Vitals — sites built to be found, measured, and to rank.'},
-    {key:'starburst', name:'Motion',       k:'INTERACTION', color:0xff8a3c, url:SG.starburst, size:4.6, info:'Framer Motion, GSAP and real-time WebGL — motion that guides the eye without ever showing off.'},
-    {key:'heart',     name:'Brand & UX',   k:'IDENTITY',    color:0xff4d6d, url:SG.heart,     size:4.6, info:'Brand systems and human-centred UX — the craft, polish and care that ties everything together.'},
+    {key:'react',     name:'React',     k:'WEB DESIGN', color:0x61dafb, url:SG.react,     size:4.6, info:'Web design + animation and custom React front-ends — fast, interactive and hand-built (this moon included).'},
+    {key:'wordpress', name:'WordPress', k:'CMS',        color:0x2aa7d0, url:SG.wordpress, size:4.6, info:'Complete WordPress builds — custom themes and blocks, migrations, and sites your team can run themselves.'},
+    {key:'google',    name:'Google',    k:'GROWTH',     color:0x4285f4, url:SG.google,    size:4.6, info:'Google Workspace setup, SEO audits and Search Console / Webmaster — get found, measured and running on Google.'},
+    {key:'starburst', name:'Claude',    k:'AI DEV',     color:0xff8a3c, url:SG.starburst, size:4.6, info:'AI-assisted development with Claude — custom tools, automations and apps, built fast and built right.'},
+    {key:'heart',     name:'Lovable',   k:'AI APPS',    color:0xff4d6d, url:SG.heart,     size:4.6, info:'Full-stack sites and apps built with Lovable — from idea to live product in record time.'},
   ];
   const skillIcons=[]; const skillRayTargets=[]; let openSkill=null;
   const skillPop=document.getElementById('skillPop');
@@ -5156,6 +5156,22 @@
     }
     positionSkillPop();
   }
+
+  /* ===== CLIENT LOGOS — laid evenly on the surface around the Work monument ===== */
+  (function(){
+    const CLIENTS=[['tifco','webp'],['guinness-storehouse','webp'],['dundalk-stadium','webp'],['crowne-plaza','webp'],['coca-cola','png'],['centra','webp'],['boylesports','png']];
+    const base=BUILDS.work.pos, R=18, tl=new T.TextureLoader();
+    CLIENTS.forEach((c,i)=>{
+      const a=(i/CLIENTS.length)*Math.PI*2+0.25;
+      const x=base.x+Math.cos(a)*R, z=base.z+Math.sin(a)*R, gy=terrainHeight(x,z);
+      const tex=tl.load('/clients/'+c[0]+'.'+c[1]); tex.colorSpace=T.SRGBColorSpace; if(renderer.capabilities.getMaxAnisotropy)tex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+      // dark backing plate for contrast on the regolith
+      const plate=new T.Mesh(new T.PlaneGeometry(11,6.4),new T.MeshBasicMaterial({color:0x0a0d15,transparent:true,opacity:0.42,depthWrite:false}));
+      plate.rotation.x=-Math.PI/2; plate.position.set(x,gy+0.1,z); scene.add(plate);
+      const m=new T.Mesh(new T.PlaneGeometry(9.4,5.3),new T.MeshBasicMaterial({map:tex,transparent:true,opacity:0.95,depthWrite:false,side:T.DoubleSide}));
+      m.rotation.x=-Math.PI/2; m.position.set(x,gy+0.15,z); m.renderOrder=3; scene.add(m);
+    });
+  })();
 
   addEventListener('resize',()=>{setFrustum();renderer.setSize(innerWidth,innerHeight);if(spaceCam){spaceCam.aspect=innerWidth/innerHeight;spaceCam.updateProjectionMatrix();}});
 

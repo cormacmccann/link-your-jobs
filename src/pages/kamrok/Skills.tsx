@@ -4,36 +4,60 @@ import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout"
 import SkillsShowcase, { SKILL_ICONS } from "@/components/kamrok/SkillsShowcase";
 
 type Detail = {
+  name: string;
+  kicker: string;
+  color: string;
   tagline: string;
   body: string;
+  services: string[];
   tools: string[];
 };
 
 const DETAILS: Record<string, Detail> = {
   react: {
-    tagline: "Component-driven interfaces that feel instant.",
-    body: "I build front-ends in React + TypeScript — clean component architecture, sensible state, and the kind of buttery client-side interaction this very site is made of (the moon homepage is react-three-fiber). Strongly-typed, tested where it counts, and tuned for Core Web Vitals.",
-    tools: ["React", "TypeScript", "Vite", "react-three-fiber", "Tailwind", "React Router"],
+    name: "React",
+    kicker: "WEB DESIGN",
+    color: "#61dafb",
+    tagline: "Web design + animation, built in React.",
+    body: "Design and build, by one person. I take a site from first concept through to a fast, hand-built React front-end — with the motion and micro-interactions that make it feel alive. The moon you're standing on is the demo reel.",
+    services: ["Web & UI design", "Animation & micro-interactions", "Custom React front-ends", "Real-time 3D / WebGL", "Core Web Vitals & performance"],
+    tools: ["React", "TypeScript", "Vite", "Framer Motion", "react-three-fiber", "Tailwind"],
   },
   wordpress: {
-    tagline: "Editorial sites clients can actually run.",
-    body: "Custom WordPress builds — bespoke themes and Gutenberg blocks (no page-builder bloat), Advanced Custom Fields for clean editing, and headless WordPress when a project wants a React front-end with a familiar CMS behind it. Fast, secure, and handed over with documentation.",
-    tools: ["WordPress", "Gutenberg blocks", "ACF", "Headless / REST", "WooCommerce", "PHP"],
+    name: "WordPress",
+    kicker: "CMS",
+    color: "#2aa7d0",
+    tagline: "Complete WordPress builds, done properly.",
+    body: "Full WordPress sites from scratch — bespoke themes and Gutenberg blocks (no page-builder bloat), clean editing with ACF, migrations and rescues of tangled installs, and a site your team can actually run themselves.",
+    services: ["Complete WordPress builds", "Custom themes & blocks", "Migrations & rescues", "WooCommerce", "Speed & security hardening"],
+    tools: ["WordPress", "Gutenberg", "ACF", "WooCommerce", "PHP"],
   },
   google: {
-    tagline: "Built to be found, measured, and to rank.",
-    body: "Technical SEO baked in from the first commit: semantic markup, structured data, clean information architecture, sitemaps and Core Web Vitals budgets. Plus the measurement to prove it — GA4, Search Console and event tracking so you can see what's actually working.",
-    tools: ["Technical SEO", "Core Web Vitals", "GA4", "Search Console", "Schema.org", "Lighthouse"],
+    name: "Google",
+    kicker: "GROWTH",
+    color: "#4285f4",
+    tagline: "Found, measured, and running on Google.",
+    body: "The Google side of a business, handled: Workspace set up and configured properly, SEO and technical audits that surface what's holding you back, and Search Console / Webmaster set up so you can see exactly how Google sees you.",
+    services: ["Google Workspace setup", "SEO & technical audits", "Search Console / Webmaster", "Analytics (GA4)", "Business Profile & local"],
+    tools: ["Google Workspace", "Search Console", "GA4", "Lighthouse", "Schema.org"],
   },
   starburst: {
-    tagline: "Motion that guides the eye — never shows off.",
-    body: "Interaction and motion design: micro-interactions that make an interface feel alive, scroll-driven storytelling, and real-time 3D with WebGL when a project calls for spectacle. Always performance-first and respectful of reduced-motion preferences.",
-    tools: ["Framer Motion", "GSAP", "Lenis", "Three.js / WebGL", "Reduced-motion aware"],
+    name: "Claude",
+    kicker: "AI DEV",
+    color: "#ff8a3c",
+    tagline: "Custom software, built with Claude.",
+    body: "AI-assisted development with Claude — I build custom tools, automations and full applications fast, without cutting corners on quality. From a script that saves you hours to a complete product, done in a fraction of the time.",
+    services: ["Custom tools & automations", "AI-assisted development", "App & API builds", "Workflow automation", "Prototyping at speed"],
+    tools: ["Claude", "TypeScript", "Node", "APIs", "Automation"],
   },
   heart: {
-    tagline: "The craft and care that ties it together.",
-    body: "The human layer: brand systems and wordmarks, scalable design systems, and UX grounded in real user intent. Accessibility is a baseline, not an afterthought — WCAG-minded contrast, keyboard paths and semantics throughout.",
-    tools: ["Brand systems", "Design systems", "Figma", "Accessibility (WCAG)", "UX research"],
+    name: "Lovable",
+    kicker: "AI APPS",
+    color: "#ff4d6d",
+    tagline: "Idea to live product, with Lovable.",
+    body: "Full-stack sites and apps built with Lovable — auth, database, payments and a polished UI, shipped in a fraction of the usual time. Ideal for MVPs, internal tools, and getting something real in front of users fast.",
+    services: ["Full-stack app builds", "MVPs & prototypes", "Auth, database & payments", "Internal tools", "Rapid iteration"],
+    tools: ["Lovable", "Supabase", "Stripe", "React", "Tailwind"],
   },
 };
 
@@ -42,7 +66,7 @@ const CORE = [
   { k: "CORE", h: "Web Design", p: "Marketing sites and product surfaces with rhythm and restraint." },
   { k: "HTML · CSS · JS", h: "Front-end", p: "Hand-built, performant, accessible front-ends — including playful WebGL." },
   { k: "IDENTITY", h: "Branding", p: "Wordmarks, type systems and the visual language that ties it together." },
-  { k: "INTERACTION", h: "Motion", p: "Micro-interactions that guide attention without showing off." },
+  { k: "INTERACTION", h: "Animation", p: "Motion that guides attention without ever showing off." },
   { k: "FIGMA · CODE", h: "Prototyping", p: "From clickable flows to coded prototypes that feel like the real thing." },
 ];
 
@@ -55,56 +79,43 @@ const PROCESS = [
 
 export default function Skills() {
   const [active, setActive] = useState<string | null>(null);
+  const [shown, setShown] = useState<string>(SKILL_ICONS[0].key);
 
-  const select = (k: string) => {
+  const open = (k: string) => {
+    setShown(k);
     setActive(k);
-    document.getElementById(`skill-${k}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
+  const close = () => setActive(null);
+  const d = DETAILS[shown];
 
   return (
     <KamrokLayout
-      title="Skills & Services — React, WordPress, SEO, Motion | KAMROK"
-      description="Cormac's skills: React front-end, WordPress, technical SEO, motion & WebGL, brand and UX. The stack behind elegant, fast, accessible websites."
+      title="Skills & Services — Web Design, WordPress, Google, Claude & Lovable | KAMROK"
+      description="Cormac's services: web design & animation, complete WordPress builds, Google Workspace/SEO/Webmaster, and AI builds with Claude and Lovable."
     >
       <Emblem />
       <div className="kk-eyebrow">INSTRUMENTS · 03</div>
       <h1>What I Do</h1>
       <Divider />
       <p className="kk-lead-text">
-        A full-stack design toolkit — from first concept to a shipped, accessible front-end. These are
-        the same icons you can knock off their pedestals out on the moon.
+        Tap an icon to open its dossier — the same five you can knock off their pedestals out on the moon.
       </p>
 
-      <SkillsShowcase active={active} onSelect={select} />
+      <SkillsShowcase active={active} onSelect={open} />
 
-      <div className="kk-stack">
-        {SKILL_ICONS.map((ic) => {
-          const d = DETAILS[ic.key];
-          return (
-            <section
-              id={`skill-${ic.key}`}
-              key={ic.key}
-              className={`kk-skill${active === ic.key ? " is-active" : ""}`}
-              style={{ ["--accent" as string]: ic.color }}
-              onMouseEnter={() => setActive(ic.key)}
-            >
-              <div className="kk-skill__dot" />
-              <div className="kk-skill__main">
-                <div className="kk-skill__head">
-                  <h2>{ic.name}</h2>
-                  <span className="kk-skill__k">{ic.kicker}</span>
-                </div>
-                <p className="kk-skill__tag">{d.tagline}</p>
-                <p>{d.body}</p>
-                <ul className="kk-tags">
-                  {d.tools.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-          );
-        })}
+      <div className="kk-skillbtns">
+        {SKILL_ICONS.map((ic) => (
+          <button
+            key={ic.key}
+            className={`kk-skillbtn${active === ic.key ? " is-active" : ""}`}
+            style={{ ["--accent" as string]: ic.color }}
+            onClick={() => open(ic.key)}
+          >
+            <span className="kk-skillbtn__dot" />
+            <span className="kk-skillbtn__name">{DETAILS[ic.key].name}</span>
+            <span className="kk-skillbtn__k">{DETAILS[ic.key].kicker}</span>
+          </button>
+        ))}
       </div>
 
       <h2 className="kk-sub">Core disciplines</h2>
@@ -131,9 +142,30 @@ export default function Skills() {
         ))}
       </div>
 
-      <Link className="kk-cta" to="/contact">
-        WORK WITH ME →
-      </Link>
+      <Link className="kk-cta" to="/contact">WORK WITH ME →</Link>
+
+      {/* per-skill flyout */}
+      <div className={`kk-fly-backdrop${active ? " is-open" : ""}`} onClick={close} />
+      <aside className={`kk-flyout${active ? " is-open" : ""}`} style={{ ["--accent" as string]: d.color }} aria-hidden={!active}>
+        <button className="kk-flyout__x" onClick={close} aria-label="Close">✕</button>
+        <div className="kk-flyout__k">{d.kicker}</div>
+        <h2 className="kk-flyout__h">{d.name}</h2>
+        <p className="kk-flyout__tag">{d.tagline}</p>
+        <p className="kk-flyout__body">{d.body}</p>
+        <div className="kk-flyout__label">SERVICES</div>
+        <ul className="kk-flyout__list">
+          {d.services.map((s) => (
+            <li key={s}>{s}</li>
+          ))}
+        </ul>
+        <div className="kk-flyout__label">TOOLS</div>
+        <ul className="kk-tags">
+          {d.tools.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+        <Link className="kk-cta" to="/contact" onClick={close}>WORK WITH ME →</Link>
+      </aside>
     </KamrokLayout>
   );
 }

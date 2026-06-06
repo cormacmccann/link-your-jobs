@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useMemo, useState, Component, type ReactNode } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, Float, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
@@ -13,14 +13,26 @@ export type SkillIcon = {
 };
 
 export const SKILL_ICONS: SkillIcon[] = [
-  { key: "react", name: "React", kicker: "FRONT-END", color: "#61dafb", url: MOON_ASSETS.react },
+  { key: "react", name: "React", kicker: "WEB DESIGN", color: "#61dafb", url: MOON_ASSETS.react },
   { key: "wordpress", name: "WordPress", kicker: "CMS", color: "#2aa7d0", url: MOON_ASSETS.wordpress },
-  { key: "google", name: "Google · SEO", kicker: "GROWTH", color: "#4285f4", url: MOON_ASSETS.google },
-  { key: "starburst", name: "Motion", kicker: "INTERACTION", color: "#ff8a3c", url: MOON_ASSETS.starburst },
-  { key: "heart", name: "Brand & UX", kicker: "IDENTITY", color: "#ff4d6d", url: MOON_ASSETS.heart },
+  { key: "google", name: "Google", kicker: "GROWTH", color: "#4285f4", url: MOON_ASSETS.google },
+  { key: "starburst", name: "Claude", kicker: "AI DEV", color: "#ff8a3c", url: MOON_ASSETS.starburst },
+  { key: "heart", name: "Lovable", kicker: "AI APPS", color: "#ff4d6d", url: MOON_ASSETS.heart },
 ];
 
 SKILL_ICONS.forEach((s) => useGLTF.preload(s.url));
+
+// If a model fails to load (e.g. CDN unreachable), render nothing instead of
+// crashing the whole canvas — the glowing centre still shows.
+class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 function Model({ url }: { url: string }) {
   const { scene } = useGLTF(url);
@@ -72,9 +84,11 @@ function Icon({
             document.body.style.cursor = "auto";
           }}
         >
-          <Suspense fallback={null}>
-            <Model url={icon.url} />
-          </Suspense>
+          <ModelBoundary>
+            <Suspense fallback={null}>
+              <Model url={icon.url} />
+            </Suspense>
+          </ModelBoundary>
           <pointLight color={icon.color} intensity={lit ? 4 : 1.8} distance={5} />
           {/* glowing centre */}
           <mesh>

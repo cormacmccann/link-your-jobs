@@ -210,3 +210,49 @@
   .kk-process { grid-template-columns: 1fr; }
   .kk-skill { padding: 20px 8px; }
 }
+
+/* Skill buttons (open the per-skill flyout) */
+.kk-skillbtns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px auto 10px; max-width: 64ch; }
+.kk-skillbtn {
+  --accent: #8a7c5e;
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid var(--line); background: rgba(74,60,44,.03);
+  border-radius: 30px; padding: 9px 16px; cursor: pointer;
+  font-family: var(--mono); transition: background .2s, border-color .2s;
+}
+.kk-skillbtn:hover, .kk-skillbtn.is-active { background: rgba(74,60,44,.07); border-color: var(--accent); }
+.kk-skillbtn__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.kk-skillbtn__name { font-family: var(--serif); font-size: 16px; font-weight: 600; color: var(--ink); }
+.kk-skillbtn__k { font-size: 8px; letter-spacing: .22em; color: var(--dim); }
+
+/* Per-skill flyout */
+.kk-fly-backdrop {
+  position: fixed; inset: 0; z-index: 60; background: rgba(8,7,5,.5);
+  opacity: 0; visibility: hidden; transition: opacity .4s, visibility .4s;
+}
+.kk-fly-backdrop.is-open { opacity: 1; visibility: visible; }
+.kk-flyout {
+  --accent: #8a7c5e;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(440px, 92vw);
+  background: linear-gradient(165deg, #f4f1e8, #e7e3d6); border-left: 1px solid #cbc4b1;
+  box-shadow: -36px 0 100px rgba(0,0,0,.5);
+  transform: translateX(102%); transition: transform .5s cubic-bezier(.22,.61,.36,1);
+  padding: 54px 40px 44px; overflow-y: auto; text-align: left;
+}
+.kk-flyout.is-open { transform: translateX(0); }
+.kk-flyout::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+.kk-flyout__x {
+  position: absolute; top: 20px; right: 24px; width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--line); background: rgba(255,255,255,.3); color: #6a5f4a;
+  cursor: pointer; font-family: var(--mono); font-size: 12px;
+}
+.kk-flyout__x:hover { border-color: var(--ink); color: var(--ink); }
+.kk-flyout__k { font-family: var(--mono); font-size: 9px; letter-spacing: .32em; color: var(--dim); margin-bottom: 8px; }
+.kk-flyout__h { font-family: var(--serif); font-size: 34px; font-weight: 600; letter-spacing: .02em; margin-bottom: 6px; }
+.kk-flyout__tag { font-family: var(--serif); font-style: italic; font-size: 19px; color: #6a5f4a; margin-bottom: 18px; }
+.kk-flyout__body { font-size: 15px; line-height: 1.75; color: #4a4236; margin-bottom: 22px; }
+.kk-flyout__label { font-family: var(--mono); font-size: 8.5px; letter-spacing: .3em; color: var(--dim); margin: 18px 0 12px; }
+.kk-flyout__list { list-style: none; padding: 0; margin: 0 0 8px; }
+.kk-flyout__list li { position: relative; padding: 7px 0 7px 18px; border-bottom: 1px solid var(--soft); font-size: 14.5px; color: #3f382e; }
+.kk-flyout__list li::before { content: ""; position: absolute; left: 0; top: 13px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.kk-flyout .kk-cta { margin-top: 26px; }
