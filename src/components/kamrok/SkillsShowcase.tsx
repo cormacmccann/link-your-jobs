@@ -1,0 +1,118 @@
+import { Suspense, useMemo, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, Float, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
+
+export type SkillIcon = {
+  key: string;
+  name: string;
+  kicker: string;
+  color: string;
+  url: string;
+};
+
+export const SKILL_ICONS: SkillIcon[] = [
+  { key: "react", name: "React", kicker: "FRONT-END", color: "#61dafb", url: "/skills/react.glb" },
+  { key: "wordpress", name: "WordPress", kicker: "CMS", color: "#2aa7d0", url: "/skills/wordpress.glb" },
+  { key: "google", name: "Google · SEO", kicker: "GROWTH", color: "#4285f4", url: "/skills/google.glb" },
+  { key: "starburst", name: "Motion", kicker: "INTERACTION", color: "#ff8a3c", url: "/skills/starburst.glb" },
+  { key: "heart", name: "Brand & UX", kicker: "IDENTITY", color: "#ff4d6d", url: "/skills/heart.glb" },
+];
+
+SKILL_ICONS.forEach((s) => useGLTF.preload(s.url));
+
+function Model({ url }: { url: string }) {
+  const { scene } = useGLTF(url);
+  const obj = useMemo(() => {
+    const c = scene.clone(true);
+    const box = new THREE.Box3().setFromObject(c);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const s = 2 / Math.max(0.001, Math.max(size.x, size.y, size.z));
+    c.scale.setScalar(s);
+    c.position.set(-center.x * s, -center.y * s, -center.z * s);
+    c.traverse((o) => {
+      if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).castShadow = true;
+    });
+    return c;
+  }, [scene]);
+  return <primitive object={obj} />;
+}
+
+function Icon({
+  icon,
+  x,
+  active,
+  onSelect,
+}: {
+  icon: SkillIcon;
+  x: number;
+  active: boolean;
+  onSelect: (k: string) => void;
+}) {
+  const [hover, setHover] = useState(false);
+  const lit = hover || active;
+  return (
+    <group position={[x, 0, 0]}>
+      <Float speed={2} rotationIntensity={0.8} floatIntensity={1.1}>
+        <group
+          scale={lit ? 1.18 : 1}
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect(icon.key);
+          }}
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            setHover(true);
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            setHover(false);
+            document.body.style.cursor = "auto";
+          }}
+        >
+          <Suspense fallback={null}>
+            <Model url={icon.url} />
+          </Suspense>
+          <pointLight color={icon.color} intensity={lit ? 4 : 1.8} distance={5} />
+          {/* glowing centre */}
+          <mesh>
+            <sphereGeometry args={[0.32, 16, 16]} />
+            <meshBasicMaterial color={icon.color} transparent opacity={lit ? 0.7 : 0.4} />
+          </mesh>
+        </group>
+      </Float>
+    </group>
+  );
+}
+
+export default function SkillsShowcase({
+  active,
+  onSelect,
+}: {
+  active: string | null;
+  onSelect: (k: string) => void;
+}) {
+  const gap = 2.0;
+  return (
+    <div className="kk-showcase">
+      <Canvas camera={{ position: [0, 0.4, 11], fov: 44 }} dpr={[1, 1.6]} gl={{ antialias: true }}>
+        <ambientLight intensity={0.7} />
+        <directionalLight position={[4, 6, 6]} intensity={1.1} />
+        <Suspense fallback={null}>
+          {SKILL_ICONS.map((ic, i) => (
+            <Icon
+              key={ic.key}
+              icon={ic}
+              x={(i - (SKILL_ICONS.length - 1) / 2) * gap}
+              active={active === ic.key}
+              onSelect={onSelect}
+            />
+          ))}
+          <ContactShadows position={[0, -1.7, 0]} opacity={0.35} scale={14} blur={2.6} far={3} />
+        </Suspense>
+      </Canvas>
+      <div className="kk-showcase__hint">Tap an icon · drag the buggy into them on the moon</div>
+    </div>
+  );
+}
