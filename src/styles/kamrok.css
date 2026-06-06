@@ -277,6 +277,14 @@
 .kk-visit--solid:hover { filter: brightness(1.1); }
 @media (max-width: 600px) { .kk-case-features, .kk-case-meta { grid-template-columns: 1fr; } }
 
+/* Blog / field notes */
+.kk-notes { display: flex; flex-direction: column; margin-top: 6px; }
+.kk-note { padding: 22px 0; border-top: 1px solid var(--line); text-align: left; }
+.kk-note:first-child { border-top: none; padding-top: 6px; }
+.kk-note__date { font-family: var(--mono); font-size: 8px; letter-spacing: .26em; color: var(--accent); margin-bottom: 8px; }
+.kk-note h2 { font-family: var(--serif); font-size: clamp(20px, 3vw, 26px); font-weight: 600; color: var(--ink); margin-bottom: 9px; line-height: 1.15; }
+.kk-note p { font-size: 14px; line-height: 1.65; color: #cfc9f2; margin-bottom: 12px; }
+
 /* Work — visit link, clients grid, trusted-by logos */
 .kk-visit { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 9px; letter-spacing: .22em; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
 .kk-visit:hover { color: #fff; border-color: var(--accent); }

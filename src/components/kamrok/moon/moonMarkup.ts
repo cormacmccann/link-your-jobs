@@ -142,6 +142,13 @@ export const MOON_MARKUP = `
     <p class="skill-pop__p" id="skillPopP"></p>
   </div>
 
+  <!-- wandering alien speech bubble -->
+  <div class="alien-bubble" id="alienBubble">
+    <span class="ab-tag">◎ VISITOR</span>
+    <p id="alienLine"></p>
+    <button id="alienReply" type="button"></button>
+  </div>
+
   <div id="loader">
     <div class="ldr-stars"></div>
     <div class="ldr-orb">

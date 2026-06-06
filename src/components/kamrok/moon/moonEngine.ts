@@ -931,7 +931,7 @@ export function startMoonExperience(): () => void {
   /* ===== WANDERING ALIEN (idle / walk / run / wave) ===== */
   let alien=null,alienMixer=null;const alienActs={};
   let alienState='idle',alienTimer=2,alienWaveCool=0,alienRunDir=0,alienTarget=null;
-  const ALIEN_TARGET_H=2.1, ALIEN_FACE=0, ALIEN_ROT_X=0, ALIEN_LIFT=0.45;   // height / facing / up-tilt / ground lift
+  const ALIEN_TARGET_H=2.1, ALIEN_FACE=0, ALIEN_ROT_X=0, ALIEN_LIFT=1.4, ALIEN_CHAT_RANGE=16;   // height / facing / up-tilt / ground lift / chat range
   const ALIEN_POS=new T.Vector3(-34,0,24);
   function meshBox(obj){                                    // bbox of meshes only (ignores stray skeleton bones)
     const bb=new T.Box3();let any=false;
@@ -963,7 +963,7 @@ export function startMoonExperience(): () => void {
     const tx=st.x-alien.position.x,tz=st.z-alien.position.z,db=Math.hypot(tx,tz);
     if(alienState!=='wave'&&alienState!=='run'&&db<26&&alienWaveCool<=0){
       alienWaveCool=11;
-      if(Math.random()<0.4){alienRunDir=Math.atan2(-tx,-tz);alienFade('run');alienState=alienActs.run?'run':alienState;alienTimer=2.4;}
+      if(Math.random()<0.4&&db>ALIEN_CHAT_RANGE){alienRunDir=Math.atan2(-tx,-tz);alienFade('run');alienState=alienActs.run?'run':alienState;alienTimer=2.4;}
       else{alien.rotation.y=Math.atan2(tx,tz)+ALIEN_FACE;alienFade('wave');alienState=alienActs.wave?'wave':alienState;alienTimer=2.0;}
     }
     if(alienState==='wave'){if(alienTimer<=0)alienFade('idle');}
@@ -975,8 +975,27 @@ export function startMoonExperience(): () => void {
         else{const a=Math.atan2(dx,dz);alien.rotation.y=a+ALIEN_FACE;alien.position.x+=Math.sin(a)*0.06;alien.position.z+=Math.cos(a)*0.06;}}
     }
     alien.position.y=terrainHeight(alien.position.x,alien.position.z)+ALIEN_LIFT;
+    // proximity speech bubble — face the visitor and float a chat bubble overhead
+    if(db<ALIEN_CHAT_RANGE){
+      alien.rotation.y=Math.atan2(tx,tz)+ALIEN_FACE;
+      if(alienState==='walk'){alienFade('idle');alienTarget=null;alienTimer=3;}
+      if(alienBubble){const sp=project(alien.position.x,alien.position.y+ALIEN_TARGET_H+0.7,alien.position.z);alienBubble.style.left=sp.x+'px';alienBubble.style.top=sp.y+'px';alienBubble.classList.add('show');}
+    }else if(alienBubble){alienBubble.classList.remove('show');}
   }
   loadAlien();
+  /* ===== ALIEN DIALOGUE ===== */
+  const alienBubble=document.getElementById('alienBubble'),alienLineEl=document.getElementById('alienLine'),alienReplyEl=document.getElementById('alienReply');
+  const ALIEN_CHAT=[
+    {a:"Oh — hey. Didn't expect company all the way out here.",y:"Where… am I?"},
+    {a:"The moon. You've been driving around a good while now, friend.",y:"How do I get off this world?"},
+    {a:"Heh. Everyone asks me that, sooner or later.",y:"…so how do I?"},
+    {a:"Find the anomalies — collect every last one scattered across the surface. That should help you leave.",y:"Where are they?"},
+    {a:"They're marked on your map. Chase the glowing dots. Safe travels out there."}
+  ];
+  let aci=0;
+  function renderAlienChat(){if(!alienLineEl)return;const c=ALIEN_CHAT[aci];alienLineEl.textContent=c.a;if(c.y){alienReplyEl.textContent='“'+c.y+'”';alienReplyEl.style.display='';}else{alienReplyEl.style.display='none';}}
+  if(alienReplyEl)alienReplyEl.addEventListener('click',ev=>{ev.stopPropagation();if(aci<ALIEN_CHAT.length-1){aci++;renderAlienChat();}});
+  renderAlienChat();
 
   /* ===== MOON PROPS (rocks, platform, terminals) ===== */
   function placeProp(data,opts){

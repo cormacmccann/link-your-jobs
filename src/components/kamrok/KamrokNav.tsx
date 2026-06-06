@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   BookOpen, Compass, Menu, X, Settings, Map as MapIcon, Target, Volume2,
-  MessageCircle, Youtube, Headphones, Bell,
+  MessageCircle, Youtube, Headphones, Bell, Sparkles, Newspaper,
 } from "lucide-react";
 import "@/styles/immersive.css";
 
@@ -10,6 +10,7 @@ const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
   { to: "/work", label: "WORK", count: "04/12", note: "Selected projects" },
   { to: "/skills", label: "SKILLS", count: "05/05", note: "What we do" },
+  { to: "/blog", label: "BLOG", note: "Field notes" },
   { to: "/tools", label: "TOOLS", count: "24/24", note: "Free toolkit" },
   { to: "/contact", label: "CONTACT", note: "Open channel" },
 ];
@@ -72,16 +73,24 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <div className="im-rail-icons">
           <Link to="/about" className="im-rail-icon" aria-label="About"><BookOpen size={15} strokeWidth={1.2} /><span>ABOUT</span></Link>
           <Link to="/work" className="im-rail-icon" aria-label="Work"><Compass size={15} strokeWidth={1.2} /><span>WORK</span></Link>
-          <Link to="/" className="im-rail-icon" aria-label="Moonscape"><MapIcon size={15} strokeWidth={1.2} /><span>MOON</span></Link>
+          <Link to="/skills" className="im-rail-icon" aria-label="Skills"><Sparkles size={15} strokeWidth={1.2} /><span>SKILLS</span></Link>
+          <Link to="/blog" className="im-rail-icon" aria-label="Blog"><Newspaper size={15} strokeWidth={1.2} /><span>BLOG</span></Link>
         </div>
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
-        <button
-          className={`im-rail-btn im-rail-btn--bottom ${showSettings ? "is-active" : ""}`}
-          onClick={() => setShowSettings((s) => !s)} aria-label="Settings"
-        >
-          <Settings size={16} strokeWidth={1.2} />
-        </button>
+        <div className="im-rail-bottom">
+          {!onMoon && (
+            <Link to="/" className="im-rail-icon im-rail-moon" aria-label="Back to the moonscape">
+              <MapIcon size={16} strokeWidth={1.3} /><span>MOON</span>
+            </Link>
+          )}
+          <button
+            className={`im-rail-btn ${showSettings ? "is-active" : ""}`}
+            onClick={() => setShowSettings((s) => !s)} aria-label="Settings"
+          >
+            <Settings size={16} strokeWidth={1.2} />
+          </button>
+        </div>
       </aside>
 
       {/* Settings popover */}

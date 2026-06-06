@@ -13,6 +13,7 @@ import About from "./pages/kamrok/About";
 import Work from "./pages/kamrok/Work";
 import CaseStudy from "./pages/kamrok/CaseStudy";
 import Skills from "./pages/kamrok/Skills";
+import Blog from "./pages/kamrok/Blog";
 import Contact from "./pages/kamrok/Contact";
 
 // Tools Hub
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<CaseStudy />} />
             <Route path="/skills" element={<Skills />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
 
             {/* Tools Hub */}
