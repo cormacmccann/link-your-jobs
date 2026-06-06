@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import cormacPhoto from "@/assets/team/cormac.png.asset.json";
+import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
 
 const PRINCIPLES = [
   { h: "Clarity over decoration", p: "Every element earns its place. If it doesn't help the visitor, it goes." },
@@ -25,13 +27,13 @@ type Member = {
 const TEAM: Member[] = [
   {
     id: "cormac", name: "Cormac McCann", role: "Founder · Design + Build", initials: "CM",
-    color: "#8b7dff", photo: "/team/cormac.png", based: "Dundalk, IE", craft: "Web Design & Code",
+    color: "#8b7dff", photo: cormacPhoto.url, based: "Dundalk, IE", craft: "Web Design & Code",
     bio: "Founder, designer and programmer. Cormac builds the studio's sites end to end and has shipped projects across the board — with a background spanning hospitality, sales and marketing before the screen. A musician and artist at heart, and cautiously curious about AI: where it earns its place, and why that matters.",
     does: ["Design & front-end", "Projects, launched", "Hospitality → sales → marketing", "Music & art", "AI, used with intent"],
   },
   {
     id: "kayla", name: "Kayla Minto", role: "Creative & Client", initials: "KM",
-    color: "#56a8ff", photo: "/team/kayla.png", based: "Dundalk, IE", craft: "Creative Media",
+    color: "#56a8ff", photo: kaylaPhoto.url, based: "Dundalk, IE", craft: "Creative Media",
     bio: "A Creative Media graduate from DKIT, Kayla brings a route that runs sales → hardware → software → back to sales — equal parts creative and commercial. She keeps projects (and clients) moving, and brings a fresh creative eye to everything the studio makes.",
     does: ["Creative Media (DKIT)", "Sales & accounts", "Hardware → software → sales", "Client & content"],
   },
