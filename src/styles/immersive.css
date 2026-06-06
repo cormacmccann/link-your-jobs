@@ -45,14 +45,16 @@
 
 /* Left rail */
 .im-rail {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: 64px; z-index: 30;
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 60px; z-index: 30;
   display: flex; flex-direction: column; align-items: center;
-  padding: 18px 0;
-  background: linear-gradient(90deg, rgba(7,7,10,.55), rgba(7,7,10,0));
+  padding: 16px 0;
+  background: linear-gradient(180deg, #0c0b1a, #08070f);
+  border-left: 1px solid var(--line);
+  box-shadow: -10px 0 34px rgba(0,0,0,.4);
   transition: opacity .35s ease, transform .35s ease;
 }
-.im-rail--hidden { opacity: 0; pointer-events: none; transform: translateX(-12px); }
+.im-rail--hidden { opacity: 0; pointer-events: none; transform: translateX(12px); }
 
 .im-rail-btn {
   width: 36px; height: 36px; border-radius: 50%;
@@ -141,20 +143,20 @@
 
 /* Drawer */
 .im-drawer {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: min(560px, 92vw);
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(520px, 90vw);
   background: var(--panel);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   z-index: 40;
-  padding: 70px 56px 32px;
-  transform: translateX(-100%);
+  padding: 70px 52px 32px;
+  transform: translateX(100%);
   transition: transform .55s cubic-bezier(.7,.05,.2,1);
   display: flex; flex-direction: column;
   overflow-y: auto;
 }
-.im-drawer--open { transform: translateX(0); box-shadow: 30px 0 90px rgba(0,0,0,.6); }
+.im-drawer--open { transform: translateX(0); box-shadow: -30px 0 90px rgba(0,0,0,.6); }
 
 .im-drawer-close {
   position: absolute; top: 22px; left: 22px;
@@ -294,12 +296,9 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
 .im-nav-root * { box-sizing: border-box; }
-/* Over the moon, lift the rail clear of the moon's filigree corner */
-.im-nav-root--moon .im-rail { padding-top: 70px; }
-
-/* Settings popover (fullscreen / volume) */
+/* Settings popover (music / sound / fullscreen / volume) — anchored to the right bar */
 .im-settings {
-  position: fixed; left: 70px; bottom: 16px; z-index: 41; width: 214px;
+  position: fixed; right: 68px; bottom: 16px; left: auto; z-index: 41; width: 214px;
   background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   padding: 14px 16px 15px; color: var(--ink);
@@ -314,3 +313,19 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 .im-toggle button { appearance: none; background: none; border: none; color: var(--ink-dim); font-family: var(--mono); font-size: 8.5px; letter-spacing: .16em; padding: 5px 12px; cursor: pointer; }
 .im-toggle button.is-on { background: var(--accent); color: #0a0820; }
 .im-settings-row--vol input[type="range"] { flex: 1; accent-color: var(--accent); height: 3px; cursor: pointer; }
+
+/* Bottom-left mini hub — opens the moon's map / objectives */
+.im-hub { position: fixed; left: 16px; bottom: 16px; z-index: 28; display: flex; gap: 8px; }
+.im-hub-btn {
+  display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 30px;
+  background: rgba(12, 10, 28, .78); border: 1px solid var(--line); color: var(--ink-dim); cursor: pointer;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: border-color .2s, color .2s, background .2s;
+}
+.im-hub-btn:hover { color: var(--ink); border-color: var(--line-strong); }
+.im-hub-btn.is-on { color: #0a0820; background: var(--accent); border-color: var(--accent); }
+@media (max-width: 600px) {
+  .im-hub-btn span { display: none; }
+  .im-hub-btn { padding: 9px; }
+}

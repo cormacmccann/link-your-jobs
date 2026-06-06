@@ -168,22 +168,23 @@
 
   /* keep the chrome clear of the filigree corners */
   .nav{padding:40px 154px!important}
-  .hud-radar{top:142px!important;left:104px!important}
-  .hud-obj{left:104px!important}
-  .hud-stat{left:104px!important;bottom:152px!important}
-  .compass{right:152px!important}
-  @media(max-width:760px){.nav{padding:30px 96px!important}.hud-radar,.hud-obj,.hud-stat{left:82px!important}.compass{right:96px!important}}
-  /* phones: declutter — page nav lives in the rail, drive via touch + waypoint nodes */
+  /* menu is the right dark bar; map/objectives toggle from the bottom-left hub */
+  .settings{display:none!important}              /* music/sound/fullscreen now live in SETTINGS */
+  .hud-stat{display:none!important}
+  .nav{padding:36px 84px 36px 30px!important}     /* clear the right bar */
+  .hud-radar,.hud-obj{left:24px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
+  .hud-radar{top:74px!important}
+  .hud-obj{top:256px!important;bottom:auto!important}
+  .hud-radar.hud--open,.hud-obj.hud--open{opacity:1;visibility:visible;transform:none}
+  .compass{right:78px!important}                  /* clear the right bar */
   @media(max-width:600px){
-    .nav{padding:26px 16px 26px 76px!important}
+    .nav{padding:24px 70px 24px 14px!important}
     .nav-items{display:none!important}
     .wordmark{font-size:15px!important}.wordmark small{display:none!important}
-    .hud-obj,.hud-stat,.secrets{display:none!important}
-    .hud-radar{top:60px!important;right:14px!important;left:auto!important}
+    .secrets{display:none!important}
     .hud-radar canvas{width:116px!important;height:116px!important;margin:6px!important}
-    .hud-speed{width:160px!important;bottom:120px!important}
-    .compass{right:14px!important;bottom:120px!important}
-    .settings{gap:10px!important;font-size:8px!important;left:50%!important}
+    .hud-speed{width:158px!important;bottom:118px!important}
+    .compass{right:70px!important;bottom:118px!important}
     .panel{width:100vw!important;padding:64px 24px 32px!important}
   }
 

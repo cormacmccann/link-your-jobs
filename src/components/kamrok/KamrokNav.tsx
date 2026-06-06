@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  BookOpen, Compass, Menu, X, Settings, Map as MapIcon,
-  MessageCircle, Youtube, Headphones, Bell, Volume2,
+  BookOpen, Compass, Menu, X, Settings, Map as MapIcon, Target, Volume2,
+  MessageCircle, Youtube, Headphones, Bell,
 } from "lucide-react";
 import "@/styles/immersive.css";
 
 const PRIMARY = [
-  { to: "/about", label: "ABOUT", count: "00/01", note: "The studio & team" },
+  { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
   { to: "/work", label: "WORK", count: "04/12", note: "Selected projects" },
   { to: "/skills", label: "SKILLS", count: "05/05", note: "What we do" },
   { to: "/tools", label: "TOOLS", count: "24/24", note: "Free toolkit" },
@@ -21,88 +21,86 @@ const SOCIAL = [
   { label: "GET NOTIFIED", icon: Bell, note: "Subscribe", href: "mailto:cormac@kamrok.com" },
 ];
 
+type W = Window & {
+  __kamrokVol?: number; __kamrokMusic?: boolean; __kamrokSound?: boolean;
+};
+
 /**
- * Persistent KAMROK navigation — the left rail + drawer + floating pills +
- * functional settings (fullscreen / volume). Shared by the dedicated pages
- * (via ImmersiveShell) and the interactive moon page.
+ * Persistent KAMROK navigation — a dark bar on the right (menu + settings),
+ * with audio/display settings folded into SETTINGS and a bottom-left hub that
+ * opens the moon's map/objectives. Shared by the moon and the dedicated pages.
  */
 export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
   const [open, setOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [fs, setFs] = useState(false);
-  const [vol, setVol] = useState(() => {
-    const v = (window as { __kamrokVol?: number }).__kamrokVol;
-    return typeof v === "number" ? Math.round(v * 100) : 75;
-  });
+  const [vol, setVol] = useState(70);
+  const [music, setMusic] = useState(true);
+  const [sound, setSound] = useState(true);
+  const [mapOn, setMapOn] = useState(false);
+  const [objOn, setObjOn] = useState(false);
   const { pathname } = useLocation();
 
+  useEffect(() => { setOpen(false); setShowSettings(false); }, [pathname]);
   useEffect(() => {
-    setOpen(false);
-    setShowSettings(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    const onFs = () => setFs(!!document.fullscreenElement);
-    document.addEventListener("fullscreenchange", onFs);
-    onFs();
-    return () => document.removeEventListener("fullscreenchange", onFs);
+    const f = () => setFs(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", f); f();
+    return () => document.removeEventListener("fullscreenchange", f);
   }, []);
-
-  useEffect(() => {
-    (window as { __kamrokVol?: number }).__kamrokVol = vol / 100;
-  }, [vol]);
+  useEffect(() => { (window as W).__kamrokVol = vol / 100; }, [vol]);
+  useEffect(() => { (window as W).__kamrokMusic = music; }, [music]);
+  useEffect(() => { (window as W).__kamrokSound = sound; }, [sound]);
 
   const toggleFs = () => {
     try {
       if (document.fullscreenElement) document.exitFullscreen?.();
       else document.documentElement.requestFullscreen?.();
-    } catch {
-      /* noop */
-    }
+    } catch { /* noop */ }
+  };
+  const togglePanel = (id: string, set: (b: boolean) => void) => {
+    const el = document.getElementById(id);
+    if (el) set(el.classList.toggle("hud--open"));
   };
 
   return (
     <div className={`im-nav-root${onMoon ? " im-nav-root--moon" : ""}`}>
-      {/* Left rail */}
+      {/* Right dark menu bar */}
       <aside className={`im-rail ${open ? "im-rail--hidden" : ""}`}>
         <button className="im-rail-btn" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu size={18} strokeWidth={1.4} />
         </button>
         <div className="im-rail-icons">
-          <Link to="/about" className="im-rail-icon" aria-label="About">
-            <BookOpen size={16} strokeWidth={1.2} />
-            <span>ABOUT</span>
-          </Link>
-          <Link to="/work" className="im-rail-icon" aria-label="Work">
-            <Compass size={16} strokeWidth={1.2} />
-            <span>WORK</span>
-          </Link>
-          <Link to="/" className="im-rail-icon" aria-label="Map">
-            <MapIcon size={16} strokeWidth={1.2} />
-            <span>MAP</span>
-          </Link>
+          <Link to="/about" className="im-rail-icon" aria-label="About"><BookOpen size={15} strokeWidth={1.2} /><span>ABOUT</span></Link>
+          <Link to="/work" className="im-rail-icon" aria-label="Work"><Compass size={15} strokeWidth={1.2} /><span>WORK</span></Link>
+          <Link to="/" className="im-rail-icon" aria-label="Moonscape"><MapIcon size={15} strokeWidth={1.2} /><span>MOON</span></Link>
         </div>
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
         <button
           className={`im-rail-btn im-rail-btn--bottom ${showSettings ? "is-active" : ""}`}
-          aria-label="Settings"
-          onClick={() => setShowSettings((s) => !s)}
+          onClick={() => setShowSettings((s) => !s)} aria-label="Settings"
         >
           <Settings size={16} strokeWidth={1.2} />
         </button>
       </aside>
 
-      {/* Floating map / back-to-moon — off-moon only */}
-      {!onMoon && (
-        <Link to="/" className="im-map">
-          <MapIcon size={12} strokeWidth={1.4} /> BACK TO MOON
-        </Link>
-      )}
-
       {/* Settings popover */}
       <div className={`im-settings ${showSettings ? "is-open" : ""}`} aria-hidden={!showSettings}>
         <div className="im-settings-h">SETTINGS</div>
+        <div className="im-settings-row">
+          <span>MUSIC</span>
+          <span className="im-toggle">
+            <button className={music ? "is-on" : ""} onClick={() => setMusic(true)}>ON</button>
+            <button className={!music ? "is-on" : ""} onClick={() => setMusic(false)}>OFF</button>
+          </span>
+        </div>
+        <div className="im-settings-row">
+          <span>SOUND</span>
+          <span className="im-toggle">
+            <button className={sound ? "is-on" : ""} onClick={() => setSound(true)}>ON</button>
+            <button className={!sound ? "is-on" : ""} onClick={() => setSound(false)}>OFF</button>
+          </span>
+        </div>
         <div className="im-settings-row">
           <span>FULLSCREEN</span>
           <span className="im-toggle">
@@ -112,39 +110,27 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         </div>
         <div className="im-settings-row im-settings-row--vol">
           <span><Volume2 size={13} strokeWidth={1.5} /></span>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={vol}
-            onChange={(e) => setVol(Number(e.target.value))}
-            aria-label="Volume"
-          />
+          <input type="range" min={0} max={100} value={vol} onChange={(e) => setVol(Number(e.target.value))} aria-label="Volume" />
         </div>
       </div>
 
-      {/* Drawer */}
+      {/* Drawer (slides from the right) */}
       <div className={`im-drawer ${open ? "im-drawer--open" : ""}`} aria-hidden={!open}>
         <button className="im-drawer-close" onClick={() => setOpen(false)} aria-label="Close menu">
           <X size={16} strokeWidth={1.4} />
         </button>
-
         <nav className="im-nav">
           <ul className="im-nav-primary">
-            {PRIMARY.map((n) => {
-              const active = pathname === n.to;
-              return (
-                <li key={n.to}>
-                  <Link to={n.to} className={`im-nav-item ${active ? "is-active" : ""}`}>
-                    <span className="im-nav-label">{n.label}</span>
-                    {n.count && <span className="im-nav-count">{n.count}</span>}
-                    {n.note && <span className="im-nav-note">{n.note}</span>}
-                  </Link>
-                </li>
-              );
-            })}
+            {PRIMARY.map((n) => (
+              <li key={n.to}>
+                <Link to={n.to} className={`im-nav-item ${pathname === n.to ? "is-active" : ""}`}>
+                  <span className="im-nav-label">{n.label}</span>
+                  {n.count && <span className="im-nav-count">{n.count}</span>}
+                  {n.note && <span className="im-nav-note">{n.note}</span>}
+                </Link>
+              </li>
+            ))}
           </ul>
-
           <div className="im-nav-section">
             <a href="/" className="im-nav-secondary">
               <span className="im-nav-tag">INTERACTIVE</span>
@@ -152,30 +138,35 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
               <span className="im-nav-note">Drive the buggy</span>
             </a>
           </div>
-
           <div className="im-nav-socials">
             {SOCIAL.map((s) => {
               const Icon = s.icon;
               return (
                 <a key={s.label} href={s.href} className="im-soc">
                   <span className="im-soc-note">{s.note}</span>
-                  <span className="im-soc-label">
-                    <Icon size={14} strokeWidth={1.4} /> {s.label}
-                  </span>
+                  <span className="im-soc-label"><Icon size={14} strokeWidth={1.4} /> {s.label}</span>
                 </a>
               );
             })}
           </div>
-
           <div className="im-nav-foot">
-            <span>PRIVACY</span>
-            <span>·</span>
-            <span>TERMS</span>
-            <span>·</span>
+            <span>PRIVACY</span><span>·</span><span>TERMS</span><span>·</span>
             <span>© {new Date().getFullYear()} KAMROK</span>
           </div>
         </nav>
       </div>
+
+      {/* Bottom-left mini hub — opens the moon's map / objectives */}
+      {onMoon && (
+        <div className="im-hub">
+          <button className={`im-hub-btn ${mapOn ? "is-on" : ""}`} onClick={() => togglePanel("hudRadar", setMapOn)}>
+            <MapIcon size={14} strokeWidth={1.5} /><span>MAP</span>
+          </button>
+          <button className={`im-hub-btn ${objOn ? "is-on" : ""}`} onClick={() => togglePanel("hudObj", setObjOn)}>
+            <Target size={14} strokeWidth={1.5} /><span>OBJECTIVES</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
