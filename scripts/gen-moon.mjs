@@ -127,6 +127,7 @@ export function startMoonExperience(): () => void {
   (window as any).MUSIC = MOON_ASSETS.music;
   (window as any).ALIEN = { idle: MOON_ASSETS.alienIdle, walk: MOON_ASSETS.alienWalk, run: MOON_ASSETS.alienRun, wave: MOON_ASSETS.alienWave };
   (window as any).PROPS = { rock7: MOON_ASSETS.rock7, rock4: MOON_ASSETS.rock4, platform: MOON_ASSETS.platform, termL: MOON_ASSETS.termL, termS: MOON_ASSETS.termS };
+  (window as any).SKILLS_GLB = { react: MOON_ASSETS.react, wordpress: MOON_ASSETS.wordpress, google: MOON_ASSETS.google, starburst: MOON_ASSETS.starburst, heart: MOON_ASSETS.heart };
   (window as any).WORLD_GLB = ""; (window as any).WORLD_HF = ""; (window as any).WORLD_C = "";
 
   // ---- React lifecycle scaffolding (unbinds everything on unmount) ----

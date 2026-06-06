@@ -18,6 +18,11 @@ import ship from "@/assets/moon/ship.glb.asset.json";
 import termL from "@/assets/moon/termL.glb.asset.json";
 import termS from "@/assets/moon/termS.glb.asset.json";
 import trackColor from "@/assets/moon/trackColor.jpg.asset.json";
+import react from "@/assets/moon/react.glb.asset.json";
+import wordpress from "@/assets/moon/wordpress.glb.asset.json";
+import google from "@/assets/moon/google.glb.asset.json";
+import starburst from "@/assets/moon/starburst.glb.asset.json";
+import heart from "@/assets/moon/heart.glb.asset.json";
 
 export const MOON_ASSETS = {
   alienIdle: alienIdle.url,
@@ -39,4 +44,9 @@ export const MOON_ASSETS = {
   termL: termL.url,
   termS: termS.url,
   trackColor: trackColor.url,
+  react: react.url,
+  wordpress: wordpress.url,
+  google: google.url,
+  starburst: starburst.url,
+  heart: heart.url,
 } as const;

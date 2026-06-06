@@ -27,6 +27,7 @@ export function startMoonExperience(): () => void {
   (window as any).MUSIC = MOON_ASSETS.music;
   (window as any).ALIEN = { idle: MOON_ASSETS.alienIdle, walk: MOON_ASSETS.alienWalk, run: MOON_ASSETS.alienRun, wave: MOON_ASSETS.alienWave };
   (window as any).PROPS = { rock7: MOON_ASSETS.rock7, rock4: MOON_ASSETS.rock4, platform: MOON_ASSETS.platform, termL: MOON_ASSETS.termL, termS: MOON_ASSETS.termS };
+  (window as any).SKILLS_GLB = { react: MOON_ASSETS.react, wordpress: MOON_ASSETS.wordpress, google: MOON_ASSETS.google, starburst: MOON_ASSETS.starburst, heart: MOON_ASSETS.heart };
   (window as any).WORLD_GLB = ""; (window as any).WORLD_HF = ""; (window as any).WORLD_C = "";
 
   // ---- React lifecycle scaffolding (unbinds everything on unmount) ----
@@ -998,12 +999,13 @@ export function startMoonExperience(): () => void {
   })();
 
   /* ===== SKILL ICONS — 3D logos floating on glowing centres around the Skills monument ===== */
+  const SG=window.SKILLS_GLB||{};
   const SKILL_DEFS=[
-    {key:'react',     name:'React',        k:'FRONT-END',   color:0x61dafb, url:'/skills/react.glb',     size:4.6, info:'Component-driven interfaces in React — hooks, state and the buttery client-side interactions this very page is built on.'},
-    {key:'wordpress', name:'WordPress',    k:'CMS',         color:0x2aa7d0, url:'/skills/wordpress.glb', size:4.6, info:'Custom WordPress themes and blocks — editorial, content-led sites that clients can actually run themselves.'},
-    {key:'google',    name:'Google · SEO', k:'GROWTH',      color:0x4285f4, url:'/skills/google.glb',    size:4.6, info:'Technical SEO, analytics and Core Web Vitals — sites built to be found, measured, and to rank.'},
-    {key:'starburst', name:'Motion',       k:'INTERACTION', color:0xff8a3c, url:'/skills/starburst.glb', size:4.6, info:'Framer Motion, GSAP and real-time WebGL — motion that guides the eye without ever showing off.'},
-    {key:'heart',     name:'Brand & UX',   k:'IDENTITY',    color:0xff4d6d, url:'/skills/heart.glb',     size:4.6, info:'Brand systems and human-centred UX — the craft, polish and care that ties everything together.'},
+    {key:'react',     name:'React',        k:'FRONT-END',   color:0x61dafb, url:SG.react,     size:4.6, info:'Component-driven interfaces in React — hooks, state and the buttery client-side interactions this very page is built on.'},
+    {key:'wordpress', name:'WordPress',    k:'CMS',         color:0x2aa7d0, url:SG.wordpress, size:4.6, info:'Custom WordPress themes and blocks — editorial, content-led sites that clients can actually run themselves.'},
+    {key:'google',    name:'Google · SEO', k:'GROWTH',      color:0x4285f4, url:SG.google,    size:4.6, info:'Technical SEO, analytics and Core Web Vitals — sites built to be found, measured, and to rank.'},
+    {key:'starburst', name:'Motion',       k:'INTERACTION', color:0xff8a3c, url:SG.starburst, size:4.6, info:'Framer Motion, GSAP and real-time WebGL — motion that guides the eye without ever showing off.'},
+    {key:'heart',     name:'Brand & UX',   k:'IDENTITY',    color:0xff4d6d, url:SG.heart,     size:4.6, info:'Brand systems and human-centred UX — the craft, polish and care that ties everything together.'},
   ];
   const skillIcons=[]; const skillRayTargets=[]; let openSkill=null;
   const skillPop=document.getElementById('skillPop');

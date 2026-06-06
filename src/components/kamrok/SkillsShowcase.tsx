@@ -2,6 +2,7 @@ import { Suspense, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, Float, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
+import { MOON_ASSETS } from "@/config/moonAssets";
 
 export type SkillIcon = {
   key: string;
@@ -12,11 +13,11 @@ export type SkillIcon = {
 };
 
 export const SKILL_ICONS: SkillIcon[] = [
-  { key: "react", name: "React", kicker: "FRONT-END", color: "#61dafb", url: "/skills/react.glb" },
-  { key: "wordpress", name: "WordPress", kicker: "CMS", color: "#2aa7d0", url: "/skills/wordpress.glb" },
-  { key: "google", name: "Google · SEO", kicker: "GROWTH", color: "#4285f4", url: "/skills/google.glb" },
-  { key: "starburst", name: "Motion", kicker: "INTERACTION", color: "#ff8a3c", url: "/skills/starburst.glb" },
-  { key: "heart", name: "Brand & UX", kicker: "IDENTITY", color: "#ff4d6d", url: "/skills/heart.glb" },
+  { key: "react", name: "React", kicker: "FRONT-END", color: "#61dafb", url: MOON_ASSETS.react },
+  { key: "wordpress", name: "WordPress", kicker: "CMS", color: "#2aa7d0", url: MOON_ASSETS.wordpress },
+  { key: "google", name: "Google · SEO", kicker: "GROWTH", color: "#4285f4", url: MOON_ASSETS.google },
+  { key: "starburst", name: "Motion", kicker: "INTERACTION", color: "#ff8a3c", url: MOON_ASSETS.starburst },
+  { key: "heart", name: "Brand & UX", kicker: "IDENTITY", color: "#ff4d6d", url: MOON_ASSETS.heart },
 ];
 
 SKILL_ICONS.forEach((s) => useGLTF.preload(s.url));
