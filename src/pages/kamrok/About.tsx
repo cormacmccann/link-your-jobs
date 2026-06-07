@@ -153,8 +153,8 @@ export default function About() {
 
       {/* Persistent edge tab to (re)open the "why" pullout */}
       {!whyOpen && (
-        <button className="kk-why-toggle" onClick={() => setWhyOpen(true)} aria-label="Why we build immersive">
-          WHY IMMERSIVE
+        <button className="kk-why-toggle" onClick={() => setWhyOpen(true)} aria-label="Why we built the Moon">
+          WHY THE MOON
         </button>
       )}
 
