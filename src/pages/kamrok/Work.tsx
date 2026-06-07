@@ -55,7 +55,7 @@ export default function Work() {
       description="Selected web design and front-end work — Clubrovia, McKevitt's and clients across Ireland and beyond. Real sites, real businesses, built end to end."
     >
       <Emblem />
-      <div className="kk-eyebrow">SELECTED WORK · 02</div>
+      <div className="kk-eyebrow">SELECTED WORK · 03</div>
       <h1>The Work</h1>
       <Divider />
       <p className="kk-lead-text">
