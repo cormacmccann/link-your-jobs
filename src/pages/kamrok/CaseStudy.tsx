@@ -6,6 +6,10 @@ import clubLaptop from "@/assets/clubrovia/laptop.png.asset.json";
 import clubCoach from "@/assets/clubrovia/coach.png.asset.json";
 import clubAction from "@/assets/clubrovia/in-action.png.asset.json";
 import clubChat from "@/assets/clubrovia/team-chat.png.asset.json";
+import mckHero from "@/assets/mckevitts/hero.png.asset.json";
+import mckRooms from "@/assets/mckevitts/rooms.jpg.asset.json";
+import carlArms from "@/assets/carlingford-arms/hero.png.asset.json";
+
 
 type Feature = { h: string; p: string };
 type Shot = { src: string; alt: string; caption: string; span?: "wide" | "half" | "third" };
