@@ -345,27 +345,25 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 /* ===== Mobile top bar ===== */
 .im-mtop {
   position: fixed; top: 0; left: 0; right: 0; z-index: 45;
-  height: 56px;
+  height: 52px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 14px;
   background: transparent;
-  transition: background .25s, border-color .25s, backdrop-filter .25s;
-  border-bottom: 1px solid transparent;
+  transition: background .25s, backdrop-filter .25s;
 }
 .im-mtop.is-solid {
-  background: rgba(8, 6, 22, .82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: var(--line);
+  background: rgba(8, 6, 22, .72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 .im-mtop-mark {
-  display: flex; flex-direction: column; gap: 2px;
-  font-family: var(--mono); font-size: 13px; letter-spacing: .34em;
+  display: flex; flex-direction: column; gap: 1px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .32em;
   color: var(--ink); text-decoration: none; font-weight: 600;
 }
-.im-mtop-mark small { font-size: 7.5px; letter-spacing: .3em; color: var(--ink-faded); font-weight: 400; }
+.im-mtop-mark small { font-size: 7px; letter-spacing: .3em; color: var(--ink-faded); font-weight: 400; }
 .im-mtop-btn {
-  width: 44px; height: 44px; border-radius: 8px;
+  width: 44px; height: 44px; border-radius: 10px;
   border: none; background: transparent;
   color: var(--ink); display: grid; place-items: center; cursor: pointer;
   -webkit-tap-highlight-color: transparent;
