@@ -162,18 +162,21 @@ export default function About() {
       <aside className={`kk-flyout-left${whyOpen ? " is-open" : ""}`} aria-hidden={!whyOpen}>
         <button className="kk-codex-x" onClick={closeWhy} aria-label="Close">✕</button>
         <div className="kk-eyebrow">WHY WE BUILT THE MOON</div>
-        <h3>We build the whole shop — then we make it unforgettable.</h3>
+        <h3>Templates are a great start. We wanted to go further.</h3>
         <p>
-          KAMROK builds the lot: marketing sites, <strong>Shopify stores</strong>, booking flows,
-          CRMs and web apps — the everyday craft of great web design and code, shipped clean.
+          We don't just build sites — <strong>we specialise in WordPress</strong> and we build to
+          <strong> Shopify</strong>. The craft of clean code, fast stores and sites that actually
+          convert is our day job.
         </p>
         <p>
-          The Moon is the other half. We built a fully explorable 3D world as our portfolio because
-          in a web where every site looks "fine", people remember <strong>how it felt</strong>.
-          Immersive isn't a gimmick — it's a statement about what we can build for you, too.
+          But in a world dominated by templates, we decided to do something different. Inspired by
+          the beautiful sites we kept seeing, we wanted to build our own version — something that
+          wasn't just another page, but an experience.
         </p>
         <p>
-          Stores that sell. Worlds that stick. Both, from the same studio.
+          So we built a fully explorable 3D world — <strong>not because we needed to, but because it
+          shows we can</strong>. It's proof that the same studio building your Shopify store can also
+          build something unforgettable.
         </p>
         <Link className="kk-cta" to="/" onClick={closeWhy}>EXPLORE THE 3D WORLD →</Link>
       </aside>
