@@ -758,3 +758,11 @@
 .kk-grid section:nth-child(4n+2) .kk-k { color: var(--brand-violet); }
 .kk-grid section:nth-child(4n+3) .kk-k { color: var(--brand-white); }
 .kk-grid section:nth-child(4n+4) .kk-k { color: var(--brand-pink); }
+
+/* Work page heading tweaks */
+.work-heading {
+  letter-spacing: 0.005em !important;
+}
+.work-eyebrow {
+  margin-top: 0.5rem;
+}
