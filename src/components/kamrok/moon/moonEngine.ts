@@ -1187,6 +1187,13 @@ export function startMoonExperience(): () => void {
   function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
     if(mode==='space'){spaceTick();return;}
     if(mode==='takeoff'){takeoffTick();return;}
+    // Pulse the landed ship + tractor beam so it reads as "alive" from across the moon
+    if(landedShip){const ud=landedShip.userData,pul=0.5+0.5*Math.sin(clock*2.4);
+      landedShip.traverse(o=>{if(o.isMesh&&o.material){const m=Array.isArray(o.material)?o.material[0]:o.material;
+        if(m&&'emissiveIntensity' in m)m.emissiveIntensity=0.28+pul*0.28;}});
+      if(ud.beam)ud.beam.material.opacity=0.22+pul*0.14;
+      if(ud.beamCore)ud.beamCore.material.opacity=0.34+pul*0.22;
+      if(ud.halo){ud.halo.material.opacity=0.35+pul*0.4;ud.halo.scale.setScalar(0.9+pul*0.35);}}
     if(Math.abs(VIEW-targetVIEW)>0.05){VIEW+=(targetVIEW-VIEW)*0.18;setFrustum();}
     const fwd={x:Math.sin(st.heading),z:Math.cos(st.heading)};
 
