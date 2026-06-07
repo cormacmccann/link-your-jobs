@@ -311,6 +311,21 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   margin-right: 0;
 }
 
+/* Fullbleed pages (case studies) take over the whole viewport */
+.im-main:has(.kk-root--fullbleed) {
+  padding: 0 !important;
+  display: block;
+  justify-content: stretch;
+}
+.im-main:has(.kk-root--fullbleed) > * { max-width: none; margin: 0; width: 100%; }
+body.kk-case-open .im-bg { opacity: 0; transition: opacity .4s ease; }
+body.kk-case-open .im-bg-frame { opacity: 0; }
+body.kk-case-open .im-floating-showcase,
+body.kk-case-open .im-float { display: none !important; }
+body.kk-case-open .im-bg-vignette {
+  background: linear-gradient(180deg, rgba(7,6,26,.55), rgba(8,6,24,.85));
+}
+
 /* ============== MOBILE (<768px): top bar + full-screen menu ============== */
 .im-mobile { display: none; }
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import clubLogo from "@/assets/clubrovia/logo.png.asset.json";
@@ -112,6 +113,12 @@ export default function CaseStudy() {
   const { slug } = useParams();
   const data = slug ? CASES[slug] : undefined;
 
+  useEffect(() => {
+    document.body.classList.add("kk-case-open");
+    return () => document.body.classList.remove("kk-case-open");
+  }, []);
+
+
   if (!data) {
     return (
       <KamrokLayout title="Case study — KAMROK" description="Case study">
@@ -129,8 +136,13 @@ export default function CaseStudy() {
       description={`${data.name}: ${data.tagline} A KAMROK case study.`}
     >
       <div style={{ ["--accent" as string]: data.accent }}>
+        {data.heroImage && (
+          <div className="kk-case-bg" style={{ backgroundImage: `url(${data.heroImage})` }} aria-hidden />
+        )}
+        <div className="kk-case-tint" aria-hidden />
         {/* HERO */}
         <header className="kk-case-hero">
+
           {data.heroImage && (
             <div className="kk-case-hero__bg" style={{ backgroundImage: `url(${data.heroImage})` }} />
           )}
