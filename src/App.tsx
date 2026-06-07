@@ -7,16 +7,32 @@ import { lazy, Suspense } from "react";
 
 import NotFound from "./pages/NotFound";
 
+// Retry a dynamic import once, then hard-reload to recover from stale chunk
+// hashes after a new deploy (the old index.js references chunks that no longer exist).
+const lazyRetry = <T,>(factory: () => Promise<T>) =>
+  lazy(() =>
+    (factory() as Promise<any>).catch((err) => {
+      const msg = String(err?.message || err);
+      const stale = /Importing a module script failed|Failed to fetch dynamically imported module|Unable to preload CSS|ChunkLoadError/i.test(msg);
+      if (stale && typeof window !== "undefined" && !sessionStorage.getItem("__chunk_reloaded")) {
+        sessionStorage.setItem("__chunk_reloaded", "1");
+        window.location.reload();
+        return new Promise(() => {}) as any;
+      }
+      throw err;
+    }),
+  );
+
 // KAMROK site — eagerly load the moon homepage so first paint is fast,
 // lazy-load every other route so phones don't pull tools/case-study chunks upfront.
 import MoonHome from "./pages/kamrok/MoonHome";
 
-const About = lazy(() => import("./pages/kamrok/About"));
-const Work = lazy(() => import("./pages/kamrok/Work"));
-const CaseStudy = lazy(() => import("./pages/kamrok/CaseStudy"));
-const Skills = lazy(() => import("./pages/kamrok/Skills"));
-const Blog = lazy(() => import("./pages/kamrok/Blog"));
-const Contact = lazy(() => import("./pages/kamrok/Contact"));
+const About = lazyRetry(() => import("./pages/kamrok/About"));
+const Work = lazyRetry(() => import("./pages/kamrok/Work"));
+const CaseStudy = lazyRetry(() => import("./pages/kamrok/CaseStudy"));
+const Skills = lazyRetry(() => import("./pages/kamrok/Skills"));
+const Blog = lazyRetry(() => import("./pages/kamrok/Blog"));
+const Contact = lazyRetry(() => import("./pages/kamrok/Contact"));
 
 // Tools Hub — every tool is its own chunk
 const ToolsHub = lazy(() => import("./pages/tools/ToolsHub"));
