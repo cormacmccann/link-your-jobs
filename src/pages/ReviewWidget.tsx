@@ -100,7 +100,7 @@ const ReviewWidget = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-lg px-8"
+              className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-8"
               onClick={() => navigate('/auth')}
             >
               Add Reviews Widget
