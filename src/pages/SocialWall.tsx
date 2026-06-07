@@ -176,7 +176,7 @@ const SocialWall = () => {
           <p className="text-white/70 mb-8 text-lg">Live social feeds that keep your site fresh</p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-lg px-12"
+            className="bg-gradient-to-r from-violet-500 to-pink-600 hover:from-violet-600 hover:to-pink-700 text-lg px-12"
             onClick={() => navigate('/auth')}
           >
             <Sparkles className="w-5 h-5 mr-2" />
