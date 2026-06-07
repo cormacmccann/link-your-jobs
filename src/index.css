@@ -69,10 +69,9 @@ All colors MUST be HSL.
     --text-1: 225 15% 92%; /* #E6E9F2 */
     --text-2: 220 15% 70%; /* #A9B0C0 */
     
-    /* Accent colors */
+    /* Accent colors — pink & violet only (no cyan/orange) */
     --acc-pink: 340 100% 62%; /* #FF3D9A */
     --acc-violet: 260 100% 68%; /* #7C5CFF */
-    --acc-cyan: 185 98% 51%; /* #1FE1E9 */
     
     /* Standard tokens mapped to KAMROK theme */
     --background: var(--bg-0);
@@ -87,19 +86,19 @@ All colors MUST be HSL.
     --popover: var(--bg-2);
     --popover-foreground: var(--text-1);
     
-    /* Primary - Cyan accent */
-    --primary: var(--acc-cyan);
+    /* Primary — Violet accent */
+    --primary: var(--acc-violet);
     --primary-foreground: var(--bg-0);
     
-    /* Secondary - Darker surface with glass effect */
+    /* Secondary — Darker surface with glass effect */
     --secondary: var(--bg-2);
     --secondary-foreground: var(--text-1);
     
-    /* Muted - Subtle dark backgrounds */
+    /* Muted — Subtle dark backgrounds */
     --muted: var(--bg-2);
     --muted-foreground: var(--text-2);
     
-    /* Accent - Pink/Violet gradient colors */
+    /* Accent — Pink/Violet gradient colors */
     --accent: var(--bg-2);
     --accent-foreground: var(--text-1);
     --accent-pink: var(--acc-pink);
@@ -125,12 +124,12 @@ All colors MUST be HSL.
     --metric-red: 0 75% 60%;
     --metric-green: 140 70% 50%;
     --metric-blue: 220 75% 55%;
-    --metric-cyan: var(--acc-cyan);
+    --metric-cyan: var(--acc-violet);
     
     /* Borders with subtle transparency */
     --border: 0 0% 100% / 0.1;
     --input: var(--bg-2);
-    --ring: var(--acc-cyan);
+    --ring: var(--acc-violet);
     
     /* Enhanced border radius */
     --radius: 1.25rem;
@@ -138,12 +137,12 @@ All colors MUST be HSL.
     /* Sidebar with gradient */
     --sidebar-background: var(--bg-1);
     --sidebar-foreground: var(--text-1);
-    --sidebar-primary: var(--acc-cyan);
+    --sidebar-primary: var(--acc-violet);
     --sidebar-primary-foreground: var(--bg-0);
     --sidebar-accent: 0 0% 100% / 0.08;
     --sidebar-accent-foreground: var(--text-1);
     --sidebar-border: 0 0% 100% / 0.1;
-    --sidebar-ring: var(--acc-cyan);
+    --sidebar-ring: var(--acc-violet);
   }
 }
 
