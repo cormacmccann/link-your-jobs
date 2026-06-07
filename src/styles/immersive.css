@@ -289,11 +289,41 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 
 /* Floating, interactive client showcase in the empty left space */
 .im-float { position: fixed; left: 0; top: 0; width: 42%; height: 100%; z-index: 6; pointer-events: none; perspective: 900px; }
-.im-float-item { position: absolute; pointer-events: none; animation: imFloat ease-in-out infinite; will-change: transform; }
-@keyframes imFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-.im-float-inner { display: inline-block; pointer-events: auto; text-decoration: none; transform-style: preserve-3d; transition: transform .15s ease-out, border-color .3s, background .3s; }
-.im-float-logo img { display: block; height: 50px; width: auto; max-width: 200px; opacity: .42; filter: brightness(0) invert(1); transition: opacity .3s; }
-.im-float-logo:hover img { opacity: .95; }
+.im-float-item {
+  position: absolute; pointer-events: none;
+  animation: imFloat ease-in-out infinite; will-change: transform;
+  /* Subtle per-item tilt — not too much. Overridden per nth-child below. */
+  --tilt-x: -4deg; --tilt-y: 6deg; --lift: 18px;
+}
+.im-float-item:nth-child(3n)   { --tilt-x: -6deg; --tilt-y: -8deg; --lift: 24px; }
+.im-float-item:nth-child(3n+1) { --tilt-x: -3deg; --tilt-y: 5deg;  --lift: 14px; }
+.im-float-item:nth-child(5n)   { --tilt-x: -5deg; --tilt-y: 10deg; --lift: 28px; }
+@keyframes imFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.im-float-inner {
+  display: inline-block; pointer-events: auto; text-decoration: none;
+  transform-style: preserve-3d;
+  /* Idle 3D pose — logos sit slightly tilted, lifted off the page */
+  transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(var(--lift));
+  transition: transform .15s ease-out, filter .3s, opacity .3s, border-color .3s, background .3s;
+}
+.im-float-logo {
+  /* No box, no dark plate — just the mark, lifted with a soft shadow */
+  background: transparent !important; border: 0 !important; padding: 0;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+}
+.im-float-logo img {
+  display: block; height: 56px; width: auto; max-width: 220px;
+  opacity: .92;
+  /* Show logos in their real colours — no brightness/invert */
+  filter: none;
+  transition: opacity .3s, transform .3s;
+}
+.im-float-logo:hover { filter: drop-shadow(0 22px 38px rgba(0, 0, 0, .65)) drop-shadow(0 6px 14px rgba(0, 0, 0, .4)); }
+.im-float-logo:hover img { opacity: 1; transform: scale(1.04); }
+
 .im-float-card {
   display: flex; flex-direction: column; gap: 5px; width: 250px; padding: 17px 19px; border-radius: 12px;
   background: linear-gradient(160deg, rgba(44, 37, 86, .72), rgba(18, 14, 38, .74)); border: 1px solid var(--line);
