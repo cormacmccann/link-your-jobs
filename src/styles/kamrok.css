@@ -7,8 +7,8 @@
   --line: rgba(180, 170, 255, .20);
   --soft: rgba(180, 170, 255, .10);
   --accent: #8b7dff;
-  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --mono: ui-monospace, Menlo, Consolas, monospace;
+  --serif: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
+  --mono: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
   color: var(--ink);
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;

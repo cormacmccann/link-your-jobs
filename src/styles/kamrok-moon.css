@@ -4,7 +4,7 @@
     --ink:#f4f4f2; --ink-dim:#9a9a96;
     --line:rgba(244,244,242,0.22); --line-soft:rgba(244,244,242,0.10);
     --panel:rgba(8,9,12,0.74);
-    --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono","Menlo",Consolas,monospace;
+    --mono:'Montserrat','Segoe UI',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:#04050a;color:var(--ink);font-family:var(--mono)}
@@ -129,7 +129,7 @@
   @keyframes sweep{to{left:100%}}
 
   /* ===== ORNATE 'WOODS' UI LAYER ===== */
-  :root{--parch:#e9e3d4;--frame:rgba(233,227,212,0.34);--frame-soft:rgba(233,227,212,0.16);--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+  :root{--parch:#e9e3d4;--frame:rgba(233,227,212,0.34);--frame-soft:rgba(233,227,212,0.16);--serif:'Montserrat','Segoe UI',sans-serif}
   .frame{position:fixed;inset:15px;border:1px solid var(--frame);pointer-events:none;z-index:22}
   .frame::after{content:"";position:absolute;inset:6px;border:1px solid var(--frame-soft)}
   .corner{position:fixed;width:122px;height:122px;z-index:23;pointer-events:none;color:var(--parch);opacity:.82}

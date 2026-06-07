@@ -266,3 +266,23 @@ h1, .page-title {
   font-family: inherit !important;
 }
 
+
+/* ============================================
+   GLOBAL BODY FONT — Montserrat everywhere
+   Headings keep GOBOLD via the rule above (!important)
+   ============================================ */
+html, body, p, span, a, li, ul, ol, button, input, textarea, select,
+label, td, th, div, section, article, aside, header, footer, nav, main,
+small, strong, em, blockquote, figcaption,
+.subtitle, .subhead, .eyebrow, .kk-sub, .kk-k, .kk-meta, .kk-n,
+.kk-flyout__tag, .kk-flyout__label, .kk-tags li, .kk-team-role,
+.kk-step__n, .kk-av-mono, .kk-skillbtn__name {
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Restore heading font (re-assert after the broad rule above) */
+h1, h2, h3, h4, h5, h6,
+.kk-flyout__h, .kk-codex-name, .kk-case-glass span,
+.kk-step h3, .kk-team-name, .kk-case-feature h3 {
+  font-family: 'GOBOLD', 'Oswald', 'Bebas Neue', Impact, sans-serif !important;
+}

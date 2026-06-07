@@ -9,8 +9,8 @@
   --panel: rgba(12, 10, 28, .82);
   --accent: #8b7dff;
   --accent-2: #4ea8ff;
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --serif: 'Montserrat', 'Segoe UI', sans-serif;
+  --mono: 'Montserrat', 'Segoe UI', sans-serif;
   position: relative;
   min-height: 100vh;
   background: #07071a;
@@ -484,8 +484,8 @@ body.kk-case-open .im-bg-vignette {
   --ink: #ece8ff; --ink-dim: #a59ccf; --ink-faded: #6b6499;
   --line: rgba(180, 170, 255, .22); --line-strong: rgba(180, 170, 255, .42);
   --panel: rgba(12, 10, 28, .82); --accent: #8b7dff; --accent-2: #4ea8ff;
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --serif: 'Montserrat', 'Segoe UI', sans-serif;
+  --mono: 'Montserrat', 'Segoe UI', sans-serif;
 }
 .im-nav-root * { box-sizing: border-box; }
 /* Settings popover (music / sound / fullscreen / volume) — anchored to the right bar */
