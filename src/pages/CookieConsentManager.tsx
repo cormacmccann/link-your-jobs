@@ -84,13 +84,13 @@ const CookieConsentManager = () => {
 
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl text-center">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/50">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-500 to-violet-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-pink-500/50">
             <Cookie className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-5xl md:text-7xl font-gobold uppercase mb-6 tracking-tight"
-              style={{ textShadow: '0 0 40px rgba(251, 146, 60, 0.4)' }}>
+              style={{ textShadow: '0 0 40px rgba(255, 61, 154, 0.4)' }}>
             Cookie Consent{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-violet-400">
               Manager
             </span>
           </h1>
