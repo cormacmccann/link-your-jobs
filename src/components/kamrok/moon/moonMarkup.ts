@@ -17,14 +17,25 @@ export const MOON_MARKUP = `
     <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
     <img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" />
     <div class="intro-foot">
-      <p class="sub">This isn't a normal portfolio. Web portfolios can be boring — so we built a world you can drive through. Take the buggy out across the moon, find the monuments, and see exactly what we can do. <b>This is what we do.</b></p>
+      <div class="intro-eyebrow">A WEB STUDIO · DUNDALK, IRELAND</div>
+      <h1 class="intro-headline">We design and build <em>WordPress sites, Shopify stores, logos &amp; web apps</em> for businesses that want to look as good online as they are in real life.</h1>
+      <ul class="intro-services" aria-label="What we do">
+        <li>WordPress websites</li>
+        <li>Shopify stores</li>
+        <li>Logos &amp; brand identity</li>
+        <li>Custom web apps</li>
+        <li>SEO &amp; content</li>
+      </ul>
+      <p class="sub">This isn't a normal portfolio. We built a world you can drive through — take the buggy out across the moon, find the monuments, and see exactly what we can do. <b>This is what we do for fun. Imagine what we'll build for you.</b></p>
       <div class="btns">
         <button class="pill solid" id="introEnter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg>ENTER THE MOON</button>
-        <a class="pill" href="/about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 9-9 9-9-9z"/></svg>ABOUT THE PROJECT</a>
+        <a class="pill" href="/work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>SEE THE WORK</a>
+        <a class="pill" href="/contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 8l8 6 8-6"/></svg>START A PROJECT</a>
       </div>
       <div class="credit">KAMROK · CANDY SHOP DIGITAL LTD · DUNDALK</div>
     </div>
   </div>
+
 
   <!-- ===== BOTTOM SETTINGS STRIP ===== -->
   <div class="settings">

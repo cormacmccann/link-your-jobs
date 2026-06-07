@@ -13,14 +13,24 @@ const FEATURED = [
   },
   {
     n: "FEATURED · CLIENT",
-    title: "McKevitt's",
+    title: "McKevitt's Village Hotel",
     slug: "mckevitts",
-    url: "https://mckevitts.com",
-    body: "A warm, modern website for a long-standing Irish business — clean structure, strong imagery and content the team can keep up to date themselves.",
-    outcome: "A site that finally matches the reputation behind it.",
-    meta: "WEB DESIGN · CMS · CONTENT",
+    url: "https://mckevitts.ie",
+    body: "Logo, brand identity and website for a family-run boutique hotel, bar and restaurant in Carlingford. One coherent mark across stay, dining and bar — and a fast, image-led WordPress site the family runs themselves.",
+    outcome: "One identity, three businesses, and a site that finally looks like the place feels.",
+    meta: "LOGO · BRAND · WEB DESIGN · WORDPRESS",
+  },
+  {
+    n: "CLIENT",
+    title: "The Carlingford Arms",
+    slug: "carlingford-arms",
+    url: "https://carlingfordarms.com",
+    body: "A warm, image-led website for one of Carlingford's best-loved bars and restaurants — menus the team owns, mobile-first reservations and local SEO baked in.",
+    outcome: "More direct bookings, fewer phone calls about 'is the kitchen open?'.",
+    meta: "WEB DESIGN · WORDPRESS · CMS · LOCAL SEO",
   },
 ];
+
 
 const CLIENTS = [
   { name: "Digital Screen Displays", url: "https://digitalscreendisplays.ie", desc: "Digital signage & commercial displays" },
@@ -45,7 +55,7 @@ export default function Work() {
       description="Selected web design and front-end work — Clubrovia, McKevitt's and clients across Ireland and beyond. Real sites, real businesses, built end to end."
     >
       <Emblem />
-      <div className="kk-eyebrow">SELECTED WORK · 02</div>
+      <div className="kk-eyebrow">SELECTED WORK · 03</div>
       <h1>The Work</h1>
       <Divider />
       <p className="kk-lead-text">
