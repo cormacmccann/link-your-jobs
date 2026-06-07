@@ -137,10 +137,10 @@ const SocialWall = () => {
           <p className="text-center text-white/60 mb-12 text-lg">Individual tool or complete social suite</p>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {pricingOptions.map((plan, idx) => (
-              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-cyan-500/50 shadow-xl shadow-cyan-500/20' : ''}`}>
+              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-violet-500/50 shadow-xl shadow-violet-500/20' : ''}`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
+                    <span className="bg-gradient-to-r from-violet-500 to-pink-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
                       Best Value
                     </span>
                   </div>
@@ -153,13 +153,13 @@ const SocialWall = () => {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                      <Check className="w-5 h-5 text-violet-400 flex-shrink-0 mt-0.5" />
                       <span className="text-white/70">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700' : 'bg-white/10 hover:bg-white/20'}`}
+                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-violet-500 to-pink-600 hover:from-violet-600 hover:to-pink-700' : 'bg-white/10 hover:bg-white/20'}`}
                   onClick={() => navigate('/auth')}
                 >
                   Get Started
