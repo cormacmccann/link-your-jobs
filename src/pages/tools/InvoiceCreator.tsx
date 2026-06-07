@@ -75,7 +75,7 @@ export default function InvoiceCreator() {
 <body>
   <div style="display: flex; justify-content: space-between; margin-bottom: 40px;">
     <div>
-      <h1 style="margin: 0; color: #f97316;">INVOICE</h1>
+      <h1 style="margin: 0; color: #FF3D9A;">INVOICE</h1>
       <p style="color: #666;">${invoiceData.invoiceNumber}</p>
     </div>
     <div style="text-align: right;">
