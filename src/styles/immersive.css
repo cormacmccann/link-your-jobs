@@ -318,21 +318,25 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   /* Hide desktop nav chrome entirely */
   .im-rail, .im-settings, .im-drawer, .im-hub { display: none !important; }
 
-  /* Soften / remove decorative chrome */
-  .im-bg-frame { display: none; }
+  /* Hide floating showcase + decorative frame on mobile */
+  .im-bg-frame,
+  .im-floating-showcase,
+  [class*="floating-showcase"] { display: none !important; }
+
+  /* Drastically calm the hero image so content reads */
+  .im-bg { opacity: .35; filter: saturate(.6) brightness(.6); }
   .im-bg-vignette {
     background:
-      radial-gradient(ellipse at 50% 0%, transparent 25%, rgba(8,6,30,.6) 80%),
-      linear-gradient(180deg, rgba(7,5,22,.55) 0%, rgba(7,5,22,.2) 30%, rgba(7,5,22,.85) 100%);
+      linear-gradient(180deg, rgba(7,5,22,.92) 0%, rgba(7,5,22,.72) 40%, rgba(7,5,22,.95) 100%);
   }
 
   /* Reset main padding — top bar is fixed at 56px */
   .im-main {
-    padding: 80px 16px 40px;
+    padding: 72px 18px 40px;
     justify-content: stretch;
     min-height: auto;
   }
-  body.kk-codex-open .im-main { padding-right: 16px; }
+  body.kk-codex-open .im-main { padding-right: 18px; }
   .im-main > * { max-width: 100%; margin: 0; }
 
   /* Show mobile nav */
