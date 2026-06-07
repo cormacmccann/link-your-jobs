@@ -8,16 +8,18 @@ type Card = { type: "card"; tag: string; name: string; desc: string; url: string
 type Item = Logo | Card;
 
 const ITEMS: Item[] = [
-  { type: "card", tag: "OWN PRODUCT", name: "Clubrovia", desc: "Club operating system ↗", url: "https://clubrovia.com", top: "16%", left: "13%", dur: 8.5, delay: 1.1 },
-  { type: "card", tag: "CLIENT", name: "McKevitt's", desc: "Web design ↗", url: "https://mckevitts.com", top: "47%", left: "20%", dur: 7.8, delay: 2 },
-  { type: "card", tag: "CLIENT", name: "Digital Screen Displays", desc: "Signage ↗", url: "https://digitalscreendisplays.ie", top: "75%", left: "11%", dur: 8.6, delay: 0.5 },
-  { type: "logo", src: "/clients/guinness-storehouse.webp", alt: "Guinness Storehouse", url: "https://guinness-storehouse.com", top: "9%", left: "32%", dur: 7.5, delay: 0 },
-  { type: "logo", src: "/clients/coca-cola.png", alt: "Coca-Cola", url: "https://coca-cola.com", top: "33%", left: "5%", dur: 6.8, delay: 0.6 },
-  { type: "logo", src: "/clients/tifco.webp", alt: "TIFCO Hotel Group", url: "https://tifcohotels.com", top: "37%", left: "35%", dur: 7.2, delay: 1.6 },
-  { type: "logo", src: "/clients/crowne-plaza.webp", alt: "Crowne Plaza", url: "https://crowneplaza.com", top: "63%", left: "35%", dur: 8, delay: 0.9 },
-  { type: "logo", src: "/clients/dundalk-stadium.webp", alt: "Dundalk Stadium", url: "https://dundalkstadium.com", top: "89%", left: "30%", dur: 7.6, delay: 1.9 },
-  { type: "logo", src: "/clients/boylesports.png", alt: "BoyleSports", url: "https://boylesports.com", top: "69%", left: "4%", dur: 7, delay: 2.3 },
+  { type: "card", tag: "OWN PRODUCT", name: "Clubrovia", desc: "Club operating system ↗", url: "https://clubrovia.com", top: "14%", left: "13%", dur: 8.5, delay: 1.1 },
+  { type: "card", tag: "CLIENT · LOGO + WEB", name: "McKevitt's", desc: "Hotel · Bar · Restaurant ↗", url: "https://mckevitts.ie", top: "44%", left: "20%", dur: 7.8, delay: 2 },
+  { type: "card", tag: "CLIENT", name: "Carlingford Arms", desc: "Bar & restaurant ↗", url: "https://carlingfordarms.com", top: "72%", left: "13%", dur: 8.6, delay: 0.5 },
+  { type: "logo", src: "/clients/guinness-storehouse.webp", alt: "Guinness Storehouse", url: "https://guinness-storehouse.com", top: "8%", left: "33%", dur: 7.5, delay: 0 },
+  { type: "logo", src: "/clients/coca-cola.png", alt: "Coca-Cola", url: "https://coca-cola.com", top: "30%", left: "4%", dur: 6.8, delay: 0.6 },
+  { type: "logo", src: "/clients/tifco.webp", alt: "TIFCO Hotel Group", url: "https://tifcohotels.com", top: "34%", left: "36%", dur: 7.2, delay: 1.6 },
+  { type: "logo", src: "/clients/crowne-plaza.webp", alt: "Crowne Plaza", url: "https://crowneplaza.com", top: "60%", left: "36%", dur: 8, delay: 0.9 },
+  { type: "logo", src: "/clients/dundalk-stadium.webp", alt: "Dundalk Stadium", url: "https://dundalkstadium.com", top: "86%", left: "31%", dur: 7.6, delay: 1.9 },
+  { type: "logo", src: "/clients/boylesports.png", alt: "BoyleSports", url: "https://boylesports.com", top: "66%", left: "4%", dur: 7, delay: 2.3 },
+  { type: "logo", src: "/clients/centra.webp", alt: "Centra", url: "https://centra.ie", top: "20%", left: "26%", dur: 7.4, delay: 1.2 },
 ];
+
 
 export default function FloatingShowcase() {
   const layerRef = useRef<HTMLDivElement>(null);
