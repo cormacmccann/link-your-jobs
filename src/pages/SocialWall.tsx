@@ -120,8 +120,8 @@ const SocialWall = () => {
             {features.map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <Card key={idx} className="bg-white/5 border-white/10 p-8 hover:border-cyan-500/50 transition-all">
-                  <Icon className="w-12 h-12 text-cyan-400 mb-4" />
+                <Card key={idx} className="bg-white/5 border-white/10 p-8 hover:border-violet-500/50 transition-all">
+                  <Icon className="w-12 h-12 text-violet-400 mb-4" />
                   <h3 className="text-2xl font-gobold uppercase mb-3 tracking-tight">{feature.title}</h3>
                   <p className="text-white/60">{feature.description}</p>
                 </Card>
