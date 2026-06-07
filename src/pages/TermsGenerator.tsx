@@ -175,7 +175,7 @@ const TermsGenerator = () => {
           <p className="text-white/70 mb-8 text-lg">Professional T&Cs in minutes, not days</p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-purple-500 to-orange-600 hover:from-purple-600 hover:to-orange-700 text-lg px-12"
+            className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-12"
             onClick={() => navigate('/auth')}
           >
             <Sparkles className="w-5 h-5 mr-2" />
