@@ -1,7 +1,14 @@
 import { Link, useParams } from "react-router-dom";
-import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import KamrokLayout from "@/components/kamrok/KamrokLayout";
+import clubLogo from "@/assets/clubrovia/logo.png.asset.json";
+import clubLaptop from "@/assets/clubrovia/laptop.png.asset.json";
+import clubCoach from "@/assets/clubrovia/coach.png.asset.json";
+import clubAction from "@/assets/clubrovia/in-action.png.asset.json";
+import clubChat from "@/assets/clubrovia/team-chat.png.asset.json";
 
 type Feature = { h: string; p: string };
+type Shot = { src: string; alt: string; caption: string; span?: "wide" | "half" | "third" };
+type Stat = { value: string; label: string };
 type CaseData = {
   name: string;
   domain: string;
@@ -10,12 +17,18 @@ type CaseData = {
   role: string;
   year: string;
   accent: string;
+  logo?: string;
+  heroImage?: string;
   overview: string;
   challenge: string;
   approach: string;
+  approachExtra?: string[];
   features: Feature[];
   outcome: string;
   services: string[];
+  screenshots?: Shot[];
+  stats?: Stat[];
+  quote?: { text: string; cite: string };
   next: { slug: string; name: string };
 };
 
@@ -24,16 +37,23 @@ const CASES: Record<string, CaseData> = {
     name: "Clubrovia",
     domain: "clubrovia.com",
     url: "https://clubrovia.com",
-    tagline: "A club operating system for the modern sports club.",
+    tagline: "A complete operating system for the modern sports club — many clubs, one platform.",
     role: "Own product · Design + Build",
     year: "2024 — present",
     accent: "#8b7dff",
+    logo: clubLogo.url,
+    heroImage: clubLaptop.url,
     overview:
       "Clubrovia is our own product — a complete operating system for sports clubs. One place to run registration, finances, fundraising, communications and a public-facing club website, across many clubs at once.",
     challenge:
       "Clubs run on spreadsheets, group chats and goodwill. Volunteers burn out chasing membership renewals, reconciling cash and keeping a website alive. We set out to replace all of it with one tool a non-technical committee could actually run.",
     approach:
-      "Multi-tenant from day one — every club gets its own branded space and only the modules it needs. We designed a dedicated admin system for configuration, finances and compliance, alongside a generated 'Club Hub' mini-website for members and supporters, with distinct roles for platform and club management.",
+      "Multi-tenant from day one. Every club gets its own branded space and only the modules it needs — and Clubrovia handles dozens of clubs from a single codebase without breaking a sweat.",
+    approachExtra: [
+      "Two faces, one platform. A dedicated admin system covers configuration, finances and compliance for committees, while a generated 'Club Hub' mini-website serves members and supporters — distinct roles, shared data.",
+      "Finances and compliance baked in. Membership payments, fundraising income, refunds and reconciliation all live in one ledger, with the paper trail clubs actually need at year end.",
+      "Built for the people who actually run clubs. Treasurers, secretaries and coaches — not technologists. Every flow was designed to be obvious on a phone in a noisy clubhouse.",
+    ],
     features: [
       { h: "Registration engine", p: "Memberships, renewals and forms that handle themselves." },
       { h: "Finances & compliance", p: "Money in and out, reconciled, with the paper trail clubs need." },
@@ -45,6 +65,21 @@ const CASES: Record<string, CaseData> = {
     outcome:
       "Hundreds of members managed from one place, by people who aren't techies — less admin, more time for the actual club.",
     services: ["Product design", "Full-stack build", "Design system", "Multi-tenant SaaS", "Payments", "Auth & roles"],
+    screenshots: [
+      { src: clubLaptop.url, alt: "Clubrovia admin dashboard on laptop", caption: "Admin dashboard — one view across every club", span: "wide" },
+      { src: clubCoach.url, alt: "Coach view in Clubrovia", caption: "Coach view — squads, sessions, attendance", span: "half" },
+      { src: clubChat.url, alt: "Team chat in Clubrovia", caption: "Team chat — replaces the group-chat sprawl", span: "half" },
+      { src: clubAction.url, alt: "Clubrovia in action with a real club", caption: "In the wild — running a real Irish sports club", span: "wide" },
+    ],
+    stats: [
+      { value: "1 platform", label: "MANY CLUBS" },
+      { value: "100s", label: "MEMBERS MANAGED" },
+      { value: "0", label: "SPREADSHEETS LEFT" },
+    ],
+    quote: {
+      text: "It finally feels like the club runs itself instead of the other way around.",
+      cite: "— Club secretary, early Clubrovia adopter",
+    },
     next: { slug: "mckevitts", name: "McKevitt's" },
   },
   mckevitts: {
@@ -80,9 +115,7 @@ export default function CaseStudy() {
   if (!data) {
     return (
       <KamrokLayout title="Case study — KAMROK" description="Case study">
-        <Emblem />
         <h1>Not found</h1>
-        <Divider />
         <p className="kk-lead-text">That case study doesn't exist (yet).</p>
         <Link className="kk-cta" to="/work">← BACK TO WORK</Link>
       </KamrokLayout>
@@ -91,61 +124,101 @@ export default function CaseStudy() {
 
   return (
     <KamrokLayout
+      fullBleed
       title={`${data.name} — Case Study | KAMROK`}
       description={`${data.name}: ${data.tagline} A KAMROK case study.`}
     >
-      <div className="kk-case" style={{ ["--accent" as string]: data.accent }}>
-        <div className="kk-eyebrow">CASE STUDY</div>
-        <h1>{data.name}</h1>
-        <p className="kk-case-tag">{data.tagline}</p>
-        <Divider />
-
-        {/* stylised browser mockup */}
-        <a className="kk-case-screen" href={data.url} target="_blank" rel="noopener">
-          <div className="kk-case-bar"><i /><i /><i /><span>{data.domain}</span></div>
-          <div className="kk-case-glass"><span>{data.name}</span><em>VISIT LIVE SITE ↗</em></div>
-        </a>
-
-        <div className="kk-case-meta">
-          <div><span>ROLE</span><b>{data.role}</b></div>
-          <div><span>YEAR</span><b>{data.year}</b></div>
-          <div><span>LIVE</span><a href={data.url} target="_blank" rel="noopener">{data.domain} ↗</a></div>
-        </div>
-
-        <div className="kk-case-body">
-          <p className="kk-lead">{data.overview}</p>
-          <h2>THE CHALLENGE</h2>
-          <p>{data.challenge}</p>
-          <h2>THE APPROACH</h2>
-          <p>{data.approach}</p>
-        </div>
-
-        <h2 className="kk-sub">Highlights</h2>
-        <div className="kk-case-features">
-          {data.features.map((f) => (
-            <div className="kk-case-feature" key={f.h}>
-              <h3>{f.h}</h3>
-              <p>{f.p}</p>
+      <div style={{ ["--accent" as string]: data.accent }}>
+        {/* HERO */}
+        <header className="kk-case-hero">
+          {data.heroImage && (
+            <div className="kk-case-hero__bg" style={{ backgroundImage: `url(${data.heroImage})` }} />
+          )}
+          <div className="kk-case-hero__inner">
+            {data.logo && <img className="kk-case-hero__logo" src={data.logo} alt={`${data.name} logo`} />}
+            <div className="kk-eyebrow">CASE STUDY · {data.year}</div>
+            <h1>{data.name}</h1>
+            <p className="kk-case-hero__tag">{data.tagline}</p>
+            <div className="kk-case-hero__meta">
+              <span>ROLE<b>{data.role}</b></span>
+              <span>YEAR<b>{data.year}</b></span>
+              <span>LIVE<b><a href={data.url} target="_blank" rel="noopener">{data.domain} ↗</a></b></span>
             </div>
-          ))}
-        </div>
+          </div>
+        </header>
 
-        <div className="kk-case-outcome">
-          <span className="kk-eyebrow">THE OUTCOME</span>
-          <p>{data.outcome}</p>
-        </div>
+        <div className="kk-case-wrap">
+          <section className="kk-case-section">
+            <h2>OVERVIEW</h2>
+            <p className="kk-lead">{data.overview}</p>
+          </section>
 
-        <ul className="kk-tags" style={{ justifyContent: "center", maxWidth: "58ch", margin: "22px auto 0" }}>
-          {data.services.map((s) => (
-            <li key={s}>{s}</li>
-          ))}
-        </ul>
+          {data.stats && (
+            <div className="kk-case-stats">
+              {data.stats.map((s) => (
+                <div key={s.label}>
+                  <span className="num">{s.value}</span>
+                  <span className="lab">{s.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
 
-        <div className="kk-case-foot">
-          <Link className="kk-cta" to="/contact">START A PROJECT →</Link>
-          <Link className="kk-case-next" to={`/work/${data.next.slug}`}>
-            NEXT · {data.next.name} →
-          </Link>
+          <section className="kk-case-section">
+            <h2>THE CHALLENGE</h2>
+            <p>{data.challenge}</p>
+          </section>
+
+          <section className="kk-case-section">
+            <h2>THE APPROACH</h2>
+            <p>{data.approach}</p>
+            {data.approachExtra?.map((p, i) => <p key={i}>{p}</p>)}
+          </section>
+
+          {data.screenshots && (
+            <section className="kk-case-section">
+              <h2>INSIDE THE PRODUCT</h2>
+              <div className="kk-case-shots">
+                {data.screenshots.map((s) => (
+                  <figure key={s.src} className={`kk-case-shot kk-case-shot--${s.span ?? "half"}`}>
+                    <img src={s.src} alt={s.alt} loading="lazy" />
+                    <figcaption>{s.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {data.quote && (
+            <blockquote className="kk-case-quote">
+              "{data.quote.text}"
+              <cite>{data.quote.cite}</cite>
+            </blockquote>
+          )}
+
+          <section className="kk-case-section">
+            <h2>HIGHLIGHTS</h2>
+            <div className="kk-case-highlights">
+              {data.features.map((f) => (
+                <div key={f.h}>
+                  <h3>{f.h}</h3>
+                  <p>{f.p}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="kk-case-outcome--big">
+            <span className="kk-eyebrow">THE OUTCOME</span>
+            <p>{data.outcome}</p>
+          </section>
+
+          <div className="kk-case-foot--big">
+            <Link className="kk-cta" to="/contact">START A PROJECT →</Link>
+            <Link className="kk-case-next" to={`/work/${data.next.slug}`}>
+              NEXT · {data.next.name} →
+            </Link>
+          </div>
         </div>
       </div>
     </KamrokLayout>
