@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check, Hash, Shield, RefreshCw, Image, Sparkles, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import kamrokLogo from "@/assets/kamrok-logo.png";
+import kamrokLogo from "/kamrok-logo.png";
 
 const SocialWall = () => {
   const navigate = useNavigate();

@@ -8,7 +8,7 @@ import { GlowCard } from "@/components/ui/GlowCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import kamrokLogo from "@/assets/kamrok-logo.png";
+import kamrokLogo from "/kamrok-logo.png";
 
 const UTMBuilder = () => {
   const [baseUrl, setBaseUrl] = useState("");

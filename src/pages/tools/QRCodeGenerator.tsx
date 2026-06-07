@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
-import kamrokLogo from "@/assets/kamrok-logo.png";
+import kamrokLogo from "/kamrok-logo.png";
 
 const QRCodeGenerator = () => {
   const [url, setUrl] = useState("https://kamrok.com");
