@@ -31,8 +31,8 @@ export default function EmailSignatureGenerator() {
         container: "font-family: Arial, sans-serif; color: #333;",
         name: "font-size: 16px; font-weight: bold; color: #1a1a1a; margin: 0;",
         title: "font-size: 13px; color: #666; margin: 4px 0;",
-        company: "font-size: 13px; color: #f97316; font-weight: 600; margin: 4px 0;",
-        divider: "border-top: 2px solid #f97316; margin: 12px 0; width: 60px;",
+        company: "font-size: 13px; color: #FF3D9A; font-weight: 600; margin: 4px 0;",
+        divider: "border-top: 2px solid #FF3D9A; margin: 12px 0; width: 60px;",
         link: "color: #666; text-decoration: none; font-size: 12px;",
       },
       classic: {

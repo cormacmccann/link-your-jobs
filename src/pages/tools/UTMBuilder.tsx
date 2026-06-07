@@ -100,7 +100,7 @@ const UTMBuilder = () => {
           </Link>
           <div className="hidden md:flex items-center gap-6">
             <Link to="/" className="text-text-2 hover:text-text-1 transition-colors text-sm">Home</Link>
-            <Link to="/tools" className="text-accent-cyan font-medium text-sm">Free Tools</Link>
+            <Link to="/tools" className="text-accent-violet font-medium text-sm">Free Tools</Link>
             <Link to="/services/web-design" className="text-text-2 hover:text-text-1 transition-colors text-sm">Services</Link>
             <Link to="/contact" className="text-text-2 hover:text-text-1 transition-colors text-sm">Contact</Link>
           </div>
@@ -110,7 +110,7 @@ const UTMBuilder = () => {
       <div className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-3xl">
           {/* Back Link */}
-          <Link to="/tools" className="inline-flex items-center gap-2 text-text-2 hover:text-accent-cyan transition-colors mb-8">
+          <Link to="/tools" className="inline-flex items-center gap-2 text-text-2 hover:text-accent-violet transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Tools</span>
           </Link>
@@ -249,7 +249,7 @@ const UTMBuilder = () => {
               <div className="mt-8 pt-8 border-t border-border-1">
                 <Label className="text-text-1 font-medium mb-2 block">Generated URL</Label>
                 <div className="relative">
-                  <div className="bg-bg-1 border border-border-1 rounded-lg p-4 pr-12 font-mono text-sm break-all text-accent-cyan">
+                  <div className="bg-bg-1 border border-border-1 rounded-lg p-4 pr-12 font-mono text-sm break-all text-accent-violet">
                     {generatedUrl}
                   </div>
                   <Button

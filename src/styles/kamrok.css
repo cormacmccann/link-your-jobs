@@ -600,10 +600,10 @@
 }
 
 .kk-flyout-left {
-  --accent: #1FE1E9;
+  --accent: #7C5CFF;
   position: fixed; top: 0; left: 0; bottom: 0; z-index: 60;
   width: min(420px, 92vw); overflow-y: auto;
-  background: radial-gradient(120% 60% at 15% 0%, rgba(31, 225, 233, .18), transparent 55%), linear-gradient(195deg, #0d1a26 0%, #06101a 55%, #0a1620 100%);
+  background: radial-gradient(120% 60% at 15% 0%, rgba(124, 92, 255, .18), transparent 55%), linear-gradient(195deg, #0d1a26 0%, #06101a 55%, #0a1620 100%);
   border-right: 1px solid var(--accent);
   box-shadow: 36px 0 110px rgba(0, 0, 0, .6);
   padding: 56px 28px 30px; color: #d8eff2;
@@ -623,11 +623,11 @@
 .kk-why-toggle {
   position: fixed; top: 50%; left: 0; z-index: 50;
   transform: translateY(-50%) rotate(-90deg); transform-origin: left top;
-  background: linear-gradient(135deg, #1FE1E9, #56a8ff);
+  background: linear-gradient(135deg, #FF3D9A, #7C5CFF);
   color: #0a0820; border: none; padding: 10px 18px;
   font-family: var(--mono); font-size: 9.5px; letter-spacing: .26em;
   cursor: pointer; border-radius: 0 0 8px 8px;
-  box-shadow: 0 6px 20px rgba(31, 225, 233, .35);
+  box-shadow: 0 6px 20px rgba(255, 61, 154, .35);
 }
 .kk-why-toggle:hover { filter: brightness(1.1); }
 .kk-codex-x { z-index: 5; }
@@ -638,24 +638,21 @@
 }
 
 /* ============================================================
-   BRAND COLOR SYSTEM — pink / violet / orange / sun yellow / cyan
+   BRAND COLOR SYSTEM — pink / violet only (no cyan/orange)
    Threads the landing-page palette through the entire app.
    ============================================================ */
 .kk-root {
   --brand-pink:   #FF3D9A;
   --brand-violet: #7C5CFF;
-  --brand-orange: #FF8A4C;
-  --brand-amber:  #FFD27A;
-  --brand-cyan:   #1FE1E9;
-  --brand-grad:        linear-gradient(96deg, #FFD27A 0%, #FF8A4C 32%, #FF3D9A 64%, #7C5CFF 100%);
-  --brand-grad-warm:   linear-gradient(135deg, #FFD27A, #FF8A4C 45%, #FF3D6A);
+  --brand-white:  #FFFFFF;
+  --brand-grad:        linear-gradient(96deg, #FF3D9A 0%, #7C5CFF 100%);
+  --brand-grad-warm:   linear-gradient(135deg, #FF3D9A, #7C5CFF);
   --brand-grad-cool:   linear-gradient(135deg, #7C5CFF, #FF3D9A);
   --brand-glow-pink:   0 10px 36px rgba(255, 61, 154, .35);
-  --brand-glow-warm:   0 12px 38px rgba(255, 138, 76, .35);
   --brand-glow-violet: 0 12px 38px rgba(124, 92, 255, .35);
 }
 
-/* Hero H1 — warm sunrise gradient */
+/* Hero H1 — pink to violet gradient */
 .kk-card h1 {
   background: var(--brand-grad);
   -webkit-background-clip: text; background-clip: text;
@@ -672,14 +669,14 @@
   color: #f1e6ff;
 }
 
-/* Section subhead "More clients", "Trusted by" — rotate brand hues */
+/* Section subhead — rotate pink / violet / white */
 .kk-sub { color: var(--brand-violet); }
 .kk-sub + * + .kk-sub,
 .kk-page > .kk-sub:nth-of-type(2) { color: var(--brand-pink); }
-.kk-page > .kk-sub:nth-of-type(3) { color: var(--brand-orange); }
-.kk-page > .kk-sub:nth-of-type(4) { color: var(--brand-cyan); }
+.kk-page > .kk-sub:nth-of-type(3) { color: var(--brand-white); }
+.kk-page > .kk-sub:nth-of-type(4) { color: var(--brand-violet); }
 
-/* Project rows — accent rotates pink / violet / orange */
+/* Project rows — accent rotates pink / violet / white */
 .kk-proj { position: relative; }
 .kk-proj::before {
   content: ""; position: absolute; left: 0; top: -1px; height: 1px;
@@ -687,8 +684,8 @@
 }
 .kk-proj:nth-child(1) { --accent: var(--brand-pink); }
 .kk-proj:nth-child(2) { --accent: var(--brand-violet); }
-.kk-proj:nth-child(3) { --accent: var(--brand-orange); }
-.kk-proj:nth-child(4) { --accent: var(--brand-amber); }
+.kk-proj:nth-child(3) { --accent: var(--brand-white); }
+.kk-proj:nth-child(4) { --accent: var(--brand-pink); }
 .kk-proj .kk-n { color: var(--accent); }
 .kk-proj h2 {
   background: linear-gradient(96deg, var(--ink), var(--accent));
@@ -696,7 +693,7 @@
   -webkit-text-fill-color: transparent; color: transparent;
 }
 
-/* Primary CTA buttons — brand warm gradient */
+/* Primary CTA buttons — brand pink/violet gradient */
 .kk-cta-big,
 .kk-visit--solid {
   background: var(--brand-grad-warm) !important;
@@ -722,10 +719,10 @@
 /* Client cards — alternating hover accents */
 .kk-client:nth-child(3n+1):hover { border-color: var(--brand-pink);   box-shadow: 0 6px 24px rgba(255, 61, 154, .18); }
 .kk-client:nth-child(3n+2):hover { border-color: var(--brand-violet); box-shadow: 0 6px 24px rgba(124, 92, 255, .18); }
-.kk-client:nth-child(3n+3):hover { border-color: var(--brand-orange); box-shadow: 0 6px 24px rgba(255, 138, 76, .18); }
+.kk-client:nth-child(3n+3):hover { border-color: var(--brand-white);  box-shadow: 0 6px 24px rgba(255, 255, 255, .18); }
 .kk-client:nth-child(3n+1) .kk-client__arrow { color: var(--brand-pink); }
 .kk-client:nth-child(3n+2) .kk-client__arrow { color: var(--brand-violet); }
-.kk-client:nth-child(3n+3) .kk-client__arrow { color: var(--brand-orange); }
+.kk-client:nth-child(3n+3) .kk-client__arrow { color: var(--brand-white); }
 
 /* Logos warm tint on hover instead of pure white */
 .kk-logos img:hover { opacity: 1; filter: none; }
@@ -733,15 +730,15 @@
 /* Process steps — numeral hue rotation */
 .kk-step:nth-child(4n+1) .kk-step__n { color: var(--brand-pink); }
 .kk-step:nth-child(4n+2) .kk-step__n { color: var(--brand-violet); }
-.kk-step:nth-child(4n+3) .kk-step__n { color: var(--brand-orange); }
-.kk-step:nth-child(4n+4) .kk-step__n { color: var(--brand-cyan); }
+.kk-step:nth-child(4n+3) .kk-step__n { color: var(--brand-white); }
+.kk-step:nth-child(4n+4) .kk-step__n { color: var(--brand-pink); }
 
 /* Skill chips */
 .kk-skillbtn:nth-child(5n+1) { --accent: var(--brand-pink); }
 .kk-skillbtn:nth-child(5n+2) { --accent: var(--brand-violet); }
-.kk-skillbtn:nth-child(5n+3) { --accent: var(--brand-orange); }
-.kk-skillbtn:nth-child(5n+4) { --accent: var(--brand-amber); }
-.kk-skillbtn:nth-child(5n+5) { --accent: var(--brand-cyan); }
+.kk-skillbtn:nth-child(5n+3) { --accent: var(--brand-white); }
+.kk-skillbtn:nth-child(5n+4) { --accent: var(--brand-pink); }
+.kk-skillbtn:nth-child(5n+5) { --accent: var(--brand-violet); }
 
 /* Team cards */
 .kk-team-card:nth-child(2n+1) { --accent: var(--brand-pink); }
@@ -756,5 +753,5 @@
 /* Grid section keys rotate */
 .kk-grid section:nth-child(4n+1) .kk-k { color: var(--brand-pink); }
 .kk-grid section:nth-child(4n+2) .kk-k { color: var(--brand-violet); }
-.kk-grid section:nth-child(4n+3) .kk-k { color: var(--brand-orange); }
-.kk-grid section:nth-child(4n+4) .kk-k { color: var(--brand-cyan); }
+.kk-grid section:nth-child(4n+3) .kk-k { color: var(--brand-white); }
+.kk-grid section:nth-child(4n+4) .kk-k { color: var(--brand-pink); }

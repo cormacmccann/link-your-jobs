@@ -84,13 +84,13 @@ const ReviewWidget = () => {
 
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl text-center">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-yellow-500/50">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-500 to-violet-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-pink-500/50">
             <Star className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-5xl md:text-7xl font-gobold uppercase mb-6 tracking-tight"
-              style={{ textShadow: '0 0 40px rgba(234, 179, 8, 0.4)' }}>
+              style={{ textShadow: '0 0 40px rgba(255, 61, 154, 0.4)' }}>
             Review{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-violet-400">
               Widget
             </span>
           </h1>
@@ -100,7 +100,7 @@ const ReviewWidget = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-lg px-8"
+              className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-8"
               onClick={() => navigate('/auth')}
             >
               Add Reviews Widget
@@ -120,8 +120,8 @@ const ReviewWidget = () => {
             {features.map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <Card key={idx} className="bg-white/5 border-white/10 p-8 hover:border-yellow-500/50 transition-all">
-                  <Icon className="w-12 h-12 text-yellow-400 mb-4" />
+                <Card key={idx} className="bg-white/5 border-white/10 p-8 hover:border-pink-500/50 transition-all">
+                  <Icon className="w-12 h-12 text-pink-400 mb-4" />
                   <h3 className="text-2xl font-gobold uppercase mb-3 tracking-tight">{feature.title}</h3>
                   <p className="text-white/60">{feature.description}</p>
                 </Card>
@@ -137,10 +137,10 @@ const ReviewWidget = () => {
           <p className="text-center text-white/60 mb-12 text-lg">Single widget or complete social proof toolkit</p>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {pricingOptions.map((plan, idx) => (
-              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-yellow-500/50 shadow-xl shadow-yellow-500/20' : ''}`}>
+              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-pink-500/50 shadow-xl shadow-pink-500/20' : ''}`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
+                    <span className="bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
                       Best Value
                     </span>
                   </div>
@@ -153,13 +153,13 @@ const ReviewWidget = () => {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                      <Check className="w-5 h-5 text-pink-400 flex-shrink-0 mt-0.5" />
                       <span className="text-white/70">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700' : 'bg-white/10 hover:bg-white/20'}`}
+                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700' : 'bg-white/10 hover:bg-white/20'}`}
                   onClick={() => navigate('/auth')}
                 >
                   Get Started
@@ -176,7 +176,7 @@ const ReviewWidget = () => {
           <p className="text-white/70 mb-8 text-lg">Display your best reviews automatically</p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-lg px-12"
+            className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-12"
             onClick={() => navigate('/auth')}
           >
             <Sparkles className="w-5 h-5 mr-2" />
