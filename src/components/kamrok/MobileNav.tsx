@@ -124,6 +124,7 @@ export default function MobileNav({ onMoon = false }: { onMoon?: boolean }) {
           </div>
         </div>
       </div>
+      <MobileTabBar />
     </div>
   );
 }
