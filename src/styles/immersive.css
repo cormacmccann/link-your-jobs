@@ -315,31 +315,31 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 .im-mobile { display: none; }
 
 @media (max-width: 767px) {
-  /* Hide desktop nav chrome entirely */
-  .im-rail, .im-settings, .im-drawer, .im-hub { display: none !important; }
+  /* Hide ALL desktop nav chrome entirely */
+  .im-rail, .im-settings, .im-drawer, .im-hub,
+  .im-bg-frame, .im-float, .im-floating-showcase,
+  .im-top, .im-map, .im-pill { display: none !important; }
 
-  /* Hide floating showcase + decorative frame on mobile */
-  .im-bg-frame,
-  .im-float { display: none !important; }
-
-  /* Drastically calm the hero image so content reads */
-  .im-bg { opacity: .35; filter: saturate(.6) brightness(.6); }
+  /* Background: pure calm dark — no painterly noise behind type */
+  .im-bg { opacity: .18; filter: saturate(.4) brightness(.45); }
   .im-bg-vignette {
-    background:
-      linear-gradient(180deg, rgba(7,5,22,.92) 0%, rgba(7,5,22,.72) 40%, rgba(7,5,22,.95) 100%);
+    background: linear-gradient(180deg, #07061a 0%, #0a0820 100%);
   }
 
-  /* Reset main padding — top bar is fixed at 56px */
+  /* Main padding accommodates 52px top bar + 68px bottom tab bar + safe area */
   .im-main {
-    padding: 72px 18px 40px;
+    padding: 68px 18px calc(96px + env(safe-area-inset-bottom, 0px));
     justify-content: stretch;
     min-height: auto;
   }
   body.kk-codex-open .im-main { padding-right: 18px; }
   .im-main > * { max-width: 100%; margin: 0; }
 
-  /* Show mobile nav */
   .im-mobile { display: block; }
+
+  /* Tactile press feedback for every interactive element */
+  a, button { -webkit-tap-highlight-color: transparent; }
+  a:active, button:active { transform: scale(.97); transition: transform .12s ease; }
 }
 
 /* ===== Mobile top bar ===== */
