@@ -159,9 +159,9 @@
   .pill.solid:hover{background:#fff}
 
   /* intro / title screen */
-  .intro{position:fixed;inset:0;z-index:40;background:#050609;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;transition:opacity 1.1s ease,visibility 1.1s;padding:clamp(22px,4vh,42px) 24px clamp(22px,4vh,42px);gap:0}
-  .intro-logo{width:clamp(110px,13vw,170px);height:auto;filter:drop-shadow(0 3px 22px rgba(0,0,0,.6))}
-  .intro-foot{display:flex;flex-direction:column;align-items:center;gap:clamp(12px,1.6vh,18px);width:100%;max-width:560px}
+  .intro{position:fixed;inset:0;z-index:40;background:#050609;display:grid;grid-template-rows:auto 1fr auto;align-items:start;justify-items:center;text-align:center;transition:opacity 1.1s ease,visibility 1.1s;padding:clamp(20px,3.5vh,36px) 24px clamp(20px,3.5vh,36px);gap:0}
+  .intro-logo{width:clamp(100px,11vw,150px);height:auto;filter:drop-shadow(0 3px 22px rgba(0,0,0,.6));grid-row:1}
+  .intro-foot{display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.4vh,16px);width:100%;max-width:540px;grid-row:3;align-self:end}
   .intro.hidden{opacity:0;visibility:hidden}
   .intro .title{display:flex;align-items:center;justify-content:center;gap:clamp(16px,3vw,40px);font-family:var(--serif);color:var(--parch);font-weight:600}
   .intro .title .word{font-size:clamp(30px,6.5vw,72px);letter-spacing:.12em;line-height:1}
