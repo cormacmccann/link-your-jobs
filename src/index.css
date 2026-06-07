@@ -232,6 +232,7 @@ h1, h2, h3, h4, h5, h6,
   font-style: italic !important;
   font-weight: 700;
   letter-spacing: .01em;
+  text-transform: uppercase;
   transform: skew(-6deg, -1.5deg);
   transform-origin: left center;
   display: inline-block;
