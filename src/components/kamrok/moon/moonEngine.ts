@@ -972,11 +972,20 @@ export function startMoonExperience(): () => void {
     for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.position.x+=b.userData.vx;b.position.y+=b.userData.vy;b.position.z+=b.userData.vz;b.userData.life--;let hit=false;
       for(let j=0;j<targets.length;j++){const tg=targets[j];if(!tg.userData.alive)continue;if(b.position.distanceTo(tg.position)<14){hit=true;tg.userData.alive=false;explodeAt(tg.position,tg.material.color.getHex());s.score+=10;updateSpaceHud();spaceScene.remove(tg);targets[j]=spawnTarget(true);break;}}
       if(hit||b.userData.life<=0){spaceScene.remove(b);bullets.splice(i,1);}}
-    for(let j=0;j<targets.length;j++){const tg=targets[j];tg.rotation.x+=tg.userData.spin;tg.rotation.y+=tg.userData.spin*0.7;if(tg.position.distanceTo(sShip.position)>2800){spaceScene.remove(tg);targets[j]=spawnTarget(true);}}
+    for(let j=0;j<targets.length;j++){const tg=targets[j];tg.rotation.x+=tg.userData.spin;tg.rotation.y+=tg.userData.spin*0.7;
+      // pulse emissive + halo for "alive" feel
+      if(tg.userData.core){tg.userData.pulse+=0.07;const pp=0.5+0.5*Math.sin(tg.userData.pulse);
+        tg.userData.core.material.emissiveIntensity=0.35+pp*0.45;
+        if(tg.userData.halo)tg.userData.halo.material.opacity=0.55+pp*0.35;}
+      if(tg.position.distanceTo(sShip.position)>2800){spaceScene.remove(tg);targets[j]=spawnTarget(true);}}
     if(galaxy)galaxy.rotation.z+=0.0004;
-    if(nebMat)nebMat.uniforms.uTime.value+=0.016;
-    _v.set(s.x-dx*40,s.y-dy*40+13,s.z-dz*40);spaceCam.position.lerp(_v,0.08);spaceCam.lookAt(s.x+dx*14,s.y+dy*14,s.z+dz*14);
+    if(nebMat)nebMat.uniforms.uTime.value+=0.022;
+    // tactile camera shake when boosting
+    const shk=boosting?0.6:0;const sx=Math.sin(performance.now()*0.05)*shk,sy=Math.cos(performance.now()*0.043)*shk;
+    _v.set(s.x-dx*40+sx,s.y-dy*40+13+sy,s.z-dz*40);spaceCam.position.lerp(_v,0.08);spaceCam.lookAt(s.x+dx*14,s.y+dy*14,s.z+dz*14);
     sStars.position.copy(spaceCam.position);
+    // dust drifts with camera for parallax depth
+    const dust=spaceScene.getObjectByName('dust');if(dust){dust.position.copy(spaceCam.position);dust.rotation.y+=0.0008;}
     renderer.render(spaceScene,spaceCam);
   }
 
