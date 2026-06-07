@@ -176,7 +176,7 @@ const CookieConsentManager = () => {
           <p className="text-white/70 mb-8 text-lg">Set up in minutes, compliant forever</p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-lg px-12"
+            className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-12"
             onClick={() => navigate('/auth')}
           >
             <Sparkles className="w-5 h-5 mr-2" />
