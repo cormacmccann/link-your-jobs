@@ -172,9 +172,9 @@ const VATCalculator = () => {
                     {formatCurrency(result.vatAmount)}
                   </p>
                 </div>
-                <div className="p-4 bg-accent-cyan/10 rounded-lg text-center">
+                <div className="p-4 bg-accent-violet/10 rounded-lg text-center">
                   <p className="text-sm text-text-2 mb-1">Gross Amount</p>
-                  <p className="text-2xl font-gobold text-accent-cyan">
+                  <p className="text-2xl font-gobold text-accent-violet">
                     {formatCurrency(result.grossAmount)}
                   </p>
                 </div>
