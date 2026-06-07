@@ -139,7 +139,7 @@ const TermsGenerator = () => {
               <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-purple-500/50 shadow-xl shadow-purple-500/20' : ''}`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-purple-500 to-orange-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
+                    <span className="bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
                       Best Value
                     </span>
                   </div>
