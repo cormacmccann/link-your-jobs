@@ -137,10 +137,10 @@ const CookieConsentManager = () => {
           <p className="text-center text-white/60 mb-12 text-lg">Stand-alone or as part of the complete toolkit</p>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {pricingOptions.map((plan, idx) => (
-              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-orange-500/50 shadow-xl shadow-orange-500/20' : ''}`}>
+              <Card key={idx} className={`bg-white/5 border-white/10 p-8 relative ${plan.popular ? 'border-pink-500/50 shadow-xl shadow-pink-500/20' : ''}`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
+                    <span className="bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-gobold uppercase px-4 py-1 rounded-full">
                       Best Value
                     </span>
                   </div>
@@ -153,13 +153,13 @@ const CookieConsentManager = () => {
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                      <Check className="w-5 h-5 text-pink-400 flex-shrink-0 mt-0.5" />
                       <span className="text-white/70">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700' : 'bg-white/10 hover:bg-white/20'}`}
+                  className={`w-full ${plan.popular ? 'bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700' : 'bg-white/10 hover:bg-white/20'}`}
                   onClick={() => navigate('/auth')}
                 >
                   Get Started
