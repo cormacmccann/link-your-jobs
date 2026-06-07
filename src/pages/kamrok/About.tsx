@@ -161,21 +161,21 @@ export default function About() {
       {/* Left-side "Why immersive" pullout */}
       <aside className={`kk-flyout-left${whyOpen ? " is-open" : ""}`} aria-hidden={!whyOpen}>
         <button className="kk-codex-x" onClick={closeWhy} aria-label="Close">✕</button>
-        <div className="kk-eyebrow">WHY WE BUILD IMMERSIVE</div>
-        <h3>Great design isn't enough anymore.</h3>
+        <div className="kk-eyebrow">WHY WE BUILT THE MOON</div>
+        <h3>We build the whole shop — then we make it unforgettable.</h3>
         <p>
-          In a world where every site looks "fine", people remember <strong>how it felt</strong>. We build
-          immersive, playful, three-dimensional experiences because that's what the new web expects —
-          and because it's <strong>fun</strong>.
+          KAMROK builds the lot: marketing sites, <strong>Shopify stores</strong>, booking flows,
+          CRMs and web apps — the everyday craft of great web design and code, shipped clean.
         </p>
         <p>
-          We design and deliver the craft of great web design. Then we go further — into content,
-          motion, and worlds people want to explore. Strategy you can feel, not just read.
+          The Moon is the other half. We built a fully explorable 3D world as our portfolio because
+          in a web where every site looks "fine", people remember <strong>how it felt</strong>.
+          Immersive isn't a gimmick — it's a statement about what we can build for you, too.
         </p>
         <p>
-          A site shouldn't just inform. It should pull you in.
+          Stores that sell. Worlds that stick. Both, from the same studio.
         </p>
-        <Link className="kk-cta" to="/" onClick={closeWhy}>ENTER THE MOON →</Link>
+        <Link className="kk-cta" to="/" onClick={closeWhy}>EXPLORE THE 3D WORLD →</Link>
       </aside>
 
       {/* Team-dossier scrim + panel (slides from LEFT) */}
