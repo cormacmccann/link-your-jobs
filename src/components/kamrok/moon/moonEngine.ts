@@ -955,7 +955,7 @@ export function startMoonExperience(): () => void {
       if(life<26&&mode==='space'&&!__disposed)requestAnimationFrame(tk);else spaceScene.remove(pts);})();
   }
   function updateSpaceHud(){const e=document.getElementById('spScore');if(e)e.textContent=sState?sState.score:0;}
-  function enterSpace(){mode='space';buildSpace();document.body.classList.add('space-mode');setTimeout(()=>{flashEl.style.opacity=0;},90);showToast('✦ ENTERING ORBIT — SHOOT THE CUBES');updateSpaceHud();}
+  function enterSpace(){mode='space';buildSpace();document.body.classList.add('space-mode');renderer.toneMappingExposure=1.28;setTimeout(()=>{flashEl.style.opacity=0;},90);showToast('✦ ENTERING ORBIT — SHOOT THE CUBES');updateSpaceHud();}
   const _v=new T.Vector3();
   function spaceTick(){
     const s=sState,TURN2=0.022,PR=0.017;
