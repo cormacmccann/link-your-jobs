@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { GlowCard } from "@/components/ui/GlowCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import kamrokLogo from "@/assets/kamrok-logo.png";
+import kamrokLogo from "/kamrok-logo.png";
 
 const VATCalculator = () => {
   const [amount, setAmount] = useState<string>("100");

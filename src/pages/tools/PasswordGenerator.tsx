@@ -7,7 +7,7 @@ import { GlowCard } from "@/components/ui/GlowCard";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import kamrokLogo from "@/assets/kamrok-logo.png";
+import kamrokLogo from "/kamrok-logo.png";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
