@@ -56,18 +56,23 @@ interface Props {
   description: string;
   maxWidth?: number;
   footerRight?: ReactNode;
+  fullBleed?: boolean;
   children: ReactNode;
 }
 
-export default function KamrokLayout({ title, description, maxWidth = 880, footerRight, children }: Props) {
+export default function KamrokLayout({ title, description, maxWidth = 880, footerRight, fullBleed, children }: Props) {
   return (
     <ImmersiveShell title={title} description={description}>
-      <div className="kk-root kk-root--transparent">
-        <div className="kk-page" style={{ maxWidth }}>
-          <article className="kk-card">
-            <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
-            {children}
-          </article>
+      <div className={`kk-root kk-root--transparent${fullBleed ? " kk-root--fullbleed" : ""}`}>
+        <div className="kk-page" style={{ maxWidth: fullBleed ? "100%" : maxWidth }}>
+          {fullBleed ? (
+            <div className="kk-fullbleed">{children}</div>
+          ) : (
+            <article className="kk-card">
+              <Corner pos="tl" /><Corner pos="tr" /><Corner pos="bl" /><Corner pos="br" />
+              {children}
+            </article>
+          )}
           <footer className="kk-footer">
             <span>© {new Date().getFullYear()} KAMROK — Candy Shop Digital Ltd</span>
             {footerRight ?? <a href="mailto:cormac@kamrok.com">cormac@kamrok.com</a>}
