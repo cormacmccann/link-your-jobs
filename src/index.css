@@ -210,3 +210,52 @@ All colors MUST be HSL.
     animation: spin 20s linear infinite;
   }
 }
+
+/* ============================================
+   GLOBAL HEADINGS — Italic GOBOLD/Oswald tilt
+   Bright sunrise gradient, slight upward skew
+   ============================================ */
+:root {
+  --heading-grad: linear-gradient(96deg,
+    #FFD27A 0%,
+    #FF8A4C 28%,
+    #FF3D9A 58%,
+    #7C5CFF 88%);
+  --heading-glow: 0 0 28px rgba(255, 138, 76, .35),
+                  0 0 60px rgba(255, 61, 154, .18);
+}
+
+h1, h2, h3, h4, h5, h6,
+.kk-flyout__h, .kk-codex-name, .kk-case-glass span,
+.kk-step h3, .kk-team-name, .kk-case-feature h3 {
+  font-family: 'GOBOLD', 'Oswald', 'Bebas Neue', Impact, sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700;
+  letter-spacing: .01em;
+  transform: skew(-6deg, -1.5deg);
+  transform-origin: left center;
+  display: inline-block;
+  background: var(--heading-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 2px 14px rgba(255, 61, 154, .25))
+          drop-shadow(0 0 26px rgba(255, 138, 76, .22));
+  text-shadow: none;
+}
+
+/* Keep utility / chrome headings untouched */
+[role="dialog"] h1, [role="dialog"] h2, [role="dialog"] h3,
+[role="alertdialog"] h1, [role="alertdialog"] h2, [role="alertdialog"] h3,
+.no-fancy-heading, .no-fancy-heading h1, .no-fancy-heading h2,
+.no-fancy-heading h3, .no-fancy-heading h4, .no-fancy-heading h5, .no-fancy-heading h6 {
+  transform: none !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: inherit !important;
+  filter: none !important;
+  font-style: normal !important;
+  font-family: inherit !important;
+}
+
