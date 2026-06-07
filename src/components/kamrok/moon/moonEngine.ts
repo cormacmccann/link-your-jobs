@@ -898,7 +898,14 @@ export function startMoonExperience(): () => void {
     spaceScene=new T.Scene();spaceScene.background=new T.Color(0x02030a);spaceScene.fog=new T.FogExp2(0x05060f,0.00011);
     spaceCam=new T.PerspectiveCamera(64,innerWidth/innerHeight,0.1,14000);
     spaceScene.add(new T.AmbientLight(0x60709a,0.9));
-    const sun=new T.PointLight(0xfff0d0,2.3,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
+    const sun=new T.PointLight(0xfff0d0,3.2,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
+    const rim=new T.PointLight(0x6cf2ff,1.6,9000);rim.position.set(-800,-200,600);spaceScene.add(rim);
+    // Drifting parallax dust layer for depth — additive points, very cheap
+    {const DN=1500,dg=new T.BufferGeometry(),dp=new Float32Array(DN*3);
+      for(let i=0;i<DN;i++){dp[i*3]=(Math.random()-0.5)*4200;dp[i*3+1]=(Math.random()-0.5)*2400;dp[i*3+2]=(Math.random()-0.5)*4200;}
+      dg.setAttribute('position',new T.BufferAttribute(dp,3));
+      const dust=new T.Points(dg,new T.PointsMaterial({color:0xb0c8ff,size:2.5,sizeAttenuation:true,transparent:true,opacity:.55,blending:T.AdditiveBlending,depthWrite:false}));
+      dust.name='dust';spaceScene.add(dust);}
     // procedural nebula skydome (fbm shader) for a richer deep-space backdrop
     nebMat=new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{uTime:{value:0}},
       vertexShader:'varying vec3 vDir;void main(){vDir=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
