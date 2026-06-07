@@ -100,7 +100,7 @@ const UTMBuilder = () => {
           </Link>
           <div className="hidden md:flex items-center gap-6">
             <Link to="/" className="text-text-2 hover:text-text-1 transition-colors text-sm">Home</Link>
-            <Link to="/tools" className="text-accent-cyan font-medium text-sm">Free Tools</Link>
+            <Link to="/tools" className="text-accent-violet font-medium text-sm">Free Tools</Link>
             <Link to="/services/web-design" className="text-text-2 hover:text-text-1 transition-colors text-sm">Services</Link>
             <Link to="/contact" className="text-text-2 hover:text-text-1 transition-colors text-sm">Contact</Link>
           </div>
@@ -110,7 +110,7 @@ const UTMBuilder = () => {
       <div className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-3xl">
           {/* Back Link */}
-          <Link to="/tools" className="inline-flex items-center gap-2 text-text-2 hover:text-accent-cyan transition-colors mb-8">
+          <Link to="/tools" className="inline-flex items-center gap-2 text-text-2 hover:text-accent-violet transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Tools</span>
           </Link>
