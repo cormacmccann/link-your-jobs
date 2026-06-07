@@ -176,7 +176,7 @@ const ReviewWidget = () => {
           <p className="text-white/70 mb-8 text-lg">Display your best reviews automatically</p>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-lg px-12"
+            className="bg-gradient-to-r from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-lg px-12"
             onClick={() => navigate('/auth')}
           >
             <Sparkles className="w-5 h-5 mr-2" />
