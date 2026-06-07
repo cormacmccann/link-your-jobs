@@ -387,3 +387,30 @@
   /* Logos row */
   .kk-logos { justify-content: flex-start; gap: 20px 28px; }
 }
+
+/* Phone: drop the remaining bordered "glass cards" — feels heavy. Pure type. */
+@media (max-width: 767px) {
+  .kk-team-card,
+  .kk-client,
+  .kk-case-feature,
+  .kk-step,
+  .kk-case-outcome {
+    background: transparent !important;
+    border: none !important;
+    border-top: 1px solid rgba(180, 170, 255, .12) !important;
+    border-radius: 0 !important;
+    padding: 22px 0 !important;
+    margin: 0 !important;
+  }
+  .kk-row { border-bottom-color: rgba(180, 170, 255, .12); }
+  .kk-rows { border-top-color: rgba(180, 170, 255, .12); }
+  .kk-codex-panel, .kk-flyout {
+    background: linear-gradient(180deg, #0a0820 0%, #07061a 100%) !important;
+    border: none !important;
+  }
+  .kk-codex-panel::before { display: none; }
+  .kk-client__arrow { display: none; }
+  /* Visit / tag pills look like noise on mobile */
+  .kk-tags { display: none; }
+  .kk-visit { border: none; padding: 0; }
+}
