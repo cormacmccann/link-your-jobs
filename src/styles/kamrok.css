@@ -652,16 +652,18 @@
   --brand-glow-violet: 0 12px 38px rgba(124, 92, 255, .35);
 }
 
-/* Hero H1 — pink to violet gradient */
+/* Hero H1 — bright white/beige (inherits global heading gradient) */
 .kk-card h1 {
-  background: var(--brand-grad);
+  background: var(--heading-grad) !important;
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
 }
 
-/* Eyebrow chip echoes landing intro chip */
+/* Eyebrow chip — own line, below heading */
 .kk-eyebrow {
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin-top: 14px;
   padding: 5px 12px;
   border: 1px solid rgba(255, 61, 154, .32);
   border-radius: 999px;
