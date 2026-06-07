@@ -55,8 +55,8 @@ export default function Work() {
       description="Selected web design and front-end work — Clubrovia, McKevitt's and clients across Ireland and beyond. Real sites, real businesses, built end to end."
     >
       <Emblem />
-      <div className="kk-eyebrow">SELECTED WORK · 03</div>
-      <h1>The Work</h1>
+      <h1 className="work-heading">THE WORK</h1>
+      <div className="kk-eyebrow work-eyebrow">SELECTED WORK · 03</div>
       <Divider />
       <p className="kk-lead-text">
         Real sites for real businesses — from our own products to long-standing local names and brands
