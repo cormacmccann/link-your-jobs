@@ -303,3 +303,12 @@
   .skill-pop__h{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--parch);margin:5px 0 9px;letter-spacing:.02em}
   .skill-pop__p{font-family:var(--mono);font-size:11px;line-height:1.75;color:#c9c9c6}
   .skill-pop::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid var(--pc,rgba(244,244,242,0.3))}
+
+  /* ===== MOBILE (<768px): declutter HUD around the moonscape ===== */
+  @media (max-width: 767px) {
+    .nav, .corner, .frame, .settings,
+    .hud-radar, .hud-obj, .hud-stat, .hud-speed,
+    .compass, .secrets, .hint { display: none !important; }
+    /* Slight bottom safe space so the touch pad isn't flush */
+    .touch { padding: 18px 14px 22px !important; }
+  }

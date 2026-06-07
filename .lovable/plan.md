@@ -1,46 +1,51 @@
-## Goal
-Rebuild `public/index-kamrok.html` (the Three.js moon‑buggy + spaceship experience) as a React route at `/`, using `@react-three/fiber` and `@react-three/drei`, keeping the immersive purple/blue shell intact for the panels.
+## Mobile Redesign Plan
 
-## Asset reality check
-- `public/assets/` does **not** exist in this project. The static HTML expects: `chimp.glb`, `ship.glb`, `alien_idle/walk/run/wave.glb`, `rock4.glb`, `rock7.glb`, `platform.glb`, `termL.glb`, `termS.glb`, `groundColor/Normal/Rough.jpg`, `rockColor/Normal.jpg`, `trackColor.jpg`, `engine.mp3`, `music.mp3`.
-- Without the real .glb files I can only ship placeholder geometry (boxes/spheres) and silent audio. **You'll need to upload the `/assets` folder** for the real moonscape to render. Phase 1 below ships a working skeleton with placeholders so the rest of the work is unblocked.
+Goal: keep the desktop's high-end aesthetic (deep dark, glass, GOBOLD display type, painterly backdrop) but on phones reduce chrome, increase whitespace, and give each page a magazine rhythm: one featured block + tightly-spaced sections.
 
-## Phased build
+### 1. New mobile navigation — top bar + full-screen menu
 
-### Phase 1 — Foundation (this turn)
-- Install `@react-three/fiber@^8.18`, `@react-three/drei@^9.122.0`, `three@^0.160`.
-- New `src/pages/kamrok/MoonHome.tsx` mounted at `/` in `App.tsx` (replacing the current `StaticRedirect` to `index-kamrok.html`).
-- `src/components/kamrok/moon/` directory containing:
-  - `MoonScene.tsx` — `<Canvas>` with starfield, lighting, fog, camera rig.
-  - `Terrain.tsx` — procedural displaced plane with noise (no textures yet → solid color until assets arrive).
-  - `Buggy.tsx` — placeholder buggy (low‑poly geo) with WASD/Arrow driving controls, velocity + steering, chase camera.
-  - `Monuments.tsx` — 4 obelisks at fixed coords (About / Work / Skills / Contact). Proximity triggers a panel.
-  - `Rocks.tsx` — scattered boulder instancing (placeholder spheres) with simple collision.
-  - `HUD.tsx` — overlay using the existing immersive purple/blue tokens: top‑center KAMROK pill, bottom controls hint, monument labels.
-  - `MonumentPanel.tsx` — when a monument is reached (or double‑clicked from a nav), open a glass panel using `ImmersiveShell` styling and route to `/about|work|skills|contact` on "Enter".
+Replace the right-side rail / drawer on screens `<768px` with:
 
-### Phase 2 — Real assets (after you upload `/assets`)
-- Drop `.glb`/`.jpg`/`.mp3` into `public/assets/` (or upload via Lovable Assets if large).
-- Swap placeholders for `useGLTF` loads of chimp, ship, rocks, platform, terminals.
-- Wire PBR textures into the terrain and rocks.
-- Add `music.mp3` + `engine.mp3` with Music/Sound toggles in a settings strip.
+- **Slim top bar (56px)**: KAMROK wordmark left, single icon button right (menu / close). Transparent over hero, becomes solid `rgba(13,12,18,.85)` + blur on scroll.
+- **Full-screen menu**: covers viewport, deep dark with subtle painterly backdrop. Large GOBOLD nav items (ABOUT, WORK, SKILLS, BLOG, TOOLS, CONTACT) stacked, 36–44px, with small count/note under each. Footer holds socials + settings (music/sound/fullscreen) as a compact strip — no separate popover.
+- Hide the right rail, drawer, settings popover, and bottom-left MAP/OBJECTIVES hub at `<768px` (moon HUD also collapses to a single toggle).
+- Implementation: new `MobileNav.tsx`; `KamrokNav` renders `MobileNav` when `useIsMobile()` is true, else current desktop chrome.
 
-### Phase 3 — Anomalies + endgame
-- Scatter glowing anomaly nodes, collect-on-proximity, counter in HUD.
-- On full collection, land the ship at a monument; drive to it to enter flight mode.
+### 2. Moonscape page on mobile
 
-### Phase 4 — Flight mode
-- Swap controls to ship (WASD/Arrows steer, Q/E roll, Shift boost, Space fire), free‑flight starfield scene, target cubes + score.
-- `warp` keyboard cheat.
+Keep the 3D scene as-is per your choice, but declutter the surrounding UI:
 
-## Out of scope (for now)
-- 1:1 visual parity with the original (geometry tweaks, exact buggy proportions, alien NPCs) — those come in phases 2–4.
-- Mobile touch controls — added in a later pass.
+- Hide `FloatingShowcase`, painterly frame corners, and the bottom-left hub.
+- Collapse HUD radar + objectives into a single bottom "i" button that opens a sheet.
+- Reduce DPR/quality only at `<400px` (one-line change in `moonEngine.ts`) so it stays smooth.
 
-## Technical notes
-- All UI overlays use existing `--accent` (#8b7dff) and `--accent-2` (#4ea8ff) tokens from `src/styles/immersive.css` so the moonscape matches the rest of the site.
-- Routes `/about`, `/work`, `/skills`, `/contact` stay as the React pages already built.
-- The old `public/index-kamrok.html` stays on disk so nothing breaks if we need to fall back; `/` no longer redirects to it.
+### 3. Content pages (About / Work / Skills / Blog / Contact) — magazine layout
 
-## What I'll do right now if you approve
-Phase 1 only: install deps, scaffold the R3F scene with placeholder geometry, hook up driving + 4 monuments + HUD, mount it at `/`. Then you upload `/assets` and I do Phase 2.
+Currently each page is one long `kk-card` with corners, dividers, dense rows, and 2-col grids that crush on mobile. New mobile treatment:
+
+- **Featured block (hero)**: page eyebrow + oversized GOBOLD H1 + a single lead paragraph. No corner ornaments at this size; replace with one thin gradient hairline.
+- **Section cards**: each subsequent section (team, process, rows, clients, case features) becomes its own glass card with rounded corners, generous 24px padding, separated by 32px gaps — feels like flipping through a zine instead of one wall of text.
+- All `grid-template-columns: 1fr 1fr` collapses to single column with bigger type and proper rhythm; small "01 / 03" indices replace dense numbering.
+- Increase base font to 16/26, headings get more letter-spacing breathing room. Backdrop opacity bumped so text is comfortable.
+- Add a sticky bottom CTA bar on Contact and Work ("Start a project →") so the primary action is always reachable.
+
+### 4. Background / showcase
+
+- Hide `FloatingShowcase` on mobile (already partially done at 1180px — formalize).
+- Painterly hero image stays but with a stronger top-to-bottom dark gradient so text always reads.
+- Drop the decorative `im-bg-frame` corners on mobile.
+
+### Files to add / change
+
+```text
+src/components/kamrok/MobileNav.tsx          (new — top bar + fullscreen menu)
+src/components/kamrok/KamrokNav.tsx          (gate desktop chrome to >=768px)
+src/components/kamrok/ImmersiveShell.tsx     (hide FloatingShowcase + frame on mobile)
+src/components/kamrok/KamrokLayout.tsx       (drop corner ornaments on mobile, add section-card wrapper option)
+src/styles/immersive.css                     (new mobile breakpoint: top bar, fullscreen menu, hero gradient)
+src/styles/kamrok.css                        (mobile: stack grids, section-card treatment, type scale, spacing)
+src/styles/kamrok-moon.css                   (mobile: hide HUD chrome, consolidate into one toggle)
+src/components/kamrok/moon/MoonExperience.tsx (mobile HUD toggle wiring)
+```
+
+No backend, routing, or content changes — purely presentation. After implementation I'll screenshot at 390×844 to verify each page.

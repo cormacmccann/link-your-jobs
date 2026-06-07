@@ -5,6 +5,7 @@ import {
   MessageCircle, Youtube, Headphones, Bell, Sparkles, Newspaper,
 } from "lucide-react";
 import "@/styles/immersive.css";
+import MobileNav from "./MobileNav";
 
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
@@ -65,7 +66,8 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
 
   return (
     <div className={`im-nav-root${onMoon ? " im-nav-root--moon" : ""}`}>
-      {/* Right dark menu bar */}
+      <MobileNav onMoon={onMoon} />
+      {/* Right dark menu bar (desktop) */}
       <aside className={`im-rail ${open ? "im-rail--hidden" : ""}`}>
         <button className="im-rail-btn" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu size={18} strokeWidth={1.4} />

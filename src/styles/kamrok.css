@@ -298,15 +298,85 @@
 .kk-logos img { height: 28px; width: auto; opacity: .5; filter: brightness(0) invert(1); transition: opacity .2s; }
 .kk-logos img:hover { opacity: .9; }
 
-@media (max-width: 720px) {
-  .kk-clients { grid-template-columns: 1fr; }
-  .kk-card { padding: 40px 22px 34px; border-radius: 8px; }
-  .kk-card::before { inset: 9px; }
-  .kk-pc { width: 30px; height: 30px; }
-  .kk-grid { grid-template-columns: 1fr; }
+@media (max-width: 767px) {
+  /* Magazine layout: drop the framed card, let sections breathe */
+  .kk-page { padding: 8px 0 32px; }
+  .kk-card {
+    padding: 8px 4px 12px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+  }
+  .kk-card::before { display: none; }
+  .kk-pc { display: none; }
+
+  /* Hero block */
+  .kk-emblem { margin: 4px 0 16px; filter: brightness(1.6) saturate(.4); }
+  .kk-eyebrow { text-align: left; margin-bottom: 14px; font-size: 9.5px; letter-spacing: .34em; }
+  .kk-card h1 {
+    font-size: clamp(34px, 9vw, 48px);
+    letter-spacing: .1em;
+    text-align: left;
+    margin-bottom: 18px;
+    line-height: 1.05;
+  }
+  .kk-div { margin: 0 0 24px; width: 88px; max-width: none; opacity: .7; }
+  .kk-sub { text-align: left; margin: 36px 0 14px; }
+
+  /* Each section becomes its own glass card with breathing room */
+  .kk-body,
+  .kk-work,
+  .kk-rows,
+  .kk-grid,
+  .kk-process,
+  .kk-team,
+  .kk-clients,
+  .kk-logos,
+  .kk-case-body,
+  .kk-case-features,
+  .kk-case-meta,
+  .kk-notes,
+  .kk-skillbtns {
+    max-width: none;
+    margin: 0 0 28px;
+  }
+
+  /* Collapse every 2-col grid to single column */
+  .kk-clients, .kk-grid, .kk-process, .kk-team,
+  .kk-case-features, .kk-case-meta { grid-template-columns: 1fr; }
   .kk-grid section:nth-child(odd) { border-right: none; }
-  .kk-process { grid-template-columns: 1fr; }
-  .kk-team { grid-template-columns: 1fr; }
-  .kk-proj { grid-template-columns: 1fr; gap: 6px; }
-  .kk-codex-panel, .kk-flyout { width: 100%; box-shadow: none; padding-left: 26px; padding-right: 26px; }
+  .kk-proj { grid-template-columns: 1fr; gap: 6px; padding: 20px 0; }
+
+  /* Bigger body type for readability */
+  .kk-body p, .kk-case-body p { font-size: 16px; line-height: 1.7; }
+  .kk-lead-text, .kk-contact-lead { font-size: 16px; line-height: 1.6; max-width: none; }
+
+  /* Glass-card treatment for repeating section blocks */
+  .kk-team-card,
+  .kk-client,
+  .kk-case-feature,
+  .kk-step {
+    background: linear-gradient(160deg, rgba(40, 34, 78, .35), rgba(20, 16, 40, .35));
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 18px;
+    margin-bottom: 10px;
+  }
+  .kk-step { border-top: 1px solid var(--line); }
+  .kk-case-feature { border-top: 1px solid var(--line); }
+
+  /* Contact rows — more padding, no cramped baselines */
+  .kk-row { padding: 18px 0; flex-wrap: wrap; gap: 6px; }
+  .kk-row .kk-k { flex: 0 0 100%; }
+
+  /* Skills detail flyout / Codex full-width on phone */
+  .kk-codex-panel, .kk-flyout { width: 100%; box-shadow: none; padding: 70px 22px 28px; }
+
+  /* Footer spacing */
+  .kk-footer { padding: 22px 4px 0; }
+
+  /* Logos row */
+  .kk-logos { justify-content: flex-start; gap: 20px 28px; }
 }
