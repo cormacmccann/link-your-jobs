@@ -320,8 +320,7 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 
   /* Hide floating showcase + decorative frame on mobile */
   .im-bg-frame,
-  .im-floating-showcase,
-  [class*="floating-showcase"] { display: none !important; }
+  .im-float { display: none !important; }
 
   /* Drastically calm the hero image so content reads */
   .im-bg { opacity: .35; filter: saturate(.6) brightness(.6); }
