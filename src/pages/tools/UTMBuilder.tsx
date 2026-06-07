@@ -249,7 +249,7 @@ const UTMBuilder = () => {
               <div className="mt-8 pt-8 border-t border-border-1">
                 <Label className="text-text-1 font-medium mb-2 block">Generated URL</Label>
                 <div className="relative">
-                  <div className="bg-bg-1 border border-border-1 rounded-lg p-4 pr-12 font-mono text-sm break-all text-accent-cyan">
+                  <div className="bg-bg-1 border border-border-1 rounded-lg p-4 pr-12 font-mono text-sm break-all text-accent-violet">
                     {generatedUrl}
                   </div>
                   <Button
