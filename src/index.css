@@ -217,13 +217,11 @@ All colors MUST be HSL.
    Bright sunrise gradient, slight upward skew
    ============================================ */
 :root {
-  --heading-grad: linear-gradient(96deg,
-    #FFD27A 0%,
-    #FF8A4C 28%,
-    #FF3D9A 58%,
-    #7C5CFF 88%);
-  --heading-glow: 0 0 28px rgba(255, 138, 76, .35),
-                  0 0 60px rgba(255, 61, 154, .18);
+  --heading-grad: linear-gradient(180deg,
+    #FFFFFF 0%,
+    #FFF8EC 45%,
+    #EFE0BE 100%);
+  --heading-glow: 0 2px 24px rgba(255, 248, 230, .25);
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -231,20 +229,23 @@ h1, h2, h3, h4, h5, h6,
 .kk-step h3, .kk-team-name, .kk-case-feature h3 {
   font-family: 'GOBOLD', 'Oswald', 'Bebas Neue', Impact, sans-serif !important;
   font-style: italic !important;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: .01em;
   text-transform: uppercase;
-  transform: skew(-6deg, -1.5deg);
-  transform-origin: left center;
   display: inline-block;
   background: var(--heading-grad);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 2px 14px rgba(255, 61, 154, .25))
-          drop-shadow(0 0 26px rgba(255, 138, 76, .22));
+  filter: drop-shadow(0 2px 18px rgba(255, 255, 255, .18));
   text-shadow: none;
+}
+
+/* Only top-level page titles get the upward tilt */
+h1, .page-title {
+  transform: skew(-6deg, -1.5deg);
+  transform-origin: left center;
 }
 
 /* Keep utility / chrome headings untouched */
