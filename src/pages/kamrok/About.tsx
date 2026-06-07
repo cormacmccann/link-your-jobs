@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import KamrokLayout, { Divider } from "@/components/kamrok/KamrokLayout";
 import cormacPhoto from "@/assets/team/cormac.png.asset.json";
 import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
-import kamrokLogo from "/kamrok-logo.png.asset.json";
+import kamrokLogo from "@/assets/kamrok-logo.png.asset.json";
 
 const PRINCIPLES = [
   { h: "Clarity over decoration", p: "Every element earns its place. If it doesn't help the visitor, it goes." },
