@@ -1,51 +1,77 @@
-## Mobile Redesign Plan
+# Mobile: "Tactile App" redesign + performance pass
 
-Goal: keep the desktop's high-end aesthetic (deep dark, glass, GOBOLD display type, painterly backdrop) but on phones reduce chrome, increase whitespace, and give each page a magazine rhythm: one featured block + tightly-spaced sections.
+Desktop stays exactly as-is. Everything below is gated on `<768px` (or route-level for code-split).
 
-### 1. New mobile navigation — top bar + full-screen menu
+## 1. Mobile feel — "Tactile App"
 
-Replace the right-side rail / drawer on screens `<768px` with:
+Goal: feel like a native iOS app, not a website shrunk down.
 
-- **Slim top bar (56px)**: KAMROK wordmark left, single icon button right (menu / close). Transparent over hero, becomes solid `rgba(13,12,18,.85)` + blur on scroll.
-- **Full-screen menu**: covers viewport, deep dark with subtle painterly backdrop. Large GOBOLD nav items (ABOUT, WORK, SKILLS, BLOG, TOOLS, CONTACT) stacked, 36–44px, with small count/note under each. Footer holds socials + settings (music/sound/fullscreen) as a compact strip — no separate popover.
-- Hide the right rail, drawer, settings popover, and bottom-left MAP/OBJECTIVES hub at `<768px` (moon HUD also collapses to a single toggle).
-- Implementation: new `MobileNav.tsx`; `KamrokNav` renders `MobileNav` when `useIsMobile()` is true, else current desktop chrome.
+- **Top bar**: 52px, just KAMROK wordmark left, menu icon right. No borders, no background until scrolled (then `rgba(11,12,16,.7)` + 14px blur).
+- **Bottom tab bar**: fixed, 64px, 5 icons (Moon · Work · Skills · Blog · Contact). Glass blur, no borders, active tab gets the orange→pink gradient underline. Safe-area inset for iPhone notch.
+- **Snap-scroll sections**: each page becomes vertically snap-scrolled "cards" (`scroll-snap-type: y mandatory`). One section per viewport, swipe to next. Page indicator dots on the right edge.
+- **Sticky CTA**: Contact + Work pages get a thumb-zone "Start a project →" button floating above the tab bar.
+- **Press feedback**: every interactive element gets `active:scale-[.97]` + a 120ms ease. Hamburger menu opens with a spring slide-down (not fade).
+- **Zero ornament on mobile**: hide all `kk-emblem`, `kk-div`, `kk-pc`, corner brackets, drop caps, dividers, `im-bg-frame`, `FloatingShowcase`. Already partially done — finish it with a single `[data-mobile] *` reset rule.
+- **Type**: 17/28 body, headings clamp(36px, 10vw, 56px), tighter tracking. One accent color per section instead of multi-color filigree.
 
-### 2. Moonscape page on mobile
+## 2. Moon on mobile — Lightweight 3D
 
-Keep the 3D scene as-is per your choice, but declutter the surrounding UI:
+Edit `moonEngine.ts` with a mobile branch:
+- DPR capped at 1 (vs 1.5–2 on desktop)
+- Shadows OFF
+- Object count halved: drop decorative rocks, alien idle/walk variants keep only one
+- Texture size: load 512px versions instead of 1024/2048
+- Skip post-processing (bloom, AA — use browser MSAA off)
+- Camera FOV slightly wider so smaller scene feels full
+- Replace bottom HUD (radar, objectives, speed, compass) with a single bottom-right "i" button → sheet
 
-- Hide `FloatingShowcase`, painterly frame corners, and the bottom-left hub.
-- Collapse HUD radar + objectives into a single bottom "i" button that opens a sheet.
-- Reduce DPR/quality only at `<400px` (one-line change in `moonEngine.ts`) so it stays smooth.
+Target: <2MB initial moon payload on mobile vs ~8MB desktop.
 
-### 3. Content pages (About / Work / Skills / Blog / Contact) — magazine layout
+## 3. Performance wins
 
-Currently each page is one long `kk-card` with corners, dividers, dense rows, and 2-col grids that crush on mobile. New mobile treatment:
+**Smaller initial JS**
+- Lazy-load `MoonExperience` (already a heavy chunk) via `React.lazy` + Suspense with a static moon poster fallback. First paint shows the poster instantly; Three.js downloads in background.
+- Code-split tool pages — each tool route becomes its own chunk via `lazy()`.
+- Audit `framer-motion` usage; replace simple fades with CSS where possible (saves ~40KB on routes that don't need it).
+- Defer `lovable-tagger` and analytics until idle.
 
-- **Featured block (hero)**: page eyebrow + oversized GOBOLD H1 + a single lead paragraph. No corner ornaments at this size; replace with one thin gradient hairline.
-- **Section cards**: each subsequent section (team, process, rows, clients, case features) becomes its own glass card with rounded corners, generous 24px padding, separated by 32px gaps — feels like flipping through a zine instead of one wall of text.
-- All `grid-template-columns: 1fr 1fr` collapses to single column with bigger type and proper rhythm; small "01 / 03" indices replace dense numbering.
-- Increase base font to 16/26, headings get more letter-spacing breathing room. Backdrop opacity bumped so text is comfortable.
-- Add a sticky bottom CTA bar on Contact and Work ("Start a project →") so the primary action is always reachable.
+**Image optimization**
+- Add `vite-imagetools` plugin. Convert `immersive-hero.jpg` and team photos to AVIF + WebP with JPEG fallback via `<picture>`.
+- Add explicit `width`/`height` on all `<img>` (fixes CLS).
+- Preload LCP image with `<link rel="preload" as="image" fetchpriority="high">` in `index.html`.
+- Lazy-load below-fold images (`loading="lazy" decoding="async"`).
+- Responsive `srcset` so phones don't pull 1920px images.
 
-### 4. Background / showcase
+**Fewer fonts / CSS**
+- Audit GOBOLD weights — keep only the 1–2 used on mobile (likely Regular + Bold). Subset to Latin only.
+- Add `font-display: swap` to every `@font-face`.
+- Tailwind already purges, but audit `kamrok.css` / `immersive.css` for unused selectors after the ornament removal — estimated 30%+ reduction.
+- Inline critical above-the-fold CSS in `index.html`; defer the rest.
 
-- Hide `FloatingShowcase` on mobile (already partially done at 1180px — formalize).
-- Painterly hero image stays but with a stronger top-to-bottom dark gradient so text always reads.
-- Drop the decorative `im-bg-frame` corners on mobile.
+**PWA**
+- Keep `vite-plugin-pwa` but exclude Three.js bundle and moon assets from precache (already partially configured). Switch moon assets to `runtimeCaching` NetworkFirst so they don't block first load.
 
-### Files to add / change
+## 4. Files to touch
 
 ```text
-src/components/kamrok/MobileNav.tsx          (new — top bar + fullscreen menu)
-src/components/kamrok/KamrokNav.tsx          (gate desktop chrome to >=768px)
-src/components/kamrok/ImmersiveShell.tsx     (hide FloatingShowcase + frame on mobile)
-src/components/kamrok/KamrokLayout.tsx       (drop corner ornaments on mobile, add section-card wrapper option)
-src/styles/immersive.css                     (new mobile breakpoint: top bar, fullscreen menu, hero gradient)
-src/styles/kamrok.css                        (mobile: stack grids, section-card treatment, type scale, spacing)
-src/styles/kamrok-moon.css                   (mobile: hide HUD chrome, consolidate into one toggle)
-src/components/kamrok/moon/MoonExperience.tsx (mobile HUD toggle wiring)
+src/components/kamrok/MobileNav.tsx              (slim top bar, no border)
+src/components/kamrok/MobileTabBar.tsx           (NEW — bottom tab bar)
+src/components/kamrok/KamrokLayout.tsx           (snap-scroll wrapper on mobile)
+src/components/kamrok/moon/moonEngine.ts         (mobile branch: DPR, shadows, count, textures)
+src/components/kamrok/moon/MoonExperience.tsx    (lazy + poster fallback)
+src/components/kamrok/ImmersiveShell.tsx         (hide frame/showcase on mobile)
+src/pages/kamrok/Contact.tsx, Work.tsx           (sticky CTA above tab bar)
+src/App.tsx                                      (lazy-load tool routes)
+src/styles/immersive.css                         (mobile reset: no borders/ornament, tab bar, snap)
+src/styles/kamrok.css                            (mobile type scale, section padding for tab bar)
+src/styles/kamrok-moon.css                       (collapse HUD to single button)
+vite.config.ts                                   (vite-imagetools, PWA tuning)
+index.html                                       (preload LCP, font-display swap, critical CSS)
+src/assets/immersive-hero.jpg                    (regenerate as AVIF/WebP via imagetools)
 ```
 
-No backend, routing, or content changes — purely presentation. After implementation I'll screenshot at 390×844 to verify each page.
+## Verification
+
+After build I'll screenshot at 390×844 on About, Work, Contact, Moon to confirm: no borders/filigree, tab bar visible, snap-scroll smooth, moon loads under 2s on simulated 3G throttle. I'll also report bundle-size deltas (before/after) for the initial JS chunk and the moon chunk.
+
+No backend, no routing, no content changes.
