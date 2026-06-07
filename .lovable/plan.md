@@ -1,51 +1,81 @@
-## Goal
-Make the landed ship clearly visible, the space sequence more immersive, and the cube targets look more detailed — all without adding new downloads.
-
-## Scope
-Only `src/components/kamrok/moon/moonEngine.ts` (the three.js scene). Generated file, but edits are surgical and well-contained; no asset additions.
+## Goals
+1. Case studies become a full-screen takeover read, with rich Clubrovia detail (screenshots already in `src/assets/clubrovia/`).
+2. Team-member dossier slides in from the **left** so it isn't hidden behind the right-side nav.
+3. About page leads with the **KAMROK logo** (instant brand recognition) and adds a left-side pull-out explaining the why behind the 3D immersive experience.
 
 ---
 
-## 1. Ship visibility on the moon
+## 1. Fullscreen case study
 
-Currently `landedShip` sits in deep shadow with one cool point light at `2.2` intensity. The ship's own materials read black under our cool ambient.
+Today `CaseStudy.tsx` renders inside `KamrokLayout` (max-width 880, padded card with corner filigree). It feels small.
 
-Changes around `spawnShip()` (lines ~782–796):
-- Walk `landedShip` materials once and boost `emissiveIntensity` to ~0.35 with a warm `emissive` (`0x6a4a1f`) so the hull self-lights without changing textures.
-- Set `metalness` floor 0.6, `roughness` ceiling 0.55 so the warm key light actually reflects.
-- Add a warm key `SpotLight(0xffd9a0, 6, 60, Math.PI/5, 0.45, 1.4)` aimed at the ship from above-front; cool fill PointLight already there, raise to 3.4 intensity / range 90.
-- Strengthen the tractor beam: opacity .16 → .28, add a second inner cone (radius 1.2→2.8) and a ground halo `RingGeometry` with additive blending.
-- Add a slow pulsing glow on `landedShip` via `update()` callback (sin-driven emissiveIntensity 0.25↔0.5).
-- Make the `THE SHIP` DOM marker auto-show a pulsing arrow ring when off-screen so the user can find it.
+Changes:
+- New `CaseStudyShell` (or `KamrokLayout maxWidth={9999} fullBleed` prop) that:
+  - drops the bordered `.kk-card`, corners and `.kk-page` width cap
+  - lets content go edge-to-edge, comfortable reading column for prose but full-width hero/gallery/screenshots
+  - still uses `ImmersiveShell` for nav + background, so the right-side nav stays present (it doesn't block reading because case content is centered)
+- Add a true hero: large title + tagline over a darkened banner using the first Clubrovia screenshot (or accent gradient for cases without imagery).
+- Sticky in-page section nav (Overview · Challenge · Approach · Highlights · Outcome) on the left rail (desktop only) for long reads.
 
-Mobile-safe: spotlight has no shadow; one extra light total.
+### Clubrovia detail upgrade
+Extend the `CaseData` shape with optional fields and fill Clubrovia in fully:
+- `screenshots: { src; alt; caption }[]` — use `laptop.png`, `coach.png`, `in-action.png`, `team-chat.png`
+- `logo: string` — `logo.png` shown above the title
+- `gallery` section: full-width grid alternating large/small screenshots with captions
+- expanded `approach` broken into 3–4 paragraphs (multi-tenant, admin vs club hub, finances/compliance, fundraising)
+- `stats: { value; label }[]` — e.g. "Hundreds of members", "1 platform / many clubs", "0 spreadsheets"
+- `quote: { text; attribution }` (optional pull-quote)
 
-## 2. More immersive space
+McKevitt's keeps its current shape; new fields are optional so it doesn't break.
 
-Edits in `buildSpace()` and the space render loop (lines ~855+):
-- Raise key sun PointLight intensity 2.3 → 3.2, add a second cool rim PointLight (`0x6cf2ff`, 1.6, far side).
-- Tune nebula shader: increase fbm octaves from 5 → 6, mix in a second purple band (`0x4a2870` ↔ `0x1a4a8a`), gently animate `uTime` faster (×1.6) for drifting clouds.
-- Add a distant volumetric “dust” layer: a second `THREE.Points` cloud (1500 pts, additive, size 2.5, sizeAttenuation) drifting slowly relative to camera → parallax depth, ~0 cost.
-- Add subtle bloom-feel by raising `toneMappingExposure` to 1.25 while in space, restore on exit.
-- Camera shake on thrust: add tiny `Math.sin(t*30)*0.06` offset when accelerating for tactility.
-- Slow rotate the galaxy group (`grp.rotation.z += 0.0004`) for living backdrop.
+### New CSS (`kamrok.css`)
+- `.kk-case-hero` (full-width, 60–72vh, image + gradient overlay, large title)
+- `.kk-case-shots` (responsive grid, lazy-loaded `<img>` with `loading="lazy"` + width/height for CLS)
+- `.kk-case-stats` (3-up bold numbers)
+- `.kk-case-quote` (serif pull quote)
+- `.kk-case-sectionnav` (sticky left rail, desktop only, hidden under 1100px)
 
-All particle/shader changes — no new downloads.
+---
 
-## 3. “More detailed” blocks without more resources
+## 2. Team dossier slides from the LEFT
 
-The arcade targets are flat `BoxGeometry(16,16,16)` with one edge overlay. Upgrade in `spawnTarget()` (lines ~845–854):
-- Replace single box with a small `Group`: core box + inset smaller box scaled 0.7 with inverted normals giving depth illusion, plus 6 small `BoxGeometry(2,2,2)` greebles on faces (procedural, no assets).
-- Use `MeshStandardMaterial` with `flatShading:true`, slight per-instance hue jitter, `emissiveIntensity` pulsing.
-- Add a thin additive `Sprite` halo (canvas-generated radial gradient, cached once) for glow.
-- Edge lines kept; widen with `LineBasicMaterial({linewidth optional})` and randomize edge color among the palette.
-- Result: visually richer “tech crates” at the same triangle budget (~200 tris each) and zero new network bytes.
+Today `.kk-codex-panel` is `right: 0; transform: translateX(102%)` — collides with the right nav.
 
-Optional small touch: same greeble pattern reused on moon rocks via instanced detail if time allows — gated behind `!IS_MOBILE`.
+Changes in `src/styles/kamrok.css`:
+- swap to `left: 0; transform: translateX(-102%)`, open state `translateX(0)`
+- accent bar `::before` moves to `right: 0`
+- shadow flips to `36px 0 110px rgba(0,0,0,.6)`
+- mobile rules: same flip
+- Add a translucent backdrop (`.kk-codex-scrim`) behind the panel that closes on click — gives the takeover feel without scrolljacking.
+- Esc-to-close already implied by `setOpenId(null)` — wire a `keydown` listener in `About.tsx`.
 
-## Verification
-- Visual check at `/` on desktop and mobile preview: ship clearly readable on landing; space looks deeper; cubes feel like detailed objects.
-- Confirm no new asset imports, bundle size unchanged, mobile FPS unaffected (extra lights/particles are cheap and gated where needed).
+No JSX restructuring needed beyond adding the scrim element.
+
+---
+
+## 3. About page — logo-first + left "Why immersive" pullout
+
+In `src/pages/kamrok/About.tsx`:
+- Replace the `Emblem` (small SVG) at the top with a centered KAMROK logo (`src/assets/kamrok-logo.png`) at hero scale (~clamp(160px, 28vw, 280px) wide), with the existing eyebrow underneath. First thing visitors see = the brand.
+- Add a new left-side pull-out panel (`.kk-flyout-left`) that auto-opens on first visit (small delay) or via a button labelled "WHY WE BUILD IMMERSIVE". Content:
+  > Great design isn't enough anymore. In a world where every site looks "fine", people remember **how it felt**. We build immersive, playful, three-dimensional experiences because that's what the new web expects — and because it's fun. We design and deliver the craft of great web design, then go further with content and worlds people want to explore.
+  - Includes a small "ENTER THE MOON" link back to `/`.
+- Style mirrors the dossier panel but slides from the left with its own accent (cyan `#1FE1E9` to match brand). Closeable; remembers state in `sessionStorage` so it doesn't nag returning visitors.
+
+This pull-out reuses the same slide-in pattern as the redesigned team dossier — visually consistent.
+
+---
 
 ## Files touched
-- `src/components/kamrok/moon/moonEngine.ts` (only)
+- `src/pages/kamrok/CaseStudy.tsx` — expanded data shape, Clubrovia detail, fullscreen layout
+- `src/pages/kamrok/About.tsx` — logo hero + left "Why immersive" pullout
+- `src/components/kamrok/KamrokLayout.tsx` — add `fullBleed` prop (drops card + width cap)
+- `src/styles/kamrok.css` — flip dossier to left, add case-study hero/gallery/stats/sticky-nav, add left-flyout styles, logo-hero block
+- (assets already present: `src/assets/kamrok-logo.png`, `src/assets/clubrovia/*.png`)
+
+## Verification
+- Visit `/about` → KAMROK logo is the first thing seen; left pullout reveals the why
+- Click a team card → dossier slides in **from the left**, nothing hidden behind right nav
+- Visit `/work/clubrovia` → full-bleed hero, screenshot gallery, stats, longer narrative
+- `/work/mckevitts` still works (no new required fields)
+- Mobile: dossier and case study both readable, no horizontal scroll

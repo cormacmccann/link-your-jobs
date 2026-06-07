@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import KamrokLayout, { Divider } from "@/components/kamrok/KamrokLayout";
 import cormacPhoto from "@/assets/team/cormac.png.asset.json";
 import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
+import kamrokLogo from "@/assets/kamrok-logo.png.asset.json";
 
 const PRINCIPLES = [
   { h: "Clarity over decoration", p: "Every element earns its place. If it doesn't help the visitor, it goes." },
@@ -57,27 +58,54 @@ function Portrait({ m, big }: { m: Member; big?: boolean }) {
 export default function About() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [shownId, setShownId] = useState<string>(TEAM[0].id);
+  const [whyOpen, setWhyOpen] = useState<boolean>(false);
   const member = TEAM.find((m) => m.id === shownId) || TEAM[0];
 
   const openMember = (id: string) => {
     setShownId(id);
     setOpenId(id);
   };
-  const close = () => setOpenId(null);
+  const closeMember = () => setOpenId(null);
+  const closeWhy = () => {
+    setWhyOpen(false);
+    try { sessionStorage.setItem("kk-why-seen", "1"); } catch {}
+  };
 
   useEffect(() => {
     document.body.classList.toggle("kk-codex-open", !!openId);
     return () => document.body.classList.remove("kk-codex-open");
   }, [openId]);
 
+  // Auto-open Why panel once per session, after a small delay
+  useEffect(() => {
+    let seen = "0";
+    try { seen = sessionStorage.getItem("kk-why-seen") || "0"; } catch {}
+    if (seen !== "1") {
+      const t = setTimeout(() => setWhyOpen(true), 700);
+      return () => clearTimeout(t);
+    }
+  }, []);
+
+  // Esc closes whichever panel is open
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (openId) closeMember();
+      else if (whyOpen) closeWhy();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openId, whyOpen]);
+
   return (
     <KamrokLayout
       title="About KAMROK — Design Studio & Team in Dundalk | Candy Shop Digital"
       description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — Cormac McCann and Kayla Minto, plus a trusted circle of specialists. Meet the team."
     >
-      <Emblem />
-      <div className="kk-eyebrow">THE STUDIO · 01</div>
-      <h1>KAMROK</h1>
+      <div className="kk-logo-hero">
+        <img src={kamrokLogo.url} alt="KAMROK" />
+        <div className="kk-eyebrow">THE STUDIO · 01</div>
+      </div>
       <Divider />
       <div className="kk-body">
         <p className="kk-lead">
@@ -123,12 +151,45 @@ export default function About() {
 
       <Link className="kk-cta" to="/work">VIEW SELECTED WORK →</Link>
 
+      {/* Persistent edge tab to (re)open the "why" pullout */}
+      {!whyOpen && (
+        <button className="kk-why-toggle" onClick={() => setWhyOpen(true)} aria-label="Why we build immersive">
+          WHY IMMERSIVE
+        </button>
+      )}
+
+      {/* Left-side "Why immersive" pullout */}
+      <aside className={`kk-flyout-left${whyOpen ? " is-open" : ""}`} aria-hidden={!whyOpen}>
+        <button className="kk-codex-x" onClick={closeWhy} aria-label="Close">✕</button>
+        <div className="kk-eyebrow">WHY WE BUILD IMMERSIVE</div>
+        <h3>Great design isn't enough anymore.</h3>
+        <p>
+          In a world where every site looks "fine", people remember <strong>how it felt</strong>. We build
+          immersive, playful, three-dimensional experiences because that's what the new web expects —
+          and because it's <strong>fun</strong>.
+        </p>
+        <p>
+          We design and deliver the craft of great web design. Then we go further — into content,
+          motion, and worlds people want to explore. Strategy you can feel, not just read.
+        </p>
+        <p>
+          A site shouldn't just inform. It should pull you in.
+        </p>
+        <Link className="kk-cta" to="/" onClick={closeWhy}>ENTER THE MOON →</Link>
+      </aside>
+
+      {/* Team-dossier scrim + panel (slides from LEFT) */}
+      <div
+        className={`kk-codex-scrim${openId ? " is-open" : ""}`}
+        onClick={closeMember}
+        aria-hidden={!openId}
+      />
       <aside
         className={`kk-codex-panel${openId ? " is-open" : ""}`}
         style={{ ["--accent" as string]: member.color }}
         aria-hidden={!openId}
       >
-        <button className="kk-codex-x" onClick={close} aria-label="Close">✕</button>
+        <button className="kk-codex-x" onClick={closeMember} aria-label="Close">✕</button>
         <Portrait m={member} big />
         <div className="kk-codex-sigil">
           <svg viewBox="0 0 40 40" fill="none">
@@ -149,7 +210,7 @@ export default function About() {
             <li key={d}>{d}</li>
           ))}
         </ul>
-        <Link className="kk-cta" to="/contact" onClick={close}>WORK WITH US →</Link>
+        <Link className="kk-cta" to="/contact" onClick={closeMember}>WORK WITH US →</Link>
       </aside>
     </KamrokLayout>
   );
