@@ -784,10 +784,27 @@ export function startMoonExperience(): () => void {
       landedShip=makeShip(9);
       const box=new T.Box3().setFromObject(landedShip);
       landedShip.position.set(SHIP_POS.x,SHIP_POS.y-box.min.y+0.1,SHIP_POS.z);
+      // Brighten ship materials so the hull is readable under cool moon light
+      landedShip.traverse(o=>{if(o.isMesh&&o.material){const mats=Array.isArray(o.material)?o.material:[o.material];
+        mats.forEach(m=>{if(!m||!('emissive' in m))return;
+          try{m.emissive=new T.Color(0x6a4a1f);m.emissiveIntensity=0.35;
+            if('metalness' in m)m.metalness=Math.max(0.55,m.metalness||0);
+            if('roughness' in m)m.roughness=Math.min(0.55,m.roughness??0.6);
+            m.needsUpdate=true;}catch(e){}});}});
       scene.add(landedShip);
-      const beam=new T.Mesh(new T.CylinderGeometry(3,5,44,20,1,true),new T.MeshBasicMaterial({color:0x9fd4ff,transparent:true,opacity:.16,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      // Outer + inner beam for a denser tractor look
+      const beam=new T.Mesh(new T.CylinderGeometry(3,5,44,20,1,true),new T.MeshBasicMaterial({color:0x9fd4ff,transparent:true,opacity:.28,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
       beam.position.set(SHIP_POS.x,SHIP_POS.y+22,SHIP_POS.z);scene.add(beam);landedShip.userData.beam=beam;
-      const pl=new T.PointLight(0x9fd4ff,2.2,70);pl.position.set(SHIP_POS.x,SHIP_POS.y+9,SHIP_POS.z);scene.add(pl);
+      const beamCore=new T.Mesh(new T.CylinderGeometry(1.2,2.8,44,16,1,true),new T.MeshBasicMaterial({color:0xffe4b8,transparent:true,opacity:.42,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      beamCore.position.copy(beam.position);scene.add(beamCore);landedShip.userData.beamCore=beamCore;
+      // Ground halo ring
+      const halo=new T.Mesh(new T.RingGeometry(4,9,40),new T.MeshBasicMaterial({color:0xffd9a0,transparent:true,opacity:.55,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      halo.rotation.x=-Math.PI/2;halo.position.set(SHIP_POS.x,SHIP_POS.y+0.05,SHIP_POS.z);scene.add(halo);landedShip.userData.halo=halo;
+      // Warm key spotlight from above-front + brighter cool fill
+      const key=new T.SpotLight(0xffd9a0,6,60,Math.PI/5,0.45,1.4);
+      key.position.set(SHIP_POS.x+10,SHIP_POS.y+22,SHIP_POS.z+10);key.target.position.set(SHIP_POS.x,SHIP_POS.y+3,SHIP_POS.z);
+      scene.add(key);scene.add(key.target);
+      const pl=new T.PointLight(0x9fd4ff,3.4,90);pl.position.set(SHIP_POS.x,SHIP_POS.y+9,SHIP_POS.z);scene.add(pl);
       shipNode=document.createElement('div');shipNode.className='node ship';shipNode.innerHTML='<div class="ring"></div><div class="lbl">THE SHIP</div>';
       shipNode.addEventListener('click',()=>{autoTarget=SHIP_POS;manualClose=null;hideHint();});nodesWrap.appendChild(shipNode);
       showToast('✦ A SHIP HAS LANDED — FIND IT');
@@ -842,22 +859,53 @@ export function startMoonExperience(): () => void {
     const core=new T.Mesh(new T.SphereGeometry(70,24,24),new T.MeshBasicMaterial({color:0xfff1c4,transparent:true,opacity:.85,blending:T.AdditiveBlending,depthWrite:false}));
     const grp=new T.Group();grp.add(pts,core);grp.rotation.x=Math.PI*0.42;grp.position.set(-200,-300,-1500);return grp;
   }
+  // canvas-generated radial glow sprite (cached) for richer additive halos at zero network cost
+  let _glowTex=null;
+  function glowTex(){if(_glowTex)return _glowTex;const N=128,c=document.createElement('canvas');c.width=c.height=N;const g=c.getContext('2d');
+    const grd=g.createRadialGradient(N/2,N/2,2,N/2,N/2,N/2);grd.addColorStop(0,'rgba(255,255,255,1)');grd.addColorStop(0.35,'rgba(255,255,255,0.45)');grd.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=grd;g.fillRect(0,0,N,N);_glowTex=new T.CanvasTexture(c);return _glowTex;}
   function spawnTarget(near){
-    const c=[0x6cf2ff,0xffd36c,0x7dffb0,0xff7de0][Math.floor(Math.random()*4)];
-    const box=new T.Mesh(new T.BoxGeometry(16,16,16),new T.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.35,metalness:.4,roughness:.4}));
-    box.add(new T.LineSegments(new T.EdgesGeometry(box.geometry),new T.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.6})));
+    const palette=[0x6cf2ff,0xffd36c,0x7dffb0,0xff7de0,0xb78cff];
+    const c=palette[Math.floor(Math.random()*palette.length)];
+    const grp=new T.Group();
+    // Core shell — flatShading reads as faceted tech crate without extra geometry
+    const core=new T.Mesh(new T.BoxGeometry(16,16,16),new T.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.45,metalness:.55,roughness:.35,flatShading:true}));
+    grp.add(core);
+    // Inner inverted box gives a recessed-depth illusion
+    const inner=new T.Mesh(new T.BoxGeometry(11,11,11),new T.MeshStandardMaterial({color:0x111522,emissive:c,emissiveIntensity:.55,metalness:.2,roughness:.7,side:T.BackSide}));
+    grp.add(inner);
+    // Six face-greebles (procedural, no assets)
+    const greMat=new T.MeshStandardMaterial({color:0xe8eef7,emissive:c,emissiveIntensity:.4,metalness:.7,roughness:.3,flatShading:true});
+    const faces=[[0,0,8.2],[0,0,-8.2],[8.2,0,0],[-8.2,0,0],[0,8.2,0],[0,-8.2,0]];
+    faces.forEach(([fx,fy,fz])=>{const gz=new T.Mesh(new T.BoxGeometry(3.2,3.2,1.4),greMat);gz.position.set(fx,fy,fz);gz.lookAt(fx*2,fy*2,fz*2);grp.add(gz);
+      const rim=new T.Mesh(new T.BoxGeometry(5.4,5.4,0.4),new T.MeshBasicMaterial({color:c,transparent:true,opacity:.7}));rim.position.set(fx*0.96,fy*0.96,fz*0.96);rim.lookAt(fx*2,fy*2,fz*2);grp.add(rim);});
+    // Crisp white edge wireframe
+    grp.add(new T.LineSegments(new T.EdgesGeometry(core.geometry),new T.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.65})));
+    // Additive halo sprite
+    const halo=new T.Sprite(new T.SpriteMaterial({map:glowTex(),color:c,transparent:true,opacity:.85,blending:T.AdditiveBlending,depthWrite:false}));
+    halo.scale.set(46,46,1);grp.add(halo);
     let px,py,pz;
     if(near&&sState){const y=sState.yaw,pi=sState.pitch,fx=Math.sin(y)*Math.cos(pi),fy=Math.sin(pi),fz=Math.cos(y)*Math.cos(pi),d=320+Math.random()*520;
       px=sState.x+fx*d+(Math.random()-0.5)*320;py=sState.y+fy*d+(Math.random()-0.5)*220;pz=sState.z+fz*d+(Math.random()-0.5)*320;}
     else{px=(Math.random()-0.5)*1700;py=(Math.random()-0.5)*760;pz=(Math.random()-0.5)*1700;}
-    box.position.set(px,py,pz);box.userData={spin:(Math.random()-0.5)*0.05,alive:true};spaceScene.add(box);return box;
+    grp.position.set(px,py,pz);grp.userData={spin:(Math.random()-0.5)*0.05,alive:true,color:c,core,halo,pulse:Math.random()*6.28};
+    // Keep .material.color for the explosion call site
+    grp.material=core.material;
+    spaceScene.add(grp);return grp;
   }
   function buildSpace(){
     if(spaceScene)return;
     spaceScene=new T.Scene();spaceScene.background=new T.Color(0x02030a);spaceScene.fog=new T.FogExp2(0x05060f,0.00011);
     spaceCam=new T.PerspectiveCamera(64,innerWidth/innerHeight,0.1,14000);
     spaceScene.add(new T.AmbientLight(0x60709a,0.9));
-    const sun=new T.PointLight(0xfff0d0,2.3,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
+    const sun=new T.PointLight(0xfff0d0,3.2,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
+    const rim=new T.PointLight(0x6cf2ff,1.6,9000);rim.position.set(-800,-200,600);spaceScene.add(rim);
+    // Drifting parallax dust layer for depth — additive points, very cheap
+    {const DN=1500,dg=new T.BufferGeometry(),dp=new Float32Array(DN*3);
+      for(let i=0;i<DN;i++){dp[i*3]=(Math.random()-0.5)*4200;dp[i*3+1]=(Math.random()-0.5)*2400;dp[i*3+2]=(Math.random()-0.5)*4200;}
+      dg.setAttribute('position',new T.BufferAttribute(dp,3));
+      const dust=new T.Points(dg,new T.PointsMaterial({color:0xb0c8ff,size:2.5,sizeAttenuation:true,transparent:true,opacity:.55,blending:T.AdditiveBlending,depthWrite:false}));
+      dust.name='dust';spaceScene.add(dust);}
     // procedural nebula skydome (fbm shader) for a richer deep-space backdrop
     nebMat=new T.ShaderMaterial({side:T.BackSide,depthWrite:false,uniforms:{uTime:{value:0}},
       vertexShader:'varying vec3 vDir;void main(){vDir=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
@@ -869,12 +917,14 @@ export function startMoonExperience(): () => void {
        '            mix(mix(hash(i+vec3(0,0,1)),hash(i+vec3(1,0,1)),f.x),mix(hash(i+vec3(0,1,1)),hash(i+vec3(1,1,1)),f.x),f.y),f.z);}',
        'float fbm(vec3 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p*=2.02;a*=0.5;}return v;}',
        'void main(){vec3 d=normalize(vDir);',
-       ' float n=fbm(d*3.0+vec3(uTime*0.01));float n2=fbm(d*6.5-vec3(uTime*0.008));',
-       ' vec3 base=vec3(0.015,0.018,0.05);',
-       ' vec3 neb=mix(vec3(0.18,0.05,0.34),vec3(0.05,0.13,0.42),n2);',
-       ' neb=mix(neb,vec3(0.55,0.14,0.32),smoothstep(0.55,0.92,n));',
-       ' float cloud=smoothstep(0.42,0.86,n);',
-       ' vec3 col=base+neb*cloud*0.95;',
+       ' float n=fbm(d*3.0+vec3(uTime*0.016));float n2=fbm(d*6.5-vec3(uTime*0.013));',
+       ' float n3=fbm(d*1.6+vec3(uTime*0.005,0.0,-uTime*0.004));',
+       ' vec3 base=vec3(0.012,0.016,0.06);',
+       ' vec3 neb=mix(vec3(0.29,0.08,0.44),vec3(0.06,0.18,0.54),n2);',
+       ' neb=mix(neb,vec3(0.62,0.18,0.36),smoothstep(0.55,0.92,n));',
+       ' neb=mix(neb,vec3(0.10,0.55,0.62),smoothstep(0.55,0.95,n3)*0.55);',
+       ' float cloud=smoothstep(0.40,0.88,n);',
+       ' vec3 col=base+neb*cloud*1.1;',
        ' float st=hash(floor(d*420.0));if(st>0.9965)col+=vec3(1.0)*(st-0.9965)/0.0035;',
        ' gl_FragColor=vec4(col,1.0);}'].join('')});
     const dome=new T.Mesh(new T.SphereGeometry(9000,40,40),nebMat);dome.renderOrder=-1;dome.frustumCulled=false;spaceScene.add(dome);
@@ -905,7 +955,7 @@ export function startMoonExperience(): () => void {
       if(life<26&&mode==='space'&&!__disposed)requestAnimationFrame(tk);else spaceScene.remove(pts);})();
   }
   function updateSpaceHud(){const e=document.getElementById('spScore');if(e)e.textContent=sState?sState.score:0;}
-  function enterSpace(){mode='space';buildSpace();document.body.classList.add('space-mode');setTimeout(()=>{flashEl.style.opacity=0;},90);showToast('✦ ENTERING ORBIT — SHOOT THE CUBES');updateSpaceHud();}
+  function enterSpace(){mode='space';buildSpace();document.body.classList.add('space-mode');renderer.toneMappingExposure=1.28;setTimeout(()=>{flashEl.style.opacity=0;},90);showToast('✦ ENTERING ORBIT — SHOOT THE CUBES');updateSpaceHud();}
   const _v=new T.Vector3();
   function spaceTick(){
     const s=sState,TURN2=0.022,PR=0.017;
@@ -922,11 +972,20 @@ export function startMoonExperience(): () => void {
     for(let i=bullets.length-1;i>=0;i--){const b=bullets[i];b.position.x+=b.userData.vx;b.position.y+=b.userData.vy;b.position.z+=b.userData.vz;b.userData.life--;let hit=false;
       for(let j=0;j<targets.length;j++){const tg=targets[j];if(!tg.userData.alive)continue;if(b.position.distanceTo(tg.position)<14){hit=true;tg.userData.alive=false;explodeAt(tg.position,tg.material.color.getHex());s.score+=10;updateSpaceHud();spaceScene.remove(tg);targets[j]=spawnTarget(true);break;}}
       if(hit||b.userData.life<=0){spaceScene.remove(b);bullets.splice(i,1);}}
-    for(let j=0;j<targets.length;j++){const tg=targets[j];tg.rotation.x+=tg.userData.spin;tg.rotation.y+=tg.userData.spin*0.7;if(tg.position.distanceTo(sShip.position)>2800){spaceScene.remove(tg);targets[j]=spawnTarget(true);}}
+    for(let j=0;j<targets.length;j++){const tg=targets[j];tg.rotation.x+=tg.userData.spin;tg.rotation.y+=tg.userData.spin*0.7;
+      // pulse emissive + halo for "alive" feel
+      if(tg.userData.core){tg.userData.pulse+=0.07;const pp=0.5+0.5*Math.sin(tg.userData.pulse);
+        tg.userData.core.material.emissiveIntensity=0.35+pp*0.45;
+        if(tg.userData.halo)tg.userData.halo.material.opacity=0.55+pp*0.35;}
+      if(tg.position.distanceTo(sShip.position)>2800){spaceScene.remove(tg);targets[j]=spawnTarget(true);}}
     if(galaxy)galaxy.rotation.z+=0.0004;
-    if(nebMat)nebMat.uniforms.uTime.value+=0.016;
-    _v.set(s.x-dx*40,s.y-dy*40+13,s.z-dz*40);spaceCam.position.lerp(_v,0.08);spaceCam.lookAt(s.x+dx*14,s.y+dy*14,s.z+dz*14);
+    if(nebMat)nebMat.uniforms.uTime.value+=0.022;
+    // tactile camera shake when boosting
+    const shk=boosting?0.6:0;const sx=Math.sin(performance.now()*0.05)*shk,sy=Math.cos(performance.now()*0.043)*shk;
+    _v.set(s.x-dx*40+sx,s.y-dy*40+13+sy,s.z-dz*40);spaceCam.position.lerp(_v,0.08);spaceCam.lookAt(s.x+dx*14,s.y+dy*14,s.z+dz*14);
     sStars.position.copy(spaceCam.position);
+    // dust drifts with camera for parallax depth
+    const dust=spaceScene.getObjectByName('dust');if(dust){dust.position.copy(spaceCam.position);dust.rotation.y+=0.0008;}
     renderer.render(spaceScene,spaceCam);
   }
 
@@ -1170,6 +1229,13 @@ export function startMoonExperience(): () => void {
   function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
     if(mode==='space'){spaceTick();return;}
     if(mode==='takeoff'){takeoffTick();return;}
+    // Pulse the landed ship + tractor beam so it reads as "alive" from across the moon
+    if(landedShip){const ud=landedShip.userData,pul=0.5+0.5*Math.sin(clock*2.4);
+      landedShip.traverse(o=>{if(o.isMesh&&o.material){const m=Array.isArray(o.material)?o.material[0]:o.material;
+        if(m&&'emissiveIntensity' in m)m.emissiveIntensity=0.28+pul*0.28;}});
+      if(ud.beam)ud.beam.material.opacity=0.22+pul*0.14;
+      if(ud.beamCore)ud.beamCore.material.opacity=0.34+pul*0.22;
+      if(ud.halo){ud.halo.material.opacity=0.35+pul*0.4;ud.halo.scale.setScalar(0.9+pul*0.35);}}
     if(Math.abs(VIEW-targetVIEW)>0.05){VIEW+=(targetVIEW-VIEW)*0.18;setFrustum();}
     const fwd={x:Math.sin(st.heading),z:Math.cos(st.heading)};
 
