@@ -1,77 +1,51 @@
-# Mobile: "Tactile App" redesign + performance pass
+## Goal
+Make the landed ship clearly visible, the space sequence more immersive, and the cube targets look more detailed — all without adding new downloads.
 
-Desktop stays exactly as-is. Everything below is gated on `<768px` (or route-level for code-split).
+## Scope
+Only `src/components/kamrok/moon/moonEngine.ts` (the three.js scene). Generated file, but edits are surgical and well-contained; no asset additions.
 
-## 1. Mobile feel — "Tactile App"
+---
 
-Goal: feel like a native iOS app, not a website shrunk down.
+## 1. Ship visibility on the moon
 
-- **Top bar**: 52px, just KAMROK wordmark left, menu icon right. No borders, no background until scrolled (then `rgba(11,12,16,.7)` + 14px blur).
-- **Bottom tab bar**: fixed, 64px, 5 icons (Moon · Work · Skills · Blog · Contact). Glass blur, no borders, active tab gets the orange→pink gradient underline. Safe-area inset for iPhone notch.
-- **Snap-scroll sections**: each page becomes vertically snap-scrolled "cards" (`scroll-snap-type: y mandatory`). One section per viewport, swipe to next. Page indicator dots on the right edge.
-- **Sticky CTA**: Contact + Work pages get a thumb-zone "Start a project →" button floating above the tab bar.
-- **Press feedback**: every interactive element gets `active:scale-[.97]` + a 120ms ease. Hamburger menu opens with a spring slide-down (not fade).
-- **Zero ornament on mobile**: hide all `kk-emblem`, `kk-div`, `kk-pc`, corner brackets, drop caps, dividers, `im-bg-frame`, `FloatingShowcase`. Already partially done — finish it with a single `[data-mobile] *` reset rule.
-- **Type**: 17/28 body, headings clamp(36px, 10vw, 56px), tighter tracking. One accent color per section instead of multi-color filigree.
+Currently `landedShip` sits in deep shadow with one cool point light at `2.2` intensity. The ship's own materials read black under our cool ambient.
 
-## 2. Moon on mobile — Lightweight 3D
+Changes around `spawnShip()` (lines ~782–796):
+- Walk `landedShip` materials once and boost `emissiveIntensity` to ~0.35 with a warm `emissive` (`0x6a4a1f`) so the hull self-lights without changing textures.
+- Set `metalness` floor 0.6, `roughness` ceiling 0.55 so the warm key light actually reflects.
+- Add a warm key `SpotLight(0xffd9a0, 6, 60, Math.PI/5, 0.45, 1.4)` aimed at the ship from above-front; cool fill PointLight already there, raise to 3.4 intensity / range 90.
+- Strengthen the tractor beam: opacity .16 → .28, add a second inner cone (radius 1.2→2.8) and a ground halo `RingGeometry` with additive blending.
+- Add a slow pulsing glow on `landedShip` via `update()` callback (sin-driven emissiveIntensity 0.25↔0.5).
+- Make the `THE SHIP` DOM marker auto-show a pulsing arrow ring when off-screen so the user can find it.
 
-Edit `moonEngine.ts` with a mobile branch:
-- DPR capped at 1 (vs 1.5–2 on desktop)
-- Shadows OFF
-- Object count halved: drop decorative rocks, alien idle/walk variants keep only one
-- Texture size: load 512px versions instead of 1024/2048
-- Skip post-processing (bloom, AA — use browser MSAA off)
-- Camera FOV slightly wider so smaller scene feels full
-- Replace bottom HUD (radar, objectives, speed, compass) with a single bottom-right "i" button → sheet
+Mobile-safe: spotlight has no shadow; one extra light total.
 
-Target: <2MB initial moon payload on mobile vs ~8MB desktop.
+## 2. More immersive space
 
-## 3. Performance wins
+Edits in `buildSpace()` and the space render loop (lines ~855+):
+- Raise key sun PointLight intensity 2.3 → 3.2, add a second cool rim PointLight (`0x6cf2ff`, 1.6, far side).
+- Tune nebula shader: increase fbm octaves from 5 → 6, mix in a second purple band (`0x4a2870` ↔ `0x1a4a8a`), gently animate `uTime` faster (×1.6) for drifting clouds.
+- Add a distant volumetric “dust” layer: a second `THREE.Points` cloud (1500 pts, additive, size 2.5, sizeAttenuation) drifting slowly relative to camera → parallax depth, ~0 cost.
+- Add subtle bloom-feel by raising `toneMappingExposure` to 1.25 while in space, restore on exit.
+- Camera shake on thrust: add tiny `Math.sin(t*30)*0.06` offset when accelerating for tactility.
+- Slow rotate the galaxy group (`grp.rotation.z += 0.0004`) for living backdrop.
 
-**Smaller initial JS**
-- Lazy-load `MoonExperience` (already a heavy chunk) via `React.lazy` + Suspense with a static moon poster fallback. First paint shows the poster instantly; Three.js downloads in background.
-- Code-split tool pages — each tool route becomes its own chunk via `lazy()`.
-- Audit `framer-motion` usage; replace simple fades with CSS where possible (saves ~40KB on routes that don't need it).
-- Defer `lovable-tagger` and analytics until idle.
+All particle/shader changes — no new downloads.
 
-**Image optimization**
-- Add `vite-imagetools` plugin. Convert `immersive-hero.jpg` and team photos to AVIF + WebP with JPEG fallback via `<picture>`.
-- Add explicit `width`/`height` on all `<img>` (fixes CLS).
-- Preload LCP image with `<link rel="preload" as="image" fetchpriority="high">` in `index.html`.
-- Lazy-load below-fold images (`loading="lazy" decoding="async"`).
-- Responsive `srcset` so phones don't pull 1920px images.
+## 3. “More detailed” blocks without more resources
 
-**Fewer fonts / CSS**
-- Audit GOBOLD weights — keep only the 1–2 used on mobile (likely Regular + Bold). Subset to Latin only.
-- Add `font-display: swap` to every `@font-face`.
-- Tailwind already purges, but audit `kamrok.css` / `immersive.css` for unused selectors after the ornament removal — estimated 30%+ reduction.
-- Inline critical above-the-fold CSS in `index.html`; defer the rest.
+The arcade targets are flat `BoxGeometry(16,16,16)` with one edge overlay. Upgrade in `spawnTarget()` (lines ~845–854):
+- Replace single box with a small `Group`: core box + inset smaller box scaled 0.7 with inverted normals giving depth illusion, plus 6 small `BoxGeometry(2,2,2)` greebles on faces (procedural, no assets).
+- Use `MeshStandardMaterial` with `flatShading:true`, slight per-instance hue jitter, `emissiveIntensity` pulsing.
+- Add a thin additive `Sprite` halo (canvas-generated radial gradient, cached once) for glow.
+- Edge lines kept; widen with `LineBasicMaterial({linewidth optional})` and randomize edge color among the palette.
+- Result: visually richer “tech crates” at the same triangle budget (~200 tris each) and zero new network bytes.
 
-**PWA**
-- Keep `vite-plugin-pwa` but exclude Three.js bundle and moon assets from precache (already partially configured). Switch moon assets to `runtimeCaching` NetworkFirst so they don't block first load.
-
-## 4. Files to touch
-
-```text
-src/components/kamrok/MobileNav.tsx              (slim top bar, no border)
-src/components/kamrok/MobileTabBar.tsx           (NEW — bottom tab bar)
-src/components/kamrok/KamrokLayout.tsx           (snap-scroll wrapper on mobile)
-src/components/kamrok/moon/moonEngine.ts         (mobile branch: DPR, shadows, count, textures)
-src/components/kamrok/moon/MoonExperience.tsx    (lazy + poster fallback)
-src/components/kamrok/ImmersiveShell.tsx         (hide frame/showcase on mobile)
-src/pages/kamrok/Contact.tsx, Work.tsx           (sticky CTA above tab bar)
-src/App.tsx                                      (lazy-load tool routes)
-src/styles/immersive.css                         (mobile reset: no borders/ornament, tab bar, snap)
-src/styles/kamrok.css                            (mobile type scale, section padding for tab bar)
-src/styles/kamrok-moon.css                       (collapse HUD to single button)
-vite.config.ts                                   (vite-imagetools, PWA tuning)
-index.html                                       (preload LCP, font-display swap, critical CSS)
-src/assets/immersive-hero.jpg                    (regenerate as AVIF/WebP via imagetools)
-```
+Optional small touch: same greeble pattern reused on moon rocks via instanced detail if time allows — gated behind `!IS_MOBILE`.
 
 ## Verification
+- Visual check at `/` on desktop and mobile preview: ship clearly readable on landing; space looks deeper; cubes feel like detailed objects.
+- Confirm no new asset imports, bundle size unchanged, mobile FPS unaffected (extra lights/particles are cheap and gated where needed).
 
-After build I'll screenshot at 390×844 on About, Work, Contact, Moon to confirm: no borders/filigree, tab bar visible, snap-scroll smooth, moon loads under 2s on simulated 3G throttle. I'll also report bundle-size deltas (before/after) for the initial JS chunk and the moon chunk.
-
-No backend, no routing, no content changes.
+## Files touched
+- `src/components/kamrok/moon/moonEngine.ts` (only)
