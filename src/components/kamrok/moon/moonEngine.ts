@@ -68,10 +68,12 @@ export function startMoonExperience(): () => void {
   scene.background=new T.Color(0x04050a);
   scene.fog=new T.FogExp2(0x06070f,0.0038);
 
-  const renderer=new T.WebGLRenderer({antialias:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  // Detect phone-class devices to tune renderer cost. Cuts ~50% GPU work on mobile.
+  const IS_MOBILE = innerWidth < 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const renderer=new T.WebGLRenderer({antialias:!IS_MOBILE, powerPreference:'high-performance'});
+  renderer.setPixelRatio(IS_MOBILE ? 1 : Math.min(devicePixelRatio,2));
   renderer.setSize(innerWidth,innerHeight);
-  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.enabled=!IS_MOBILE;
   renderer.shadowMap.type=T.PCFSoftShadowMap;
   renderer.outputColorSpace=T.SRGBColorSpace;
   renderer.toneMapping=T.ACESFilmicToneMapping;
@@ -117,8 +119,8 @@ export function startMoonExperience(): () => void {
 
   /* ============ LIGHTS ============ */
   const sun=new T.DirectionalLight(0xfff3e2,2.1);
-  sun.position.set(70,95,30);sun.castShadow=true;
-  sun.shadow.mapSize.set(2048,2048);
+  sun.position.set(70,95,30);sun.castShadow=!IS_MOBILE;
+  sun.shadow.mapSize.set(IS_MOBILE?512:2048, IS_MOBILE?512:2048);
   const sc=sun.shadow.camera;sc.near=1;sc.far=400;sc.left=-95;sc.right=95;sc.top=95;sc.bottom=-95;
   sun.shadow.bias=-0.0004;
   scene.add(sun);scene.add(sun.target);          // target follows buggy so shadows stay under it

@@ -315,57 +315,55 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 .im-mobile { display: none; }
 
 @media (max-width: 767px) {
-  /* Hide desktop nav chrome entirely */
-  .im-rail, .im-settings, .im-drawer, .im-hub { display: none !important; }
+  /* Hide ALL desktop nav chrome entirely */
+  .im-rail, .im-settings, .im-drawer, .im-hub,
+  .im-bg-frame, .im-float, .im-floating-showcase,
+  .im-top, .im-map, .im-pill { display: none !important; }
 
-  /* Hide floating showcase + decorative frame on mobile */
-  .im-bg-frame,
-  .im-float { display: none !important; }
-
-  /* Drastically calm the hero image so content reads */
-  .im-bg { opacity: .35; filter: saturate(.6) brightness(.6); }
+  /* Background: pure calm dark — no painterly noise behind type */
+  .im-bg { opacity: .18; filter: saturate(.4) brightness(.45); }
   .im-bg-vignette {
-    background:
-      linear-gradient(180deg, rgba(7,5,22,.92) 0%, rgba(7,5,22,.72) 40%, rgba(7,5,22,.95) 100%);
+    background: linear-gradient(180deg, #07061a 0%, #0a0820 100%);
   }
 
-  /* Reset main padding — top bar is fixed at 56px */
+  /* Main padding accommodates 52px top bar + 68px bottom tab bar + safe area */
   .im-main {
-    padding: 72px 18px 40px;
+    padding: 68px 18px calc(96px + env(safe-area-inset-bottom, 0px));
     justify-content: stretch;
     min-height: auto;
   }
   body.kk-codex-open .im-main { padding-right: 18px; }
   .im-main > * { max-width: 100%; margin: 0; }
 
-  /* Show mobile nav */
   .im-mobile { display: block; }
+
+  /* Tactile press feedback for every interactive element */
+  a, button { -webkit-tap-highlight-color: transparent; }
+  a:active, button:active { transform: scale(.97); transition: transform .12s ease; }
 }
 
 /* ===== Mobile top bar ===== */
 .im-mtop {
   position: fixed; top: 0; left: 0; right: 0; z-index: 45;
-  height: 56px;
+  height: 52px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 14px;
   background: transparent;
-  transition: background .25s, border-color .25s, backdrop-filter .25s;
-  border-bottom: 1px solid transparent;
+  transition: background .25s, backdrop-filter .25s;
 }
 .im-mtop.is-solid {
-  background: rgba(8, 6, 22, .82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: var(--line);
+  background: rgba(8, 6, 22, .72);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 .im-mtop-mark {
-  display: flex; flex-direction: column; gap: 2px;
-  font-family: var(--mono); font-size: 13px; letter-spacing: .34em;
+  display: flex; flex-direction: column; gap: 1px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .32em;
   color: var(--ink); text-decoration: none; font-weight: 600;
 }
-.im-mtop-mark small { font-size: 7.5px; letter-spacing: .3em; color: var(--ink-faded); font-weight: 400; }
+.im-mtop-mark small { font-size: 7px; letter-spacing: .3em; color: var(--ink-faded); font-weight: 400; }
 .im-mtop-btn {
-  width: 44px; height: 44px; border-radius: 8px;
+  width: 44px; height: 44px; border-radius: 10px;
   border: none; background: transparent;
   color: var(--ink); display: grid; place-items: center; cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -477,4 +475,41 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 @media (max-width: 600px) {
   .im-hub-btn span { display: none; }
   .im-hub-btn { padding: 9px; }
+}
+
+/* ===== Mobile bottom tab bar (tactile-app style) ===== */
+.im-mtabs {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 46;
+  display: none;
+  justify-content: space-around; align-items: stretch;
+  padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+  background: rgba(8, 6, 22, .78);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-top: 1px solid rgba(180, 170, 255, .08);
+}
+@media (max-width: 767px) { .im-mtabs { display: flex; } }
+
+.im-mtab {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 4px 6px;
+  text-decoration: none; color: var(--ink-faded);
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: .18em;
+  position: relative; transition: color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.im-mtab span { line-height: 1; }
+.im-mtab.is-active { color: #fff; }
+.im-mtab.is-active::before {
+  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, #ff8a3d, #ff3d9a);
+  box-shadow: 0 0 12px rgba(255, 100, 140, .6);
+}
+.im-mtab:active { transform: scale(.92); transition: transform .1s ease; }
+
+/* Mobile menu sheet should sit above the tab bar */
+@media (max-width: 767px) {
+  .im-msheet { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 }
