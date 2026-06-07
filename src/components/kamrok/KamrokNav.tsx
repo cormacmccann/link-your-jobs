@@ -5,6 +5,7 @@ import {
   MessageCircle, Youtube, Headphones, Bell, Sparkles, Newspaper,
 } from "lucide-react";
 import "@/styles/immersive.css";
+import MobileNav from "./MobileNav";
 
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
