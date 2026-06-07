@@ -311,15 +311,125 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   margin-right: 0;
 }
 
-@media (max-width: 720px) {
-  .im-main { padding: 110px 18px 110px 80px; justify-content: stretch; }
-  body.kk-codex-open .im-main { padding-right: 18px; }
+/* ============== MOBILE (<768px): top bar + full-screen menu ============== */
+.im-mobile { display: none; }
+
+@media (max-width: 767px) {
+  /* Hide desktop nav chrome entirely */
+  .im-rail, .im-settings, .im-drawer, .im-hub { display: none !important; }
+
+  /* Soften / remove decorative chrome */
+  .im-bg-frame { display: none; }
+  .im-bg-vignette {
+    background:
+      radial-gradient(ellipse at 50% 0%, transparent 25%, rgba(8,6,30,.6) 80%),
+      linear-gradient(180deg, rgba(7,5,22,.55) 0%, rgba(7,5,22,.2) 30%, rgba(7,5,22,.85) 100%);
+  }
+
+  /* Reset main padding — top bar is fixed at 56px */
+  .im-main {
+    padding: 80px 16px 40px;
+    justify-content: stretch;
+    min-height: auto;
+  }
+  body.kk-codex-open .im-main { padding-right: 16px; }
   .im-main > * { max-width: 100%; margin: 0; }
-  .im-drawer { padding: 70px 28px 28px; }
-  .im-nav-socials { grid-template-columns: 1fr; }
-  .im-top { top: 14px; }
-  .im-pill { padding: 9px 14px; font-size: 9px; letter-spacing: .24em; }
+
+  /* Show mobile nav */
+  .im-mobile { display: block; }
 }
+
+/* ===== Mobile top bar ===== */
+.im-mtop {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 45;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  background: transparent;
+  transition: background .25s, border-color .25s, backdrop-filter .25s;
+  border-bottom: 1px solid transparent;
+}
+.im-mtop.is-solid {
+  background: rgba(8, 6, 22, .82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+.im-mtop-mark {
+  display: flex; flex-direction: column; gap: 2px;
+  font-family: var(--mono); font-size: 13px; letter-spacing: .34em;
+  color: var(--ink); text-decoration: none; font-weight: 600;
+}
+.im-mtop-mark small { font-size: 7.5px; letter-spacing: .3em; color: var(--ink-faded); font-weight: 400; }
+.im-mtop-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: rgba(7,7,10,.6);
+  color: var(--ink); display: grid; place-items: center; cursor: pointer;
+}
+
+/* ===== Mobile full-screen menu ===== */
+.im-msheet {
+  position: fixed; inset: 0; z-index: 44;
+  background:
+    radial-gradient(110% 70% at 50% 0%, rgba(86, 168, 255, .12), transparent 60%),
+    linear-gradient(180deg, #0a0820 0%, #07061a 100%);
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity .35s ease, transform .35s ease, visibility .35s;
+  overflow-y: auto;
+  padding: 76px 22px 32px;
+}
+.im-msheet.is-open { opacity: 1; visibility: visible; transform: none; }
+.im-msheet-inner { display: flex; flex-direction: column; gap: 24px; min-height: 100%; }
+
+.im-mnav { list-style: none; padding: 0; margin: 0; }
+.im-mnav-item {
+  display: grid; grid-template-columns: 1fr auto; row-gap: 4px;
+  padding: 16px 0; text-decoration: none; color: var(--ink);
+  border-top: 1px solid var(--line);
+}
+.im-mnav li:last-child .im-mnav-item { border-bottom: 1px solid var(--line); }
+.im-mnav-item.is-active { color: var(--accent); }
+.im-mnav-label { font-family: var(--serif); font-size: 34px; font-weight: 500; line-height: 1; letter-spacing: .02em; }
+.im-mnav-count { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; color: var(--ink-faded); align-self: start; padding-top: 10px; }
+.im-mnav-note { grid-column: 1 / -1; font-family: var(--mono); font-size: 9px; letter-spacing: .22em; color: var(--ink-dim); text-transform: uppercase; }
+
+.im-mnav-moon {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px;
+  background: linear-gradient(160deg, rgba(56, 46, 104, .35), rgba(20, 16, 40, .35));
+  text-decoration: none; color: var(--ink);
+}
+.im-mnav-tag { font-family: var(--mono); font-size: 8.5px; letter-spacing: .3em; color: var(--accent); }
+.im-mnav-moon-label { font-family: var(--serif); font-size: 22px; letter-spacing: .04em; }
+
+.im-msocials {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+  padding-top: 18px; border-top: 1px solid var(--line);
+}
+.im-msoc {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  color: var(--ink-dim); text-decoration: none;
+}
+.im-msoc:hover { color: var(--accent); }
+
+.im-msettings {
+  padding-top: 18px; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.im-mset-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 0;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .22em; color: var(--ink-dim);
+}
+.im-mset-row--vol input[type="range"] { flex: 1; accent-color: var(--accent); height: 3px; }
+
+.im-mfoot {
+  margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .22em; color: var(--ink-faded);
+}
+.im-mfoot a { color: var(--ink-dim); text-decoration: none; }
 
 /* Shared nav root — provides design tokens when the nav is mounted standalone
    (e.g. over the moon canvas), and inherits them inside .im-root otherwise. */
