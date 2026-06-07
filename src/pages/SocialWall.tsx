@@ -84,13 +84,13 @@ const SocialWall = () => {
 
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl text-center">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-cyan-500/50">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-violet-500/50">
             <Hash className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-5xl md:text-7xl font-gobold uppercase mb-6 tracking-tight"
-              style={{ textShadow: '0 0 40px rgba(6, 182, 212, 0.4)' }}>
+              style={{ textShadow: '0 0 40px rgba(124, 92, 255, 0.4)' }}>
             Social{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-400">
               Wall
             </span>
           </h1>
@@ -100,7 +100,7 @@ const SocialWall = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-lg px-8"
+              className="bg-gradient-to-r from-violet-500 to-pink-600 hover:from-violet-600 hover:to-pink-700 text-lg px-8"
               onClick={() => navigate('/auth')}
             >
               Create Social Wall
