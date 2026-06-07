@@ -73,7 +73,7 @@ const PasswordGenerator = () => {
     if (score <= 3) return { label: "Weak", color: "text-red-500", width: "25%", bg: "bg-red-500" };
     if (score <= 5) return { label: "Medium", color: "text-yellow-500", width: "50%", bg: "bg-yellow-500" };
     if (score <= 6) return { label: "Strong", color: "text-green-500", width: "75%", bg: "bg-green-500" };
-    return { label: "Very Strong", color: "text-accent-cyan", width: "100%", bg: "bg-accent-cyan" };
+    return { label: "Very Strong", color: "text-accent-violet", width: "100%", bg: "bg-accent-violet" };
   };
 
   const strength = getStrength();
