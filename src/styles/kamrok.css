@@ -636,3 +636,125 @@
   .kk-flyout-left { width: 100%; padding: 70px 22px 28px; }
   .kk-why-toggle { font-size: 8.5px; padding: 8px 14px; }
 }
+
+/* ============================================================
+   BRAND COLOR SYSTEM — pink / violet / orange / sun yellow / cyan
+   Threads the landing-page palette through the entire app.
+   ============================================================ */
+.kk-root {
+  --brand-pink:   #FF3D9A;
+  --brand-violet: #7C5CFF;
+  --brand-orange: #FF8A4C;
+  --brand-amber:  #FFD27A;
+  --brand-cyan:   #1FE1E9;
+  --brand-grad:        linear-gradient(96deg, #FFD27A 0%, #FF8A4C 32%, #FF3D9A 64%, #7C5CFF 100%);
+  --brand-grad-warm:   linear-gradient(135deg, #FFD27A, #FF8A4C 45%, #FF3D6A);
+  --brand-grad-cool:   linear-gradient(135deg, #7C5CFF, #FF3D9A);
+  --brand-glow-pink:   0 10px 36px rgba(255, 61, 154, .35);
+  --brand-glow-warm:   0 12px 38px rgba(255, 138, 76, .35);
+  --brand-glow-violet: 0 12px 38px rgba(124, 92, 255, .35);
+}
+
+/* Hero H1 — warm sunrise gradient */
+.kk-card h1 {
+  background: var(--brand-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* Eyebrow chip echoes landing intro chip */
+.kk-eyebrow {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 61, 154, .32);
+  border-radius: 999px;
+  background: rgba(124, 92, 255, .08);
+  color: #f1e6ff;
+}
+
+/* Section subhead "More clients", "Trusted by" — rotate brand hues */
+.kk-sub { color: var(--brand-violet); }
+.kk-sub + * + .kk-sub,
+.kk-page > .kk-sub:nth-of-type(2) { color: var(--brand-pink); }
+.kk-page > .kk-sub:nth-of-type(3) { color: var(--brand-orange); }
+.kk-page > .kk-sub:nth-of-type(4) { color: var(--brand-cyan); }
+
+/* Project rows — accent rotates pink / violet / orange */
+.kk-proj { position: relative; }
+.kk-proj::before {
+  content: ""; position: absolute; left: 0; top: -1px; height: 1px;
+  width: 64px; background: var(--brand-grad);
+}
+.kk-proj:nth-child(1) { --accent: var(--brand-pink); }
+.kk-proj:nth-child(2) { --accent: var(--brand-violet); }
+.kk-proj:nth-child(3) { --accent: var(--brand-orange); }
+.kk-proj:nth-child(4) { --accent: var(--brand-amber); }
+.kk-proj .kk-n { color: var(--accent); }
+.kk-proj h2 {
+  background: linear-gradient(96deg, var(--ink), var(--accent));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+
+/* Primary CTA buttons — brand warm gradient */
+.kk-cta-big,
+.kk-visit--solid {
+  background: var(--brand-grad-warm) !important;
+  color: #1a0a14 !important;
+  border-color: transparent !important;
+  box-shadow: var(--brand-glow-pink);
+}
+.kk-cta-big:hover,
+.kk-visit--solid:hover { filter: brightness(1.06) saturate(1.05); }
+
+/* Ghost CTA hover */
+.kk-cta:hover {
+  background: var(--brand-violet);
+  color: #0a0820;
+  border-color: var(--brand-violet);
+  box-shadow: var(--brand-glow-violet);
+}
+
+/* Visit ghost link */
+.kk-visit { color: var(--brand-pink); }
+.kk-visit:hover { color: #fff; border-color: var(--brand-pink); }
+
+/* Client cards — alternating hover accents */
+.kk-client:nth-child(3n+1):hover { border-color: var(--brand-pink);   box-shadow: 0 6px 24px rgba(255, 61, 154, .18); }
+.kk-client:nth-child(3n+2):hover { border-color: var(--brand-violet); box-shadow: 0 6px 24px rgba(124, 92, 255, .18); }
+.kk-client:nth-child(3n+3):hover { border-color: var(--brand-orange); box-shadow: 0 6px 24px rgba(255, 138, 76, .18); }
+.kk-client:nth-child(3n+1) .kk-client__arrow { color: var(--brand-pink); }
+.kk-client:nth-child(3n+2) .kk-client__arrow { color: var(--brand-violet); }
+.kk-client:nth-child(3n+3) .kk-client__arrow { color: var(--brand-orange); }
+
+/* Logos warm tint on hover instead of pure white */
+.kk-logos img:hover { opacity: 1; filter: none; }
+
+/* Process steps — numeral hue rotation */
+.kk-step:nth-child(4n+1) .kk-step__n { color: var(--brand-pink); }
+.kk-step:nth-child(4n+2) .kk-step__n { color: var(--brand-violet); }
+.kk-step:nth-child(4n+3) .kk-step__n { color: var(--brand-orange); }
+.kk-step:nth-child(4n+4) .kk-step__n { color: var(--brand-cyan); }
+
+/* Skill chips */
+.kk-skillbtn:nth-child(5n+1) { --accent: var(--brand-pink); }
+.kk-skillbtn:nth-child(5n+2) { --accent: var(--brand-violet); }
+.kk-skillbtn:nth-child(5n+3) { --accent: var(--brand-orange); }
+.kk-skillbtn:nth-child(5n+4) { --accent: var(--brand-amber); }
+.kk-skillbtn:nth-child(5n+5) { --accent: var(--brand-cyan); }
+
+/* Team cards */
+.kk-team-card:nth-child(2n+1) { --accent: var(--brand-pink); }
+.kk-team-card:nth-child(2n)   { --accent: var(--brand-violet); }
+
+/* Divider tint */
+.kk-div { color: var(--brand-pink); opacity: .85; }
+
+/* Contact rows */
+.kk-row a:hover { color: var(--brand-pink); border-color: var(--brand-pink); }
+
+/* Grid section keys rotate */
+.kk-grid section:nth-child(4n+1) .kk-k { color: var(--brand-pink); }
+.kk-grid section:nth-child(4n+2) .kk-k { color: var(--brand-violet); }
+.kk-grid section:nth-child(4n+3) .kk-k { color: var(--brand-orange); }
+.kk-grid section:nth-child(4n+4) .kk-k { color: var(--brand-cyan); }
