@@ -677,6 +677,7 @@
 .kk-page > .kk-sub:nth-of-type(4) { color: var(--brand-violet); }
 
 /* Project rows — accent rotates pink / violet / white */
+/* Project rows — plain white bold headings, no gradient */
 .kk-proj { position: relative; }
 .kk-proj::before {
   content: ""; position: absolute; left: 0; top: -1px; height: 1px;
@@ -688,9 +689,11 @@
 .kk-proj:nth-child(4) { --accent: var(--brand-pink); }
 .kk-proj .kk-n { color: var(--accent); }
 .kk-proj h2 {
-  background: linear-gradient(96deg, var(--ink), var(--accent));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
+  background: none !important;
+  -webkit-text-fill-color: #fff !important;
+  color: #fff !important;
+  font-weight: 900;
+  letter-spacing: 0.005em;
 }
 
 /* Primary CTA buttons — brand pink/violet gradient */
@@ -755,3 +758,11 @@
 .kk-grid section:nth-child(4n+2) .kk-k { color: var(--brand-violet); }
 .kk-grid section:nth-child(4n+3) .kk-k { color: var(--brand-white); }
 .kk-grid section:nth-child(4n+4) .kk-k { color: var(--brand-pink); }
+
+/* Work page heading tweaks */
+.work-heading {
+  letter-spacing: 0.005em !important;
+}
+.work-eyebrow {
+  margin-top: 0.5rem;
+}
