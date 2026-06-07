@@ -206,15 +206,17 @@
 /* Codex dossier — right-hand panel, dark */
 .kk-codex-panel {
   --accent: #8b7dff;
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 45; width: min(440px, 92vw); overflow-y: auto;
-  background: radial-gradient(120% 60% at 85% 0%, rgba(86, 168, 255, .16), transparent 55%), linear-gradient(165deg, #1c1842 0%, #14112e 55%, #1b1338 100%);
-  border-left: 1px solid var(--accent);
-  box-shadow: -36px 0 110px rgba(0, 0, 0, .6);
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 60; width: min(440px, 92vw); overflow-y: auto;
+  background: radial-gradient(120% 60% at 15% 0%, rgba(86, 168, 255, .16), transparent 55%), linear-gradient(195deg, #1c1842 0%, #14112e 55%, #1b1338 100%);
+  border-right: 1px solid var(--accent);
+  box-shadow: 36px 0 110px rgba(0, 0, 0, .6);
   padding: 38px 26px 30px; text-align: center;
-  transform: translateX(102%); transition: transform .55s cubic-bezier(.22, .61, .36, 1);
+  transform: translateX(-102%); transition: transform .55s cubic-bezier(.22, .61, .36, 1);
 }
 .kk-codex-panel.is-open { transform: translateX(0); }
-.kk-codex-panel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+.kk-codex-panel::before { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); }
+.kk-codex-scrim { position: fixed; inset: 0; z-index: 55; background: rgba(5, 4, 18, .55); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .35s; }
+.kk-codex-scrim.is-open { opacity: 1; pointer-events: auto; }
 .kk-codex-x { position: absolute; top: 18px; right: 22px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: rgba(255, 255, 255, .05); color: var(--dim); cursor: pointer; font-family: var(--mono); font-size: 12px; z-index: 2; }
 .kk-codex-x:hover { color: var(--ink); border-color: var(--ink); }
 
