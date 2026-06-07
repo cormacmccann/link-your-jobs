@@ -113,6 +113,12 @@ export default function CaseStudy() {
   const { slug } = useParams();
   const data = slug ? CASES[slug] : undefined;
 
+  useEffect(() => {
+    document.body.classList.add("kk-case-open");
+    return () => document.body.classList.remove("kk-case-open");
+  }, []);
+
+
   if (!data) {
     return (
       <KamrokLayout title="Case study — KAMROK" description="Case study">
