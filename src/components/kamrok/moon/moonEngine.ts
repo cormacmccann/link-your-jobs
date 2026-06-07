@@ -784,10 +784,27 @@ export function startMoonExperience(): () => void {
       landedShip=makeShip(9);
       const box=new T.Box3().setFromObject(landedShip);
       landedShip.position.set(SHIP_POS.x,SHIP_POS.y-box.min.y+0.1,SHIP_POS.z);
+      // Brighten ship materials so the hull is readable under cool moon light
+      landedShip.traverse(o=>{if(o.isMesh&&o.material){const mats=Array.isArray(o.material)?o.material:[o.material];
+        mats.forEach(m=>{if(!m||!('emissive' in m))return;
+          try{m.emissive=new T.Color(0x6a4a1f);m.emissiveIntensity=0.35;
+            if('metalness' in m)m.metalness=Math.max(0.55,m.metalness||0);
+            if('roughness' in m)m.roughness=Math.min(0.55,m.roughness??0.6);
+            m.needsUpdate=true;}catch(e){}});}});
       scene.add(landedShip);
-      const beam=new T.Mesh(new T.CylinderGeometry(3,5,44,20,1,true),new T.MeshBasicMaterial({color:0x9fd4ff,transparent:true,opacity:.16,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      // Outer + inner beam for a denser tractor look
+      const beam=new T.Mesh(new T.CylinderGeometry(3,5,44,20,1,true),new T.MeshBasicMaterial({color:0x9fd4ff,transparent:true,opacity:.28,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
       beam.position.set(SHIP_POS.x,SHIP_POS.y+22,SHIP_POS.z);scene.add(beam);landedShip.userData.beam=beam;
-      const pl=new T.PointLight(0x9fd4ff,2.2,70);pl.position.set(SHIP_POS.x,SHIP_POS.y+9,SHIP_POS.z);scene.add(pl);
+      const beamCore=new T.Mesh(new T.CylinderGeometry(1.2,2.8,44,16,1,true),new T.MeshBasicMaterial({color:0xffe4b8,transparent:true,opacity:.42,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      beamCore.position.copy(beam.position);scene.add(beamCore);landedShip.userData.beamCore=beamCore;
+      // Ground halo ring
+      const halo=new T.Mesh(new T.RingGeometry(4,9,40),new T.MeshBasicMaterial({color:0xffd9a0,transparent:true,opacity:.55,side:T.DoubleSide,blending:T.AdditiveBlending,depthWrite:false}));
+      halo.rotation.x=-Math.PI/2;halo.position.set(SHIP_POS.x,SHIP_POS.y+0.05,SHIP_POS.z);scene.add(halo);landedShip.userData.halo=halo;
+      // Warm key spotlight from above-front + brighter cool fill
+      const key=new T.SpotLight(0xffd9a0,6,60,Math.PI/5,0.45,1.4);
+      key.position.set(SHIP_POS.x+10,SHIP_POS.y+22,SHIP_POS.z+10);key.target.position.set(SHIP_POS.x,SHIP_POS.y+3,SHIP_POS.z);
+      scene.add(key);scene.add(key.target);
+      const pl=new T.PointLight(0x9fd4ff,3.4,90);pl.position.set(SHIP_POS.x,SHIP_POS.y+9,SHIP_POS.z);scene.add(pl);
       shipNode=document.createElement('div');shipNode.className='node ship';shipNode.innerHTML='<div class="ring"></div><div class="lbl">THE SHIP</div>';
       shipNode.addEventListener('click',()=>{autoTarget=SHIP_POS;manualClose=null;hideHint();});nodesWrap.appendChild(shipNode);
       showToast('✦ A SHIP HAS LANDED — FIND IT');
