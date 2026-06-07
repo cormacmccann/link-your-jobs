@@ -136,8 +136,13 @@ export default function CaseStudy() {
       description={`${data.name}: ${data.tagline} A KAMROK case study.`}
     >
       <div style={{ ["--accent" as string]: data.accent }}>
+        {data.heroImage && (
+          <div className="kk-case-bg" style={{ backgroundImage: `url(${data.heroImage})` }} aria-hidden />
+        )}
+        <div className="kk-case-tint" aria-hidden />
         {/* HERO */}
         <header className="kk-case-hero">
+
           {data.heroImage && (
             <div className="kk-case-hero__bg" style={{ backgroundImage: `url(${data.heroImage})` }} />
           )}
