@@ -859,15 +859,39 @@ export function startMoonExperience(): () => void {
     const core=new T.Mesh(new T.SphereGeometry(70,24,24),new T.MeshBasicMaterial({color:0xfff1c4,transparent:true,opacity:.85,blending:T.AdditiveBlending,depthWrite:false}));
     const grp=new T.Group();grp.add(pts,core);grp.rotation.x=Math.PI*0.42;grp.position.set(-200,-300,-1500);return grp;
   }
+  // canvas-generated radial glow sprite (cached) for richer additive halos at zero network cost
+  let _glowTex=null;
+  function glowTex(){if(_glowTex)return _glowTex;const N=128,c=document.createElement('canvas');c.width=c.height=N;const g=c.getContext('2d');
+    const grd=g.createRadialGradient(N/2,N/2,2,N/2,N/2,N/2);grd.addColorStop(0,'rgba(255,255,255,1)');grd.addColorStop(0.35,'rgba(255,255,255,0.45)');grd.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=grd;g.fillRect(0,0,N,N);_glowTex=new T.CanvasTexture(c);return _glowTex;}
   function spawnTarget(near){
-    const c=[0x6cf2ff,0xffd36c,0x7dffb0,0xff7de0][Math.floor(Math.random()*4)];
-    const box=new T.Mesh(new T.BoxGeometry(16,16,16),new T.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.35,metalness:.4,roughness:.4}));
-    box.add(new T.LineSegments(new T.EdgesGeometry(box.geometry),new T.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.6})));
+    const palette=[0x6cf2ff,0xffd36c,0x7dffb0,0xff7de0,0xb78cff];
+    const c=palette[Math.floor(Math.random()*palette.length)];
+    const grp=new T.Group();
+    // Core shell — flatShading reads as faceted tech crate without extra geometry
+    const core=new T.Mesh(new T.BoxGeometry(16,16,16),new T.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.45,metalness:.55,roughness:.35,flatShading:true}));
+    grp.add(core);
+    // Inner inverted box gives a recessed-depth illusion
+    const inner=new T.Mesh(new T.BoxGeometry(11,11,11),new T.MeshStandardMaterial({color:0x111522,emissive:c,emissiveIntensity:.55,metalness:.2,roughness:.7,side:T.BackSide}));
+    grp.add(inner);
+    // Six face-greebles (procedural, no assets)
+    const greMat=new T.MeshStandardMaterial({color:0xe8eef7,emissive:c,emissiveIntensity:.4,metalness:.7,roughness:.3,flatShading:true});
+    const faces=[[0,0,8.2],[0,0,-8.2],[8.2,0,0],[-8.2,0,0],[0,8.2,0],[0,-8.2,0]];
+    faces.forEach(([fx,fy,fz])=>{const gz=new T.Mesh(new T.BoxGeometry(3.2,3.2,1.4),greMat);gz.position.set(fx,fy,fz);gz.lookAt(fx*2,fy*2,fz*2);grp.add(gz);
+      const rim=new T.Mesh(new T.BoxGeometry(5.4,5.4,0.4),new T.MeshBasicMaterial({color:c,transparent:true,opacity:.7}));rim.position.set(fx*0.96,fy*0.96,fz*0.96);rim.lookAt(fx*2,fy*2,fz*2);grp.add(rim);});
+    // Crisp white edge wireframe
+    grp.add(new T.LineSegments(new T.EdgesGeometry(core.geometry),new T.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.65})));
+    // Additive halo sprite
+    const halo=new T.Sprite(new T.SpriteMaterial({map:glowTex(),color:c,transparent:true,opacity:.85,blending:T.AdditiveBlending,depthWrite:false}));
+    halo.scale.set(46,46,1);grp.add(halo);
     let px,py,pz;
     if(near&&sState){const y=sState.yaw,pi=sState.pitch,fx=Math.sin(y)*Math.cos(pi),fy=Math.sin(pi),fz=Math.cos(y)*Math.cos(pi),d=320+Math.random()*520;
       px=sState.x+fx*d+(Math.random()-0.5)*320;py=sState.y+fy*d+(Math.random()-0.5)*220;pz=sState.z+fz*d+(Math.random()-0.5)*320;}
     else{px=(Math.random()-0.5)*1700;py=(Math.random()-0.5)*760;pz=(Math.random()-0.5)*1700;}
-    box.position.set(px,py,pz);box.userData={spin:(Math.random()-0.5)*0.05,alive:true};spaceScene.add(box);return box;
+    grp.position.set(px,py,pz);grp.userData={spin:(Math.random()-0.5)*0.05,alive:true,color:c,core,halo,pulse:Math.random()*6.28};
+    // Keep .material.color for the explosion call site
+    grp.material=core.material;
+    spaceScene.add(grp);return grp;
   }
   function buildSpace(){
     if(spaceScene)return;
