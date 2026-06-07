@@ -228,7 +228,7 @@ h1, h2, h3, h4, h5, h6,
 .kk-step h3, .kk-team-name, .kk-case-feature h3 {
   font-family: 'GOBOLD', 'Oswald', 'Bebas Neue', Impact, sans-serif !important;
   font-style: italic !important;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: .01em;
   text-transform: uppercase;
   display: inline-block;
@@ -245,6 +245,11 @@ h1, h2, h3, h4, h5, h6,
 h1, .page-title {
   transform: skew(-6deg, -1.5deg);
   transform-origin: left center;
+}
+
+/* Landing page headings stay upright */
+.moon-root h1, .intro h1, .intro .intro-headline {
+  transform: none !important;
 }
 
 /* Keep utility / chrome headings untouched */
