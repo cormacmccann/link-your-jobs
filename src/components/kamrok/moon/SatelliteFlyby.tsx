@@ -91,7 +91,9 @@ export default function SatelliteFlyby() {
         camera={{ position: [0, 0, 6], fov: 45 }}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
-        style={{ background: "transparent" }}
+        style={{ background: "transparent", pointerEvents: "none" }}
+        eventSource={typeof document !== "undefined" ? document.body : undefined}
+        eventPrefix="client"
       >
         <ambientLight intensity={0.6} />
         <directionalLight position={[4, 5, 4]} intensity={1.1} />
