@@ -258,8 +258,8 @@
   .panel .p-corner{position:absolute;width:46px;height:46px;color:#a59ccf;opacity:.7;pointer-events:none;z-index:2}
   .panel .p-corner svg{width:100%;height:100%;display:block}
   .pc-tl{top:18px;left:18px}.pc-tr{top:18px;right:18px;transform:scaleX(-1)}.pc-bl{bottom:18px;left:18px;transform:scaleY(-1)}.pc-br{bottom:18px;right:18px;transform:scale(-1,-1)}
-  .panel .close{border-color:rgba(180,170,255,.3)!important;color:#a59ccf!important;background:rgba(255,255,255,.05)!important}
-  .panel .close:hover{border-color:#ece8ff!important;color:#ece8ff!important}
+  .panel .close{border-color:rgba(180,170,255,.4)!important;color:#ece8ff!important;background:rgba(20,15,45,.82)!important;font-size:24px!important;width:56px!important;height:56px!important;top:20px!important;right:24px!important;z-index:60!important;box-shadow:0 8px 28px rgba(0,0,0,.55),0 0 0 1px rgba(180,170,255,.18)!important}
+  .panel .close:hover{border-color:#ece8ff!important;color:#fff!important;background:rgba(40,30,80,.95)!important}
   .lore-emblem{width:52px;height:52px;margin:6px auto 14px;filter:brightness(1.7) saturate(.4)}
   .lore-emblem svg{width:100%;height:100%;display:block}
   .panel .tag{color:#8b7dff!important;letter-spacing:.42em!important;font-family:var(--mono)!important;margin-bottom:13px!important;text-align:center}
