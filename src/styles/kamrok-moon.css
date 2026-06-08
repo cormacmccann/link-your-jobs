@@ -62,7 +62,7 @@
   body.is-touch .secrets{left:auto;right:30px;bottom:96px}
 
   /* ===== GAME HUD ===== */
-  .hud{position:fixed;z-index:15;background:rgba(8,9,12,0.42);backdrop-filter:blur(7px);border:1px solid var(--line-soft);border-radius:3px;color:var(--ink-dim)}
+  .hud{position:fixed;z-index:26;background:rgba(8,9,12,0.42);backdrop-filter:blur(7px);border:1px solid var(--line-soft);border-radius:3px;color:var(--ink-dim)}
   .hud-h{font-size:8px;letter-spacing:0.3em;color:var(--ink-dim);padding:8px 10px 6px;border-bottom:1px solid var(--line-soft)}
   .hud-radar{top:80px;left:30px;padding-bottom:6px}
   .hud-radar canvas{display:block;margin:8px;width:168px;height:168px}
