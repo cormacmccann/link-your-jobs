@@ -91,6 +91,7 @@ export function startMoonExperience(): () => void {
   renderer.toneMapping=T.ACESFilmicToneMapping;
   renderer.toneMappingExposure=1.12;
   app.appendChild(renderer.domElement);
+  try { _ktx2.detectSupport(renderer); } catch (e) { /* noop */ }
 
   /* ============ TEXTURES (embedded base64, optional) ============ */
   const TEXES=window.TEX||{};
