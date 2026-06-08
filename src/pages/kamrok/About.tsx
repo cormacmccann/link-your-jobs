@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import KamrokLayout, { Divider } from "@/components/kamrok/KamrokLayout";
 import cormacPhoto from "@/assets/team/cormac.png.asset.json";
 import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
