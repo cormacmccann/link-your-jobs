@@ -4,7 +4,7 @@
 // Faithful port of the KAMROK moonscape, adapted to run as a React component
 // (three 0.160 + three-stdlib GLTFLoader, assets from the Lovable CDN).
 import * as THREE from "three";
-import { GLTFLoader } from "three-stdlib";
+import { GLTFLoader, KTX2Loader, MeshoptDecoder } from "three-stdlib";
 import { MOON_ASSETS } from "@/config/moonAssets";
 
 export function startMoonExperience(): () => void {
@@ -13,6 +13,18 @@ export function startMoonExperience(): () => void {
   const T: any = { ...THREE };
   T.GLTFLoader = GLTFLoader;
   (window as any).THREE = T;
+  // The optimised GLBs use EXT_meshopt_compression + KHR_texture_basisu (KTX2).
+  // Configure every GLTFLoader instance with the matching decoders so the
+  // models actually parse instead of erroring out silently.
+  const _ktx2 = new KTX2Loader().setTranscoderPath("https://unpkg.com/three@0.160.0/examples/jsm/libs/basis/");
+  const _origLoad = (GLTFLoader as any).prototype.load;
+  (GLTFLoader as any).prototype.load = function (url: any, onLoad: any, onProgress: any, onError: any) {
+    try {
+      this.setMeshoptDecoder(MeshoptDecoder);
+      this.setKTX2Loader(_ktx2);
+    } catch (e) { /* noop */ }
+    return _origLoad.call(this, url, onLoad, onProgress, onError);
+  };
   // route the reference's loader.parse(urlString, "", onLoad, onError) calls to loader.load(url, ...)
   const _origParse = (GLTFLoader as any).prototype.parse;
   (GLTFLoader as any).prototype.parse = function (data: any, path: any, onLoad: any, onError: any) {
