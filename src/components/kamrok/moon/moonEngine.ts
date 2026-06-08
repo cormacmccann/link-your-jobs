@@ -86,9 +86,12 @@ export function startMoonExperience(): () => void {
 
   // Detect phone-class devices to tune renderer cost. Cuts ~50% GPU work on mobile.
   const IS_MOBILE = innerWidth < 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // The right-side nav rail (.im-rail) reserves 124px on desktop — render only into the space left of it.
+  const RAIL_W = () => (matchMedia('(min-width: 768px)').matches ? 124 : 0);
+  const vw = () => Math.max(320, innerWidth - RAIL_W());
   const renderer=new T.WebGLRenderer({antialias:!IS_MOBILE, powerPreference:'high-performance'});
   renderer.setPixelRatio(IS_MOBILE ? 1 : Math.min(devicePixelRatio,2));
-  renderer.setSize(innerWidth,innerHeight);
+  renderer.setSize(vw(),innerHeight);
   renderer.shadowMap.enabled=!IS_MOBILE;
   renderer.shadowMap.type=T.PCFSoftShadowMap;
   renderer.outputColorSpace=T.SRGBColorSpace;
@@ -125,7 +128,7 @@ export function startMoonExperience(): () => void {
   let targetVIEW=44;                        /* wheel-zoom goal */
   const camera=new T.OrthographicCamera(-1,1,1,-1,0.1,3000);
   function setFrustum(){
-    const a=innerWidth/innerHeight;
+    const a=vw()/innerHeight;
     camera.left=-VIEW*a/2;camera.right=VIEW*a/2;camera.top=VIEW/2;camera.bottom=-VIEW/2;
     camera.updateProjectionMatrix();
   }
@@ -915,7 +918,7 @@ export function startMoonExperience(): () => void {
   function buildSpace(){
     if(spaceScene)return;
     spaceScene=new T.Scene();spaceScene.background=new T.Color(0x02030a);spaceScene.fog=new T.FogExp2(0x05060f,0.00011);
-    spaceCam=new T.PerspectiveCamera(64,innerWidth/innerHeight,0.1,14000);
+    spaceCam=new T.PerspectiveCamera(64,vw()/innerHeight,0.1,14000);
     spaceScene.add(new T.AmbientLight(0x60709a,0.9));
     const sun=new T.PointLight(0xfff0d0,3.2,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
     const rim=new T.PointLight(0x6cf2ff,1.6,9000);rim.position.set(-800,-200,600);spaceScene.add(rim);
@@ -1239,7 +1242,7 @@ export function startMoonExperience(): () => void {
     });
     __on('pointerdown',e=>{
       if(!skillRayTargets.length||e.target!==renderer.domElement)return;
-      ndc.x=(e.clientX/innerWidth)*2-1; ndc.y=-(e.clientY/innerHeight)*2+1; ray.setFromCamera(ndc,camera);
+      ndc.x=(e.clientX/vw())*2-1; ndc.y=-(e.clientY/innerHeight)*2+1; ray.setFromCamera(ndc,camera);
       const hit=ray.intersectObjects(skillRayTargets,true)[0];
       if(hit){let o=hit.object; while(o&&!o.userData.skill)o=o.parent; if(o&&o.userData.skill){showSkillPop(o.userData.skill);return;}}
       if(openSkill)hideSkillPop();
@@ -1300,7 +1303,7 @@ export function startMoonExperience(): () => void {
     });
   })();
 
-  __on('resize',()=>{setFrustum();renderer.setSize(innerWidth,innerHeight);if(spaceCam){spaceCam.aspect=innerWidth/innerHeight;spaceCam.updateProjectionMatrix();}});
+  __on('resize',()=>{setFrustum();renderer.setSize(vw(),innerHeight);if(spaceCam){spaceCam.aspect=vw()/innerHeight;spaceCam.updateProjectionMatrix();}});
 
   /* ============ LOOP ============ */
   /* ===== boulder collision + knock dynamics ===== */
@@ -1327,7 +1330,7 @@ export function startMoonExperience(): () => void {
     }
   }
   const camDesired=new T.Vector3();const tmp=new T.Vector3();let clock=0;
-  function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*innerWidth,y:(-tmp.y*0.5+0.5)*innerHeight};}
+  function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*vw(),y:(-tmp.y*0.5+0.5)*innerHeight};}
   function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
     if(mode==='space'){ if(!pmndrsActive) spaceTick(); return; }
     if(mode==='takeoff'){takeoffTick();return;}
