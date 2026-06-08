@@ -14,7 +14,7 @@ export const MOON_MARKUP = `
 
   <!-- ===== TITLE / INTRO SCREEN ===== -->
   <div class="intro" id="intro">
-    <video class="hero-vid" src="/hero-video.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="hero-vid" src="/__l5e/assets-v1/65ed1a60-31d6-4695-b21c-59cf9a9ddfba/home-monkey-space.mp4" autoplay muted loop playsinline preload="auto"></video>
     <img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" />
     <div class="intro-foot">
       <div class="intro-eyebrow"><span class="dot"></span>A WEB STUDIO · DUNDALK, IRELAND</div>
