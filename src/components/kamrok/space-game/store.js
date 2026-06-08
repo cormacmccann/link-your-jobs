@@ -35,7 +35,7 @@ const useStore = create((set, get) => {
       hits: false,
       rings: randomRings(30, track),
       particles: randomData(1500, track, 100, 1, () => 0.5 + Math.random() * 0.8),
-      looptime: 40 * 1000,
+      looptime: 140 * 1000,
       binormal: new THREE.Vector3(),
       normal: new THREE.Vector3(),
       clock: new THREE.Clock(false),
