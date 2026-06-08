@@ -7,9 +7,13 @@ import { MOON_ASSETS } from "@/config/moonAssets";
 
 // Shared decoders for the optimised (meshopt + KTX2) GLBs.
 const ktx2 = new KTX2Loader().setTranscoderPath("https://unpkg.com/three@0.160.0/examples/jsm/libs/basis/");
+// three-stdlib exports MeshoptDecoder as a factory — call it to get the decoder instance.
+const meshopt: any = (MeshoptDecoder as any)();
 const extendGltfLoader = (loader: any) => {
-  loader.setMeshoptDecoder(MeshoptDecoder);
-  loader.setKTX2Loader(ktx2);
+  try { loader.setMeshoptDecoder(meshopt); } catch { /* noop */ }
+  try { loader.setKTX2Loader(ktx2); } catch { /* noop */ }
+  loader.meshoptDecoder = meshopt;
+  loader.ktx2Loader = ktx2;
 };
 
 export type SkillIcon = {
