@@ -68,7 +68,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
     <div className={`im-nav-root${onMoon ? " im-nav-root--moon" : ""}`}>
       <MobileNav onMoon={onMoon} />
       {/* Right dark menu bar (desktop) */}
-      <aside className={`im-rail ${open ? "im-rail--hidden" : ""}`}>
+      <aside className="im-rail">
         <button className="im-rail-btn" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu size={18} strokeWidth={1.4} />
         </button>
