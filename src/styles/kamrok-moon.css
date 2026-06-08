@@ -223,15 +223,21 @@
   /* menu is the right dark bar; map/objectives toggle from the bottom-left hub */
   .settings{display:none!important}              /* music/sound/fullscreen now live in SETTINGS */
   .hud-stat{display:none!important}
-  .nav{padding:36px 84px 36px 30px!important}     /* clear the right bar */
+  .nav{padding:36px 110px 36px 150px!important}  /* clear filigree (left) + right bar */
   .frame{right:74px!important}                    /* push the filigree frame left of the bar, not under it */
   .c-tr,.c-br{right:66px!important}
   .edge{right:60px!important}
-  .hud-radar,.hud-obj{left:24px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
-  .hud-radar{top:74px!important}
-  .hud-obj{top:256px!important;bottom:auto!important}
+  /* Move radar + objectives inward so they clear the top-left filigree corner */
+  .hud-radar,.hud-obj{left:150px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
+  .hud-radar{top:36px!important}
+  .hud-obj{top:218px!important;bottom:auto!important}
   .hud-radar.hud--open,.hud-obj.hud--open{opacity:1;visibility:visible;transform:none}
   .compass{right:78px!important}                  /* clear the right bar */
+  /* Move touch D-pad up and to the right (clears bottom-left filigree + speed HUD) */
+  .touch{justify-content:flex-end!important;padding:24px 110px 120px 24px!important}
+  .touch .pad{transform:scale(1.05)}
+  /* Speed HUD already centered; nudge up so it never overlaps bottom corners */
+  .hud-speed{bottom:96px!important}
   @media(max-width:600px){
     .nav{padding:24px 70px 24px 14px!important}
     .nav-items{display:none!important}
@@ -239,8 +245,10 @@
     .secrets{display:none!important}
     .hud-radar canvas{width:116px!important;height:116px!important;margin:6px!important}
     .hud-speed{width:158px!important;bottom:118px!important}
+    .hud-radar,.hud-obj{left:110px!important}
     .compass{right:70px!important;bottom:118px!important}
     .panel{width:100vw!important;padding:64px 24px 32px!important}
+    .touch{padding:18px 24px 22px!important}
   }
 
   /* ===== PARCHMENT LORE PANELS ===== */
