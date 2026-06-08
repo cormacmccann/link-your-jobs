@@ -1,8 +1,16 @@
 import { Suspense, useMemo, useState, Component, type ReactNode } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { useGLTF, Float, ContactShadows } from "@react-three/drei";
+import { KTX2Loader, MeshoptDecoder } from "three-stdlib";
 import * as THREE from "three";
 import { MOON_ASSETS } from "@/config/moonAssets";
+
+// Shared decoders for the optimised (meshopt + KTX2) GLBs.
+const ktx2 = new KTX2Loader().setTranscoderPath("https://unpkg.com/three@0.160.0/examples/jsm/libs/basis/");
+const extendGltfLoader = (loader: any) => {
+  loader.setMeshoptDecoder(MeshoptDecoder);
+  loader.setKTX2Loader(ktx2);
+};
 
 export type SkillIcon = {
   key: string;
@@ -20,7 +28,7 @@ export const SKILL_ICONS: SkillIcon[] = [
   { key: "heart", name: "Lovable", kicker: "AI APPS", color: "#ff4d6d", url: MOON_ASSETS.heart },
 ];
 
-SKILL_ICONS.forEach((s) => useGLTF.preload(s.url));
+SKILL_ICONS.forEach((s) => useGLTF.preload(s.url, true, true, extendGltfLoader));
 
 // If a model fails to load (e.g. CDN unreachable), render nothing instead of
 // crashing the whole canvas — the glowing centre still shows.
@@ -35,7 +43,9 @@ class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean
 }
 
 function Model({ url }: { url: string }) {
-  const { scene } = useGLTF(url);
+  const gl = useThree((s) => s.gl);
+  try { ktx2.detectSupport(gl); } catch (e) { /* noop */ }
+  const { scene } = useGLTF(url, true, true, extendGltfLoader);
   const obj = useMemo(() => {
     const c = scene.clone(true);
     const box = new THREE.Box3().setFromObject(c);
