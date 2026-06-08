@@ -507,7 +507,7 @@ body.kk-case-open .im-bg-vignette {
 .im-settings-row--vol input[type="range"] { flex: 1; accent-color: var(--accent); height: 3px; cursor: pointer; }
 
 /* Bottom-left mini hub — opens the moon's map / objectives */
-.im-hub { position: fixed; left: 16px; bottom: 16px; z-index: 28; display: flex; gap: 8px; }
+.im-hub { position: fixed; left: 130px; bottom: 110px; z-index: 28; display: flex; gap: 8px; }
 .im-hub-btn {
   display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border-radius: 30px;
   background: rgba(12, 10, 28, .78); border: 1px solid var(--line); color: var(--ink-dim); cursor: pointer;
