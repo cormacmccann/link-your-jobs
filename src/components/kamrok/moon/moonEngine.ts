@@ -19,10 +19,12 @@ export function startMoonExperience(): () => void {
   const _ktx2 = new KTX2Loader().setTranscoderPath("https://unpkg.com/three@0.160.0/examples/jsm/libs/basis/");
   const _origLoad = (GLTFLoader as any).prototype.load;
   (GLTFLoader as any).prototype.load = function (url: any, onLoad: any, onProgress: any, onError: any) {
-    try {
-      this.setMeshoptDecoder(MeshoptDecoder);
-      this.setKTX2Loader(_ktx2);
-    } catch (e) { /* noop */ }
+    // Ensure decoders are attached regardless of three-stdlib version shape.
+    try { if (typeof this.setMeshoptDecoder === "function") this.setMeshoptDecoder(MeshoptDecoder); } catch (e) { /* noop */ }
+    try { if (typeof this.setKTX2Loader === "function") this.setKTX2Loader(_ktx2); } catch (e) { /* noop */ }
+    // Direct assignment fallback — GLTFParser reads these off the loader instance.
+    try { this.meshoptDecoder = MeshoptDecoder; } catch (e) { /* noop */ }
+    try { this.ktx2Loader = _ktx2; } catch (e) { /* noop */ }
     return _origLoad.call(this, url, onLoad, onProgress, onError);
   };
   // route the reference's loader.parse(urlString, "", onLoad, onError) calls to loader.load(url, ...)
