@@ -781,7 +781,7 @@ export function startMoonExperience(): () => void {
   }
   function spawnShip(){if(shipSpawned)return;shipSpawned=true;
     const place=()=>{
-      landedShip=makeShip(9);
+      landedShip=makeShip(20);
       const box=new T.Box3().setFromObject(landedShip);
       landedShip.position.set(SHIP_POS.x,SHIP_POS.y-box.min.y+0.1,SHIP_POS.z);
       // Brighten ship materials so the hull is readable under cool moon light
