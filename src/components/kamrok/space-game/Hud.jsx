@@ -9,6 +9,7 @@ export default function Hud() {
   const points = useStore((s) => s.points)
   const health = useStore((s) => s.health)
   const sound = useStore((s) => s.sound)
+  const boosting = useStore((s) => s.boosting)
   const toggle = useStore((s) => s.actions.toggleSound)
 
   const seconds = useRef(null)
@@ -47,6 +48,31 @@ export default function Hud() {
         <div style={ui.dim}>HULL</div>
         <div style={ui.bar}>
           <div style={{ ...ui.barFill, width: Math.max(0, Math.min(100, health)) + '%' }} />
+        </div>
+      </div>
+
+      <div style={ui.lowerCenter}>
+        {boosting && (
+          <div style={{ ...ui.dim, color: accentPink, opacity: 1, marginBottom: 6, fontSize: 11 }}>
+            ◆ BOOST ACTIVE
+          </div>
+        )}
+        <div style={ui.dim}>QUICK TRAVEL</div>
+        <div style={ui.travelRow}>
+          {[
+            { label: 'α SECTOR', t: 0.2 },
+            { label: 'β SECTOR', t: 0.5 },
+            { label: 'γ SECTOR', t: 0.8 },
+          ].map((sector) => (
+            <button
+              key={sector.label}
+              type="button"
+              style={ui.travelBtn}
+              onClick={() => useStore.getState().actions.quickTravel(sector.t)}
+            >
+              {sector.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
@@ -96,5 +122,19 @@ const ui = {
   },
   barFill: {
     height: '100%', background: `linear-gradient(90deg, ${accentPink}, ${accent})`,
+  },
+  lowerCenter: {
+    position: 'absolute', left: '50%', bottom: 24, transform: 'translateX(-50%)',
+    display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', pointerEvents: 'none',
+  },
+  travelRow: {
+    display: 'flex', gap: 8, pointerEvents: 'auto',
+  },
+  travelBtn: {
+    padding: '6px 12px', borderRadius: 999, pointerEvents: 'auto',
+    border: '1px solid rgba(200,184,255,0.28)',
+    background: 'rgba(10,8,24,0.55)', backdropFilter: 'blur(6px)',
+    color: ink, fontSize: 10, letterSpacing: '.22em', textTransform: 'uppercase',
+    cursor: 'pointer', fontFamily: "ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace",
   },
 }

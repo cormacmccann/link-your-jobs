@@ -12,6 +12,7 @@ const useStore = create((set, get) => {
   let track = new THREE.TubeGeometry(spline, 250, 0.2, 10, true)
   let cancelLaserTO = undefined
   let cancelExplosionTO = undefined
+  let cancelBoostTO = undefined
   const box = new THREE.Box3()
 
   return {
@@ -21,6 +22,7 @@ const useStore = create((set, get) => {
     health: 100,
     lasers: [],
     explosions: [],
+    boosting: false,
     rocks: randomData(100, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
 
@@ -59,7 +61,9 @@ const useStore = create((set, get) => {
           const { rocks, enemies } = get()
 
           const time = Date.now()
-          const t = (mutation.t = ((time - mutation.startTime) % mutation.looptime) / mutation.looptime)
+          const elapsed = time - mutation.startTime
+          const speed = get().boosting ? 3.5 : 1
+          const t = (mutation.t = ((elapsed * speed) % mutation.looptime) / mutation.looptime)
           mutation.position = track.parameters.path.getPointAt(t)
           mutation.position.multiplyScalar(mutation.scale)
 
@@ -117,6 +121,16 @@ const useStore = create((set, get) => {
         const result = get().mutation.ray.intersectBox(box, data.hit)
         data.distance = get().mutation.ray.origin.distanceTo(data.hit)
         return result
+      },
+      setBoosting(boosting) {
+        set({ boosting })
+      },
+      quickTravel(targetT) {
+        const { actions, mutation } = get()
+        mutation.startTime = Date.now() - targetT * mutation.looptime
+        clearTimeout(cancelBoostTO)
+        actions.setBoosting(true)
+        cancelBoostTO = setTimeout(() => actions.setBoosting(false), 2500)
       }
     }
   }
