@@ -613,7 +613,14 @@ export function startMoonExperience(): () => void {
     const gv=(window.__kamrokVol==null)?0.7:window.__kamrokVol;
     const musicWanted=(window.__kamrokMusic!==false);
     const soundWanted=(window.__kamrokSound!==false);
-    if(music){if(musicWanted&&music.paused){const p=music.play();if(p&&p.catch)p.catch(()=>{});}music.volume=musicWanted?0.18*gv:0;}
+    if(music){
+      // Allow track swapping from SETTINGS popover via window.__kamrokTrack
+      const wantedSrc=window.__kamrokTrack||window.MUSIC;
+      if(wantedSrc && music.src!==wantedSrc){try{music.src=wantedSrc;music.load();}catch(e){}}
+      if(musicWanted&&music.paused){const p=music.play();if(p&&p.catch)p.catch(()=>{});}
+      if(!musicWanted&&!music.paused){try{music.pause();}catch(e){}}
+      music.volume=musicWanted?0.32*gv:0;
+    }
     if(!engine||!engineReady)return;
     const sp=Math.abs(st.speed)/MAXS;
     const target=(soundWanted?(sp>0.02?0.16+sp*0.6:0):0)*gv;

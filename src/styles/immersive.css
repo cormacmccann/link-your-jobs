@@ -554,6 +554,12 @@ body.kk-case-open .im-bg-vignette {
 .im-toggle button { appearance: none; background: none; border: none; color: var(--ink-dim); font-family: var(--mono); font-size: 8.5px; letter-spacing: .16em; padding: 5px 12px; cursor: pointer; }
 .im-toggle button.is-on { background: var(--accent); color: #0a0820; }
 .im-settings-row--vol input[type="range"] { flex: 1; accent-color: var(--accent); height: 3px; cursor: pointer; }
+.im-settings-tracks { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.im-settings-tracks-h { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 8.5px; letter-spacing: .28em; color: var(--ink-faded); margin-bottom: 8px; }
+.im-settings-tracks-list { display: flex; flex-direction: column; gap: 4px; }
+.im-track-btn { appearance: none; background: rgba(255,255,255,.02); border: 1px solid var(--line); color: var(--ink-dim); font-family: var(--mono); font-size: 9px; letter-spacing: .18em; padding: 6px 9px; border-radius: 6px; cursor: pointer; text-align: left; transition: background .15s, color .15s, border-color .15s; }
+.im-track-btn:hover { color: var(--ink); border-color: var(--line-strong); }
+.im-track-btn.is-on { background: var(--accent); color: #0a0820; border-color: var(--accent); }
 
 /* Bottom-left mini hub — opens the moon's map / objectives */
 .im-hub { position: fixed; left: 130px; bottom: 110px; z-index: 28; display: flex; gap: 8px; }

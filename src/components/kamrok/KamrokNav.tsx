@@ -2,10 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Compass, BookOpen, Sparkles, Newspaper, Menu, X, Settings, Map as MapIcon, Target, Volume2,
-  MessageCircle, Youtube, Headphones, Bell,
+  MessageCircle, Youtube, Headphones, Bell, Music,
 } from "lucide-react";
 import "@/styles/immersive.css";
 import MobileNav from "./MobileNav";
+import lockOnPulse from "@/assets/moon/tracks/lock-on-pulse.mp3.asset.json";
+import orbitCrown from "@/assets/moon/tracks/orbit-crown.mp3.asset.json";
+import orbitalDrift from "@/assets/moon/tracks/orbital-drift.mp3.asset.json";
+
+const TRACKS = [
+  { id: "default", label: "MOONSCAPE", url: "" }, // empty = use default window.MUSIC
+  { id: "drift", label: "ORBITAL DRIFT", url: orbitalDrift.url },
+  { id: "crown", label: "ORBIT CROWN", url: orbitCrown.url },
+  { id: "pulse", label: "LOCK ON PULSE", url: lockOnPulse.url },
+];
 
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
@@ -24,7 +34,7 @@ const SOCIAL = [
 ];
 
 type W = Window & {
-  __kamrokVol?: number; __kamrokMusic?: boolean; __kamrokSound?: boolean;
+  __kamrokVol?: number; __kamrokMusic?: boolean; __kamrokSound?: boolean; __kamrokTrack?: string;
 };
 
 /**
@@ -39,6 +49,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
   const [vol, setVol] = useState(70);
   const [music, setMusic] = useState(true);
   const [sound, setSound] = useState(true);
+  const [trackId, setTrackId] = useState<string>("default");
   const [mapOn, setMapOn] = useState(false);
   const [objOn, setObjOn] = useState(false);
   const { pathname } = useLocation();
@@ -52,6 +63,10 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
   useEffect(() => { (window as W).__kamrokVol = vol / 100; }, [vol]);
   useEffect(() => { (window as W).__kamrokMusic = music; }, [music]);
   useEffect(() => { (window as W).__kamrokSound = sound; }, [sound]);
+  useEffect(() => {
+    const t = TRACKS.find((x) => x.id === trackId);
+    (window as W).__kamrokTrack = t?.url || "";
+  }, [trackId]);
 
   const toggleFs = () => {
     try {
@@ -118,14 +133,30 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <div className="im-settings-row">
           <span>FULLSCREEN</span>
           <span className="im-toggle">
-            <button className={fs ? "is-on" : ""} onClick={toggleFs}>ON</button>
-            <button className={!fs ? "is-on" : ""} onClick={toggleFs}>OFF</button>
+            <button className={fs ? "is-on" : ""} onClick={() => { if (!fs) toggleFs(); }}>ON</button>
+            <button className={!fs ? "is-on" : ""} onClick={() => { if (fs) toggleFs(); }}>OFF</button>
           </span>
         </div>
         <div className="im-settings-row im-settings-row--vol">
           <span><Volume2 size={13} strokeWidth={1.5} /></span>
           <input type="range" min={0} max={100} value={vol} onChange={(e) => setVol(Number(e.target.value))} aria-label="Volume" />
         </div>
+        {music && (
+          <div className="im-settings-tracks">
+            <div className="im-settings-tracks-h"><Music size={11} strokeWidth={1.5} /> TRACK</div>
+            <div className="im-settings-tracks-list">
+              {TRACKS.map((t) => (
+                <button
+                  key={t.id}
+                  className={`im-track-btn ${trackId === t.id ? "is-on" : ""}`}
+                  onClick={() => setTrackId(t.id)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Drawer (slides from the right) */}
