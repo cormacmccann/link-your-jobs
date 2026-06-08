@@ -73,11 +73,14 @@
     "reactflow": "^11.11.4",
     "recharts": "^2.15.4",
     "sonner": "^1.7.4",
+    "styled-components": "^6.4.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.160.0",
+    "three-stdlib": "^2.36.1",
     "vaul": "^0.9.9",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
