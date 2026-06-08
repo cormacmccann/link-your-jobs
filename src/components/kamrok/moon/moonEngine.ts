@@ -400,10 +400,10 @@ export function startMoonExperience(): () => void {
   const col=new T.Mesh(new T.CylinderGeometry(0.04,0.04,0.5,6),metalD);col.position.set(0,1.75,1.0);col.rotation.x=0.6;buggy.add(col);
 
   /* ===== GLB CHARACTER — replaces procedural chimp when embedded ===== */
-  const CHIMP_TARGET_H=2.5;     // model height in world units (tweak size)
+  const CHIMP_TARGET_H=3.1;     // model height in world units (tweak size)
   const CHIMP_Y=1.05;           // base height — sits on the chassis
   const CHIMP_FWD=0.15;         // forward offset along +z
-  const CHIMP_ROT=-2.62;        // rotated another 45° so the ape faces forward over the chassis
+  const CHIMP_ROT=0.52;         // rotated 180° so the ape faces forward over the chassis
   (function(){
     const data=window.CHIMP_GLB;
     if(!data||false||!T.GLTFLoader)return;
