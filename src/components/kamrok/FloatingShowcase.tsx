@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import cormacPhoto from "@/assets/team/cormac.png.asset.json";
 import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
 
@@ -108,9 +108,9 @@ export default function FloatingShowcase() {
               <span className="im-float-card__desc">{it.desc}</span>
             </a>
           ) : (
-            <a
+            <Link
               className="im-float-inner im-float-member"
-              href={it.href}
+              to={it.href}
               style={{ ["--accent" as string]: it.accent }}
             >
               <span className="im-float-member__photo">
@@ -121,7 +121,7 @@ export default function FloatingShowcase() {
                 <span className="im-float-member__name">{it.name}</span>
                 <span className="im-float-member__cta">{it.role}</span>
               </span>
-            </a>
+            </Link>
           )}
         </div>
       ))}
