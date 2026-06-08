@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "bd24c8cc-b8c5-42af-8171-96b0f2831eae",
+  "asset_id": "de8b94eb-d896-4c68-bfa4-32d4a67f6075",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/bd24c8cc-b8c5-42af-8171-96b0f2831eae/alien_walk.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/bd24c8cc-b8c5-42af-8171-96b0f2831eae/alien_walk.glb",
+  "url": "/__l5e/assets-v1/de8b94eb-d896-4c68-bfa4-32d4a67f6075/alien_walk.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/de8b94eb-d896-4c68-bfa4-32d4a67f6075/alien_walk.glb",
   "original_filename": "alien_walk.glb",
-  "size": 241424,
+  "size": 99796,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-06T11:57:06Z"
+  "created_at": "2026-06-08T20:23:52Z"
 }
