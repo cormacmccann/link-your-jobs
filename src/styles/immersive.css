@@ -46,14 +46,57 @@
 /* Left rail */
 .im-rail {
   position: fixed; top: 0; right: 0; bottom: 0;
-  width: 60px; z-index: 30;
+  width: 124px; z-index: 30;
   display: flex; flex-direction: column; align-items: center;
-  padding: 16px 0;
+  padding: 16px 10px;
   background: linear-gradient(180deg, #0c0b1a, #08070f);
   border-left: 1px solid var(--line);
   box-shadow: -10px 0 34px rgba(0,0,0,.4);
   transition: opacity .35s ease, transform .35s ease;
 }
+
+/* Quick travel capsule: animated ATV + pills */
+.im-quicktravel {
+  margin-top: 22px;
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+  width: 100%;
+  padding: 10px 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(20,18,38,.7), rgba(8,7,15,.7));
+  box-shadow: inset 0 0 18px rgba(139,125,255,.08);
+}
+.im-qt-head {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--ink);
+  font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
+  padding: 0 4px 4px;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 4px;
+}
+.im-qt-atv {
+  width: 28px; height: 20px;
+  color: rgba(139,125,255,.95);
+  animation: imAtvBob 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(139,125,255,.5));
+  flex-shrink: 0;
+}
+.im-qt-wheel { transform-origin: center; animation: imAtvSpin .6s linear infinite; transform-box: fill-box; }
+.im-qt-wheel:nth-of-type(2) { animation-delay: -.1s; }
+@keyframes imAtvBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+@keyframes imAtvSpin { to { transform: rotate(360deg); } }
+.im-qt-label { line-height: 1.1; color: var(--ink-dim); }
+
+.im-qt-pill {
+  display: block; text-align: center;
+  padding: 6px 10px;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .22em;
+  color: var(--ink-dim); text-decoration: none;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: rgba(7,7,10,.55);
+  transition: color .2s, border-color .2s, background .2s, transform .2s;
+}
+.im-qt-pill:hover { color: var(--ink); border-color: rgba(139,125,255,.6); background: rgba(20,18,38,.85); transform: translateX(-2px); }
 .im-rail--hidden { opacity: 0; pointer-events: none; transform: translateX(12px); }
 
 .im-rail-btn {
