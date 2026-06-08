@@ -42,11 +42,22 @@ export const MOON_MARKUP = `
 
   <nav class="nav">
     <div class="wordmark"><img class="wm-logo" src="/kamrok-logo.png" alt="KAMROK" /><small>CANDY SHOP DIGITAL · DUNDALK</small></div>
-    <div class="nav-items" id="navItems">
-      <button data-build="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>ABOUT</button>
-      <button data-build="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg>WORK</button>
-      <button data-build="skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.6 5.7 6.4.6-4.8 4.2 1.4 6.3L12 16.9 6.4 19.8l1.4-6.3L3 9.3l6.4-.6z"/></svg>SKILLS</button>
-      <button data-build="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M4 6l8 6 8-6"/></svg>CONTACT</button>
+    <div class="qt-pill" aria-label="Quick travel">
+      <span class="qt-lbl">
+        <svg class="qt-atv" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 10h6l3-4h8l3 4"/>
+          <path d="M3 10h26"/>
+          <circle class="qt-wheel qt-wheel-l" cx="8" cy="12" r="2.6"/>
+          <circle class="qt-wheel qt-wheel-r" cx="24" cy="12" r="2.6"/>
+        </svg>
+        QUICK TRAVEL
+      </span>
+      <div class="nav-items" id="navItems">
+        <button data-build="about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>ABOUT</button>
+        <button data-build="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg>WORK</button>
+        <button data-build="skills"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.6 5.7 6.4.6-4.8 4.2 1.4 6.3L12 16.9 6.4 19.8l1.4-6.3L3 9.3l6.4-.6z"/></svg>SKILLS</button>
+        <button data-build="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M4 6l8 6 8-6"/></svg>CONTACT</button>
+      </div>
     </div>
   </nav>
 
