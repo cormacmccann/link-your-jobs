@@ -1,10 +1,10 @@
 /* AUTO-GENERATED from public/index-kamrok.html via scripts/gen-moon.mjs — do not hand-edit. */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 :root{
     --ink:#f4f4f2; --ink-dim:#9a9a96;
     --line:rgba(244,244,242,0.22); --line-soft:rgba(244,244,242,0.10);
     --panel:rgba(8,9,12,0.74);
     --mono:'Montserrat','Segoe UI',sans-serif;
+    --serif:'Montserrat','Segoe UI',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;overflow:hidden;background:#04050a;color:var(--ink);font-family:var(--mono)}
@@ -223,15 +223,21 @@
   /* menu is the right dark bar; map/objectives toggle from the bottom-left hub */
   .settings{display:none!important}              /* music/sound/fullscreen now live in SETTINGS */
   .hud-stat{display:none!important}
-  .nav{padding:36px 84px 36px 30px!important}     /* clear the right bar */
+  .nav{padding:36px 110px 36px 150px!important}  /* clear filigree (left) + right bar */
   .frame{right:74px!important}                    /* push the filigree frame left of the bar, not under it */
   .c-tr,.c-br{right:66px!important}
   .edge{right:60px!important}
-  .hud-radar,.hud-obj{left:24px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
-  .hud-radar{top:74px!important}
-  .hud-obj{top:256px!important;bottom:auto!important}
+  /* Move radar + objectives inward so they clear the top-left filigree corner */
+  .hud-radar,.hud-obj{left:150px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
+  .hud-radar{top:36px!important}
+  .hud-obj{top:218px!important;bottom:auto!important}
   .hud-radar.hud--open,.hud-obj.hud--open{opacity:1;visibility:visible;transform:none}
   .compass{right:78px!important}                  /* clear the right bar */
+  /* Move touch D-pad up and to the right (clears bottom-left filigree + speed HUD) */
+  .touch{justify-content:flex-end!important;padding:24px 110px 120px 24px!important}
+  .touch .pad{transform:scale(1.05)}
+  /* Speed HUD already centered; nudge up so it never overlaps bottom corners */
+  .hud-speed{bottom:96px!important}
   @media(max-width:600px){
     .nav{padding:24px 70px 24px 14px!important}
     .nav-items{display:none!important}
@@ -239,8 +245,10 @@
     .secrets{display:none!important}
     .hud-radar canvas{width:116px!important;height:116px!important;margin:6px!important}
     .hud-speed{width:158px!important;bottom:118px!important}
+    .hud-radar,.hud-obj{left:110px!important}
     .compass{right:70px!important;bottom:118px!important}
     .panel{width:100vw!important;padding:64px 24px 32px!important}
+    .touch{padding:18px 24px 22px!important}
   }
 
   /* ===== PARCHMENT LORE PANELS ===== */
@@ -312,9 +320,32 @@
   body.is-touch .settings{bottom:96px;gap:18px}
   @media(max-width:620px){.corner{width:84px;height:84px}.intro .title{flex-direction:column;gap:14px}}
   /* ===== BRAND LOGO (replaces serif KAMROK wordmark) ===== */
-  .wordmark .wm-logo{display:block;height:30px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
+  .wordmark .wm-logo{display:block;height:56px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
+  @media(max-width:900px){ .wordmark .wm-logo{height:44px} }
   .intro .title .word{display:flex;align-items:center}
   .intro .title .word .intro-logo{display:block;height:clamp(48px,9vw,98px);width:auto;filter:drop-shadow(0 2px 16px rgba(0,0,0,0.5))}
+
+  /* ===== Force GOBOLD on moon panel/intro headings; Montserrat elsewhere ===== */
+  .panel h2, .intro .intro-headline, .work-card h3, .skill-pop__h, .space-hud .sh-title{
+    font-family:'GOBOLD','Oswald','Bebas Neue',Impact,sans-serif !important;
+    font-weight:900 !important;
+  }
+
+  /* ===== Objectives quick-travel ATV ===== */
+  .hud-obj li{position:relative;cursor:pointer;transition:color .2s,background .2s;border-radius:3px;padding-left:8px!important;padding-right:8px!important;margin:0 -8px}
+  .hud-obj li:hover{color:var(--ink);background:rgba(244,244,242,.06)}
+  .hud-obj li .atv{position:absolute;left:-2px;top:50%;width:18px;height:14px;margin-top:-7px;opacity:0;pointer-events:none;color:#9CE3FF;filter:drop-shadow(0 0 4px rgba(124,92,255,.7))}
+  .hud-obj li .atv svg{display:block;width:100%;height:100%}
+  .hud-obj li.traveling .atv{opacity:1;animation:atvDrive 1.4s cubic-bezier(.4,.05,.2,1) forwards}
+  .hud-obj li.traveling .atv .wheel{animation:atvSpin .35s linear infinite}
+  @keyframes atvDrive{
+    0%   {left:-22px; transform:translateY(0)}
+    20%  {transform:translateY(-2px)}
+    40%  {transform:translateY(1px)}
+    60%  {transform:translateY(-1px)}
+    100% {left:calc(100% - 4px); transform:translateY(0)}
+  }
+  @keyframes atvSpin{to{transform:rotate(360deg);transform-origin:center}}
   /* ===== SKILL ICONS: floating labels + click popup ===== */
   .skill-label{position:fixed;transform:translate(-50%,0);pointer-events:auto;cursor:pointer;text-align:center;z-index:16;opacity:0;transition:opacity .3s;text-shadow:0 1px 6px #000,0 0 10px #000}
   .skill-label b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--parch)}
