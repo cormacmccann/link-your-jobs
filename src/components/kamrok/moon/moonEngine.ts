@@ -1303,7 +1303,7 @@ export function startMoonExperience(): () => void {
     });
   })();
 
-  __on('resize',()=>{setFrustum();renderer.setSize(innerWidth,innerHeight);if(spaceCam){spaceCam.aspect=innerWidth/innerHeight;spaceCam.updateProjectionMatrix();}});
+  __on('resize',()=>{setFrustum();renderer.setSize(vw(),innerHeight);if(spaceCam){spaceCam.aspect=vw()/innerHeight;spaceCam.updateProjectionMatrix();}});
 
   /* ============ LOOP ============ */
   /* ===== boulder collision + knock dynamics ===== */
