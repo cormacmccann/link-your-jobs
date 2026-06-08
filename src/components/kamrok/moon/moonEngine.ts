@@ -1430,6 +1430,14 @@ export function startMoonExperience(): () => void {
 
   /* ===== DRAGGABLE HUD PANELS — grab any .hud panel by its header and move it ===== */
   {
+    const setPos = (panel: HTMLElement, x: number, y: number) => {
+      // CSS uses !important for .hud-radar/.hud-obj/.hud-speed left/top — match priority.
+      panel.style.setProperty('left', x + 'px', 'important');
+      panel.style.setProperty('top', y + 'px', 'important');
+      panel.style.setProperty('right', 'auto', 'important');
+      panel.style.setProperty('bottom', 'auto', 'important');
+      panel.style.setProperty('transform', 'none', 'important');
+    };
     const panels = Array.from(document.querySelectorAll<HTMLElement>('.hud'));
     panels.forEach(panel => {
       const handle = (panel.querySelector('.hud-h') as HTMLElement) || panel;
@@ -1440,25 +1448,16 @@ export function startMoonExperience(): () => void {
       const key = 'kamrok.hud.pos.' + (panel.id || handle.textContent || Math.random());
       try {
         const saved = JSON.parse(localStorage.getItem(key) || 'null');
-        if (saved && typeof saved.x === 'number') {
-          panel.style.left = saved.x + 'px';
-          panel.style.top = saved.y + 'px';
-          panel.style.right = 'auto';
-          panel.style.bottom = 'auto';
-        }
+        if (saved && typeof saved.x === 'number') setPos(panel, saved.x, saved.y);
       } catch (e) {}
       const onDown = (e: PointerEvent) => {
         dragging = true;
         const r = panel.getBoundingClientRect();
-        // Lock to absolute pixel coords on first drag so right/bottom anchors release
-        panel.style.left = r.left + 'px';
-        panel.style.top = r.top + 'px';
-        panel.style.right = 'auto';
-        panel.style.bottom = 'auto';
+        setPos(panel, r.left, r.top);
         ox = r.left; oy = r.top;
         sx = e.clientX; sy = e.clientY;
         handle.style.cursor = 'grabbing';
-        panel.style.zIndex = '9999';
+        panel.style.setProperty('z-index', '9999', 'important');
         try { handle.setPointerCapture(e.pointerId); } catch (err) {}
         e.preventDefault(); e.stopPropagation();
       };
@@ -1466,8 +1465,7 @@ export function startMoonExperience(): () => void {
         if (!dragging) return;
         const nx = Math.max(0, Math.min(window.innerWidth - 40, ox + e.clientX - sx));
         const ny = Math.max(0, Math.min(window.innerHeight - 30, oy + e.clientY - sy));
-        panel.style.left = nx + 'px';
-        panel.style.top = ny + 'px';
+        setPos(panel, nx, ny);
       };
       const onUp = (e: PointerEvent) => {
         if (!dragging) return;
