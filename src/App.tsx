@@ -57,6 +57,7 @@ const BookingsDemos = lazyRetry(() => import("./pages/BookingsDemos"));
 const ReviewWidget = lazyRetry(() => import("./pages/ReviewWidget"));
 const SocialWall = lazyRetry(() => import("./pages/SocialWall"));
 const TrustpilotIntegration = lazyRetry(() => import("./pages/TrustpilotIntegration"));
+const SpaceGameTest = lazyRetry(() => import("./pages/SpaceGameTest"));
 
 const queryClient = new QueryClient();
 
@@ -103,6 +104,7 @@ const App = () => {
               <Route path="/tools/review-widget" element={<ReviewWidget />} />
               <Route path="/tools/social-wall" element={<SocialWall />} />
               <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
+              <Route path="/space" element={<SpaceGameTest />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>
