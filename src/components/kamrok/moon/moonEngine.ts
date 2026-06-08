@@ -403,7 +403,7 @@ export function startMoonExperience(): () => void {
   const CHIMP_TARGET_H=2.5;     // model height in world units (tweak size)
   const CHIMP_Y=1.05;           // base height — sits on the chassis
   const CHIMP_FWD=0.15;         // forward offset along +z
-  const CHIMP_ROT=0;            // facing forward (flip by Math.PI if needed)
+  const CHIMP_ROT=-0.18;        // slight rotation to the left so the ape faces forward correctly
   (function(){
     const data=window.CHIMP_GLB;
     if(!data||false||!T.GLTFLoader)return;
