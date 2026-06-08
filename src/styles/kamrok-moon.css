@@ -33,14 +33,14 @@
   .compass .lbl b{color:var(--ink);font-weight:600}
   .compass .lbl span{display:block;margin-top:3px}
 
-  .panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,90vw);z-index:30;background:var(--panel);backdrop-filter:blur(16px);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .55s cubic-bezier(.22,.61,.36,1);padding:90px 40px 40px;display:flex;flex-direction:column;overflow-y:auto}
+  .panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,90vw);z-index:50;background:var(--panel);backdrop-filter:blur(16px);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .55s cubic-bezier(.22,.61,.36,1);padding:90px 40px 40px;display:flex;flex-direction:column;overflow-y:auto}
   .panel.open{transform:translateX(0)}
   .panel .tag{font-size:9.5px;letter-spacing:0.4em;color:var(--ink-dim);margin-bottom:14px}
   .panel h2{font-size:30px;font-weight:600;letter-spacing:0.04em;line-height:1.05;margin-bottom:22px}
   .panel .rule{height:1px;background:var(--line);margin-bottom:26px}
   .panel p{font-size:13px;line-height:1.85;color:#d6d6d2;font-weight:400;letter-spacing:0.01em}
-  .panel .close{position:absolute;top:26px;right:30px;background:none;border:1px solid var(--line);color:var(--ink-dim);font-family:var(--mono);font-size:11px;width:30px;height:30px;border-radius:50%;cursor:pointer;transition:color .2s,border-color .2s}
-  .panel .close:hover{color:var(--ink);border-color:var(--ink)}
+ .panel .close{position:fixed;top:20px;right:24px;background:rgba(7,7,10,.78);border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:22px;line-height:1;width:54px;height:54px;border-radius:50%;cursor:pointer;transition:color .2s,border-color .2s,background .2s,transform .2s;z-index:60;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+ .panel .close:hover{color:var(--ink);border-color:var(--ink);transform:scale(1.06);background:rgba(7,7,10,.95)}
   .work-card{border:1px solid var(--line-soft);padding:18px;margin-top:14px;transition:border-color .25s}
   .work-card:hover{border-color:var(--line)}
   .work-card .n{font-size:9px;letter-spacing:0.3em;color:var(--ink-dim)}
@@ -258,8 +258,8 @@
   .panel .p-corner{position:absolute;width:46px;height:46px;color:#a59ccf;opacity:.7;pointer-events:none;z-index:2}
   .panel .p-corner svg{width:100%;height:100%;display:block}
   .pc-tl{top:18px;left:18px}.pc-tr{top:18px;right:18px;transform:scaleX(-1)}.pc-bl{bottom:18px;left:18px;transform:scaleY(-1)}.pc-br{bottom:18px;right:18px;transform:scale(-1,-1)}
-  .panel .close{border-color:rgba(180,170,255,.3)!important;color:#a59ccf!important;background:rgba(255,255,255,.05)!important}
-  .panel .close:hover{border-color:#ece8ff!important;color:#ece8ff!important}
+  .panel .close{border-color:rgba(180,170,255,.4)!important;color:#ece8ff!important;background:rgba(20,15,45,.82)!important;font-size:24px!important;width:56px!important;height:56px!important;top:20px!important;right:24px!important;z-index:60!important;box-shadow:0 8px 28px rgba(0,0,0,.55),0 0 0 1px rgba(180,170,255,.18)!important}
+  .panel .close:hover{border-color:#ece8ff!important;color:#fff!important;background:rgba(40,30,80,.95)!important}
   .lore-emblem{width:52px;height:52px;margin:6px auto 14px;filter:brightness(1.7) saturate(.4)}
   .lore-emblem svg{width:100%;height:100%;display:block}
   .panel .tag{color:#8b7dff!important;letter-spacing:.42em!important;font-family:var(--mono)!important;margin-bottom:13px!important;text-align:center}
