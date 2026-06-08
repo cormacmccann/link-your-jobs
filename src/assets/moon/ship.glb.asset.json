@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "9f0f1761-5b65-4ec2-82f2-1532c328df66",
+  "asset_id": "510bb652-e878-409a-9447-c769f32e6fc9",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/9f0f1761-5b65-4ec2-82f2-1532c328df66/ship.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/9f0f1761-5b65-4ec2-82f2-1532c328df66/ship.glb",
+  "url": "/__l5e/assets-v1/510bb652-e878-409a-9447-c769f32e6fc9/ship.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/510bb652-e878-409a-9447-c769f32e6fc9/ship.glb",
   "original_filename": "ship.glb",
-  "size": 186172,
+  "size": 191920,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-08T15:46:48Z"
+  "created_at": "2026-06-08T20:23:52Z"
 }

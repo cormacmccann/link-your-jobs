@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "75318c79-6abe-46c8-99d7-a020cca7b1a2",
+  "asset_id": "d581abe1-2e56-4a9e-80a7-ce187a0538d5",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/75318c79-6abe-46c8-99d7-a020cca7b1a2/alien_run.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/75318c79-6abe-46c8-99d7-a020cca7b1a2/alien_run.glb",
+  "url": "/__l5e/assets-v1/d581abe1-2e56-4a9e-80a7-ce187a0538d5/alien_run.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/d581abe1-2e56-4a9e-80a7-ce187a0538d5/alien_run.glb",
   "original_filename": "alien_run.glb",
-  "size": 225424,
+  "size": 96552,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-06T11:57:04Z"
+  "created_at": "2026-06-08T20:23:52Z"
 }

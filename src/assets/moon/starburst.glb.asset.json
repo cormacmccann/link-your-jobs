@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "42c629eb-915c-42ec-ba00-821415553917",
+  "asset_id": "3c207219-0120-4253-80fe-88afb2ef6b98",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/42c629eb-915c-42ec-ba00-821415553917/starburst.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/42c629eb-915c-42ec-ba00-821415553917/starburst.glb",
+  "url": "/__l5e/assets-v1/3c207219-0120-4253-80fe-88afb2ef6b98/starburst.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/3c207219-0120-4253-80fe-88afb2ef6b98/starburst.glb",
   "original_filename": "starburst.glb",
-  "size": 4462752,
+  "size": 146524,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-06T14:55:19Z"
+  "created_at": "2026-06-08T20:23:53Z"
 }
