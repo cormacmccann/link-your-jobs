@@ -290,7 +290,7 @@
 /* Main — content anchored to the right of the page */
 .im-main {
   position: relative; z-index: 10;
-  padding: 22px 76px 56px 96px;
+  padding: 22px 144px 56px 96px;   /* right clears the 124px rail + a gap */
   min-height: 100vh;
   display: flex;
   justify-content: flex-end;
@@ -391,6 +391,10 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   padding: 0 !important;
   display: block;
   justify-content: stretch;
+}
+/* ...but on desktop, still clear the 124px rail so content isn't covered (rail is hidden on mobile) */
+@media (min-width: 768px) {
+  .im-main:has(.kk-root--fullbleed) { padding-right: 124px !important; }
 }
 .im-main:has(.kk-root--fullbleed) > * { max-width: none; margin: 0; width: 100%; }
 body.kk-case-open .im-bg { opacity: 0; transition: opacity .4s ease; }
