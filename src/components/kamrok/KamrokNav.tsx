@@ -72,22 +72,14 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <button className="im-rail-btn" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu size={18} strokeWidth={1.4} />
         </button>
-        <div className="im-quicktravel" aria-label="Quick travel">
-          <div className="im-qt-head">
-            <svg className="im-qt-atv" viewBox="0 0 32 22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 14 L7 14 L9 9 L20 9 L24 14 L29 14" />
-              <path d="M11 9 L13 6 L18 6 L20 9" />
-              <g className="im-qt-wheel"><circle cx="8" cy="17" r="3.2" /></g>
-              <g className="im-qt-wheel"><circle cx="24" cy="17" r="3.2" /></g>
-            </svg>
-            <span className="im-qt-label">QUICK<br/>TRAVEL</span>
-          </div>
-          <div className="im-qt-pills">
-            <Link to="/about" className="im-qt-pill"><Compass size={11} strokeWidth={1.6} /><span>ABOUT</span></Link>
-            <Link to="/work" className="im-qt-pill"><BookOpen size={11} strokeWidth={1.6} /><span>WORK</span></Link>
-            <Link to="/skills" className="im-qt-pill"><Sparkles size={11} strokeWidth={1.6} /><span>SKILLS</span></Link>
-            <Link to="/blog" className="im-qt-pill"><Newspaper size={11} strokeWidth={1.6} /><span>BLOG</span></Link>
-          </div>
+        <Link to="/" className="im-rail-logo" aria-label="KAMROK home">
+          <img src="/kamrok-logo.png" alt="KAMROK" />
+        </Link>
+        <div className="im-rail-icons">
+          <Link to="/about" className="im-rail-icon"><Compass size={16} strokeWidth={1.4} /><span>ABOUT</span></Link>
+          <Link to="/work" className="im-rail-icon"><BookOpen size={16} strokeWidth={1.4} /><span>WORK</span></Link>
+          <Link to="/skills" className="im-rail-icon"><Sparkles size={16} strokeWidth={1.4} /><span>SKILLS</span></Link>
+          <Link to="/contact" className="im-rail-icon"><Newspaper size={16} strokeWidth={1.4} /><span>CONTACT</span></Link>
         </div>
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
