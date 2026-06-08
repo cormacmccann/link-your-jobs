@@ -700,6 +700,8 @@ export function startMoonExperience(): () => void {
 
   /* ===== ENDGAME: ship, takeoff cinematic, space flight ===== */
   let mode='drive';                       // 'drive' | 'takeoff' | 'space'
+  let pmndrsActive=false;                 // when true the R3F space game owns the screen — pause vanilla spaceTick
+
   const SHIP_NOSE=-Math.PI/2;              // rotate model so its nose points +z (tune if needed)
   let shipModel=null, shipSpawned=false, landedShip=null, shipNode=null;
   const SHIP_POS=new T.Vector3(26,0,46); SHIP_POS.y=terrainHeight(SHIP_POS.x,SHIP_POS.z);
@@ -968,7 +970,28 @@ export function startMoonExperience(): () => void {
       if(life<26&&mode==='space'&&!__disposed)requestAnimationFrame(tk);else spaceScene.remove(pts);})();
   }
   function updateSpaceHud(){const e=document.getElementById('spScore');if(e)e.textContent=sState?sState.score:0;}
-  function enterSpace(){mode='space';buildSpace();document.body.classList.add('space-mode');renderer.toneMappingExposure=1.28;setTimeout(()=>{flashEl.style.opacity=0;},90);showToast('✦ ENTERING ORBIT — SHOOT THE CUBES');updateSpaceHud();}
+  function enterSpace(){
+    mode='space';
+    buildSpace();
+    document.body.classList.add('space-mode');
+    renderer.toneMappingExposure=1.28;
+    setTimeout(()=>{flashEl.style.opacity=0;},90);
+    // Hand off to the R3F space-game on desktop. The wrapper is mobile-gated; on phones
+    // nothing listens and we fall back to the vanilla spaceTick experience.
+    pmndrsActive=true;
+    try { window.dispatchEvent(new CustomEvent('kamrok:enter-space')); } catch(e) {}
+    showToast('✦ ENTERING ORBIT');
+    updateSpaceHud();
+  }
+  // Exposed for the React wrapper's exit button — resume drive on the moon.
+  (window as any).__kamrokExitSpace = () => {
+    pmndrsActive=false;
+    mode='drive';
+    try { buggy.visible=true; } catch(e) {}
+    try { document.body.classList.remove('space-mode'); } catch(e) {}
+    try { window.dispatchEvent(new CustomEvent('kamrok:exit-space')); } catch(e) {}
+  };
+
   const _v=new T.Vector3();
   function spaceTick(){
     const s=sState,TURN2=0.022,PR=0.017;
@@ -1240,7 +1263,7 @@ export function startMoonExperience(): () => void {
   const camDesired=new T.Vector3();const tmp=new T.Vector3();let clock=0;
   function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*innerWidth,y:(-tmp.y*0.5+0.5)*innerHeight};}
   function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
-    if(mode==='space'){spaceTick();return;}
+    if(mode==='space'){ if(!pmndrsActive) spaceTick(); return; }
     if(mode==='takeoff'){takeoffTick();return;}
     // Pulse the landed ship + tractor beam so it reads as "alive" from across the moon
     if(landedShip){const ud=landedShip.userData,pul=0.5+0.5*Math.sin(clock*2.4);
