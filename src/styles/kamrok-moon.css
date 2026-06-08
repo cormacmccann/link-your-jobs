@@ -224,16 +224,16 @@
   /* menu is the right dark bar; map/objectives toggle from the bottom-left hub */
   .settings{display:none!important}              /* music/sound/fullscreen now live in SETTINGS */
   .hud-stat{display:none!important}
-  .nav{padding:36px 110px 36px 150px!important}  /* clear filigree (left) + right bar */
-  .frame{right:74px!important}                    /* push the filigree frame left of the bar, not under it */
-  .c-tr,.c-br{right:66px!important}
-  .edge{right:60px!important}
+  .nav{padding:36px 150px 36px 150px!important}  /* clear filigree (left) + right rail (124px) */
+  .frame{right:134px!important}                   /* push the filigree frame fully clear of the right rail */
+  .c-tr,.c-br{right:126px!important}
+  .edge{right:124px!important}
   /* Move radar + objectives inward so they clear the top-left filigree corner */
   .hud-radar,.hud-obj{left:150px!important;right:auto!important;opacity:0;visibility:hidden;transform:translateX(-10px);transition:opacity .3s,visibility .3s,transform .3s}
   .hud-radar{top:36px!important}
   .hud-obj{top:218px!important;bottom:auto!important}
   .hud-radar.hud--open,.hud-obj.hud--open{opacity:1;visibility:visible;transform:none}
-  .compass{right:78px!important}                  /* clear the right bar */
+  .compass{right:138px!important}                 /* clear the right rail */
   /* Move touch D-pad up and to the right (clears bottom-left filigree + speed HUD) */
   .touch{justify-content:flex-end!important;padding:24px 110px 120px 24px!important}
   .touch .pad{transform:scale(1.05)}
