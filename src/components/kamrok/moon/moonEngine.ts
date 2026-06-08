@@ -22,10 +22,10 @@ export function startMoonExperience(): () => void {
   const _origLoad = (GLTFLoader as any).prototype.load;
   (GLTFLoader as any).prototype.load = function (url: any, onLoad: any, onProgress: any, onError: any) {
     // Ensure decoders are attached regardless of three-stdlib version shape.
-    try { if (typeof this.setMeshoptDecoder === "function") this.setMeshoptDecoder(MeshoptDecoder); } catch (e) { /* noop */ }
+    try { if (typeof this.setMeshoptDecoder === "function") this.setMeshoptDecoder(_meshopt); } catch (e) { /* noop */ }
     try { if (typeof this.setKTX2Loader === "function") this.setKTX2Loader(_ktx2); } catch (e) { /* noop */ }
     // Direct assignment fallback — GLTFParser reads these off the loader instance.
-    try { this.meshoptDecoder = MeshoptDecoder; } catch (e) { /* noop */ }
+    try { this.meshoptDecoder = _meshopt; } catch (e) { /* noop */ }
     try { this.ktx2Loader = _ktx2; } catch (e) { /* noop */ }
     return _origLoad.call(this, url, onLoad, onProgress, onError);
   };
