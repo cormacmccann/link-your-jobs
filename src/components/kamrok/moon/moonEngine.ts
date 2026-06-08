@@ -1178,8 +1178,9 @@ export function startMoonExperience(): () => void {
     (function trailLoop(){if(__disposed)return;
       if(mode!=='space'){
         const boosting=boostKey&&keys.up&&st.speed>0.05;
-        if(Math.abs(st.speed)>0.1) emit(boosting);
-        for(const m of trail){const u=m.userData; if(u&&u.life>0){u.life-=0.05; m.material.opacity=Math.max(0,u.life)*(u.boost?0.75:0.4); m.scale.setScalar(1+(1-u.life)*2.4); if(u.life<=0)m.visible=false;}}
+        // Trail only shows during boost — normal cruising leaves no ribbon
+        if(boosting) emit(true);
+        for(const m of trail){const u=m.userData; if(u&&u.life>0){u.life-=0.05; m.material.opacity=Math.max(0,u.life)*0.75; m.scale.setScalar(1+(1-u.life)*2.4); if(u.life<=0)m.visible=false;}}
       }
       requestAnimationFrame(trailLoop);})();
   }
