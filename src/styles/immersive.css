@@ -87,19 +87,27 @@
 @keyframes imAtvSpin { to { transform: rotate(360deg); } }
 .im-qt-label { line-height: 1.1; color: var(--ink-dim); }
 
-.im-qt-icons {
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
-  padding-top: 4px;
+.im-qt-pills {
+  display: flex; flex-direction: column; align-items: stretch; gap: 6px;
+  padding: 4px 2px 2px;
 }
-.im-qt-icon {
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
+.im-qt-pill {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(7,7,10,.55);
   color: var(--ink-dim); text-decoration: none;
-  font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
-  transition: color .2s, transform .2s;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .18em;
+  transition: color .2s, transform .2s, border-color .2s, background .2s;
 }
-.im-qt-icon:hover { color: var(--ink); transform: translateX(-2px); }
-.im-qt-icon svg { opacity: .85; transition: opacity .2s; }
-.im-qt-icon:hover svg { opacity: 1; }
+.im-qt-pill svg { color: rgba(139,125,255,.95); opacity: .9; }
+.im-qt-pill:hover {
+  color: var(--ink);
+  border-color: rgba(139,125,255,.55);
+  background: rgba(20,18,38,.85);
+  transform: translateX(-2px);
+}
 .im-rail--hidden { opacity: 0; pointer-events: none; transform: translateX(12px); }
 
 .im-rail-btn {
