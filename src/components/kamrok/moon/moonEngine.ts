@@ -687,7 +687,7 @@ export function startMoonExperience(): () => void {
 
   /* ===== ENDGAME: ship, takeoff cinematic, space flight ===== */
   let mode='drive';                       // 'drive' | 'takeoff' | 'space'
-  const SHIP_NOSE=Math.PI/2;              // rotate model so its nose points +z (tune if needed)
+  const SHIP_NOSE=-Math.PI/2;              // rotate model so its nose points +z (tune if needed)
   let shipModel=null, shipSpawned=false, landedShip=null, shipNode=null;
   const SHIP_POS=new T.Vector3(26,0,46); SHIP_POS.y=terrainHeight(SHIP_POS.x,SHIP_POS.z);
   const flashEl=document.createElement('div');flashEl.className='flash';document.body.appendChild(flashEl);
