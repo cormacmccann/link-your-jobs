@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "827f83da-351a-4fee-82e6-bb107db97a62",
+  "asset_id": "611403bd-1cf9-4248-bc75-883688b43008",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/827f83da-351a-4fee-82e6-bb107db97a62/wordpress.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/827f83da-351a-4fee-82e6-bb107db97a62/wordpress.glb",
+  "url": "/__l5e/assets-v1/611403bd-1cf9-4248-bc75-883688b43008/wordpress.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/611403bd-1cf9-4248-bc75-883688b43008/wordpress.glb",
   "original_filename": "wordpress.glb",
   "size": 177808,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-08T20:23:52Z"
+  "created_at": "2026-06-08T21:03:42Z"
 }
