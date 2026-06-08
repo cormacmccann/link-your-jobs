@@ -91,7 +91,7 @@ export default function FloatingShowcase() {
 
   return (
     <div className="im-float" ref={layerRef} aria-hidden>
-      {ITEMS.map((it, i) => (
+      {items.map((it, i) => (
         <div
           className="im-float-item"
           key={i}
@@ -101,11 +101,26 @@ export default function FloatingShowcase() {
             <a className="im-float-inner im-float-logo" href={it.url} target="_blank" rel="noopener">
               <img src={it.src} alt={it.alt} loading="lazy" />
             </a>
-          ) : (
+          ) : it.type === "card" ? (
             <a className="im-float-inner im-float-card" href={it.url} target="_blank" rel="noopener">
               <span className="im-float-card__tag">{it.tag}</span>
               <span className="im-float-card__name">{it.name}</span>
               <span className="im-float-card__desc">{it.desc}</span>
+            </a>
+          ) : (
+            <a
+              className="im-float-inner im-float-member"
+              href={it.href}
+              style={{ ["--accent" as string]: it.accent }}
+            >
+              <span className="im-float-member__photo">
+                <img src={it.photo} alt={it.name} loading="lazy" />
+              </span>
+              <span className="im-float-member__body">
+                <span className="im-float-member__tag">{it.tag}</span>
+                <span className="im-float-member__name">{it.name}</span>
+                <span className="im-float-member__cta">{it.role}</span>
+              </span>
             </a>
           )}
         </div>
