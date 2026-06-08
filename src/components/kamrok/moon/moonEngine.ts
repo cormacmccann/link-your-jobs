@@ -86,9 +86,12 @@ export function startMoonExperience(): () => void {
 
   // Detect phone-class devices to tune renderer cost. Cuts ~50% GPU work on mobile.
   const IS_MOBILE = innerWidth < 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // The right-side nav rail (.im-rail) reserves 124px on desktop — render only into the space left of it.
+  const RAIL_W = () => (matchMedia('(min-width: 768px)').matches ? 124 : 0);
+  const vw = () => Math.max(320, innerWidth - RAIL_W());
   const renderer=new T.WebGLRenderer({antialias:!IS_MOBILE, powerPreference:'high-performance'});
   renderer.setPixelRatio(IS_MOBILE ? 1 : Math.min(devicePixelRatio,2));
-  renderer.setSize(innerWidth,innerHeight);
+  renderer.setSize(vw(),innerHeight);
   renderer.shadowMap.enabled=!IS_MOBILE;
   renderer.shadowMap.type=T.PCFSoftShadowMap;
   renderer.outputColorSpace=T.SRGBColorSpace;
