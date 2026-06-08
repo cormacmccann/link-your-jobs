@@ -1330,7 +1330,7 @@ export function startMoonExperience(): () => void {
     }
   }
   const camDesired=new T.Vector3();const tmp=new T.Vector3();let clock=0;
-  function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*innerWidth,y:(-tmp.y*0.5+0.5)*innerHeight};}
+  function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*vw(),y:(-tmp.y*0.5+0.5)*innerHeight};}
   function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
     if(mode==='space'){ if(!pmndrsActive) spaceTick(); return; }
     if(mode==='takeoff'){takeoffTick();return;}
