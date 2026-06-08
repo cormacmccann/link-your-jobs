@@ -41,8 +41,27 @@ export default function App() {
     }
   }, [])
 
+  // Honor the global SETTINGS popover (music/sound/volume) — set on window by KamrokNav.
+  useEffect(() => {
+    const all = [audio.bg, audio.engine, audio.engine2, audio.zap, audio.warp, audio.click, audio.explosion]
+    const sync = () => {
+      const vol = window.__kamrokVol == null ? 0.7 : window.__kamrokVol
+      const musicOn = window.__kamrokMusic !== false
+      const soundOn = window.__kamrokSound !== false
+      all.forEach((a) => { if (!a) return; a.muted = !soundOn })
+      if (audio.bg) {
+        audio.bg.muted = !musicOn
+        audio.bg.volume = musicOn ? 0.6 * vol : 0
+      }
+    }
+    sync()
+    const id = setInterval(sync, 250)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <div onPointerMove={actions.updateMouse} onClick={actions.shoot}>
+
       <Canvas
         linear
         mode="concurrent"
