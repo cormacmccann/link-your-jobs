@@ -1428,7 +1428,71 @@ export function startMoonExperience(): () => void {
   renderer.render(scene,camera);
   __t1=setTimeout(()=>{if(__disposed)return;clearInterval(mInt);loader.classList.add('gone');animate();},1700);
 
-  // ========================== end ported scene =========================
+  /* ===== DRAGGABLE HUD PANELS — grab any .hud panel by its header and move it ===== */
+  {
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('.hud'));
+    panels.forEach(panel => {
+      const handle = (panel.querySelector('.hud-h') as HTMLElement) || panel;
+      handle.style.cursor = 'grab';
+      handle.style.userSelect = 'none';
+      handle.style.touchAction = 'none';
+      let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+      const key = 'kamrok.hud.pos.' + (panel.id || handle.textContent || Math.random());
+      try {
+        const saved = JSON.parse(localStorage.getItem(key) || 'null');
+        if (saved && typeof saved.x === 'number') {
+          panel.style.left = saved.x + 'px';
+          panel.style.top = saved.y + 'px';
+          panel.style.right = 'auto';
+          panel.style.bottom = 'auto';
+        }
+      } catch (e) {}
+      const onDown = (e: PointerEvent) => {
+        dragging = true;
+        const r = panel.getBoundingClientRect();
+        // Lock to absolute pixel coords on first drag so right/bottom anchors release
+        panel.style.left = r.left + 'px';
+        panel.style.top = r.top + 'px';
+        panel.style.right = 'auto';
+        panel.style.bottom = 'auto';
+        ox = r.left; oy = r.top;
+        sx = e.clientX; sy = e.clientY;
+        handle.style.cursor = 'grabbing';
+        panel.style.zIndex = '9999';
+        try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+        e.preventDefault(); e.stopPropagation();
+      };
+      const onMove = (e: PointerEvent) => {
+        if (!dragging) return;
+        const nx = Math.max(0, Math.min(window.innerWidth - 40, ox + e.clientX - sx));
+        const ny = Math.max(0, Math.min(window.innerHeight - 30, oy + e.clientY - sy));
+        panel.style.left = nx + 'px';
+        panel.style.top = ny + 'px';
+      };
+      const onUp = (e: PointerEvent) => {
+        if (!dragging) return;
+        dragging = false;
+        handle.style.cursor = 'grab';
+        try { handle.releasePointerCapture(e.pointerId); } catch (err) {}
+        try {
+          const r = panel.getBoundingClientRect();
+          localStorage.setItem(key, JSON.stringify({ x: r.left, y: r.top }));
+        } catch (err) {}
+      };
+      handle.addEventListener('pointerdown', onDown);
+      handle.addEventListener('pointermove', onMove);
+      handle.addEventListener('pointerup', onUp);
+      handle.addEventListener('pointercancel', onUp);
+      __cleanups.push(() => {
+        handle.removeEventListener('pointerdown', onDown);
+        handle.removeEventListener('pointermove', onMove);
+        handle.removeEventListener('pointerup', onUp);
+        handle.removeEventListener('pointercancel', onUp);
+      });
+    });
+  }
+
+
   return () => {
     __disposed = true;
     try { cancelAnimationFrame(__rafId); } catch (e) {}
