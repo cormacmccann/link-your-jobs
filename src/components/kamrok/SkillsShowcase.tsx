@@ -43,7 +43,9 @@ class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean
 }
 
 function Model({ url }: { url: string }) {
-  const { scene } = useGLTF(url);
+  const gl = useThree((s) => s.gl);
+  try { ktx2.detectSupport(gl); } catch (e) { /* noop */ }
+  const { scene } = useGLTF(url, true, true, extendGltfLoader);
   const obj = useMemo(() => {
     const c = scene.clone(true);
     const box = new THREE.Box3().setFromObject(c);
