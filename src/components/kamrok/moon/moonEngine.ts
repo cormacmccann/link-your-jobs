@@ -1155,6 +1155,31 @@ export function startMoonExperience(): () => void {
       requestAnimationFrame(pulseFibres);})();
   }
 
+  /* ===== ROVER BOOST + GLOWING TRAIL — hold Shift to boost; a glow ribbon trails the rover ===== */
+  let boostKey=false;
+  __on('keydown',e=>{if(e.key==='Shift')boostKey=true;});
+  __on('keyup',e=>{if(e.key==='Shift')boostKey=false;});
+  {
+    const TRAIL_N=28, trail=[]; let head=0;
+    for(let i=0;i<TRAIL_N;i++){
+      const m=new T.Mesh(new T.PlaneGeometry(2.4,2.4),new T.MeshBasicMaterial({color:0x8b7dff,transparent:true,opacity:0,blending:T.AdditiveBlending,depthWrite:false,toneMapped:false}));
+      m.rotation.x=-Math.PI/2; m.visible=false; m.renderOrder=2; scene.add(m); trail.push(m);
+    }
+    const emit=(boosting)=>{
+      const fx=Math.sin(st.heading),fz=Math.cos(st.heading),m=trail[head]; head=(head+1)%TRAIL_N;
+      m.position.set(st.x-fx*1.9,(st.y||terrainHeight(st.x,st.z))+0.35,st.z-fz*1.9);
+      m.rotation.z=Math.random()*6.28; m.material.color.setHex(boosting?0x6cf2ff:0x8b7dff);
+      m.userData={life:1,boost:boosting}; m.visible=true;
+    };
+    (function trailLoop(){if(__disposed)return;
+      if(mode!=='space'){
+        const boosting=boostKey&&keys.up&&st.speed>0.05;
+        if(Math.abs(st.speed)>0.1) emit(boosting);
+        for(const m of trail){const u=m.userData; if(u&&u.life>0){u.life-=0.05; m.material.opacity=Math.max(0,u.life)*(u.boost?0.75:0.4); m.scale.setScalar(1+(1-u.life)*2.4); if(u.life<=0)m.visible=false;}}
+      }
+      requestAnimationFrame(trailLoop);})();
+  }
+
   /* ===== SKILL ICONS — 3D logos floating on glowing centres around the Skills monument ===== */
   const SG=window.SKILLS_GLB||{};
   const SKILL_DEFS=[
@@ -1322,7 +1347,7 @@ export function startMoonExperience(): () => void {
         if(bD<1e9){st.heading+=(bCross>0?1:-1)*TURN*1.9*(1-Math.min(1,bD/28));st.steer+= (bCross>0?1:-1)*0.5;}}
       if(dist>TRIGGER-2)st.speed=Math.min(MAXS*2.1,st.speed+ACC*2.6);else{st.speed*=0.9;if(st.speed<0.02)autoTarget=null;}  /* quick-travel: zip to the monument */
     } else {
-      if(keys.up)st.speed=Math.min(MAXS,st.speed+ACC);
+      if(keys.up){const bo=boostKey&&st.speed>0.05;st.speed=Math.min(bo?MAXS*1.9:MAXS,st.speed+(bo?ACC*2.4:ACC));}
       else if(keys.down)st.speed=Math.max(-MAXS*0.5,st.speed-REV);
       else st.speed*=FRICTION;
       const steer=(keys.left?1:0)-(keys.right?1:0);st.steer=steer;
