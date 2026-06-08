@@ -33,7 +33,7 @@
   .compass .lbl b{color:var(--ink);font-weight:600}
   .compass .lbl span{display:block;margin-top:3px}
 
-  .panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,90vw);z-index:30;background:var(--panel);backdrop-filter:blur(16px);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .55s cubic-bezier(.22,.61,.36,1);padding:90px 40px 40px;display:flex;flex-direction:column;overflow-y:auto}
+  .panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,90vw);z-index:50;background:var(--panel);backdrop-filter:blur(16px);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .55s cubic-bezier(.22,.61,.36,1);padding:90px 40px 40px;display:flex;flex-direction:column;overflow-y:auto}
   .panel.open{transform:translateX(0)}
   .panel .tag{font-size:9.5px;letter-spacing:0.4em;color:var(--ink-dim);margin-bottom:14px}
   .panel h2{font-size:30px;font-weight:600;letter-spacing:0.04em;line-height:1.05;margin-bottom:22px}
