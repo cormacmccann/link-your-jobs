@@ -765,6 +765,10 @@
 /* Work page heading tweaks */
 .work-heading {
   letter-spacing: 0.005em !important;
+  padding: 0.15em 0.25em 0.25em 0.1em;
+  margin-left: -0.1em;
+  overflow: visible;
+  line-height: 1.15;
 }
 .work-eyebrow {
   margin-top: 0.5rem;
