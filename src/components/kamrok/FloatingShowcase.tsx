@@ -44,6 +44,12 @@ function shiftDown(items: Item[], by: number): Item[] {
 
 export default function FloatingShowcase() {
   const layerRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const isAbout = pathname === "/about";
+  const items: Item[] = isAbout
+    ? [...TEAM_ITEMS, ...shiftDown(WORK_ITEMS, ABOUT_SHIFT)]
+    : WORK_ITEMS;
+
 
   useEffect(() => {
     const layer = layerRef.current;
