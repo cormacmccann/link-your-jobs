@@ -918,7 +918,7 @@ export function startMoonExperience(): () => void {
   function buildSpace(){
     if(spaceScene)return;
     spaceScene=new T.Scene();spaceScene.background=new T.Color(0x02030a);spaceScene.fog=new T.FogExp2(0x05060f,0.00011);
-    spaceCam=new T.PerspectiveCamera(64,innerWidth/innerHeight,0.1,14000);
+    spaceCam=new T.PerspectiveCamera(64,vw()/innerHeight,0.1,14000);
     spaceScene.add(new T.AmbientLight(0x60709a,0.9));
     const sun=new T.PointLight(0xfff0d0,3.2,12000);sun.position.set(700,300,-500);spaceScene.add(sun);
     const rim=new T.PointLight(0x6cf2ff,1.6,9000);rim.position.set(-800,-200,600);spaceScene.add(rim);
