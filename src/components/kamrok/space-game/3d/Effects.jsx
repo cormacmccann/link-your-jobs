@@ -7,7 +7,8 @@ extend({ UnrealBloomPass })
 export default function Effects() {
   return (
     <EffectComposer disableGammaPass>
-      <unrealBloomPass strength={1.8} radius={1} threshold={0} />
+      {/* Softer bloom — calm exploratory glow, not a strobe. */}
+      <unrealBloomPass strength={0.55} radius={0.9} threshold={0.15} />
     </EffectComposer>
   )
 }
