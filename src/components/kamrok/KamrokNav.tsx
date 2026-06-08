@@ -2,10 +2,20 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Compass, BookOpen, Sparkles, Newspaper, Menu, X, Settings, Map as MapIcon, Target, Volume2,
-  MessageCircle, Youtube, Headphones, Bell,
+  MessageCircle, Youtube, Headphones, Bell, Music,
 } from "lucide-react";
 import "@/styles/immersive.css";
 import MobileNav from "./MobileNav";
+import lockOnPulse from "@/assets/moon/tracks/lock-on-pulse.mp3.asset.json";
+import orbitCrown from "@/assets/moon/tracks/orbit-crown.mp3.asset.json";
+import orbitalDrift from "@/assets/moon/tracks/orbital-drift.mp3.asset.json";
+
+const TRACKS = [
+  { id: "default", label: "MOONSCAPE", url: "" }, // empty = use default window.MUSIC
+  { id: "drift", label: "ORBITAL DRIFT", url: orbitalDrift.url },
+  { id: "crown", label: "ORBIT CROWN", url: orbitCrown.url },
+  { id: "pulse", label: "LOCK ON PULSE", url: lockOnPulse.url },
+];
 
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
