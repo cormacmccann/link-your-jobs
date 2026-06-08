@@ -1130,6 +1130,31 @@ export function startMoonExperience(): () => void {
     placeProp(P.rock4,{x:96,z:70,size:15,rotY:2.3,collider:true});
   })();
 
+  /* ===== GLOWING SURFACE FIBRES — bioluminescent veins on the moon (additive glow, self-pulsing) ===== */
+  {
+    const glowDecor=[], GLOWPAL=[0x8b7dff,0x56a8ff,0x6cf2ff,0xc06bff];
+    const placeGlowFibre=(cx,cz,color)=>{
+      const pts=[],segs=22,len=7+Math.random()*16,dir=Math.random()*6.283,wob=1.2+Math.random()*1.4;
+      for(let i=0;i<=segs;i++){const t=i/segs;
+        const px=cx+Math.cos(dir)*t*len+Math.sin(t*7+dir)*wob, pz=cz+Math.sin(dir)*t*len+Math.cos(t*6)*wob;
+        pts.push(new T.Vector3(px,terrainHeight(px,pz)+0.22,pz));}
+      const curve=new T.CatmullRomCurve3(pts);
+      const mat=new T.MeshBasicMaterial({color,transparent:true,opacity:0.62,blending:T.AdditiveBlending,depthWrite:false,toneMapped:false});
+      const mesh=new T.Mesh(new T.TubeGeometry(curve,segs,0.2+Math.random()*0.18,7,false),mat);
+      mesh.renderOrder=3; scene.add(mesh);
+      // faint wider halo so the vein reads as glowing, not just a wire
+      const halo=new T.Mesh(new T.TubeGeometry(curve,segs,0.55+Math.random()*0.4,8,false),
+        new T.MeshBasicMaterial({color,transparent:true,opacity:0.14,blending:T.AdditiveBlending,depthWrite:false,toneMapped:false}));
+      halo.renderOrder=2; scene.add(halo);
+      glowDecor.push({mat,base:0.5+Math.random()*0.32,sp:0.6+Math.random()*1.4,ph:Math.random()*7,halo:halo.material});
+    };
+    for(let i=0;i<24;i++){const a=Math.random()*6.283,r=22+Math.random()*(WORLD-34);
+      placeGlowFibre(Math.cos(a)*r,Math.sin(a)*r,GLOWPAL[i%GLOWPAL.length]);}
+    (function pulseFibres(){if(__disposed)return;
+      if(mode!=='space')for(const g of glowDecor){g.ph+=0.016*g.sp;const s=Math.sin(g.ph);g.mat.opacity=g.base+0.22*s;g.halo.opacity=0.1+0.06*s;}
+      requestAnimationFrame(pulseFibres);})();
+  }
+
   /* ===== SKILL ICONS — 3D logos floating on glowing centres around the Skills monument ===== */
   const SG=window.SKILLS_GLB||{};
   const SKILL_DEFS=[
