@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Stars from './3d/Stars'
 import Planets from './3d/Planets'
@@ -18,6 +18,28 @@ import useStore from './store'
 export default function App() {
   const { fov } = useStore((state) => state.mutation)
   const actions = useStore((state) => state.actions)
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.code === 'Space' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        e.preventDefault()
+        useStore.getState().actions.setBoosting(true)
+      }
+    }
+    const onKeyUp = (e) => {
+      if (e.code === 'Space' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        e.preventDefault()
+        useStore.getState().actions.setBoosting(false)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+    }
+  }, [])
+
   return (
     <div onPointerMove={actions.updateMouse} onClick={actions.shoot}>
       <Canvas

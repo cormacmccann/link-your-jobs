@@ -8,6 +8,7 @@ export default function Rig({ children }) {
   const rig = useRef()
   const mutation = useStore((state) => state.mutation)
   const { fov, scale, binormal, normal, track, mouse } = mutation
+  const boosting = useStore((state) => state.boosting)
   const { camera } = useThree()
 
   useFrame(() => {
@@ -27,7 +28,8 @@ export default function Rig({ children }) {
     const lookAt = track.parameters.path.getPointAt((t + 30 / track.parameters.path.getLength()) % 1).multiplyScalar(scale)
     camera.matrix.lookAt(camera.position, lookAt, normal)
     camera.quaternion.setFromRotationMatrix(camera.matrix)
-    camera.fov += ((t > 0.4 && t < 0.45 ? 120 : fov) - camera.fov) * 0.05
+    const targetFov = t > 0.4 && t < 0.45 ? 120 : boosting ? 85 : fov
+    camera.fov += (targetFov - camera.fov) * 0.05
     camera.updateProjectionMatrix()
     const lightPos = track.parameters.path.getPointAt((t + 1 / track.parameters.path.getLength()) % 1).multiplyScalar(scale)
     group.current.position.copy(lightPos)
