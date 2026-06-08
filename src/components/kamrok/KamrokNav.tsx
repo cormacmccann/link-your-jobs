@@ -82,23 +82,11 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
             </svg>
             <span className="im-qt-label">QUICK<br/>TRAVEL</span>
           </div>
-          <div className="im-qt-icons">
-            <Link to="/about" className="im-qt-icon" aria-label="About">
-              <Compass size={20} strokeWidth={1.4} />
-              <span>ABOUT</span>
-            </Link>
-            <Link to="/work" className="im-qt-icon" aria-label="Work">
-              <BookOpen size={20} strokeWidth={1.4} />
-              <span>WORK</span>
-            </Link>
-            <Link to="/skills" className="im-qt-icon" aria-label="Skills">
-              <Sparkles size={20} strokeWidth={1.4} />
-              <span>SKILLS</span>
-            </Link>
-            <Link to="/blog" className="im-qt-icon" aria-label="Blog">
-              <Newspaper size={20} strokeWidth={1.4} />
-              <span>BLOG</span>
-            </Link>
+          <div className="im-qt-pills">
+            <Link to="/about" className="im-qt-pill"><Compass size={11} strokeWidth={1.6} /><span>ABOUT</span></Link>
+            <Link to="/work" className="im-qt-pill"><BookOpen size={11} strokeWidth={1.6} /><span>WORK</span></Link>
+            <Link to="/skills" className="im-qt-pill"><Sparkles size={11} strokeWidth={1.6} /><span>SKILLS</span></Link>
+            <Link to="/blog" className="im-qt-pill"><Newspaper size={11} strokeWidth={1.6} /><span>BLOG</span></Link>
           </div>
         </div>
         <div className="im-rail-divider" />
