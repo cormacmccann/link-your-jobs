@@ -57,26 +57,21 @@ export default function SatelliteFlyby() {
 
   useEffect(() => {
     let cancelled = false;
-    const schedule = () => {
-      // Random delay 60s–150s between flybys
-      const delay = 60000 + Math.random() * 90000;
-      const id = window.setTimeout(() => {
-        if (cancelled) return;
-        setVisible(true);
-      }, delay);
-      return id;
-    };
-    let timeoutId = schedule();
+    // First flyby appears soon after mount so it's actually visible
+    const firstDelay = 4000 + Math.random() * 6000; // 4–10s
+    const id = window.setTimeout(() => {
+      if (!cancelled) setVisible(true);
+    }, firstDelay);
     return () => {
       cancelled = true;
-      window.clearTimeout(timeoutId);
+      window.clearTimeout(id);
     };
   }, []);
 
   // After a flyby ends, schedule the next one
   const handleDone = () => {
     setVisible(false);
-    const delay = 60000 + Math.random() * 90000;
+    const delay = 45000 + Math.random() * 60000; // 45–105s between flybys
     window.setTimeout(() => setVisible(true), delay);
   };
 
