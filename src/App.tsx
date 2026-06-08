@@ -103,7 +103,6 @@ const App = () => {
               <Route path="/tools/review-widget" element={<ReviewWidget />} />
               <Route path="/tools/social-wall" element={<SocialWall />} />
               <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
-              <Route path="/space" element={<SpaceGameTest />} />
 
               <Route path="*" element={<NotFound />} />
             </Routes>
