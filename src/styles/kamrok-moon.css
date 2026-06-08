@@ -320,9 +320,32 @@
   body.is-touch .settings{bottom:96px;gap:18px}
   @media(max-width:620px){.corner{width:84px;height:84px}.intro .title{flex-direction:column;gap:14px}}
   /* ===== BRAND LOGO (replaces serif KAMROK wordmark) ===== */
-  .wordmark .wm-logo{display:block;height:30px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
+  .wordmark .wm-logo{display:block;height:56px;width:auto;filter:drop-shadow(0 1px 7px rgba(0,0,0,0.55))}
+  @media(max-width:900px){ .wordmark .wm-logo{height:44px} }
   .intro .title .word{display:flex;align-items:center}
   .intro .title .word .intro-logo{display:block;height:clamp(48px,9vw,98px);width:auto;filter:drop-shadow(0 2px 16px rgba(0,0,0,0.5))}
+
+  /* ===== Force GOBOLD on moon panel/intro headings; Montserrat elsewhere ===== */
+  .panel h2, .intro .intro-headline, .work-card h3, .skill-pop__h, .space-hud .sh-title{
+    font-family:'GOBOLD','Oswald','Bebas Neue',Impact,sans-serif !important;
+    font-weight:900 !important;
+  }
+
+  /* ===== Objectives quick-travel ATV ===== */
+  .hud-obj li{position:relative;cursor:pointer;transition:color .2s,background .2s;border-radius:3px;padding-left:8px!important;padding-right:8px!important;margin:0 -8px}
+  .hud-obj li:hover{color:var(--ink);background:rgba(244,244,242,.06)}
+  .hud-obj li .atv{position:absolute;left:-2px;top:50%;width:18px;height:14px;margin-top:-7px;opacity:0;pointer-events:none;color:#9CE3FF;filter:drop-shadow(0 0 4px rgba(124,92,255,.7))}
+  .hud-obj li .atv svg{display:block;width:100%;height:100%}
+  .hud-obj li.traveling .atv{opacity:1;animation:atvDrive 1.4s cubic-bezier(.4,.05,.2,1) forwards}
+  .hud-obj li.traveling .atv .wheel{animation:atvSpin .35s linear infinite}
+  @keyframes atvDrive{
+    0%   {left:-22px; transform:translateY(0)}
+    20%  {transform:translateY(-2px)}
+    40%  {transform:translateY(1px)}
+    60%  {transform:translateY(-1px)}
+    100% {left:calc(100% - 4px); transform:translateY(0)}
+  }
+  @keyframes atvSpin{to{transform:rotate(360deg);transform-origin:center}}
   /* ===== SKILL ICONS: floating labels + click popup ===== */
   .skill-label{position:fixed;transform:translate(-50%,0);pointer-events:auto;cursor:pointer;text-align:center;z-index:16;opacity:0;transition:opacity .3s;text-shadow:0 1px 6px #000,0 0 10px #000}
   .skill-label b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--parch)}
