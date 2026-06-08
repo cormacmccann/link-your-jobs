@@ -1242,7 +1242,7 @@ export function startMoonExperience(): () => void {
     });
     __on('pointerdown',e=>{
       if(!skillRayTargets.length||e.target!==renderer.domElement)return;
-      ndc.x=(e.clientX/innerWidth)*2-1; ndc.y=-(e.clientY/innerHeight)*2+1; ray.setFromCamera(ndc,camera);
+      ndc.x=(e.clientX/vw())*2-1; ndc.y=-(e.clientY/innerHeight)*2+1; ray.setFromCamera(ndc,camera);
       const hit=ray.intersectObjects(skillRayTargets,true)[0];
       if(hit){let o=hit.object; while(o&&!o.userData.skill)o=o.parent; if(o&&o.userData.skill){showSkillPop(o.userData.skill);return;}}
       if(openSkill)hideSkillPop();
