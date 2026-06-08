@@ -378,3 +378,18 @@
   @keyframes qtSpin{to{transform:rotate(360deg)}}
   @keyframes qtBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
   @media(max-width:900px){.qt-pill .qt-lbl{display:none}.qt-pill{padding:4px}}
+
+/* Space game fullscreen: hide moon UI + side rail so the canvas fills viewport */
+body.space-game-active .im-rail,
+body.space-game-active .nav,
+body.space-game-active .frame,
+body.space-game-active .c-tl,
+body.space-game-active .c-tr,
+body.space-game-active .c-bl,
+body.space-game-active .c-br,
+body.space-game-active .edge,
+body.space-game-active .compass,
+body.space-game-active .hud-radar,
+body.space-game-active .hud-obj,
+body.space-game-active .qt-pill { display: none !important; }
+body.space-game-active #app { right: 0 !important; }
