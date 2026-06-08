@@ -1,8 +1,16 @@
 import { Suspense, useMemo, useState, Component, type ReactNode } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { useGLTF, Float, ContactShadows } from "@react-three/drei";
+import { KTX2Loader, MeshoptDecoder } from "three-stdlib";
 import * as THREE from "three";
 import { MOON_ASSETS } from "@/config/moonAssets";
+
+// Shared decoders for the optimised (meshopt + KTX2) GLBs.
+const ktx2 = new KTX2Loader().setTranscoderPath("https://unpkg.com/three@0.160.0/examples/jsm/libs/basis/");
+const extendGltfLoader = (loader: any) => {
+  loader.setMeshoptDecoder(MeshoptDecoder);
+  loader.setKTX2Loader(ktx2);
+};
 
 export type SkillIcon = {
   key: string;
