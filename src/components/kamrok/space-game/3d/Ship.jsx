@@ -1,21 +1,35 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
-import { useLoader, useFrame } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import React, { useMemo, useRef } from 'react'
+import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import useStore from '../store'
+import chimpAsset from '@/assets/moon/chimp.glb.asset.json'
 
-import shipModel from './ship.gltf?url'
+// KAMROK skin: the thing you fly is the chimp ship that launched off the moon.
+useGLTF.preload(chimpAsset.url)
 
 const geometry = new THREE.BoxGeometry(1, 1, 40)
-const lightgreen = new THREE.Color('lightgreen')
-const hotpink = new THREE.Color('hotpink')
-const laserMaterial = new THREE.MeshBasicMaterial({ color: lightgreen })
-const crossMaterial = new THREE.MeshBasicMaterial({ color: hotpink, fog: false })
+const accent = new THREE.Color('#c8b8ff')
+const pink = new THREE.Color('#ff7ad4')
+const laserMaterial = new THREE.MeshBasicMaterial({ color: accent })
+const crossMaterial = new THREE.MeshBasicMaterial({ color: pink, fog: false })
 const position = new THREE.Vector3()
 const direction = new THREE.Vector3()
 
 export default function Ship() {
-  const { nodes } = useLoader(GLTFLoader, shipModel)
+  const { scene } = useGLTF(chimpAsset.url)
+  const ship = useMemo(() => {
+    const c = scene.clone(true)
+    // Normalise to ~10 units along its largest axis so it matches the demo's scale budget.
+    const box = new THREE.Box3().setFromObject(c)
+    const size = box.getSize(new THREE.Vector3())
+    const s = 10 / Math.max(0.001, Math.max(size.x, size.y, size.z))
+    c.scale.setScalar(s)
+    const center = box.getCenter(new THREE.Vector3())
+    c.position.set(-center.x * s, -center.y * s, -center.z * s)
+    return c
+  }, [scene])
+
   const mutation = useStore((state) => state.mutation)
   const { clock, mouse, ray } = mutation
   const lasers = useStore((state) => state.lasers)
@@ -39,16 +53,15 @@ export default function Ship() {
       const group = laserGroup.current.children[i]
       group.position.z -= 20
     }
-    laserLight.current.intensity += ((lasers.length && Date.now() - lasers[lasers.length - 1] < 100 ? 20 : 0) - laserLight.current.intensity) * 0.3
+    laserLight.current.intensity +=
+      ((lasers.length && Date.now() - lasers[lasers.length - 1] < 100 ? 20 : 0) - laserLight.current.intensity) * 0.3
 
-    // Get ships orientation and save it to the stores ray
     main.current.getWorldPosition(position)
     main.current.getWorldDirection(direction)
     ray.origin.copy(position)
     ray.direction.copy(direction.negate())
 
-    // ...
-    crossMaterial.color = mutation.hits ? lightgreen : hotpink
+    crossMaterial.color = mutation.hits ? accent : pink
     cross.current.visible = !mutation.hits
     target.current.visible = !!mutation.hits
   })
@@ -78,7 +91,7 @@ export default function Ship() {
             <boxGeometry args={[2, 40, 2]} />
           </mesh>
         </group>
-        <pointLight ref={laserLight} position={[0, 0, -20]} distance={100} intensity={0} decay={0} color="lightgreen" />
+        <pointLight ref={laserLight} position={[0, 0, -20]} distance={100} intensity={0} decay={0} color={accent} />
         <group ref={laserGroup}>
           {lasers.map((t, i) => (
             <group key={i}>
@@ -87,30 +100,13 @@ export default function Ship() {
             </group>
           ))}
         </group>
-        <group rotation={[Math.PI / 2, Math.PI, 0]}>
-          <mesh name="Renault_(S,_T1)_0" geometry={nodes['Renault_(S,_T1)_0'].geometry}>
-            <meshStandardMaterial color="#070707" />
-          </mesh>
-          <mesh name="Renault_(S,_T1)_1" geometry={nodes['Renault_(S,_T1)_1'].geometry}>
-            <meshStandardMaterial color="black" />
-          </mesh>
-          <mesh name="Renault_(S,_T1)_2" geometry={nodes['Renault_(S,_T1)_2'].geometry}>
-            <meshStandardMaterial color="#070707" />
-          </mesh>
-          <mesh name="Renault_(S,_T1)_3" geometry={nodes['Renault_(S,_T1)_3'].geometry}>
-            <meshBasicMaterial color="lightblue" />
-          </mesh>
-          <mesh name="Renault_(S,_T1)_4" geometry={nodes['Renault_(S,_T1)_4'].geometry}>
-            <meshBasicMaterial color="white" />
-          </mesh>
-          <mesh name="Renault_(S,_T1)_5" geometry={nodes['Renault_(S,_T1)_5'].geometry}>
-            <meshBasicMaterial color="teal" />
-          </mesh>
+        <group rotation={[0, Math.PI, 0]}>
+          <primitive object={ship} />
         </group>
       </group>
       <mesh ref={exhaust} scale={[1, 1, 30]} position={[0, 1, 30]}>
         <dodecahedronGeometry args={[1.5, 0]} />
-        <meshBasicMaterial color="lightblue" />
+        <meshBasicMaterial color={accent} />
       </mesh>
     </group>
   )
