@@ -8,6 +8,7 @@ import Particles from './3d/Particles'
 import Enemies from './3d/Enemies'
 import Rocks from './3d/Rocks'
 import Explosions from './3d/Explosions'
+import { audio } from './store'
 import Rings from './3d/Rings'
 import Track from './3d/Track'
 import Ship from './3d/Ship'
@@ -40,8 +41,27 @@ export default function App() {
     }
   }, [])
 
+  // Honor the global SETTINGS popover (music/sound/volume) — set on window by KamrokNav.
+  useEffect(() => {
+    const all = [audio.bg, audio.engine, audio.engine2, audio.zap, audio.warp, audio.click, audio.explosion]
+    const sync = () => {
+      const vol = window.__kamrokVol == null ? 0.7 : window.__kamrokVol
+      const musicOn = window.__kamrokMusic !== false
+      const soundOn = window.__kamrokSound !== false
+      all.forEach((a) => { if (!a) return; a.muted = !soundOn })
+      if (audio.bg) {
+        audio.bg.muted = !musicOn
+        audio.bg.volume = musicOn ? 0.6 * vol : 0
+      }
+    }
+    sync()
+    const id = setInterval(sync, 250)
+    return () => clearInterval(id)
+  }, [])
+
   return (
     <div onPointerMove={actions.updateMouse} onClick={actions.shoot}>
+
       <Canvas
         linear
         mode="concurrent"
