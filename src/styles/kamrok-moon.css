@@ -368,3 +368,12 @@
     /* Slight bottom safe space so the touch pad isn't flush */
     .touch { padding: 18px 14px 22px !important; }
   }
+
+  /* ===== QUICK TRAVEL pill (wraps nav-items) ===== */
+  .qt-pill{pointer-events:auto;display:inline-flex;align-items:center;gap:14px;padding:6px 10px 6px 16px;border:1px solid var(--frame);border-radius:60px;background:rgba(8,9,12,0.5);backdrop-filter:blur(10px);box-shadow:0 0 0 1px rgba(244,244,242,0.04),0 8px 28px rgba(0,0,0,0.45)}
+  .qt-pill .qt-lbl{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:9px;letter-spacing:.32em;color:var(--parch);text-transform:uppercase;white-space:nowrap;opacity:.85}
+  .qt-pill .qt-atv{width:26px;height:13px;color:var(--parch);overflow:visible;animation:qtBob 2.6s ease-in-out infinite}
+  .qt-pill .qt-wheel{transform-box:fill-box;transform-origin:center;animation:qtSpin 1.1s linear infinite}
+  @keyframes qtSpin{to{transform:rotate(360deg)}}
+  @keyframes qtBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+  @media(max-width:900px){.qt-pill .qt-lbl{display:none}.qt-pill{padding:4px}}
