@@ -57,7 +57,6 @@ const BookingsDemos = lazyRetry(() => import("./pages/BookingsDemos"));
 const ReviewWidget = lazyRetry(() => import("./pages/ReviewWidget"));
 const SocialWall = lazyRetry(() => import("./pages/SocialWall"));
 const TrustpilotIntegration = lazyRetry(() => import("./pages/TrustpilotIntegration"));
-const SpaceGameTest = lazyRetry(() => import("./pages/SpaceGameTest"));
 
 const queryClient = new QueryClient();
 
