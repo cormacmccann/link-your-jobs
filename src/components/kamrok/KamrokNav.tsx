@@ -133,14 +133,30 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <div className="im-settings-row">
           <span>FULLSCREEN</span>
           <span className="im-toggle">
-            <button className={fs ? "is-on" : ""} onClick={toggleFs}>ON</button>
-            <button className={!fs ? "is-on" : ""} onClick={toggleFs}>OFF</button>
+            <button className={fs ? "is-on" : ""} onClick={() => { if (!fs) toggleFs(); }}>ON</button>
+            <button className={!fs ? "is-on" : ""} onClick={() => { if (fs) toggleFs(); }}>OFF</button>
           </span>
         </div>
         <div className="im-settings-row im-settings-row--vol">
           <span><Volume2 size={13} strokeWidth={1.5} /></span>
           <input type="range" min={0} max={100} value={vol} onChange={(e) => setVol(Number(e.target.value))} aria-label="Volume" />
         </div>
+        {music && (
+          <div className="im-settings-tracks">
+            <div className="im-settings-tracks-h"><Music size={11} strokeWidth={1.5} /> TRACK</div>
+            <div className="im-settings-tracks-list">
+              {TRACKS.map((t) => (
+                <button
+                  key={t.id}
+                  className={`im-track-btn ${trackId === t.id ? "is-on" : ""}`}
+                  onClick={() => setTrackId(t.id)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Drawer (slides from the right) */}
