@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  BookOpen, Compass, Menu, X, Settings, Map as MapIcon, Target, Volume2,
-  MessageCircle, Youtube, Headphones, Bell, Sparkles, Newspaper,
+  Compass, BookOpen, Sparkles, Newspaper, Menu, X, Settings, Map as MapIcon, Target, Volume2,
+  MessageCircle, Youtube, Headphones, Bell,
 } from "lucide-react";
 import "@/styles/immersive.css";
 import MobileNav from "./MobileNav";
