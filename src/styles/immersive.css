@@ -55,12 +55,12 @@
   transition: opacity .35s ease, transform .35s ease;
 }
 
-/* Quick travel capsule: animated ATV + pills */
+/* Quick travel capsule: animated ATV + icon links */
 .im-quicktravel {
   margin-top: 22px;
-  display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+  display: flex; flex-direction: column; align-items: stretch; gap: 10px;
   width: 100%;
-  padding: 10px 8px 12px;
+  padding: 10px 8px 14px;
   border: 1px solid var(--line);
   border-radius: 28px;
   background: linear-gradient(180deg, rgba(20,18,38,.7), rgba(8,7,15,.7));
@@ -70,9 +70,9 @@
   display: flex; align-items: center; gap: 6px;
   color: var(--ink);
   font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
-  padding: 0 4px 4px;
+  padding: 0 4px 6px;
   border-bottom: 1px dashed var(--line);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 .im-qt-atv {
   width: 28px; height: 20px;
@@ -87,16 +87,19 @@
 @keyframes imAtvSpin { to { transform: rotate(360deg); } }
 .im-qt-label { line-height: 1.1; color: var(--ink-dim); }
 
-.im-qt-pill {
-  display: block; text-align: center;
-  padding: 6px 10px;
-  font-family: var(--mono); font-size: 9.5px; letter-spacing: .22em;
-  color: var(--ink-dim); text-decoration: none;
-  border: 1px solid var(--line); border-radius: 999px;
-  background: rgba(7,7,10,.55);
-  transition: color .2s, border-color .2s, background .2s, transform .2s;
+.im-qt-icons {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding-top: 4px;
 }
-.im-qt-pill:hover { color: var(--ink); border-color: rgba(139,125,255,.6); background: rgba(20,18,38,.85); transform: translateX(-2px); }
+.im-qt-icon {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  color: var(--ink-dim); text-decoration: none;
+  font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
+  transition: color .2s, transform .2s;
+}
+.im-qt-icon:hover { color: var(--ink); transform: translateX(-2px); }
+.im-qt-icon svg { opacity: .85; transition: opacity .2s; }
+.im-qt-icon:hover svg { opacity: 1; }
 .im-rail--hidden { opacity: 0; pointer-events: none; transform: translateX(12px); }
 
 .im-rail-btn {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  BookOpen, Compass, Menu, X, Settings, Map as MapIcon, Target, Volume2,
-  MessageCircle, Youtube, Headphones, Bell, Sparkles, Newspaper,
+  Compass, BookOpen, Sparkles, Newspaper, Menu, X, Settings, Map as MapIcon, Target, Volume2,
+  MessageCircle, Youtube, Headphones, Bell,
 } from "lucide-react";
 import "@/styles/immersive.css";
 import MobileNav from "./MobileNav";
@@ -82,10 +82,24 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
             </svg>
             <span className="im-qt-label">QUICK<br/>TRAVEL</span>
           </div>
-          <Link to="/about" className="im-qt-pill">ABOUT</Link>
-          <Link to="/work" className="im-qt-pill">WORK</Link>
-          <Link to="/skills" className="im-qt-pill">SKILLS</Link>
-          <Link to="/blog" className="im-qt-pill">BLOG</Link>
+          <div className="im-qt-icons">
+            <Link to="/about" className="im-qt-icon" aria-label="About">
+              <Compass size={20} strokeWidth={1.4} />
+              <span>ABOUT</span>
+            </Link>
+            <Link to="/work" className="im-qt-icon" aria-label="Work">
+              <BookOpen size={20} strokeWidth={1.4} />
+              <span>WORK</span>
+            </Link>
+            <Link to="/skills" className="im-qt-icon" aria-label="Skills">
+              <Sparkles size={20} strokeWidth={1.4} />
+              <span>SKILLS</span>
+            </Link>
+            <Link to="/blog" className="im-qt-icon" aria-label="Blog">
+              <Newspaper size={20} strokeWidth={1.4} />
+              <span>BLOG</span>
+            </Link>
+          </div>
         </div>
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
