@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "2eae5553-4c72-4934-940d-c6f5264aa87d",
+  "asset_id": "981162cf-d437-4eec-a795-5a7c36c68138",
   "project_id": "ce481da9-0ec7-46e9-9fd7-3f486e0b2d30",
-  "url": "/__l5e/assets-v1/2eae5553-4c72-4934-940d-c6f5264aa87d/chimp.glb",
-  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/2eae5553-4c72-4934-940d-c6f5264aa87d/chimp.glb",
+  "url": "/__l5e/assets-v1/981162cf-d437-4eec-a795-5a7c36c68138/chimp.glb",
+  "r2_key": "a/v1/ce481da9-0ec7-46e9-9fd7-3f486e0b2d30/981162cf-d437-4eec-a795-5a7c36c68138/chimp.glb",
   "original_filename": "chimp.glb",
-  "size": 5740340,
+  "size": 306312,
   "content_type": "model/gltf-binary",
-  "created_at": "2026-06-06T11:57:11Z"
+  "created_at": "2026-06-08T15:06:44Z"
 }
