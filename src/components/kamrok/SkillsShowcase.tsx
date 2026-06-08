@@ -28,7 +28,7 @@ export const SKILL_ICONS: SkillIcon[] = [
   { key: "heart", name: "Lovable", kicker: "AI APPS", color: "#ff4d6d", url: MOON_ASSETS.heart },
 ];
 
-SKILL_ICONS.forEach((s) => useGLTF.preload(s.url));
+SKILL_ICONS.forEach((s) => useGLTF.preload(s.url, true, true, extendGltfLoader));
 
 // If a model fails to load (e.g. CDN unreachable), render nothing instead of
 // crashing the whole canvas — the glowing centre still shows.
