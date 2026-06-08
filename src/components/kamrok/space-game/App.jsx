@@ -31,8 +31,9 @@ export default function App() {
           gl.toneMapping = THREE.NoToneMapping
           gl.setClearColor(new THREE.Color('#020209'))
         }}>
-        <fog attach="fog" args={['#070710', 100, 700]} />
-        <ambientLight intensity={0.25} />
+        {/* Push fog way out so the view feels open and explorable. */}
+        <fog attach="fog" args={['#070710', 400, 2200]} />
+        <ambientLight intensity={0.45} />
         <Stars />
         <Explosions />
         <Track />
