@@ -83,6 +83,39 @@ export default function KamrokSpaceGame({ onExit }: { onExit: () => void }) {
           <GameWithGate />
         </Suspense>
       </MoonBoundary>
+      {/* Cockpit-style frame — a soft inset border + vignette + corner ticks.
+          Pointer-events off so it never blocks aim/shoot. */}
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 62,
+          pointerEvents: "none",
+          boxShadow:
+            "inset 0 0 0 1px rgba(200,184,255,0.18), inset 0 0 0 14px rgba(5,3,15,0.55), inset 0 0 180px 30px rgba(5,3,15,0.85)",
+          borderRadius: 2,
+        }}
+      />
+      {(["tl", "tr", "bl", "br"] as const).map((pos) => {
+        const base: React.CSSProperties = {
+          position: "fixed",
+          width: 38,
+          height: 38,
+          zIndex: 63,
+          pointerEvents: "none",
+          borderColor: "rgba(255,122,217,0.55)",
+          borderStyle: "solid",
+          borderWidth: 0,
+        };
+        const offset = 28;
+        const s: React.CSSProperties = { ...base };
+        if (pos === "tl") { s.top = offset; s.left = offset; s.borderTopWidth = 1; s.borderLeftWidth = 1; }
+        if (pos === "tr") { s.top = offset; s.right = offset; s.borderTopWidth = 1; s.borderRightWidth = 1; }
+        if (pos === "bl") { s.bottom = offset; s.left = offset; s.borderBottomWidth = 1; s.borderLeftWidth = 1; }
+        if (pos === "br") { s.bottom = offset; s.right = offset; s.borderBottomWidth = 1; s.borderRightWidth = 1; }
+        return <div key={pos} style={s} />;
+      })}
       <button type="button" onClick={onExit} style={exitBtn} aria-label="Exit to moon">
         ← MOON
       </button>
