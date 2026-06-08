@@ -128,7 +128,7 @@ export function startMoonExperience(): () => void {
   let targetVIEW=44;                        /* wheel-zoom goal */
   const camera=new T.OrthographicCamera(-1,1,1,-1,0.1,3000);
   function setFrustum(){
-    const a=innerWidth/innerHeight;
+    const a=vw()/innerHeight;
     camera.left=-VIEW*a/2;camera.right=VIEW*a/2;camera.top=VIEW/2;camera.bottom=-VIEW/2;
     camera.updateProjectionMatrix();
   }
