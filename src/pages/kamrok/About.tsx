@@ -59,7 +59,8 @@ export default function About() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [shownId, setShownId] = useState<string>(TEAM[0].id);
   const [whyOpen, setWhyOpen] = useState<boolean>(false);
-  const { search } = useLocation();
+  const { search, pathname } = useLocation();
+  const navigate = useNavigate();
   const member = TEAM.find((m) => m.id === shownId) || TEAM[0];
 
   // Open dossier when arriving via /about?member=cormac (floating CTA)
@@ -75,7 +76,12 @@ export default function About() {
     setShownId(id);
     setOpenId(id);
   };
-  const closeMember = () => setOpenId(null);
+  const closeMember = () => {
+    setOpenId(null);
+    if (new URLSearchParams(search).get("member")) {
+      navigate(pathname, { replace: true });
+    }
+  };
   const closeWhy = () => {
     setWhyOpen(false);
     try { sessionStorage.setItem("kk-why-seen", "1"); } catch {}
