@@ -971,20 +971,31 @@ export function startMoonExperience(): () => void {
   }
   function updateSpaceHud(){const e=document.getElementById('spScore');if(e)e.textContent=sState?sState.score:0;}
   function enterSpace(){
+    if(mode==='space') return;            // idempotent — never double-enter
+    // Detect desktop the same way <MoonExperience/> does. If a listener exists
+    // we hand off to the pmndrs game; otherwise vanilla spaceTick is the show.
+    const handoff = typeof window!=='undefined' && !window.matchMedia('(max-width: 767px)').matches;
     mode='space';
-    buildSpace();
+    pmndrsActive = handoff;               // set BEFORE anything tickable can fire
+    if(handoff){
+      // Silence the vanilla audio while the pmndrs game owns the screen.
+      try { (window as any).ENGINE_AUDIO?.pause?.(); } catch(e) {}
+      try { (window as any).MUSIC_AUDIO?.pause?.(); } catch(e) {}
+    } else {
+      buildSpace();
+    }
     document.body.classList.add('space-mode');
     renderer.toneMappingExposure=1.28;
     setTimeout(()=>{flashEl.style.opacity=0;},90);
-    // Hand off to the R3F space-game on desktop. The wrapper is mobile-gated; on phones
-    // nothing listens and we fall back to the vanilla spaceTick experience.
-    pmndrsActive=true;
-    try { window.dispatchEvent(new CustomEvent('kamrok:enter-space')); } catch(e) {}
+    if(handoff){
+      try { window.dispatchEvent(new CustomEvent('kamrok:enter-space')); } catch(e) {}
+    }
     showToast('✦ ENTERING ORBIT');
     updateSpaceHud();
   }
   // Exposed for the React wrapper's exit button — resume drive on the moon.
   (window as any).__kamrokExitSpace = () => {
+    if(!pmndrsActive && mode!=='space') return;  // idempotent
     pmndrsActive=false;
     mode='drive';
     try { buggy.visible=true; } catch(e) {}
