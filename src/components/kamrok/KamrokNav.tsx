@@ -34,7 +34,7 @@ const SOCIAL = [
 ];
 
 type W = Window & {
-  __kamrokVol?: number; __kamrokMusic?: boolean; __kamrokSound?: boolean;
+  __kamrokVol?: number; __kamrokMusic?: boolean; __kamrokSound?: boolean; __kamrokTrack?: string;
 };
 
 /**
@@ -49,6 +49,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
   const [vol, setVol] = useState(70);
   const [music, setMusic] = useState(true);
   const [sound, setSound] = useState(true);
+  const [trackId, setTrackId] = useState<string>("default");
   const [mapOn, setMapOn] = useState(false);
   const [objOn, setObjOn] = useState(false);
   const { pathname } = useLocation();
@@ -62,6 +63,10 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
   useEffect(() => { (window as W).__kamrokVol = vol / 100; }, [vol]);
   useEffect(() => { (window as W).__kamrokMusic = music; }, [music]);
   useEffect(() => { (window as W).__kamrokSound = sound; }, [sound]);
+  useEffect(() => {
+    const t = TRACKS.find((x) => x.id === trackId);
+    (window as W).__kamrokTrack = t?.url || "";
+  }, [trackId]);
 
   const toggleFs = () => {
     try {
