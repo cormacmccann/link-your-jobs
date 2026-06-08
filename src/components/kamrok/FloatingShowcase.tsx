@@ -1,13 +1,17 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import cormacPhoto from "@/assets/team/cormac.png.asset.json";
+import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
 
 // Fills the empty left space on the dedicated pages with floating, interactive
 // client logos + larger project cards that 3D-tilt toward the cursor.
 
 type Logo = { type: "logo"; src: string; alt: string; url: string; top: string; left: string; dur: number; delay: number };
 type Card = { type: "card"; tag: string; name: string; desc: string; url: string; top: string; left: string; dur: number; delay: number };
-type Item = Logo | Card;
+type Member = { type: "member"; tag: string; name: string; role: string; photo: string; accent: string; href: string; top: string; left: string; dur: number; delay: number };
+type Item = Logo | Card | Member;
 
-const ITEMS: Item[] = [
+const WORK_ITEMS: Item[] = [
   { type: "card", tag: "OWN PRODUCT", name: "Clubrovia", desc: "Club operating system ↗", url: "https://clubrovia.com", top: "14%", left: "13%", dur: 8.5, delay: 1.1 },
   { type: "card", tag: "CLIENT · LOGO + WEB", name: "McKevitt's", desc: "Hotel · Bar · Restaurant ↗", url: "https://mckevitts.ie", top: "44%", left: "20%", dur: 7.8, delay: 2 },
   { type: "card", tag: "CLIENT", name: "Carlingford Arms", desc: "Bar & restaurant ↗", url: "https://carlingfordarms.com", top: "72%", left: "13%", dur: 8.6, delay: 0.5 },
@@ -20,9 +24,32 @@ const ITEMS: Item[] = [
   { type: "logo", src: "/clients/centra.webp", alt: "Centra", url: "https://centra.ie", top: "20%", left: "26%", dur: 7.4, delay: 1.2 },
 ];
 
+// On the About page: feature the two team members as floating CTAs at the top,
+// and push the work showcase down so it sits below them.
+const TEAM_ITEMS: Item[] = [
+  { type: "member", tag: "FOUNDER · DESIGN + BUILD", name: "Cormac McCann", role: "Meet Cormac →", photo: cormacPhoto.url, accent: "#8b7dff", href: "/about?member=cormac", top: "10%", left: "10%", dur: 8.2, delay: 0.4 },
+  { type: "member", tag: "CREATIVE & CLIENT", name: "Kayla Minto", role: "Meet Kayla →", photo: kaylaPhoto.url, accent: "#56a8ff", href: "/about?member=kayla", top: "26%", left: "24%", dur: 7.6, delay: 1.3 },
+];
+
+const ABOUT_SHIFT = 36; // percentage points to push work items down on About
+function shiftDown(items: Item[], by: number): Item[] {
+  return items.map((it) => {
+    const n = parseFloat(it.top);
+    const next = Math.min(96, n + by);
+    return { ...it, top: `${next}%` } as Item;
+  });
+}
+
+
 
 export default function FloatingShowcase() {
   const layerRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const isAbout = pathname === "/about";
+  const items: Item[] = isAbout
+    ? [...TEAM_ITEMS, ...shiftDown(WORK_ITEMS, ABOUT_SHIFT)]
+    : WORK_ITEMS;
+
 
   useEffect(() => {
     const layer = layerRef.current;
@@ -64,7 +91,7 @@ export default function FloatingShowcase() {
 
   return (
     <div className="im-float" ref={layerRef} aria-hidden>
-      {ITEMS.map((it, i) => (
+      {items.map((it, i) => (
         <div
           className="im-float-item"
           key={i}
@@ -74,11 +101,26 @@ export default function FloatingShowcase() {
             <a className="im-float-inner im-float-logo" href={it.url} target="_blank" rel="noopener">
               <img src={it.src} alt={it.alt} loading="lazy" />
             </a>
-          ) : (
+          ) : it.type === "card" ? (
             <a className="im-float-inner im-float-card" href={it.url} target="_blank" rel="noopener">
               <span className="im-float-card__tag">{it.tag}</span>
               <span className="im-float-card__name">{it.name}</span>
               <span className="im-float-card__desc">{it.desc}</span>
+            </a>
+          ) : (
+            <a
+              className="im-float-inner im-float-member"
+              href={it.href}
+              style={{ ["--accent" as string]: it.accent }}
+            >
+              <span className="im-float-member__photo">
+                <img src={it.photo} alt={it.name} loading="lazy" />
+              </span>
+              <span className="im-float-member__body">
+                <span className="im-float-member__tag">{it.tag}</span>
+                <span className="im-float-member__name">{it.name}</span>
+                <span className="im-float-member__cta">{it.role}</span>
+              </span>
             </a>
           )}
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import KamrokLayout, { Divider } from "@/components/kamrok/KamrokLayout";
 import cormacPhoto from "@/assets/team/cormac.png.asset.json";
 import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
@@ -59,7 +59,17 @@ export default function About() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [shownId, setShownId] = useState<string>(TEAM[0].id);
   const [whyOpen, setWhyOpen] = useState<boolean>(false);
+  const { search } = useLocation();
   const member = TEAM.find((m) => m.id === shownId) || TEAM[0];
+
+  // Open dossier when arriving via /about?member=cormac (floating CTA)
+  useEffect(() => {
+    const id = new URLSearchParams(search).get("member");
+    if (id && TEAM.some((m) => m.id === id)) {
+      setShownId(id);
+      setOpenId(id);
+    }
+  }, [search]);
 
   const openMember = (id: string) => {
     setShownId(id);
