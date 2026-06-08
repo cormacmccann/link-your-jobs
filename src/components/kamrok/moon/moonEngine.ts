@@ -675,6 +675,9 @@ export function startMoonExperience(): () => void {
   const PANEL_EYEBROWS={about:'THE STUDIO · 01',work:'SELECTED WORK · 02',skills:'WHAT WE MAKE · 03',contact:'OPEN CHANNEL · 04'};
   Object.keys(panels).forEach(key=>{
     const el=document.getElementById(panels[key]);if(!el)return;
+    // Guard against React StrictMode double-invoke / re-mounts duplicating the decorations.
+    if(el.dataset.dressed==='1')return;
+    el.dataset.dressed='1';
     const tag=el.querySelector('.tag');if(tag&&PANEL_EYEBROWS[key])tag.textContent=PANEL_EYEBROWS[key];
     ['pc-tl','pc-tr','pc-bl','pc-br'].forEach(c=>{const d=document.createElement('div');d.className='p-corner '+c;d.innerHTML=PCORNER_SVG;el.appendChild(d);});
     const emb=document.createElement('div');emb.className='lore-emblem';emb.innerHTML=EMBLEM_SVG;if(tag)el.insertBefore(emb,tag);
