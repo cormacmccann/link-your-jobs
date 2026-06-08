@@ -69,8 +69,13 @@ function GameWithGate() {
 }
 
 export default function KamrokSpaceGame({ onExit }: { onExit: () => void }) {
+  useEffect(() => {
+    document.body.classList.add("space-game-active");
+    return () => document.body.classList.remove("space-game-active");
+  }, []);
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "#05030f" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "#05030f" }}>
+
       <MoonBoundary
         label="space-game"
         fallback={
