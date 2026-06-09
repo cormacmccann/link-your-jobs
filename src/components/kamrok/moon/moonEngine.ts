@@ -719,7 +719,7 @@ export function startMoonExperience(): () => void {
   let mode='drive';                       // 'drive' | 'takeoff' | 'space'
   let pmndrsActive=false;                 // when true the R3F space game owns the screen — pause vanilla spaceTick
 
-  const SHIP_NOSE=Math.PI/2 + Math.PI/4;   // rotate model so its nose points +z (tune if needed)
+  const SHIP_NOSE=Math.PI;                 // rotate model so its nose points +z (tune if needed)
   let shipModel=null, shipSpawned=false, landedShip=null, shipNode=null;
   const SHIP_POS=new T.Vector3(26,0,46); SHIP_POS.y=terrainHeight(SHIP_POS.x,SHIP_POS.z);
   const flashEl=document.createElement('div');flashEl.className='flash';document.body.appendChild(flashEl);
