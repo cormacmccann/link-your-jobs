@@ -99,11 +99,17 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
         <div className="im-rail-bottom">
-          {!onMoon && (
-            <Link to="/" className="im-rail-icon im-rail-moon" aria-label="Back to the moonscape">
-              <MapIcon size={16} strokeWidth={1.3} /><span>MOON</span>
-            </Link>
-          )}
+          <Link
+            to="/"
+            className="im-rail-icon im-rail-moon"
+            aria-label="Back to the moonscape"
+            onClick={() => {
+              try { (window as any).__kamrokExitSpace?.(); } catch (e) { /* noop */ }
+              try { window.dispatchEvent(new CustomEvent("kamrok:exit-space")); } catch (e) { /* noop */ }
+            }}
+          >
+            <MapIcon size={16} strokeWidth={1.3} /><span>MOON</span>
+          </Link>
           <button
             className={`im-rail-btn ${showSettings ? "is-active" : ""}`}
             onClick={() => setShowSettings((s) => !s)} aria-label="Settings"

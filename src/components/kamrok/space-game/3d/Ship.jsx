@@ -105,7 +105,7 @@ export default function Ship() {
             </group>
           ))}
         </group>
-        <group rotation={[0, Math.PI, 0]}>
+        <group rotation={[0, 0, 0]}>
           <primitive object={ship} />
         </group>
       </group>
