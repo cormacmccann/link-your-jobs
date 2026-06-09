@@ -112,7 +112,7 @@ function Icon({
         >
           <ModelBoundary>
             <Suspense fallback={null}>
-              <Model url={icon.url} />
+              <Model url={icon.url} color={icon.color} />
             </Suspense>
           </ModelBoundary>
           <pointLight color={icon.color} intensity={lit ? 4 : 1.8} distance={5} />
