@@ -39,9 +39,6 @@ const WORK_ITEMS: Item[] = [
   { type: "logo", src: "/clients/down-to-earth.png", alt: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", top: "54%", left: "18%", dur: 12.2, delay: 1.0, dx: -22, dy: 28, blur: 1.5 },
   { type: "logo", src: "/clients/carlichauns.png", alt: "Carlinhauns", url: "https://carlichauns.com", top: "24%", left: "26%", dur: 10.8, delay: 2.5, dx: 28, dy: -24, blur: 2.5, scale: 0.95 },
   { type: "logo", src: "/clients/carlingford-arms.png", alt: "Carlingford Arms", url: "https://carlingfordarms.com", top: "68%", left: "26%", dur: 13, delay: 0.4, dx: -24, dy: 20, blur: 0 },
-  { type: "logo", src: "/clients/logo-26.png", alt: "Studio 26", url: "#", top: "20%", left: "36%", dur: 11.2, delay: 1.4, dx: 22, dy: 26, blur: 1, scale: 0.9 },
-  { type: "logo", src: "/clients/main-logo-dark-2.webp", alt: "Client", url: "#", top: "82%", left: "34%", dur: 9.8, delay: 0.2, dx: -30, dy: -22, blur: 2 },
-  { type: "logo", src: "/clients/greyhound.avif", alt: "Greyhound", url: "#", top: "46%", left: "36%", dur: 12.8, delay: 2.0, dx: 26, dy: 24, blur: 3, scale: 0.95 },
 ];
 
 // On the About page: feature the two team members as floating CTAs at the top,
