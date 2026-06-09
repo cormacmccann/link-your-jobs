@@ -174,8 +174,7 @@ export default function FloatingShowcase() {
               href={it.url}
               target={it.url === "#" ? undefined : "_blank"}
               rel="noopener"
-              onMouseEnter={() => onLogoEnter(i)}
-              onFocus={() => onLogoEnter(i)}
+              data-idx={i}
               style={{
                 ["--scl" as string]: String(it.scale ?? 1),
               }}
