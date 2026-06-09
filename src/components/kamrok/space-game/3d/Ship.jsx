@@ -3,10 +3,10 @@ import React, { useMemo, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import useStore from '../store'
-import chimpAsset from '@/assets/moon/chimp.glb.asset.json'
+import shipAsset from '@/assets/moon/warship.glb.asset.json'
 
-// KAMROK skin: the thing you fly is the chimp ship that launched off the moon.
-useGLTF.preload(chimpAsset.url)
+// KAMROK skin: warship cruiser deployed when the GOTOWAR cheat is invoked.
+useGLTF.preload(shipAsset.url)
 
 const geometry = new THREE.BoxGeometry(1, 1, 40)
 const accent = new THREE.Color('#c8b8ff')
@@ -17,7 +17,7 @@ const position = new THREE.Vector3()
 const direction = new THREE.Vector3()
 
 export default function Ship() {
-  const { scene } = useGLTF(chimpAsset.url)
+  const { scene } = useGLTF(shipAsset.url)
   const ship = useMemo(() => {
     const c = scene.clone(true)
     // Normalise to ~10 units along its largest axis so it matches the demo's scale budget.
