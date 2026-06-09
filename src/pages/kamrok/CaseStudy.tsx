@@ -174,6 +174,11 @@ const CASES: Record<string, CaseData> = {
       "A seasonal, tourism-driven business that lives or dies on direct bookings. The old site buried the booking button and didn't sell the experience.",
     approach:
       "Bold imagery, a sticky BOOK button on every screen, and clear sections for Bike Hire, Routes and Things To Do — with the Tripadvisor Travellers' Choice badges proudly above the fold.",
+    approachExtra: [
+      "Built for a thumb, mid-trip. Most visitors are families already in Carlingford with a phone in hand, so every screen starts on mobile and the BOOK button never scrolls away.",
+      "The content does the selling. Routes and Things To Do answer the 'is it worth it?' question before the booking, so booking becomes the obvious next move.",
+      "Proof above the fold. In tourism a stranger's review is the whole sale — so the Travellers' Choice badges sit where they're seen first.",
+    ],
     features: [
       { h: "Always-visible BOOK button", p: "A high-contrast CTA in the nav and as a sticky on mobile." },
       { h: "Routes & things to do", p: "Helpful pre-booking content that does the selling for them." },
@@ -182,6 +187,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A site that finally matches the energy of the brand — and turns more browsers into bookings.",
     services: ["Web design", "WordPress build", "CMS", "Booking integration"],
+    stats: [
+      { value: "Travellers' Choice", label: "2024 & 2025" },
+      { value: "Mobile-first", label: "BOOK MID-TRIP" },
+      { value: "Direct", label: "BOOKINGS, NOT OTAs" },
+    ],
     next: { slug: "catering-disposables", name: "Catering Disposables" },
   },
   "catering-disposables": {
@@ -199,6 +209,11 @@ const CASES: Record<string, CaseData> = {
       "A huge SKU range across packaging, hot cups, takeaway bags, hygiene and more — being browsed by busy operators who don't have time to hunt. Trade users need price, stock and delivery clarity at a glance.",
     approach:
       "A clean mega-nav that maps the product world, an opening-hours and delivery-promise bar pinned to the top, and a video-led hero that humanises a trade store.",
+    approachExtra: [
+      "Designed for the operator in a rush. A café owner reordering between services doesn't browse, they hunt — so the mega-nav maps the whole product world and keeps what they need one tap away.",
+      "Trust shown, not claimed. Opening hours, the next-day cut-off and the delivery promise follow you in a top bar, because in trade supply 'will it be here tomorrow?' is the only question that matters.",
+      "Built for the second order, not the first. Accounts, fast reorder and a search-first header turn a one-off buyer into a standing one.",
+    ],
     features: [
       { h: "Trade-first nav", p: "Every category one click away — built for repeat buyers." },
       { h: "Live delivery promise", p: "Opening hours and next-day cut-off shown in the top bar." },
@@ -207,6 +222,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "Faster reorders, fewer support calls, and a site that looks the part for a serious trade supplier.",
     services: ["Ecommerce design", "WooCommerce build", "Trade UX", "SEO"],
+    stats: [
+      { value: "1000s", label: "TRADE SKUs" },
+      { value: "Next-day", label: "DELIVERY PROMISE" },
+      { value: "Reorder", label: "IN A FEW TAPS" },
+    ],
     next: { slug: "greyhound", name: "Greyhound Extreme" },
   },
   greyhound: {
@@ -224,6 +244,11 @@ const CASES: Record<string, CaseData> = {
       "A specialist product range in a tight, knowledgeable community. Buyers need to trust the formulations before they'll buy — so the site has to earn that trust before it ever shows a price.",
     approach:
       "A magazine-style hero, prominent 'Natural Ingredients' badge, and a fast WooCommerce store underneath. Free-shipping incentives and a chat widget close the gap between curious and converted.",
+    approachExtra: [
+      "Trust before price. This is a tight, knowledgeable community that buys on the strength of the formulation — so the site earns belief with story and provenance before it ever shows a number.",
+      "Premium, not pharmacy. A magazine-style hero and a 'Natural Ingredients' badge position it as a craft brand, with a fast WooCommerce store doing the quiet work underneath.",
+      "Close the curious. A free-shipping threshold and live chat turn 'I've heard of this' into 'I've ordered it'.",
+    ],
     features: [
       { h: "Story-first homepage", p: "Premium herbal positioning, not a generic shop layout." },
       { h: "Free-shipping bar", p: "€100 threshold pinned to the top, with IE & UK badges." },
@@ -232,6 +257,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A brand presence that finally matches the quality of the products — and converts the community that already knows the brand.",
     services: ["Brand polish", "Ecommerce design", "WooCommerce build", "Conversion UX"],
+    stats: [
+      { value: "100% herbal", label: "NATURAL FORMULAS" },
+      { value: "IE + UK", label: "FREE SHIPPING €100" },
+      { value: "Live chat", label: "EXPERT ANSWERS" },
+    ],
     next: { slug: "thehenie", name: "TheHen.ie" },
   },
   thehenie: {
@@ -249,6 +279,11 @@ const CASES: Record<string, CaseData> = {
       "Hundreds of activities and destinations to package up, and a bride-to-be audience that buys on emotion as much as logic. The old site had the packages — but not the wow.",
     approach:
       "A split-hero layout pairing real cocktail-bar footage with serif headline typography, a Google-reviews trust block, and dual CTAs into Ready-Made Packages and Destinations.",
+    approachExtra: [
+      "An emotional buy, designed like one. A bride-to-be picks on feeling first, so the hero pairs real cocktail-bar footage with serif headline type for a hospitality-grade first impression.",
+      "Proof, then paths. 500+ Google reviews sit right under the hero, then two clear routes — Ready-Made Packages or Destinations — so nobody has to wonder where to start.",
+      "Hundreds of options, zero overwhelm. Quick search and a persistent 'Need Help?' chip keep a huge catalogue feeling effortless.",
+    ],
     features: [
       { h: "Editorial hero", p: "Serif headline, split-screen video — a hospitality-grade first impression." },
       { h: "500+ Google reviews", p: "Social proof block sitting right under the hero." },
@@ -257,6 +292,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A site that finally feels as memorable as the parties they plan.",
     services: ["Web design", "WordPress build", "Editorial UX", "Conversion design"],
+    stats: [
+      { value: "500+", label: "GOOGLE REVIEWS" },
+      { value: "#1", label: "HEN PLANNERS · IE" },
+      { value: "100s", label: "PACKAGES & DESTINATIONS" },
+    ],
     next: { slug: "carlichauns", name: "Carlichauns" },
   },
   carlichauns: {
@@ -274,6 +314,11 @@ const CASES: Record<string, CaseData> = {
       "A new IP needs to look like one. The brand had character art and a story, but needed a site that felt like a Pixar microsite, not a children's bookstore.",
     approach:
       "Full-bleed cinematic hero, custom illustrated nav icons, neon-on-dark colour palette, and a clear path for partners and press alongside the consumer-facing Books & Adventure Trail.",
+    approachExtra: [
+      "A new IP has to look inevitable. The brand had character art and a story; the site had to feel like a studio microsite, not a bookshop — so the homepage is full-bleed, cinematic and a little mysterious.",
+      "Brand in every pixel. Custom illustrated nav icons — mushroom, hat, heart, clover — and a neon-on-dark palette make the world feel owned, not templated.",
+      "Two audiences, one scroll. Books and the Adventure Trail delight families, while clear Partners and Press paths quietly make the business case to everyone else.",
+    ],
     features: [
       { h: "Cinematic homepage", p: "Full-bleed character art with a 'View Trailer' CTA." },
       { h: "Illustrated nav", p: "Custom mushroom, hat, heart & clover icons — pure brand." },
@@ -282,6 +327,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "An IP that finally has a home online — one that delights kids and convinces partners in the same scroll.",
     services: ["Web design", "Brand-led build", "Illustration integration", "CMS"],
+    stats: [
+      { value: "New IP", label: "WORLD, BUILT" },
+      { value: "Books + Trail", label: "ON & OFFLINE" },
+      { value: "Partners", label: "& PRESS READY" },
+    ],
     next: { slug: "coil-carrier", name: "Coil Carrier" },
   },
   "coil-carrier": {
@@ -299,6 +349,11 @@ const CASES: Record<string, CaseData> = {
       "A serious B2B engineering product sold into procurement and safety teams. The site has to communicate compliance, safety and durability instantly — without sounding like a brochure.",
     approach:
       "Bold split-screen hero with the compliance badge on the right, a confident 'Get a Product Demo' CTA, and a tight nav focused on the three things a buyer actually needs: specs, use cases and FAQs.",
+    approachExtra: [
+      "Compliance is the headline. A procurement or safety buyer needs to see 'EN 12195 load-restraint certified' before anything else — so it lives in the hero, not on a spec sheet three clicks down.",
+      "Three things, nothing else. Specs, Use Cases, FAQs and Enquire — the nav is ruthless because a serious B2B buyer is, too.",
+      "A microsite with a parent. Steel-blue, engineered and dark, it stands on its own while linking cleanly back to the Marmion brand.",
+    ],
     features: [
       { h: "Compliance, front and centre", p: "EN 12195 load-restraint certified, called out in the hero." },
       { h: "Tight conversion nav", p: "Specs · Use Cases · FAQs · Enquire — nothing else." },
@@ -307,6 +362,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A focused product page that earns trust in seconds and drives qualified demo requests.",
     services: ["Microsite design", "Product UX", "Web build", "Technical content design"],
+    stats: [
+      { value: "EN 12195", label: "LOAD-RESTRAINT CERTIFIED" },
+      { value: "Reusable", label: "vs SINGLE-USE" },
+      { value: "Demo-led", label: "QUALIFIED ENQUIRIES" },
+    ],
     next: { slug: "marmion", name: "Marmion Engineering" },
   },
   marmion: {
@@ -324,6 +384,11 @@ const CASES: Record<string, CaseData> = {
       "A serious engineering business with multiple product lines and a strong compliance story. The old site didn't articulate the in-house capability, and didn't connect the dots between Marmion and its sub-brands.",
     approach:
       "A dark, industrial-feeling homepage with a Custom Fabrication hero, an EN1090 EX2 compliance card pinned alongside it, and a horizontal nav that doubles as a launchpad for every product line.",
+    approachExtra: [
+      "Make the in-house capability obvious. Marmion does it all under one roof to EN1090 EX2 — so the homepage leads with custom fabrication and pins the certification right beside it.",
+      "Hub and spoke. A horizontal nav doubles as a launchpad for every product line — Coil Carrier, Van Storage, Pits, Services — connecting the parent brand to its sub-brands at last.",
+      "Credibility on contact. A customer-logo strip sits directly under the hero, because for serious engineering buyers, who you've worked with is the pitch.",
+    ],
     features: [
       { h: "Product-line nav", p: "Home · Coil Carrier · Van Storage · Pits · Services, with custom icons." },
       { h: "Compliance card", p: "EN1090 EX2 certification given a prominent slot in the hero." },
@@ -332,6 +397,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A hub site that finally reflects the size and seriousness of the operation — and feeds qualified leads into each product line.",
     services: ["Web design", "Hub-and-spoke architecture", "Brand consistency", "CMS"],
+    stats: [
+      { value: "EN1090 EX2", label: "CERTIFIED" },
+      { value: "In-house", label: "END TO END" },
+      { value: "4 lines", label: "ONE HUB" },
+    ],
     next: { slug: "down-to-earth", name: "Down to Earth Electrical" },
   },
   "down-to-earth": {
@@ -349,6 +419,11 @@ const CASES: Record<string, CaseData> = {
       "A growing specialist contractor working across multiple countries and sectors, with the safety credentials to prove it. The site needed to communicate scale, certifications and seriousness — without losing the human warmth of the team.",
     approach:
       "A split-screen hero pairing a confident headline ('High-Quality Electrical Specialist Teams for Mission-Critical Projects') with a real meeting-room photo. Multi-language phone numbers in the top bar, a SAFE Electric badge under the CTAs, and a 'Who We Work With' logo strip directly below.",
+    approachExtra: [
+      "Built to win bigger work. DTE compete for mission-critical jobs across three countries — so the site opens with scale and certifications, framed to open doors at the procurement table.",
+      "Local everywhere. IE, UK and DE phone numbers with flags sit in the top bar, so a buyer in any region feels like they're dealing with a team next door.",
+      "Serious, still human. A real meeting-room photo and a 'Who We Work With' logo strip keep the warmth while the SAFE Electric badge does the credentialing.",
+    ],
     features: [
       { h: "Multi-region top bar", p: "IE, UK and DE phone numbers shown with flags up top." },
       { h: "Project-proven positioning", p: "Eyebrow line + serif italic for 'Mission-Critical Projects'." },
@@ -357,6 +432,11 @@ const CASES: Record<string, CaseData> = {
     ],
     outcome: "A site that helps DTE compete for — and win — bigger, multi-region work.",
     services: ["Web design", "Multi-region UX", "B2B conversion design", "CMS"],
+    stats: [
+      { value: "IE · UK · DE", label: "3 REGIONS" },
+      { value: "SAFE Electric", label: "CERTIFIED" },
+      { value: "Data centres", label: "MISSION-CRITICAL" },
+    ],
     next: { slug: "clubrovia", name: "Clubrovia" },
   },
 };
