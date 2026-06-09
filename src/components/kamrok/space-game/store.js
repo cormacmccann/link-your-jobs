@@ -5,6 +5,13 @@ import { addEffect } from '@react-three/fiber'
 import { create } from 'zustand'
 import * as audio from './audio'
 
+// The studio's real work — each anomaly you fly past recovers one of these.
+// Declared before the store is created (makeAnomalies runs at creation time).
+export const PROJECTS = [
+  'CLUBROVIA', "McKEVITT'S", 'CARLINGFORD ARMS', 'GREYHOUND EXTREME',
+  'THE HEN', 'MARMION ENGINEERING', 'COIL CARRIER', 'DOWN TO EARTH',
+]
+
 let guid = 1
 
 const useStore = create((set, get) => {
@@ -25,6 +32,9 @@ const useStore = create((set, get) => {
     boosting: false,
     rocks: randomData(100, track, 150, 8, () => 1 + Math.random() * 2.5),
     enemies: randomData(10, track, 20, 15, 1),
+    anomalies: makeAnomalies(track),
+    recovered: [],
+    revealed: null,
 
     mutation: {
       t: 0,
@@ -96,6 +106,19 @@ const useStore = create((set, get) => {
             }))
           }
           //if (a.some(data => data.distance < 15)) set(state => ({ health: state.health - 1 }))
+
+          // PROJECTS RECOVERED — reveal a real KAMROK project as you fly past its anomaly
+          const anomalies = get().anomalies
+          for (const an of anomalies) {
+            if (!an.done && Math.abs(t - an.t) < 0.006) {
+              an.done = true
+              playAudio(audio.click)
+              set((state) => ({
+                recovered: state.recovered.includes(an.project) ? state.recovered : [...state.recovered, an.project],
+                revealed: { project: an.project, id: an.guid, time: Date.now() },
+              }))
+            }
+          }
         })
       },
       shoot() {
@@ -135,6 +158,19 @@ const useStore = create((set, get) => {
     }
   }
 })
+
+// One glowing anomaly per project, spread evenly along the orbit so you meet
+// them throughout the run, each sitting just off the track.
+function makeAnomalies(track) {
+  return PROJECTS.map((project, i) => {
+    const t = (i + 0.5) / PROJECTS.length
+    const pos = track.parameters.path.getPointAt(t % 1).multiplyScalar(15)
+    const offset = pos.clone().add(
+      new THREE.Vector3((Math.random() - 0.5) * 26, (Math.random() - 0.5) * 26, (Math.random() - 0.5) * 26)
+    )
+    return { guid: guid++, project, t, offset, size: 10, scale: 1.7, done: false }
+  })
+}
 
 function randomData(count, track, radius, size, scale) {
   return new Array(count).fill().map(() => {

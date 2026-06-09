@@ -10,6 +10,7 @@ import Rocks from './3d/Rocks'
 import Explosions from './3d/Explosions'
 import { audio } from './store'
 import Rings from './3d/Rings'
+import Anomalies from './3d/Anomalies'
 import Track from './3d/Track'
 import Ship from './3d/Ship'
 import Rig from './3d/Rig'
@@ -85,6 +86,7 @@ export default function App() {
         <Track />
         <Particles />
         <Rings />
+        <Anomalies />
         <Suspense fallback={null}>
           <Rocks />
           <Planets />
