@@ -67,6 +67,33 @@ export default function FloatingShowcase() {
     ? [...TEAM_ITEMS, ...shiftDown(WORK_ITEMS, ABOUT_SHIFT)]
     : WORK_ITEMS;
 
+  // Indices of logo items (eligible for blur swap)
+  const logoIndices = useMemo(
+    () => items.map((it, i) => (it.type === "logo" ? i : -1)).filter((i) => i >= 0),
+    [items]
+  );
+  const [blurred, setBlurred] = useState<Set<number>>(() => {
+    const s = new Set<number>();
+    items.forEach((it, i) => {
+      if (it.type === "logo" && it.blur > 0) s.add(i);
+    });
+    return s;
+  });
+  const onLogoEnter = (i: number) => {
+    setBlurred((prev) => {
+      if (!prev.has(i)) return prev;
+      const next = new Set(prev);
+      next.delete(i);
+      // Pick a replacement from logos not currently blurred (and not the hovered one)
+      const candidates = logoIndices.filter((idx) => idx !== i && !next.has(idx));
+      if (candidates.length) {
+        const pick = candidates[Math.floor(Math.random() * candidates.length)];
+        next.add(pick);
+      }
+      return next;
+    });
+  };
+
 
   useEffect(() => {
     const layer = layerRef.current;
