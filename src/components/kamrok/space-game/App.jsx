@@ -15,6 +15,7 @@ import Ship from './3d/Ship'
 import Rig from './3d/Rig'
 import Hud from './Hud'
 import useStore from './store'
+import MoonBoundary from '@/components/kamrok/moon/MoonBoundary'
 
 export default function App() {
   const { fov } = useStore((state) => state.mutation)
@@ -60,8 +61,11 @@ export default function App() {
   }, [])
 
   return (
-    <div onPointerMove={actions.updateMouse} onClick={actions.shoot}>
-
+    <div
+      onPointerMove={actions.updateMouse}
+      onClick={actions.shoot}
+      style={{ position: "absolute", inset: 0 }}
+    >
       <Canvas
         linear
         mode="concurrent"
@@ -86,7 +90,9 @@ export default function App() {
           <Planets />
           <Enemies />
           <Rig>
-            <Ship />
+            <MoonBoundary fallback={null}>
+              <Ship />
+            </MoonBoundary>
           </Rig>
         </Suspense>
         <Effects />

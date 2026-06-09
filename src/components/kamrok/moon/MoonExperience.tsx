@@ -57,7 +57,7 @@ export default function MoonExperience() {
     <>
       <div className="moon-root" dangerouslySetInnerHTML={{ __html: MOON_MARKUP }} />
       <KamrokNav onMoon />
-      {isDesktop && (
+      {isDesktop && !inSpace && (
         <MoonBoundary fallback={null} label="satellite">
           <SatelliteFlyby />
         </MoonBoundary>
