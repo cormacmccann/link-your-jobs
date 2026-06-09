@@ -41,9 +41,26 @@ export default function MoonExperience() {
     const exit = () => setInSpace(false);
     window.addEventListener("kamrok:enter-space", enter);
     window.addEventListener("kamrok:exit-space", exit);
+
+    // Cheat code: type "gotowar" anywhere to launch the space world.
+    const CODE = "gotowar";
+    let buffer = "";
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      if (e.key.length !== 1) return;
+      buffer = (buffer + e.key.toLowerCase()).slice(-CODE.length);
+      if (buffer === CODE) {
+        buffer = "";
+        window.dispatchEvent(new CustomEvent("kamrok:enter-space"));
+      }
+    };
+    window.addEventListener("keydown", onKey);
+
     return () => {
       window.removeEventListener("kamrok:enter-space", enter);
       window.removeEventListener("kamrok:exit-space", exit);
+      window.removeEventListener("keydown", onKey);
     };
   }, [isDesktop]);
 
