@@ -32,17 +32,17 @@ const FEATURED = [
 ];
 
 
-const CLIENTS = [
-  { name: "Digital Screen Displays", url: "https://digitalscreendisplays.ie", desc: "Digital signage & commercial displays" },
-  { name: "AVTS", url: "https://avts.ie", desc: "Auto-tech solutions, Ireland" },
-  { name: "DSA Cloud", url: "https://dsa-cloud.com", desc: "Cloud platform & dashboard" },
-  { name: "Kama Golf", url: "https://kamagolf.com", desc: "Golf brand & store" },
-  { name: "Ruby Ellens", url: "https://rubyellens.com", desc: "Boutique & lifestyle" },
-  { name: "Carlingford Arms", url: "https://carlingfordarms.com", desc: "Bar & restaurant, Carlingford" },
-  { name: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", desc: "Electrical contractor" },
-  { name: "Carlinhauns", url: "https://carlichauns.com", desc: "Carlingford experience" },
-  { name: "Last Leprechauns of Ireland", url: "https://lastleprechaunsofireland.com", desc: "Tourism & folklore" },
-  { name: "Catering Disposables", url: "https://cateringdisposables.ie", desc: "Trade ecommerce" },
+type CaseThumb = { slug: string; name: string; url: string; desc: string; thumb: string };
+const CASE_THUMBS: CaseThumb[] = [
+  { slug: "carlingford-arms", name: "The Carlingford Arms", url: "https://carlingfordarms.com", desc: "Bar & restaurant · Carlingford", thumb: "/case-thumbs/carlingford-arms.png" },
+  { slug: "onyerbike", name: "On Yer Bike Carlingford", url: "https://onyerbike.ie", desc: "Bike hire · Cooley Peninsula", thumb: "/case-thumbs/onyerbike.png" },
+  { slug: "catering-disposables", name: "Catering Disposables", url: "https://cateringdisposables.ie", desc: "Trade ecommerce", thumb: "/case-thumbs/catering-disposables.png" },
+  { slug: "greyhound", name: "Greyhound Extreme", url: "https://greyhoundextreme.com", desc: "Premium herbal · Irish brand", thumb: "/case-thumbs/greyhound.png" },
+  { slug: "thehenie", name: "TheHen.ie", url: "https://thehen.ie", desc: "Hen-party planning experts", thumb: "/case-thumbs/thehenie.png" },
+  { slug: "carlichauns", name: "Carlichauns", url: "https://carlichauns.com", desc: "Kids & family IP", thumb: "/case-thumbs/carlichauns.png" },
+  { slug: "coil-carrier", name: "Coil Carrier", url: "https://coilcarrier.com", desc: "Engineering product microsite", thumb: "/case-thumbs/coil-carrier.png" },
+  { slug: "marmion", name: "Marmion Engineering", url: "https://marmionengineering.ie", desc: "Custom fabrication · EN1090", thumb: "/case-thumbs/marmion.png" },
+  { slug: "down-to-earth", name: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", desc: "Electrical · IE · UK · DE", thumb: "/case-thumbs/down-to-earth.png" },
 ];
 
 const LOGOS = [
@@ -89,13 +89,19 @@ export default function Work() {
         ))}
       </div>
 
-      <h2 className="kk-sub">More clients</h2>
-      <div className="kk-clients">
-        {CLIENTS.map((c) => (
-          <a className="kk-client" href={c.url} target="_blank" rel="noopener" key={c.url}>
-            <span className="kk-client__name">{c.name} <span className="kk-client__arrow">↗</span></span>
-            <span className="kk-client__desc">{c.desc}</span>
-          </a>
+      <h2 className="kk-sub">More case studies</h2>
+      <div className="kk-case-grid">
+        {CASE_THUMBS.map((c) => (
+          <Link className="kk-case-card" to={`/work/${c.slug}`} key={c.slug}>
+            <div className="kk-case-card__thumb">
+              <img src={c.thumb} alt={`${c.name} website screenshot`} loading="lazy" />
+            </div>
+            <div className="kk-case-card__body">
+              <span className="kk-case-card__name">{c.name}</span>
+              <span className="kk-case-card__desc">{c.desc}</span>
+              <span className="kk-case-card__cta">CASE STUDY →</span>
+            </div>
+          </Link>
         ))}
       </div>
 
