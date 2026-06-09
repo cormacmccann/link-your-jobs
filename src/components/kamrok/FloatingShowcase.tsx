@@ -124,7 +124,7 @@ export default function FloatingShowcase() {
         }
         return (
         <div
-          className={it.type === "logo" ? "im-float-item im-float-item--drift" : "im-float-item"}
+          className={it.type === "logo" ? "im-float-item im-float-item--drift" : "im-float-item im-float-item--member"}
           key={i}
           style={itemStyle}
         >
