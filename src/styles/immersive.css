@@ -335,8 +335,13 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 .im-float-logo {
   /* No box, no dark plate — just the mark, lifted with a soft shadow */
   background: transparent !important; border: 0 !important; padding: 0;
-  filter: blur(var(--blur, 0px)) drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
-  opacity: .88;
+  filter: blur(0px) drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+  opacity: 1;
+  transition: filter .6s ease, opacity .6s ease, transform .15s ease-out;
+}
+.im-float-logo.is-blurred {
+  filter: blur(3px) drop-shadow(0 14px 24px rgba(0, 0, 0, .55));
+  opacity: .55;
 }
 .im-float-logo img {
   display: block; height: calc(56px * var(--scl, 1)); width: auto; max-width: 220px;
