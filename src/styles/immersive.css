@@ -335,7 +335,7 @@ body.kk-codex-open .im-main { padding-right: 484px; }
 .im-float-logo {
   /* No box, no dark plate — just the mark, lifted with a soft shadow */
   background: transparent !important; border: 0 !important; padding: 0;
-  filter: blur(0px) drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
   opacity: 1;
   transition: filter .6s ease, opacity .6s ease, transform .15s ease-out;
 }
@@ -350,7 +350,7 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   transition: transform .35s ease;
 }
 .im-float-logo:hover {
-  filter: blur(0px) drop-shadow(0 22px 38px rgba(0, 0, 0, .7)) drop-shadow(0 6px 14px rgba(0, 0, 0, .45));
+  filter: drop-shadow(0 22px 38px rgba(0, 0, 0, .7)) drop-shadow(0 6px 14px rgba(0, 0, 0, .45));
   opacity: 1;
   z-index: 5;
 }

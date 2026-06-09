@@ -67,9 +67,7 @@ export default function FloatingShowcase() {
     ? [...TEAM_ITEMS, ...shiftDown(WORK_ITEMS, ABOUT_SHIFT)]
     : WORK_ITEMS;
 
-  // Indices of logo items that are currently blurred. Initialise from each
-  // logo's own `blur` default. Hovering a blurred logo refocuses it and
-  // randomly blurs another logo to keep the count roughly stable.
+  // Indices of logo items (eligible for blur swap)
   const logoIndices = useMemo(
     () => items.map((it, i) => (it.type === "logo" ? i : -1)).filter((i) => i >= 0),
     [items]
@@ -81,12 +79,13 @@ export default function FloatingShowcase() {
     });
     return s;
   });
-
   const onLogoEnter = (i: number) => {
     setBlurred((prev) => {
+      if (!prev.has(i)) return prev;
       const next = new Set(prev);
       next.delete(i);
-      const candidates = logoIndices.filter((k) => k !== i && !next.has(k));
+      // Pick a replacement from logos not currently blurred (and not the hovered one)
+      const candidates = logoIndices.filter((idx) => idx !== i && !next.has(idx));
       if (candidates.length) {
         const pick = candidates[Math.floor(Math.random() * candidates.length)];
         next.add(pick);
@@ -94,7 +93,6 @@ export default function FloatingShowcase() {
       return next;
     });
   };
-
 
 
   useEffect(() => {
