@@ -286,3 +286,18 @@ h1, h2, h3, h4, h5, h6,
 .kk-step h3, .kk-team-name, .kk-case-feature h3 {
   font-family: 'GOBOLD', 'Oswald', 'Bebas Neue', Impact, sans-serif !important;
 }
+
+/* Accessibility — honour "reduce motion". The site is animation-heavy (loader
+   orb, floating cards, pulses, tilts, slide-ins); for visitors who ask for less
+   motion, make CSS animation/transition effectively instant. This backs the
+   "accessible by default" value stated on the About page. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}

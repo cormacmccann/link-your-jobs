@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
-  Compass, BookOpen, Sparkles, Newspaper, Menu, X, Settings, Map as MapIcon, Target, Volume2,
+  Users, Briefcase, Sparkles, Mail, Menu, X, Settings, Map as MapIcon, Target, Volume2,
   MessageCircle, Youtube, Headphones, Bell, Music,
 } from "lucide-react";
 import "@/styles/immersive.css";
@@ -91,10 +91,10 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
           <img src="/kamrok-logo.png" alt="KAMROK" />
         </Link>
         <div className="im-rail-icons">
-          <Link to="/about" className="im-rail-icon"><Compass size={16} strokeWidth={1.4} /><span>ABOUT</span></Link>
-          <Link to="/work" className="im-rail-icon"><BookOpen size={16} strokeWidth={1.4} /><span>WORK</span></Link>
+          <Link to="/about" className="im-rail-icon"><Users size={16} strokeWidth={1.4} /><span>ABOUT</span></Link>
+          <Link to="/work" className="im-rail-icon"><Briefcase size={16} strokeWidth={1.4} /><span>WORK</span></Link>
           <Link to="/skills" className="im-rail-icon"><Sparkles size={16} strokeWidth={1.4} /><span>SKILLS</span></Link>
-          <Link to="/contact" className="im-rail-icon"><Newspaper size={16} strokeWidth={1.4} /><span>CONTACT</span></Link>
+          <Link to="/contact" className="im-rail-icon"><Mail size={16} strokeWidth={1.4} /><span>CONTACT</span></Link>
         </div>
         <div className="im-rail-divider" />
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>

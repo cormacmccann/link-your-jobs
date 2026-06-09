@@ -114,7 +114,12 @@ export default function FloatingShowcase() {
   useEffect(() => {
     const layer = layerRef.current;
     if (!layer) return;
-    if (window.matchMedia("(hover: none)").matches) return; // touch: skip tilt
+    // skip the cursor-tilt on touch, and for visitors who asked for reduced motion
+    if (
+      window.matchMedia("(hover: none)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
     let raf = 0;
     let mx = -9999, my = -9999;
     const INF = 320;
