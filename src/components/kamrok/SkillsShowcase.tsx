@@ -46,7 +46,7 @@ class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-function Model({ url }: { url: string }) {
+function Model({ url, color }: { url: string; color: string }) {
   const gl = useThree((s) => s.gl);
   try { ktx2.detectSupport(gl); } catch (e) { /* noop */ }
   const { scene } = useGLTF(url, true, true, extendGltfLoader);
@@ -58,11 +58,23 @@ function Model({ url }: { url: string }) {
     const s = 2 / Math.max(0.001, Math.max(size.x, size.y, size.z));
     c.scale.setScalar(s);
     c.position.set(-center.x * s, -center.y * s, -center.z * s);
+    const tint = new THREE.Color(color);
     c.traverse((o) => {
-      if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).castShadow = true;
+      const m = o as THREE.Mesh;
+      if (!m.isMesh) return;
+      m.castShadow = true;
+      // Replace any (possibly untextured/black) material with a vibrant tinted PBR
+      // surface so the icons read clearly under the scene lighting.
+      const mat = new THREE.MeshStandardMaterial({
+        color: tint,
+        emissive: tint.clone().multiplyScalar(0.45),
+        roughness: 0.35,
+        metalness: 0.25,
+      });
+      m.material = mat;
     });
     return c;
-  }, [scene]);
+  }, [scene, color]);
   return <primitive object={obj} />;
 }
 
