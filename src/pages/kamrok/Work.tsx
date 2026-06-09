@@ -45,8 +45,16 @@ const CLIENTS = [
   { name: "Catering Disposables", url: "https://cateringdisposables.ie", desc: "Trade ecommerce" },
 ];
 
-const LOGOS = ["tifco", "guinness-storehouse", "dundalk-stadium", "crowne-plaza", "coca-cola", "centra", "boylesports"];
-const LOGO_EXT: Record<string, string> = { "coca-cola": "png", boylesports: "png" };
+const LOGOS = [
+  "tifco", "guinness-storehouse", "dundalk-stadium", "crowne-plaza", "coca-cola", "centra", "boylesports",
+  "thehenie", "onyerbike", "catering-disposables", "carlingford-arms", "last-leprechauns", "coil-carrier", "down-to-earth", "carlichauns",
+];
+const LOGO_EXT: Record<string, string> = {
+  "coca-cola": "png", boylesports: "png",
+  thehenie: "png", onyerbike: "png", "catering-disposables": "webp",
+  "carlingford-arms": "png", "last-leprechauns": "png", "coil-carrier": "png",
+  "down-to-earth": "png", carlichauns: "png",
+};
 
 export default function Work() {
   return (
