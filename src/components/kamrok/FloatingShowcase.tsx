@@ -94,6 +94,22 @@ export default function FloatingShowcase() {
     });
   };
 
+  // Event delegation: catches hovers even when React's synthetic events are flaky
+  useEffect(() => {
+    const layer = layerRef.current;
+    if (!layer) return;
+    const onOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const a = target?.closest?.(".im-float-logo") as HTMLElement | null;
+      if (!a) return;
+      const idx = Number(a.dataset.idx);
+      if (Number.isFinite(idx)) onLogoEnter(idx);
+    };
+    layer.addEventListener("mouseover", onOver);
+    return () => layer.removeEventListener("mouseover", onOver);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [logoIndices]);
+
 
   useEffect(() => {
     const layer = layerRef.current;
