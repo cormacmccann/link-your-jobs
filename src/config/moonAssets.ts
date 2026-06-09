@@ -14,7 +14,7 @@ import rock4 from "@/assets/moon/rock4.glb.asset.json";
 import rock7 from "@/assets/moon/rock7.glb.asset.json";
 import rockColor from "@/assets/moon/rockColor.jpg.asset.json";
 import rockNormal from "@/assets/moon/rockNormal.jpg.asset.json";
-import ship from "@/assets/moon/ship.glb.asset.json";
+import ship from "@/assets/moon/warship.glb.asset.json";
 import termL from "@/assets/moon/termL.glb.asset.json";
 import termS from "@/assets/moon/termS.glb.asset.json";
 import trackColor from "@/assets/moon/trackColor.jpg.asset.json";
