@@ -6,29 +6,42 @@ import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
 // Fills the empty left space on the dedicated pages with floating, interactive
 // client logos + larger project cards that 3D-tilt toward the cursor.
 
-type Logo = { type: "logo"; src: string; alt: string; url: string; top: string; left: string; dur: number; delay: number };
-type Card = { type: "card"; tag: string; name: string; desc: string; url: string; top: string; left: string; dur: number; delay: number };
+type Logo = {
+  type: "logo";
+  src: string;
+  alt: string;
+  url: string;
+  top: string;
+  left: string;
+  dur: number;
+  delay: number;
+  dx: number; // px drift horizontal
+  dy: number; // px drift vertical
+  blur: number; // px default blur
+  scale?: number; // size multiplier
+};
 type Member = { type: "member"; tag: string; name: string; role: string; photo: string; accent: string; href: string; top: string; left: string; dur: number; delay: number };
-type Item = Logo | Card | Member;
+type Item = Logo | Member;
 
 const WORK_ITEMS: Item[] = [
-  { type: "card", tag: "OWN PRODUCT", name: "Clubrovia", desc: "Club operating system ↗", url: "https://clubrovia.com", top: "14%", left: "13%", dur: 8.5, delay: 1.1 },
-  { type: "card", tag: "CLIENT · LOGO + WEB", name: "McKevitt's", desc: "Hotel · Bar · Restaurant ↗", url: "https://mckevitts.ie", top: "44%", left: "20%", dur: 7.8, delay: 2 },
-  { type: "card", tag: "CLIENT", name: "Carlingford Arms", desc: "Bar & restaurant ↗", url: "https://carlingfordarms.com", top: "72%", left: "13%", dur: 8.6, delay: 0.5 },
-  { type: "logo", src: "/clients/guinness-storehouse.webp", alt: "Guinness Storehouse", url: "https://guinness-storehouse.com", top: "8%", left: "33%", dur: 7.5, delay: 0 },
-  { type: "logo", src: "/clients/coca-cola.png", alt: "Coca-Cola", url: "https://coca-cola.com", top: "30%", left: "4%", dur: 6.8, delay: 0.6 },
-  { type: "logo", src: "/clients/tifco.webp", alt: "TIFCO Hotel Group", url: "https://tifcohotels.com", top: "34%", left: "36%", dur: 7.2, delay: 1.6 },
-  { type: "logo", src: "/clients/crowne-plaza.webp", alt: "Crowne Plaza", url: "https://crowneplaza.com", top: "60%", left: "36%", dur: 8, delay: 0.9 },
-  { type: "logo", src: "/clients/dundalk-stadium.webp", alt: "Dundalk Stadium", url: "https://dundalkstadium.com", top: "86%", left: "31%", dur: 7.6, delay: 1.9 },
-  { type: "logo", src: "/clients/boylesports.png", alt: "BoyleSports", url: "https://boylesports.com", top: "66%", left: "4%", dur: 7, delay: 2.3 },
-  { type: "logo", src: "/clients/centra.webp", alt: "Centra", url: "https://centra.ie", top: "20%", left: "26%", dur: 7.4, delay: 1.2 },
-  { type: "logo", src: "/clients/thehenie.png", alt: "The HENie", url: "https://thehen.ie", top: "12%", left: "5%", dur: 7.8, delay: 0.3 },
-  { type: "logo", src: "/clients/onyerbike.png", alt: "On Yer Bike", url: "https://onyerbike.ie", top: "50%", left: "32%", dur: 7.1, delay: 1.5 },
-  { type: "logo", src: "/clients/catering-disposables.webp", alt: "Catering Disposables", url: "https://cateringdisposables.ie", top: "78%", left: "25%", dur: 8.2, delay: 0.7 },
-  { type: "logo", src: "/clients/last-leprechauns.png", alt: "Last Leprechauns of Ireland", url: "https://lastleprechaunsofireland.com", top: "38%", left: "28%", dur: 7.3, delay: 2.1 },
-  { type: "logo", src: "/clients/coil-carrier.png", alt: "Coil Carrier", url: "https://coilcarrier.com", top: "92%", left: "8%", dur: 7.9, delay: 1.8 },
-  { type: "logo", src: "/clients/down-to-earth.png", alt: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", top: "56%", left: "10%", dur: 8.1, delay: 1.0 },
-  { type: "logo", src: "/clients/carlichauns.png", alt: "Carlinhauns", url: "https://carlichauns.com", top: "24%", left: "15%", dur: 7.0, delay: 2.5 },
+  { type: "logo", src: "/clients/guinness-storehouse.webp", alt: "Guinness Storehouse", url: "https://guinness-storehouse.com", top: "6%", left: "30%", dur: 11, delay: 0, dx: 28, dy: -18, blur: 0, scale: 1.05 },
+  { type: "logo", src: "/clients/coca-cola.png", alt: "Coca-Cola", url: "https://coca-cola.com", top: "18%", left: "4%", dur: 13, delay: 0.6, dx: -22, dy: 24, blur: 2.5 },
+  { type: "logo", src: "/clients/tifco.webp", alt: "TIFCO Hotel Group", url: "https://tifcohotels.com", top: "12%", left: "16%", dur: 9.5, delay: 1.6, dx: 18, dy: 26, blur: 1.5 },
+  { type: "logo", src: "/clients/crowne-plaza.webp", alt: "Crowne Plaza", url: "https://crowneplaza.com", top: "30%", left: "32%", dur: 14, delay: 0.9, dx: -30, dy: -22, blur: 0 },
+  { type: "logo", src: "/clients/dundalk-stadium.webp", alt: "Dundalk Stadium", url: "https://dundalkstadium.com", top: "88%", left: "28%", dur: 12, delay: 1.9, dx: 24, dy: -28, blur: 3, scale: 0.9 },
+  { type: "logo", src: "/clients/boylesports.png", alt: "BoyleSports", url: "https://boylesports.com", top: "62%", left: "2%", dur: 10, delay: 2.3, dx: 30, dy: 18, blur: 0 },
+  { type: "logo", src: "/clients/centra.webp", alt: "Centra", url: "https://centra.ie", top: "44%", left: "10%", dur: 11.5, delay: 1.2, dx: -26, dy: 22, blur: 2 },
+  { type: "logo", src: "/clients/thehenie.png", alt: "The HENie", url: "https://thehen.ie", top: "8%", left: "8%", dur: 12.5, delay: 0.3, dx: 22, dy: 30, blur: 1, scale: 0.95 },
+  { type: "logo", src: "/clients/onyerbike.png", alt: "On Yer Bike", url: "https://onyerbike.ie", top: "52%", left: "30%", dur: 9, delay: 1.5, dx: -20, dy: 26, blur: 0 },
+  { type: "logo", src: "/clients/catering-disposables.webp", alt: "Catering Disposables", url: "https://cateringdisposables.ie", top: "76%", left: "20%", dur: 13.5, delay: 0.7, dx: 26, dy: -20, blur: 3, scale: 0.9 },
+  { type: "logo", src: "/clients/last-leprechauns.png", alt: "Last Leprechauns of Ireland", url: "https://lastleprechaunsofireland.com", top: "38%", left: "22%", dur: 10.5, delay: 2.1, dx: -28, dy: -16, blur: 2 },
+  { type: "logo", src: "/clients/coil-carrier.png", alt: "Coil Carrier", url: "https://coilcarrier.com", top: "92%", left: "6%", dur: 11.8, delay: 1.8, dx: 24, dy: 22, blur: 0 },
+  { type: "logo", src: "/clients/down-to-earth.png", alt: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", top: "54%", left: "18%", dur: 12.2, delay: 1.0, dx: -22, dy: 28, blur: 1.5 },
+  { type: "logo", src: "/clients/carlichauns.png", alt: "Carlinhauns", url: "https://carlichauns.com", top: "24%", left: "26%", dur: 10.8, delay: 2.5, dx: 28, dy: -24, blur: 2.5, scale: 0.95 },
+  { type: "logo", src: "/clients/carlingford-arms.png", alt: "Carlingford Arms", url: "https://carlingfordarms.com", top: "68%", left: "26%", dur: 13, delay: 0.4, dx: -24, dy: 20, blur: 0 },
+  { type: "logo", src: "/clients/logo-26.png", alt: "Studio 26", url: "#", top: "20%", left: "36%", dur: 11.2, delay: 1.4, dx: 22, dy: 26, blur: 1, scale: 0.9 },
+  { type: "logo", src: "/clients/main-logo-dark-2.webp", alt: "Client", url: "#", top: "82%", left: "34%", dur: 9.8, delay: 0.2, dx: -30, dy: -22, blur: 2 },
+  { type: "logo", src: "/clients/greyhound.avif", alt: "Greyhound", url: "#", top: "46%", left: "36%", dur: 12.8, delay: 2.0, dx: 26, dy: 24, blur: 3, scale: 0.95 },
 ];
 
 // On the About page: feature the two team members as floating CTAs at the top,
@@ -98,21 +111,35 @@ export default function FloatingShowcase() {
 
   return (
     <div className="im-float" ref={layerRef} aria-hidden>
-      {items.map((it, i) => (
+      {items.map((it, i) => {
+        const itemStyle: React.CSSProperties = {
+          top: it.top,
+          left: it.left,
+          animationDuration: `${it.dur}s`,
+          animationDelay: `${it.delay}s`,
+        };
+        if (it.type === "logo") {
+          (itemStyle as Record<string, string>)["--dx"] = `${it.dx}px`;
+          (itemStyle as Record<string, string>)["--dy"] = `${it.dy}px`;
+        }
+        return (
         <div
-          className="im-float-item"
+          className={it.type === "logo" ? "im-float-item im-float-item--drift" : "im-float-item"}
           key={i}
-          style={{ top: it.top, left: it.left, animationDuration: `${it.dur}s`, animationDelay: `${it.delay}s` }}
+          style={itemStyle}
         >
           {it.type === "logo" ? (
-            <a className="im-float-inner im-float-logo" href={it.url} target="_blank" rel="noopener">
+            <a
+              className="im-float-inner im-float-logo"
+              href={it.url}
+              target={it.url === "#" ? undefined : "_blank"}
+              rel="noopener"
+              style={{
+                ["--blur" as string]: `${it.blur}px`,
+                ["--scl" as string]: String(it.scale ?? 1),
+              }}
+            >
               <img src={it.src} alt={it.alt} loading="lazy" />
-            </a>
-          ) : it.type === "card" ? (
-            <a className="im-float-inner im-float-card" href={it.url} target="_blank" rel="noopener">
-              <span className="im-float-card__tag">{it.tag}</span>
-              <span className="im-float-card__name">{it.name}</span>
-              <span className="im-float-card__desc">{it.desc}</span>
             </a>
           ) : (
             <Link
@@ -131,7 +158,8 @@ export default function FloatingShowcase() {
             </Link>
           )}
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

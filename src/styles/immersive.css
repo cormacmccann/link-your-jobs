@@ -314,27 +314,40 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-14px); }
 }
+/* Random-feel 2D drift driven by per-item --dx / --dy vars */
+@keyframes imDrift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(var(--dx), calc(var(--dy) * 0.4)); }
+  50%  { transform: translate(calc(var(--dx) * 0.3), var(--dy)); }
+  75%  { transform: translate(calc(var(--dx) * -0.6), calc(var(--dy) * 0.7)); }
+  100% { transform: translate(0, 0); }
+}
+.im-float-item--drift { animation-name: imDrift; }
 .im-float-inner {
   display: inline-block; pointer-events: auto; text-decoration: none;
   transform-style: preserve-3d;
   /* Idle 3D pose — logos sit slightly tilted, lifted off the page */
   transform: perspective(800px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(var(--lift));
-  transition: transform .15s ease-out, filter .3s, opacity .3s, border-color .3s, background .3s;
+  transition: transform .15s ease-out, filter .35s ease, opacity .35s ease, border-color .3s, background .3s;
 }
 .im-float-logo {
   /* No box, no dark plate — just the mark, lifted with a soft shadow */
   background: transparent !important; border: 0 !important; padding: 0;
-  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+  filter: blur(var(--blur, 0px)) drop-shadow(0 14px 24px rgba(0, 0, 0, .55)) drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+  opacity: .88;
 }
 .im-float-logo img {
-  display: block; height: 56px; width: auto; max-width: 220px;
-  opacity: .92;
+  display: block; height: calc(56px * var(--scl, 1)); width: auto; max-width: 220px;
   /* Show logos in their real colours — no brightness/invert */
   filter: none;
-  transition: opacity .3s, transform .3s;
+  transition: transform .35s ease;
 }
-.im-float-logo:hover { filter: drop-shadow(0 22px 38px rgba(0, 0, 0, .65)) drop-shadow(0 6px 14px rgba(0, 0, 0, .4)); }
-.im-float-logo:hover img { opacity: 1; transform: scale(1.04); }
+.im-float-logo:hover {
+  filter: blur(0px) drop-shadow(0 22px 38px rgba(0, 0, 0, .7)) drop-shadow(0 6px 14px rgba(0, 0, 0, .45));
+  opacity: 1;
+  z-index: 5;
+}
+.im-float-logo:hover img { transform: scale(1.08); }
 
 .im-float-card {
   display: flex; flex-direction: column; gap: 5px; width: 250px; padding: 17px 19px; border-radius: 12px;
