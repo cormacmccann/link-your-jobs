@@ -156,12 +156,13 @@ export default function FloatingShowcase() {
         >
           {it.type === "logo" ? (
             <a
-              className="im-float-inner im-float-logo"
+              className={`im-float-inner im-float-logo${blurred.has(i) ? " is-blurred" : ""}`}
               href={it.url}
               target={it.url === "#" ? undefined : "_blank"}
               rel="noopener"
+              onMouseEnter={() => onLogoEnter(i)}
+              onFocus={() => onLogoEnter(i)}
               style={{
-                ["--blur" as string]: `${it.blur}px`,
                 ["--scl" as string]: String(it.scale ?? 1),
               }}
             >
