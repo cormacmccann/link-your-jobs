@@ -192,6 +192,10 @@ const CASES: Record<string, CaseData> = {
       { value: "Mobile-first", label: "BOOK MID-TRIP" },
       { value: "Direct", label: "BOOKINGS, NOT OTAs" },
     ],
+    quote: {
+      text: "A new look & feel, more efficient integrations and better SEO — a well-conceived and efficiently executed project that met, indeed exceeded, my expectations.",
+      cite: "— Richard, On Yer Bike Carlingford",
+    },
     next: { slug: "catering-disposables", name: "Catering Disposables" },
   },
   "catering-disposables": {

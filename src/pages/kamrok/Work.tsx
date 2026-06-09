@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import Testimonials from "@/components/kamrok/Testimonials";
 
 const FEATURED = [
   {
@@ -111,6 +112,8 @@ export default function Work() {
           <img key={l} src={`/clients/${l}.${LOGO_EXT[l] || "webp"}`} alt={l} loading="lazy" />
         ))}
       </div>
+
+      <Testimonials />
 
       <Link className="kk-cta" to="/contact">START A PROJECT →</Link>
     </KamrokLayout>
