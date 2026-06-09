@@ -323,6 +323,8 @@ body.kk-codex-open .im-main { padding-right: 484px; }
   100% { transform: translate(0, 0); }
 }
 .im-float-item--drift { animation-name: imDrift; }
+.im-float-item--member { z-index: 8; }
+.im-float-item--member, .im-float-item--member .im-float-inner { pointer-events: auto; }
 .im-float-inner {
   display: inline-block; pointer-events: auto; text-decoration: none;
   transform-style: preserve-3d;
