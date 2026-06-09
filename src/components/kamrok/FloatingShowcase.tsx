@@ -136,6 +136,14 @@ export default function FloatingShowcase() {
           el.style.transform = "";
           el.style.zIndex = "";
         }
+        // Proximity-based blur swap: trigger when cursor is over the logo's actual rect
+        if (
+          el.classList.contains("im-float-logo") &&
+          mx >= r.left && mx <= r.right && my >= r.top && my <= r.bottom
+        ) {
+          const idx = Number((el as HTMLElement).dataset.idx);
+          if (Number.isFinite(idx)) onLogoEnter(idx);
+        }
       }
     };
     const onMove = (e: MouseEvent) => {
