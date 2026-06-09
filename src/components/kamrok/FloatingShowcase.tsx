@@ -75,12 +75,12 @@ export default function FloatingShowcase() {
     const layer = layerRef.current;
     if (!layer) return;
     if (window.matchMedia("(hover: none)").matches) return; // touch: skip tilt
-    const inners = Array.from(layer.querySelectorAll<HTMLElement>(".im-float-inner"));
     let raf = 0;
     let mx = -9999, my = -9999;
     const INF = 320;
     const apply = () => {
       raf = 0;
+      const inners = layer.querySelectorAll<HTMLElement>(".im-float-inner");
       for (const el of inners) {
         const r = el.getBoundingClientRect();
         const dx = mx - (r.left + r.width / 2);
@@ -107,10 +107,10 @@ export default function FloatingShowcase() {
       window.removeEventListener("mousemove", onMove);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [pathname]);
 
   return (
-    <div className="im-float" ref={layerRef} aria-hidden>
+    <div className="im-float" ref={layerRef}>
       {items.map((it, i) => {
         const itemStyle: React.CSSProperties = {
           top: it.top,
