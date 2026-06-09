@@ -20,7 +20,8 @@ export default function Particles() {
   return (
     <instancedMesh ref={instancedMesh} args={[null, null, particles.length]} frustumCulled={false}>
       <coneGeometry args={[2, 2, 3]} />
-      <meshStandardMaterial color="#606060" />
+      {/* glowing violet shards drifting through the field (bloom picks them up) */}
+      <meshBasicMaterial color="#6a5acd" />
     </instancedMesh>
   )
 }
