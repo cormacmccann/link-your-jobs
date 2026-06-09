@@ -22,6 +22,13 @@ const WORK_ITEMS: Item[] = [
   { type: "logo", src: "/clients/dundalk-stadium.webp", alt: "Dundalk Stadium", url: "https://dundalkstadium.com", top: "86%", left: "31%", dur: 7.6, delay: 1.9 },
   { type: "logo", src: "/clients/boylesports.png", alt: "BoyleSports", url: "https://boylesports.com", top: "66%", left: "4%", dur: 7, delay: 2.3 },
   { type: "logo", src: "/clients/centra.webp", alt: "Centra", url: "https://centra.ie", top: "20%", left: "26%", dur: 7.4, delay: 1.2 },
+  { type: "logo", src: "/clients/thehenie.png", alt: "The HENie", url: "https://thehen.ie", top: "12%", left: "5%", dur: 7.8, delay: 0.3 },
+  { type: "logo", src: "/clients/onyerbike.png", alt: "On Yer Bike", url: "https://onyerbike.ie", top: "50%", left: "32%", dur: 7.1, delay: 1.5 },
+  { type: "logo", src: "/clients/catering-disposables.webp", alt: "Catering Disposables", url: "https://cateringdisposables.ie", top: "78%", left: "25%", dur: 8.2, delay: 0.7 },
+  { type: "logo", src: "/clients/last-leprechauns.png", alt: "Last Leprechauns of Ireland", url: "https://lastleprechaunsofireland.com", top: "38%", left: "28%", dur: 7.3, delay: 2.1 },
+  { type: "logo", src: "/clients/coil-carrier.png", alt: "Coil Carrier", url: "https://coilcarrier.com", top: "92%", left: "8%", dur: 7.9, delay: 1.8 },
+  { type: "logo", src: "/clients/down-to-earth.png", alt: "Down to Earth Electrical", url: "https://downtoearthelectrical.com", top: "56%", left: "10%", dur: 8.1, delay: 1.0 },
+  { type: "logo", src: "/clients/carlichauns.png", alt: "Carlinhauns", url: "https://carlichauns.com", top: "24%", left: "15%", dur: 7.0, delay: 2.5 },
 ];
 
 // On the About page: feature the two team members as floating CTAs at the top,
