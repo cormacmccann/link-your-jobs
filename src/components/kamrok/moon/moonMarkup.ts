@@ -105,6 +105,18 @@ export const MOON_MARKUP = `
     </div>
   </div>
 
+  <!-- mobile drive controls: drag joystick (left) + boost (right) -->
+  <div class="joy" id="joy" aria-label="Drive joystick"><div class="joy-ring"></div><div class="joy-knob" id="joyKnob"></div></div>
+  <button class="boost-btn" id="btnBoost" type="button" aria-label="Boost">BOOST</button>
+
+  <!-- mobile quick travel: proxies the (hidden) desktop nav buttons -->
+  <div class="m-travel" id="mTravel">
+    <button data-b="about">ABOUT</button>
+    <button data-b="work">WORK</button>
+    <button data-b="skills">SKILLS</button>
+    <button data-b="contact">CONTACT</button>
+  </div>
+
   <aside class="panel" id="panel-about">
     <button class="close" data-close>✕</button>
     <div class="tag">01 — ABOUT</div>

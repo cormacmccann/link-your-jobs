@@ -393,3 +393,49 @@ body.space-game-active .hud-radar,
 body.space-game-active .hud-obj,
 body.space-game-active .qt-pill { display: none !important; }
 body.space-game-active #app { right: 0 !important; }
+
+/* ===== Mobile drive controls: drag joystick + boost (replace the button dpad) ===== */
+body.is-touch .touch { display: none !important; }   /* dpad retired in favour of the joystick */
+.joy, .boost-btn, .m-travel { display: none; }
+body.is-touch .joy {
+  display: block; position: fixed; z-index: 19;
+  left: 20px; bottom: calc(26px + env(safe-area-inset-bottom, 0px));
+  width: 128px; height: 128px; border-radius: 50%;
+  background: rgba(10, 8, 24, .35); border: 1px solid rgba(180, 170, 255, .28);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  touch-action: none;
+}
+.joy-ring { position: absolute; inset: 14px; border-radius: 50%; border: 1px dashed rgba(180, 170, 255, .22); pointer-events: none; }
+.joy-knob {
+  position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle at 36% 30%, #cfc6ff, #8b7dff 60%, #5b4fd6);
+  box-shadow: 0 0 18px rgba(139, 125, 255, .55), 0 4px 12px rgba(0, 0, 0, .5);
+  transition: transform .07s linear;
+}
+body.is-touch .boost-btn {
+  display: grid; place-items: center; position: fixed; z-index: 19;
+  right: 22px; bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+  width: 84px; height: 84px; border-radius: 50%;
+  border: 1px solid rgba(108, 242, 255, .5); background: rgba(10, 8, 24, .4);
+  color: #6cf2ff; font-family: var(--mono); font-size: 10px; letter-spacing: .22em;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  touch-action: none; -webkit-user-select: none; user-select: none;
+}
+.boost-btn.is-on { background: rgba(108, 242, 255, .22); box-shadow: 0 0 26px rgba(108, 242, 255, .65); color: #eaffff; }
+
+/* ===== Mobile quick travel — destinations the desktop nav pills provide ===== */
+@media (max-width: 767px) {
+  body.is-touch .m-travel {
+    position: fixed; top: 60px; left: 50%; transform: translateX(-50%); z-index: 19;
+    display: flex; gap: 6px; padding: 5px 7px; border-radius: 40px;
+    background: rgba(8, 7, 20, .55); border: 1px solid rgba(180, 170, 255, .22);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .m-travel button {
+    appearance: none; border: none; background: none; cursor: pointer;
+    font-family: var(--mono); font-size: 8.5px; letter-spacing: .18em; color: #cfc9f2;
+    padding: 7px 9px; border-radius: 30px;
+  }
+  .m-travel button.is-on { background: #8b7dff; color: #0a0820; }
+}

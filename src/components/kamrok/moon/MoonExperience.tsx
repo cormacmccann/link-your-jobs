@@ -22,6 +22,12 @@ export default function MoonExperience() {
     styleEl.textContent = moonCss;
     document.head.appendChild(styleEl);
 
+    // Phones: don't download the 3.7MB hero video on mobile data — the intro's
+    // gradient + logo carry it. (Desktop keeps the full cinematic.)
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      document.querySelectorAll(".moon-root video.hero-vid").forEach((v) => v.remove());
+    }
+
     let stop: () => void = () => {};
     try {
       stop = startMoonExperience();

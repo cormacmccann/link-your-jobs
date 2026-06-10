@@ -601,6 +601,34 @@ export function startMoonExperience(): () => void {
   if(('ontouchstart'in window)||navigator.maxTouchPoints>0)document.body.classList.add('is-touch');
   document.querySelectorAll('.touch button').forEach(btn=>{const k=btn.dataset.k;const on=e=>{e.preventDefault();keys[k]=true;};const off=e=>{e.preventDefault();keys[k]=false;};btn.addEventListener('touchstart',on);btn.addEventListener('touchend',off);btn.addEventListener('mousedown',on);btn.addEventListener('mouseup',off);btn.addEventListener('mouseleave',off);});
 
+  /* ===== mobile drag joystick + boost (replaces the dpad; shown via body.is-touch) ===== */
+  (function(){
+    const joy=document.getElementById('joy'),knob=document.getElementById('joyKnob'),boostBtn=document.getElementById('btnBoost');
+    if(!joy||!knob)return;
+    const R=44;let active=false,cx=0,cy=0;
+    const setKeys=(dx,dy)=>{const d=Math.hypot(dx,dy),T=0.38;const nx=d?dx/d:0,ny=d?dy/d:0,on=d>9;
+      keys.up=on&&ny<-T*0.7; keys.down=on&&ny>T;          // forward easier than reverse
+      keys.left=on&&nx<-T; keys.right=on&&nx>T;};
+    const move=t=>{let dx=t.clientX-cx,dy=t.clientY-cy;const d=Math.hypot(dx,dy);if(d>R){dx*=R/d;dy*=R/d;}
+      knob.style.transform='translate('+dx+'px,'+dy+'px)';setKeys(dx,dy);};
+    joy.addEventListener('touchstart',e=>{e.preventDefault();const r=joy.getBoundingClientRect();cx=r.left+r.width/2;cy=r.top+r.height/2;active=true;move(e.touches[0]);},{passive:false});
+    joy.addEventListener('touchmove',e=>{if(!active)return;e.preventDefault();move(e.touches[0]);},{passive:false});
+    const end=()=>{active=false;knob.style.transform='';keys.up=keys.down=keys.left=keys.right=false;};
+    joy.addEventListener('touchend',end);joy.addEventListener('touchcancel',end);
+    if(boostBtn){
+      const bOn=e=>{e.preventDefault();boostBtn.classList.add('is-on');window.dispatchEvent(new KeyboardEvent('keydown',{key:'Shift'}));};
+      const bOff=e=>{e.preventDefault();boostBtn.classList.remove('is-on');window.dispatchEvent(new KeyboardEvent('keyup',{key:'Shift'}));};
+      boostBtn.addEventListener('touchstart',bOn,{passive:false});boostBtn.addEventListener('touchend',bOff);boostBtn.addEventListener('touchcancel',bOff);
+      boostBtn.addEventListener('mousedown',bOn);boostBtn.addEventListener('mouseup',bOff);boostBtn.addEventListener('mouseleave',bOff);
+    }
+  })();
+  /* mobile quick travel — proxies the hidden desktop nav buttons (drives the buggy there) */
+  document.querySelectorAll('#mTravel button').forEach(ch=>{ch.addEventListener('click',()=>{
+    const b=document.querySelector('#navItems button[data-build="'+ch.dataset.b+'"]');if(b)b.click();
+    document.querySelectorAll('#mTravel button').forEach(o=>o.classList.toggle('is-on',o===ch));
+    setTimeout(()=>ch.classList.remove('is-on'),2600);
+  });});
+
   /* ===== engine sound (plays while moving) ===== */
   const engine=window.ENGINE_SND&&window.ENGINE_SND?new Audio(window.ENGINE_SND):null;
   let engineReady=false,muted=false;
@@ -1420,7 +1448,7 @@ export function startMoonExperience(): () => void {
 
     // hidden anomalies
     for(let i=0;i<SURPRISES.length;i++){const s=SURPRISES[i];const d=Math.hypot(s.pos.x-st.x,s.pos.z-st.z);
-      if(s.armed&&d<9){s.armed=false;triggerSurprise(s.type,s.pos);if(!s.found){s.found=true;discovered++;updateSecrets();showToast('✦ ANOMALY '+s.type.toUpperCase());checkAllCollected();}else{showToast('✦ ANOMALY '+s.type.toUpperCase());}}
+      if(s.armed&&d<9){s.armed=false;triggerSurprise(s.type,s.pos);try{if(navigator.vibrate)navigator.vibrate(18);}catch(e){}if(!s.found){s.found=true;discovered++;updateSecrets();showToast('✦ ANOMALY '+s.type.toUpperCase());checkAllCollected();}else{showToast('✦ ANOMALY '+s.type.toUpperCase());}}
       else if(!s.armed&&d>22)s.armed=true;}
     if(shipSpawned&&Math.hypot(SHIP_POS.x-st.x,SHIP_POS.z-st.z)<13)startTakeoff();   // reach the ship -> liftoff
     updateFx(0.016);

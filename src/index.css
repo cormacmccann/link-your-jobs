@@ -301,3 +301,14 @@ h1, h2, h3, h4, h5, h6,
     scroll-behavior: auto !important;
   }
 }
+
+/* Touch feel — no hover on phones, so give taps a physical press response.
+   Scoped to known-safe elements (none rely on transform for layout). */
+@media (hover: none) {
+  .kk-cta:active, .kk-cta-big:active, .kk-visit:active, .pill:active,
+  .im-mtab:active, .kk-case-card:active, .kk-client:active, .kk-review:active,
+  .kk-skillbtn:active, .m-travel button:active, .im-mtop-btn:active {
+    transform: scale(.96);
+    transition: transform .08s ease;
+  }
+}
