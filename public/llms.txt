@@ -1,0 +1,18 @@
+# KAMROK
+
+> Web design, branding and online stores built end to end by a small Dundalk, Ireland studio (Candy Shop Digital Ltd). WordPress, Shopify and custom sites.
+
+## Pages
+
+- [Home](https://kamrok.com/): Interactive studio portfolio.
+- [About](https://kamrok.com/about): The team — Cormac McCann and Kayla Minto.
+- [Work](https://kamrok.com/work): Selected client work and case studies.
+- [Skills](https://kamrok.com/skills): Technologies and services we offer.
+- [Blog](https://kamrok.com/blog): Articles and notes.
+- [Contact](https://kamrok.com/contact): Start a project.
+- [Free tools](https://kamrok.com/tools): Free business and marketing tools.
+
+## Case studies
+
+- [Clubrovia](https://kamrok.com/work/clubrovia): Club operating system, our own product.
+- [McKevitt's Village Hotel](https://kamrok.com/work/mckevitts): Brand and website for a Carlingford hotel.

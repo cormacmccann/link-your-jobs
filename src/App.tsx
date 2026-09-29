@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 import NotFound from "./pages/NotFound";
+import SeoRouteSync from "./components/SeoRouteSync";
 
 // Retry a dynamic import once, then hard-reload to recover from stale chunk
 // hashes after a new deploy (the old index.js references chunks that no longer exist).
@@ -71,6 +72,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <SeoRouteSync />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<MoonHome />} />

@@ -15,7 +15,7 @@ export const MOON_MARKUP = `
   <!-- ===== TITLE / INTRO SCREEN ===== -->
   <div class="intro" id="intro">
     <video class="hero-vid" src="/__l5e/assets-v1/65ed1a60-31d6-4695-b21c-59cf9a9ddfba/home-monkey-space.mp4" autoplay muted loop playsinline preload="auto"></video>
-    <img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK" />
+    <img class="intro-logo" src="/kamrok-logo.png" alt="KAMROK studio logo" />
     <div class="intro-foot">
       <div class="intro-eyebrow"><span class="dot"></span>A WEB STUDIO · DUNDALK, IRELAND</div>
       <h1 class="intro-headline">Websites, stores &amp; brands <em>worth remembering.</em></h1>
@@ -41,7 +41,7 @@ export const MOON_MARKUP = `
   </div>
 
   <nav class="nav">
-    <div class="wordmark"><img class="wm-logo" src="/kamrok-logo.png" alt="KAMROK" /><small>CANDY SHOP DIGITAL · DUNDALK</small></div>
+    <div class="wordmark"><img class="wm-logo" src="/kamrok-logo.png" alt="KAMROK studio logo" /><small>CANDY SHOP DIGITAL · DUNDALK</small></div>
     <div class="qt-pill" aria-label="Quick travel">
       <span class="qt-lbl">
         <svg class="qt-atv" viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">

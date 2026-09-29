@@ -119,7 +119,8 @@ export default function About() {
       description="KAMROK is the design studio of Candy Shop Digital Ltd in Dundalk — Cormac McCann and Kayla Minto, plus a trusted circle of specialists. Meet the team."
     >
       <div className="kk-logo-hero">
-        <img src={kamrokLogo.url} alt="KAMROK" />
+        <img src={kamrokLogo.url} alt="KAMROK studio logo" />
+        <h1 className="sr-only">About KAMROK — A Dundalk Design Studio</h1>
         <div className="kk-eyebrow">THE STUDIO · 01</div>
       </div>
       <Divider />

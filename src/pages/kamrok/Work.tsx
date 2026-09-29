@@ -109,7 +109,7 @@ export default function Work() {
       <h2 className="kk-sub">Trusted by</h2>
       <div className="kk-logos">
         {LOGOS.map((l) => (
-          <img key={l} src={`/clients/${l}.${LOGO_EXT[l] || "webp"}`} alt={l} loading="lazy" />
+          <img key={l} src={`/clients/${l}.${LOGO_EXT[l] || "webp"}`} alt={`${l.replace(/-/g, " ")} client logo`} loading="lazy" />
         ))}
       </div>
 
