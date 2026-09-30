@@ -1,11 +1,15 @@
 // @ts-nocheck
 /* eslint-disable */
-// AUTO-GENERATED from public/index-kamrok.html via scripts/gen-moon.mjs — do not hand-edit.
+// Originally ported by scripts/gen-moon.mjs; maintained here since the standalone source was retired.
 // Faithful port of the KAMROK moonscape, adapted to run as a React component
 // (three 0.160 + three-stdlib GLTFLoader, assets from the Lovable CDN).
 import * as THREE from "three";
 import { GLTFLoader, KTX2Loader, MeshoptDecoder } from "three-stdlib";
 import { MOON_ASSETS } from "@/config/moonAssets";
+import { MOON_PROJECTS, createMoonDistrict, isDistrictSpace } from "./moonDistrict";
+import { moonTerrainHeight } from "./moonTerrain";
+import { moonSession } from "./moonSession";
+import { addRoverDetails } from "./roverDetails";
 
 export function startMoonExperience(): () => void {
   // THREE is a frozen ES-module namespace; make a mutable copy so we can hang
@@ -58,25 +62,8 @@ export function startMoonExperience(): () => void {
 
 
   /* ============ TERRAIN HEIGHT (procedural moonscape, large) ============ */
-  const WORLD=460;                       // half-extent of the playable world
-  let _seed=20260605>>>0;
-  function rnd(){_seed=(_seed*1103515245+12345)&0x7fffffff;return _seed/0x7fffffff;}
-  const CRATERS=[];
-  for(let i=0;i<40;i++){const ang=rnd()*Math.PI*2,rad=45+rnd()*(WORLD-70);CRATERS.push({x:Math.cos(ang)*rad,z:Math.sin(ang)*rad,r:9+rnd()*24,d:1.4+rnd()*3.4});}
-  function terrainHeight(x,z){
-    let h=0;
-    h+=Math.sin(x*0.018)*Math.cos(z*0.02)*5.2;
-    h+=Math.sin(x*0.05+1.3)*Math.cos(z*0.045)*2.2;
-    h+=Math.sin((x+z)*0.012)*2.6;
-    h+=Math.cos(x*0.12)*Math.sin(z*0.1)*0.7;
-    h+=Math.sin(x*0.4+z*0.31)*0.16;
-    h+=Math.cos(x*0.8-z*0.6)*0.08;
-    for(let i=0;i<CRATERS.length;i++){
-      const c=CRATERS[i],dx=x-c.x,dz=z-c.z,dist=Math.sqrt(dx*dx+dz*dz);
-      if(dist<c.r){const t=dist/c.r;h+=c.d*(t*t-1);h+=c.d*0.5*Math.exp(-Math.pow((t-0.85)*6,2));}
-    }
-    return h;
-  }
+  const WORLD=140;                       // half-extent of the playable world
+  const terrainHeight=moonTerrainHeight;
 
   /* ============ RENDERER / SCENE ============ */
   const app=document.getElementById('app');
@@ -123,9 +110,10 @@ export function startMoonExperience(): () => void {
   };
 
   /* ============ ISOMETRIC CAMERA ============ */
-  const ISO=new T.Vector3(60,64,60);      /* fixed iso offset */
-  let VIEW=44;                              /* world units shown vertically */
-  let targetVIEW=44;                        /* wheel-zoom goal */
+  const ISO=new T.Vector3(60,78,60);      /* fixed iso offset */
+  const FOLLOW_VIEW=IS_MOBILE?39:30;
+  let VIEW=FOLLOW_VIEW;                              /* world units shown vertically */
+  let targetVIEW=VIEW;                        /* wheel-zoom goal */
   const camera=new T.OrthographicCamera(-1,1,1,-1,0.1,3000);
   function setFrustum(){
     const a=vw()/innerHeight;
@@ -137,6 +125,8 @@ export function startMoonExperience(): () => void {
   /* mouse-wheel zoom (smooth, clamped) */
   __on('wheel',e=>{e.preventDefault();targetVIEW=Math.max(16,Math.min(96,targetVIEW*(1+Math.sign(e.deltaY)*0.09)));},{passive:false});
 
+  __on('kamrok:moon-zoom',e=>{targetVIEW=e.detail==='follow'?FOLLOW_VIEW:Math.max(24,Math.min(96,targetVIEW*(e.detail==='in'?.82:1.22)));});
+
   /* ============ LIGHTS ============ */
   const sun=new T.DirectionalLight(0xfff3e2,2.1);
   sun.position.set(70,95,30);sun.castShadow=!IS_MOBILE;
@@ -144,7 +134,7 @@ export function startMoonExperience(): () => void {
   const sc=sun.shadow.camera;sc.near=1;sc.far=400;sc.left=-95;sc.right=95;sc.top=95;sc.bottom=-95;
   sun.shadow.bias=-0.0004;
   scene.add(sun);scene.add(sun.target);          // target follows buggy so shadows stay under it
-  scene.add(new T.HemisphereLight(0x6f7bb0,0x2a2722,0.55));
+  scene.add(new T.HemisphereLight(0xa4b6e0,0x4e4852,0.85));
   scene.add(new T.AmbientLight(0x3a4366,0.35));
   const rim=new T.DirectionalLight(0x5b6cff,0.45);rim.position.set(-60,30,-50);scene.add(rim);
 
@@ -183,17 +173,17 @@ export function startMoonExperience(): () => void {
 
   /* ============ TERRAIN MESH (large, moon-textured) ============ */
   (function(){
-    const SIZE=WORLD*2.3, SEG=300;
+    const SIZE=WORLD*2.3, SEG=180;
     const geo=new T.PlaneGeometry(SIZE,SIZE,SEG,SEG);
     geo.rotateX(-Math.PI/2);
     const pos=geo.attributes.position;
     for(let i=0;i<pos.count;i++){pos.setY(i,terrainHeight(pos.getX(i),pos.getZ(i)));}
     geo.computeVertexNormals();
     const mat=TX.groundColor
-      ? new T.MeshStandardMaterial({map:TX.groundColor,normalMap:TX.groundNormal||null,normalScale:new T.Vector2(1.3,1.3),roughnessMap:TX.groundRough||null,roughness:1,metalness:0})
+      ? new T.MeshStandardMaterial({map:TX.groundColor,normalMap:TX.groundNormal||null,normalScale:new T.Vector2(.42,.42),roughnessMap:TX.groundRough||null,roughness:1,metalness:0})
       : new T.MeshStandardMaterial({color:0x8d8f96,roughness:1,metalness:0});
     // tighten tiling for the larger ground
-    [TX.groundColor,TX.groundNormal,TX.groundRough].forEach(t=>{if(t)t.repeat.set(90,90);});
+    [TX.groundColor,TX.groundNormal,TX.groundRough].forEach(t=>{if(t)t.repeat.set(42,42);});
     const ground=new T.Mesh(geo,mat);ground.receiveShadow=true;scene.add(ground);
   })();
 
@@ -211,11 +201,11 @@ export function startMoonExperience(): () => void {
       : new T.MeshStandardMaterial({color:0x5c5e66,roughness:1,flatShading:true});
     const SP=WORLD*1.9;
     // scattered rocks, with clustering — bigger ones become colliders
-    for(let i=0;i<520;i++){
+    for(let i=0;i<(IS_MOBILE?120:230);i++){
       let x,z;
       if(Math.random()<0.45){const cx=(Math.random()-0.5)*SP,cz=(Math.random()-0.5)*SP;x=cx+(Math.random()-0.5)*18;z=cz+(Math.random()-0.5)*18;}
       else {x=(Math.random()-0.5)*SP;z=(Math.random()-0.5)*SP;}
-      if(Math.abs(x)<9&&Math.abs(z)<9)continue;
+      if(isDistrictSpace(x,z))continue;
       const m=new T.Mesh(Math.random()<0.5?rockGeo:rockGeo2,Math.random()<0.5?rockMat:rockMatDk);
       const s=0.35+Math.random()*2.0;
       m.scale.set(s,s*(0.55+Math.random()*0.5),s*(0.8+Math.random()*0.4));
@@ -227,7 +217,7 @@ export function startMoonExperience(): () => void {
     // big boulders — heavy, only nudge when rammed
     for(let i=0;i<18;i++){
       const x=(Math.random()-0.5)*WORLD*1.6,z=(Math.random()-0.5)*WORLD*1.6;
-      if(Math.abs(x)<16&&Math.abs(z)<16)continue;
+      if(isDistrictSpace(x,z)||Math.hypot(x,z)<68)continue;
       const m=new T.Mesh(rockGeo,rockMatDk);
       const s=3+Math.random()*4.5;
       m.scale.set(s,s*0.8,s*0.9);
@@ -244,14 +234,14 @@ export function startMoonExperience(): () => void {
     const matM2=new T.MeshStandardMaterial({color:0x3a3d46,roughness:1,flatShading:true});
     const matCap=new T.MeshStandardMaterial({color:0x6b6e78,roughness:1,flatShading:true}); // lit peaks
     const RING=WORLD+38;                         // wall sits just past the drive limit
-    const N=190;
+    const N=72;
     for(let i=0;i<N;i++){
       const a=(i/N)*Math.PI*2;
       // three staggered rows for thickness/overlap -> reads as a continuous wall
       for(let row=0;row<3;row++){
         const rad=RING+row*26+(Math.random()-0.5)*14;
         const x=Math.cos(a)*rad,z=Math.sin(a)*rad;
-        const h=60+Math.random()*70 - row*8;
+        const h=7+Math.random()*12 + row*3;
         const baseR=22+Math.random()*16;
         const m=new T.Mesh(new T.ConeGeometry(baseR,h,5+((i+row)%3),1),row===0?matM:matM2);
         m.position.set(x,terrainHeight(x,z)+h/2-6,z);m.rotation.y=Math.random()*Math.PI;
@@ -276,7 +266,7 @@ export function startMoonExperience(): () => void {
     }
     const dish=new T.Mesh(new T.SphereGeometry(1.1,16,10,0,Math.PI*2,0,Math.PI/2.2),new T.MeshStandardMaterial({color:0xdfe2ea,roughness:0.4,metalness:0.3,side:T.DoubleSide}));
     dish.position.set(1.8,4.6,0);dish.rotation.z=0.7;g.add(dish);
-    const lx=-130,lz=120;g.position.set(lx,terrainHeight(lx,lz),lz);g.rotation.y=0.6;scene.add(g);
+    const lx=-42,lz=48;g.position.set(lx,terrainHeight(lx,lz),lz);g.rotation.y=0.6;scene.add(g);
 
     // flag near spawn
     const fg=new T.Group();
@@ -289,10 +279,10 @@ export function startMoonExperience(): () => void {
 
   /* ============ BUILDS ============ */
   const BUILDS={
-    about:{name:'ABOUT',pos:new T.Vector3(0,0,-70)},
-    work:{name:'WORK',pos:new T.Vector3(90,0,30)},
-    skills:{name:'SKILLS',pos:new T.Vector3(-85,0,55)},
-    contact:{name:'CONTACT',pos:new T.Vector3(40,0,110)}
+    about:{name:'ABOUT',pos:new T.Vector3(-38,0,20)},
+    work:{name:'WORK',pos:new T.Vector3(-8,0,-48)},
+    skills:{name:'SKILLS',pos:new T.Vector3(-20,0,48)},
+    contact:{name:'CONTACT',pos:new T.Vector3(14,0,51)}
   };
   const LINE=new T.LineBasicMaterial({color:0xf4f4f2,transparent:true,opacity:0.55});
   const WHITE=new T.MeshStandardMaterial({color:0xe8e8e6,emissive:0x222,roughness:0.4,metalness:0.1});
@@ -464,6 +454,8 @@ export function startMoonExperience(): () => void {
   chimp.position.set(0,1.4,0.25);chimp.scale.setScalar(0.92);
   chimp.traverse(o=>{if(o.isMesh)o.castShadow=true;});
   buggy.add(chimp);
+  buggy.scale.setScalar(1.18);
+  const roverDetails=addRoverDetails(buggy);
 
   /* ============ TIRE TRACKS ============ */
   const TRACK_N=180;const trackMat=TX.trackColor
@@ -542,12 +534,10 @@ export function startMoonExperience(): () => void {
   function triggerSurprise(type,pos){const col=FX_COLORS[Math.floor(Math.random()*FX_COLORS.length)];
     ({burst:fxBurst,pillar:fxPillar,aurora:fxAurora,meteors:fxMeteors,ripple:fxRipple,crystals:fxCrystals}[type]||fxBurst)(pos,col);}
 
-  const SURPRISES=[];
-  (function(){for(let i=0;i<14;i++){let x,z,ok=false,tries=0;
-    while(!ok&&tries<40){tries++;x=(Math.random()-0.5)*WORLD*1.7;z=(Math.random()-0.5)*WORLD*1.7;ok=true;
-      if(Math.abs(x)<16&&Math.abs(z)<16)ok=false;
-      Object.values(BUILDS).forEach(b=>{if(Math.hypot(b.pos.x-x,b.pos.z-z)<26)ok=false;});}
-    SURPRISES.push({pos:new T.Vector3(x,terrainHeight(x,z),z),type:FX_TYPES[i%FX_TYPES.length],armed:true,found:false});}})();
+  const SURPRISES=[[-12,-9],[4,-13],[42,-9],[-47,-3],[44,42],[-39,38],[1,39],
+    [-17,-47],[40,-42],[-56,-31],[61,12],[-6,66],[62,-21],[-52,60]].map(([x,z],i)=>({
+      pos:new T.Vector3(x,terrainHeight(x,z),z),type:FX_TYPES[i%FX_TYPES.length],armed:true,found:false
+    }));
   let discovered=0;
   const secretEl=document.getElementById('secretCount'),toastEl=document.getElementById('toast');
   let toastTimer;
@@ -561,7 +551,7 @@ export function startMoonExperience(): () => void {
   const radar=document.getElementById('radar'),rctx=radar&&radar.getContext('2d');
   const spVal=document.getElementById('spVal'),spFill=document.getElementById('spFill');
   const stX=document.getElementById('stX'),stZ=document.getElementById('stZ'),stH=document.getElementById('stH'),o2bar=document.getElementById('o2bar');
-  const R_RANGE=WORLD;                                // world half-extent shown on radar
+  const R_RANGE=100;                                // world half-extent shown on radar
   function drawRadar(px,pz,heading){
     if(!rctx)return;const W=radar.width,H=radar.height,cx=W/2,cy=H/2,sc=(W/2-8)/R_RANGE;
     rctx.clearRect(0,0,W,H);
@@ -577,6 +567,8 @@ export function startMoonExperience(): () => void {
     Object.keys(BUILDS).forEach(k=>{const b=BUILDS[k],x=cx+b.pos.x*sc,y=cy+b.pos.z*sc;
       rctx.fillStyle='rgba(244,244,242,0.9)';rctx.fillRect(x-2.5,y-2.5,5,5);
       rctx.fillStyle='rgba(244,244,242,0.55)';rctx.font='7px monospace';rctx.fillText(BL[k],x+4,y+3);});
+    // Project attractions have their own colour and number on the neighbourhood map.
+    MOON_PROJECTS.forEach(p=>{const x=cx+p.x*sc,y=cy+p.z*sc;rctx.fillStyle=p.color;rctx.beginPath();rctx.arc(x,y,4,0,Math.PI*2);rctx.fill();rctx.font='8px monospace';rctx.fillText(p.number,x+6,y+3);});
     // player triangle
     const x=cx+px*sc,y=cy+pz*sc;rctx.save();rctx.translate(x,y);rctx.rotate(heading);
     rctx.fillStyle='#ffd36c';rctx.beginPath();rctx.moveTo(0,-5);rctx.lineTo(3.4,4);rctx.lineTo(-3.4,4);rctx.closePath();rctx.fill();rctx.restore();
@@ -595,8 +587,8 @@ export function startMoonExperience(): () => void {
 
   /* ============ CONTROLS / STATE ============ */
   const keys={};
-  const kmap={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right',W:'up',S:'down',A:'left',D:'right'};
-  __on('keydown',e=>{if(kmap[e.key]){keys[kmap[e.key]]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();}});
+  const kmap={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right',' ':'brake',W:'up',S:'down',A:'left',D:'right'};
+  __on('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target?.tagName)||e.target?.isContentEditable)return;if(kmap[e.key]){keys[kmap[e.key]]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();}});
   __on('keyup',e=>{if(kmap[e.key])keys[kmap[e.key]]=false;});
   if(('ontouchstart'in window)||navigator.maxTouchPoints>0)document.body.classList.add('is-touch');
   document.querySelectorAll('.touch button').forEach(btn=>{const k=btn.dataset.k;const on=e=>{e.preventDefault();keys[k]=true;};const off=e=>{e.preventDefault();keys[k]=false;};btn.addEventListener('touchstart',on);btn.addEventListener('touchend',off);btn.addEventListener('mousedown',on);btn.addEventListener('mouseup',off);btn.addEventListener('mouseleave',off);});
@@ -656,9 +648,34 @@ export function startMoonExperience(): () => void {
     engine.playbackRate=0.8+sp*1.05;
   }
 
-  const st={x:0,z:8,heading:Math.PI,speed:0,steer:0};st.y=terrainHeight(st.x,st.z);
+  const st={...moonSession.rover,speed:0,steer:0};st.y=terrainHeight(st.x,st.z);
   let autoTarget=null,openBuild=null,manualClose=null;
-  const MAXS=0.62,ACC=0.022,REV=0.014,FRICTION=0.965,TURN=0.032,TRIGGER=14;
+  const MAXS=0.22,ACC=0.0055,REV=0.012,FRICTION=0.925,TURN=0.036,TRIGGER=9;
+
+  let moonEntered=false;
+  let projectTravel=null;
+  let autoStop=TRIGGER-2;
+  const district=createMoonDistrict({scene,height:terrainHeight,colliders,mobile:IS_MOBILE,camera,canvas:renderer.domElement,onToast:showToast});
+  __on('kamrok:moon-travel',e=>{
+    const p=MOON_PROJECTS.find(p=>p.id===e.detail);if(!p)return;
+    enterMoon();pinned=null;openPanel(null);manualClose=null;projectTravel=p;
+    autoTarget=new T.Vector3(p.arrival.x,terrainHeight(p.arrival.x,p.arrival.z),p.arrival.z);autoStop=2;
+    hideHint();
+  });
+  __on('blur',()=>{Object.keys(keys).forEach(k=>keys[k]=false);boostKey=false;});
+  function recoverRover(){
+    if(mode!=='drive')return;
+    autoTarget=null;projectTravel=null;pinned=null;openPanel(null);
+    Object.assign(st,{x:0,z:8,heading:Math.PI,speed:0,steer:0,y:terrainHeight(0,8)});
+    Object.keys(keys).forEach(k=>keys[k]=false);boostKey=false;targetVIEW=FOLLOW_VIEW;
+    showToast('BACK AT BASE · READY TO EXPLORE');
+  }
+  __on('kamrok:moon-recover',recoverRover);
+  __on('keydown',e=>{if(e.key.toLowerCase()==='r'&&!/^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(e.target?.tagName)&&!e.target?.isContentEditable)recoverRover();});
+
+  document.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
+    window.dispatchEvent(new CustomEvent('kamrok:moon-travel',{detail:button.dataset.project}));
+  }));
 
   /* ============ UI ============ */
   const panels={about:'panel-about',work:'panel-work',skills:'panel-skills',contact:'panel-contact'};
@@ -666,8 +683,8 @@ export function startMoonExperience(): () => void {
   function openPanel(key){if(openBuild===key)return;Object.values(panels).forEach(id=>document.getElementById(id).classList.remove('open'));if(key){document.getElementById(panels[key]).classList.add('open');if(objLis[key])objLis[key].classList.add('visited');}openBuild=key;navBtns.forEach(b=>b.classList.toggle('active',b.dataset.build===key));}
   let pinned=null;   // a panel opened directly (double-click) stays open regardless of distance
   navBtns.forEach(b=>{
-    b.addEventListener('click',()=>{autoTarget=BUILDS[b.dataset.build].pos;manualClose=null;hideHint();});
-    b.addEventListener('dblclick',()=>{const k=b.dataset.build;openPanel(k);pinned=k;autoTarget=BUILDS[k].pos;manualClose=null;hideHint();});
+    b.addEventListener('click',()=>{projectTravel=null;autoStop=TRIGGER-2;autoTarget=BUILDS[b.dataset.build].pos;manualClose=null;hideHint();});
+    b.addEventListener('dblclick',()=>{const k=b.dataset.build;openPanel(k);pinned=k;projectTravel=null;autoStop=TRIGGER-2;autoTarget=BUILDS[k].pos;manualClose=null;hideHint();});
   });
   document.querySelectorAll('[data-close]').forEach(c=>c.addEventListener('click',()=>{manualClose=openBuild;pinned=null;openPanel(null);autoTarget=null;}));
   const hintEl=document.getElementById('hint');setTimeout(hideHint,7000);function hideHint(){hintEl.classList.add('gone');}
@@ -681,8 +698,9 @@ export function startMoonExperience(): () => void {
   if(music){music.loop=true;music.volume=0.0;}
   function startMusic(){if(music&&musicOn&&music.paused){const p=music.play();if(p&&p.catch)p.catch(()=>{});}
     if(music)music.volume=musicOn?0.18:0.0;}
-  function enterMoon(){if(intro){intro.classList.add('hidden');}startEngine();startMusic();hideHint();}
+  function enterMoon(){if(intro){intro.classList.add('hidden');}moonEntered=true;document.body.classList.add('moon-exploring');window.dispatchEvent(new CustomEvent('kamrok:moon-enter'));startEngine();startMusic();hideHint();}
   const introEnter=document.getElementById('introEnter');if(introEnter)introEnter.addEventListener('click',enterMoon);
+  if(moonSession.entered)enterMoon();
   __on('keydown',startMusic,{once:false});__on('pointerdown',startMusic);
   // music toggle
   document.querySelectorAll('#tgMusic button').forEach(b=>b.addEventListener('click',()=>{
@@ -725,9 +743,9 @@ export function startMoonExperience(): () => void {
   const nodesWrap=document.createElement('div');nodesWrap.className='nodes';document.body.appendChild(nodesWrap);
   const buildNodes={};
   Object.keys(BUILDS).forEach(k=>{const n=document.createElement('div');n.className='node';n.innerHTML='<div class="ring"></div><div class="lbl">'+BUILDS[k].name+'</div>';
-    n.addEventListener('click',()=>{autoTarget=BUILDS[k].pos;manualClose=null;hideHint();});nodesWrap.appendChild(n);buildNodes[k]=n;});
+    n.addEventListener('click',()=>{projectTravel=null;autoStop=TRIGGER-2;autoTarget=BUILDS[k].pos;manualClose=null;hideHint();});nodesWrap.appendChild(n);buildNodes[k]=n;});
   const anomNodes=SURPRISES.map(s=>{const n=document.createElement('div');n.className='node q';n.innerHTML='<div class="ring"></div>';
-    n.addEventListener('click',()=>{autoTarget=s.pos;manualClose=null;hideHint();});nodesWrap.appendChild(n);return n;});
+    n.addEventListener('click',()=>{projectTravel=null;autoStop=3;autoTarget=s.pos;manualClose=null;hideHint();});nodesWrap.appendChild(n);return n;});
   function onscreen(p){return p.x>=-20&&p.x<=innerWidth+20&&p.y>=-20&&p.y<=innerHeight+20;}
   function updateNodes(){
     for(const k in buildNodes){const b=BUILDS[k],n=buildNodes[k];const sp=project(b.pos.x,b.pos.y+13,b.pos.z);const dist=Math.hypot(b.pos.x-st.x,b.pos.z-st.z);
@@ -749,7 +767,7 @@ export function startMoonExperience(): () => void {
 
   const SHIP_NOSE=Math.PI + Math.PI/2;     // rotate model so its nose points 180° from the current orientation
   let shipModel=null, shipSpawned=false, landedShip=null, shipNode=null;
-  const SHIP_POS=new T.Vector3(26,0,46); SHIP_POS.y=terrainHeight(SHIP_POS.x,SHIP_POS.z);
+  const SHIP_POS=new T.Vector3(68,0,56); SHIP_POS.y=terrainHeight(SHIP_POS.x,SHIP_POS.z);
   const flashEl=document.createElement('div');flashEl.className='flash';document.body.appendChild(flashEl);
   const spaceHud=document.createElement('div');spaceHud.className='space-hud';
   spaceHud.innerHTML='<div class="sh-title">GALAXY · FREE FLIGHT</div><div class="sh-hint">WASD / ARROWS to fly · drift through the system</div><button class="pill" id="returnMoon">RETURN TO MOON</button>';
@@ -866,7 +884,7 @@ export function startMoonExperience(): () => void {
       scene.add(key);scene.add(key.target);
       const pl=new T.PointLight(0x9fd4ff,3.4,90);pl.position.set(SHIP_POS.x,SHIP_POS.y+9,SHIP_POS.z);scene.add(pl);
       shipNode=document.createElement('div');shipNode.className='node ship';shipNode.innerHTML='<div class="ring"></div><div class="lbl">THE SHIP</div>';
-      shipNode.addEventListener('click',()=>{autoTarget=SHIP_POS;manualClose=null;hideHint();});nodesWrap.appendChild(shipNode);
+      shipNode.addEventListener('click',()=>{projectTravel=null;autoStop=9;autoTarget=SHIP_POS;manualClose=null;hideHint();});nodesWrap.appendChild(shipNode);
       showToast('✦ A SHIP HAS LANDED — FIND IT');
     };
     if(shipModel)place(); else loadShip(()=>place());
@@ -1084,8 +1102,8 @@ export function startMoonExperience(): () => void {
   /* ===== WANDERING ALIEN (idle / walk / run / wave) ===== */
   let alien=null,alienMixer=null;const alienActs={};
   let alienState='idle',alienTimer=2,alienWaveCool=0,alienRunDir=0,alienTarget=null;
-  const ALIEN_TARGET_H=2.1, ALIEN_FACE=0, ALIEN_ROT_X=0, ALIEN_LIFT=1.4, ALIEN_CHAT_RANGE=16;   // height / facing / up-tilt / ground lift / chat range
-  const ALIEN_POS=new T.Vector3(-34,0,24);
+  const ALIEN_TARGET_H=2.1, ALIEN_FACE=0, ALIEN_ROT_X=0, ALIEN_LIFT=1.4, ALIEN_CHAT_RANGE=8;   // height / facing / up-tilt / ground lift / chat range
+  const ALIEN_POS=new T.Vector3(-15,0,14);
   function meshBox(obj){                                    // bbox of meshes only (ignores stray skeleton bones)
     const bb=new T.Box3();let any=false;
     obj.updateWorldMatrix(true,true);
@@ -1114,7 +1132,7 @@ export function startMoonExperience(): () => void {
   function updateAlien(dt){
     if(!alien||!alienMixer)return;alienMixer.update(dt);alienWaveCool-=dt;alienTimer-=dt;
     const tx=st.x-alien.position.x,tz=st.z-alien.position.z,db=Math.hypot(tx,tz);
-    if(alienState!=='wave'&&alienState!=='run'&&db<26&&alienWaveCool<=0){
+    if(alienState!=='wave'&&alienState!=='run'&&db<14&&alienWaveCool<=0){
       alienWaveCool=11;
       if(Math.random()<0.4&&db>ALIEN_CHAT_RANGE){alienRunDir=Math.atan2(-tx,-tz);alienFade('run');alienState=alienActs.run?'run':alienState;alienTimer=2.4;}
       else{alien.rotation.y=Math.atan2(tx,tz)+ALIEN_FACE;alienFade('wave');alienState=alienActs.wave?'wave':alienState;alienTimer=2.0;}
@@ -1122,7 +1140,7 @@ export function startMoonExperience(): () => void {
     if(alienState==='wave'){if(alienTimer<=0)alienFade('idle');}
     else if(alienState==='run'){alien.position.x+=Math.sin(alienRunDir)*0.16;alien.position.z+=Math.cos(alienRunDir)*0.16;alien.rotation.y=alienRunDir+ALIEN_FACE;if(alienTimer<=0)alienFade('idle');}
     else{
-      if(alienState==='idle'&&alienTimer<=0&&alienActs.walk){alienTarget=new T.Vector3(alien.position.x+(Math.random()-0.5)*46,0,alien.position.z+(Math.random()-0.5)*46);alienFade('walk');alienTimer=7;}
+      if(alienState==='idle'&&alienTimer<=0&&alienActs.walk){alienTarget=new T.Vector3(alien.position.x+(Math.random()-0.5)*18,0,alien.position.z+(Math.random()-0.5)*18);alienFade('walk');alienTimer=7;}
       if(alienState==='walk'&&alienTarget){const dx=alienTarget.x-alien.position.x,dz=alienTarget.z-alien.position.z,d=Math.hypot(dx,dz);
         if(d<1.6||alienTimer<=0){alienFade('idle');alienTimer=2+Math.random()*5;alienTarget=null;}
         else{const a=Math.atan2(dx,dz);alien.rotation.y=a+ALIEN_FACE;alien.position.x+=Math.sin(a)*0.06;alien.position.z+=Math.cos(a)*0.06;}}
@@ -1168,9 +1186,9 @@ export function startMoonExperience(): () => void {
   }
   (function(){
     const P=window.PROPS;if(!P)return;
-    placeProp(P.platform,{x:64,z:-44,size:58,rotY:0.2});
-    placeProp(P.termL,{x:58,z:-52,size:6.5,rotY:-0.5});
-    placeProp(P.termS,{x:72,z:-38,size:4.5,rotY:0.8});
+    placeProp(P.platform,{x:64,z:-44,size:26,rotY:0.2});
+    placeProp(P.termL,{x:58,z:-48,size:6.5,rotY:-0.5});
+    placeProp(P.termS,{x:68,z:-38,size:4.5,rotY:0.8});
     placeProp(P.rock7,{x:-64,z:-54,size:15,rotY:1.1,collider:true});
     placeProp(P.rock4,{x:96,z:70,size:15,rotY:2.3,collider:true});
   })();
@@ -1256,7 +1274,7 @@ export function startMoonExperience(): () => void {
   function hideSkillPop(){openSkill=null; if(skillPop)skillPop.classList.remove('open');}
   if(skillPop){const sx=document.getElementById('skillPopX'); if(sx)sx.addEventListener('click',e=>{e.stopPropagation();hideSkillPop();});}
   (function(){
-    const base=BUILDS.skills.pos, R=11, ray=new T.Raycaster(), ndc=new T.Vector2();
+    const base=BUILDS.skills.pos, R=8, ray=new T.Raycaster(), ndc=new T.Vector2();
     SKILL_DEFS.forEach((def,i)=>{
       const a=(i/SKILL_DEFS.length)*Math.PI*2+0.35;
       const cx=base.x+Math.cos(a)*R, cz=base.z+Math.sin(a)*R, gy=terrainHeight(cx,cz);
@@ -1328,7 +1346,7 @@ export function startMoonExperience(): () => void {
   /* ===== CLIENT LOGOS — laid evenly on the surface around the Work monument ===== */
   (function(){
     const CLIENTS=[['tifco','webp'],['guinness-storehouse','webp'],['dundalk-stadium','webp'],['crowne-plaza','webp'],['coca-cola','png'],['centra','webp'],['boylesports','png']];
-    const base=BUILDS.work.pos, R=18, tl=new T.TextureLoader();
+    const base=BUILDS.work.pos, R=13, tl=new T.TextureLoader();
     CLIENTS.forEach((c,i)=>{
       const a=(i/CLIENTS.length)*Math.PI*2+0.25;
       const x=base.x+Math.cos(a)*R, z=base.z+Math.sin(a)*R, gy=terrainHeight(x,z);
@@ -1345,7 +1363,7 @@ export function startMoonExperience(): () => void {
 
   /* ============ LOOP ============ */
   /* ===== boulder collision + knock dynamics ===== */
-  const BUGGY_R=2.3;
+  const BUGGY_R=2.65;
   function resolveCollisions(){
     for(let i=0;i<colliders.length;i++){const c=colliders[i];
       const dx=st.x-c.x, dz=st.z-c.z, min=c.r+BUGGY_R, d2=dx*dx+dz*dz;
@@ -1358,18 +1376,20 @@ export function startMoonExperience(): () => void {
       }
     }
   }
-  function updateColliders(){
+  function updateColliders(frame){
     for(let i=0;i<colliders.length;i++){const c=colliders[i];
       if(c.vx*c.vx+c.vz*c.vz<1e-5){if(c.vx||c.vz){c.vx=0;c.vz=0;}continue;}
-      c.x+=c.vx; c.z+=c.vz; c.vx*=0.86; c.vz*=0.86;
+      c.x+=c.vx*frame; c.z+=c.vz*frame; c.vx*=Math.pow(.86,frame); c.vz*=Math.pow(.86,frame);
       c.x=Math.max(-WORLD,Math.min(WORLD,c.x)); c.z=Math.max(-WORLD,Math.min(WORLD,c.z));
       c.mesh.position.set(c.x, terrainHeight(c.x,c.z)+c.yOff, c.z);
       c.mesh.rotation.x+=c.vz*0.12; c.mesh.rotation.z-=c.vx*0.12;
     }
   }
+  const camFocus=new T.Vector3(st.x,st.y+1.2,st.z);
   const camDesired=new T.Vector3();const tmp=new T.Vector3();let clock=0;
+  const driveClock=new T.Clock();
   function project(x,y,z){tmp.set(x,y,z).project(camera);return {x:(tmp.x*0.5+0.5)*vw(),y:(-tmp.y*0.5+0.5)*innerHeight};}
-  function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);clock+=0.016;
+  function animate(){if(__disposed)return;__rafId=requestAnimationFrame(animate);const dt=Math.min(.05,driveClock.getDelta()||1/60),frame=dt*60;clock+=dt;
     if(mode==='space'){ if(!pmndrsActive) spaceTick(); return; }
     if(mode==='takeoff'){takeoffTick();return;}
     // Pulse the landed ship + tractor beam so it reads as "alive" from across the moon
@@ -1379,30 +1399,34 @@ export function startMoonExperience(): () => void {
       if(ud.beam)ud.beam.material.opacity=0.22+pul*0.14;
       if(ud.beamCore)ud.beamCore.material.opacity=0.34+pul*0.22;
       if(ud.halo){ud.halo.material.opacity=0.35+pul*0.4;ud.halo.scale.setScalar(0.9+pul*0.35);}}
-    if(Math.abs(VIEW-targetVIEW)>0.05){VIEW+=(targetVIEW-VIEW)*0.18;setFrustum();}
+    if(Math.abs(VIEW-targetVIEW)>0.05){VIEW+=(targetVIEW-VIEW)*(1-Math.pow(.87,frame));setFrustum();}
+    if(keys.up||keys.down||keys.left||keys.right||keys.brake){autoTarget=null;projectTravel=null;}
     const fwd={x:Math.sin(st.heading),z:Math.cos(st.heading)};
 
     if(autoTarget){
       const dx=autoTarget.x-st.x,dz=autoTarget.z-st.z,dist=Math.hypot(dx,dz);
       let diff=Math.atan2(dx,dz)-st.heading;while(diff>Math.PI)diff-=Math.PI*2;while(diff<-Math.PI)diff+=Math.PI*2;
-      st.heading+=Math.max(-TURN*1.4,Math.min(TURN*1.4,diff*0.5));st.steer=diff;
+      st.heading+=Math.max(-TURN*1.4,Math.min(TURN*1.4,diff*0.5))*frame;st.steer=diff;
       // steer around boulders that lie in the path
       {const fdx=Math.sin(st.heading),fdz=Math.cos(st.heading);let bD=1e9,bCross=0;
         for(let ci=0;ci<colliders.length;ci++){const c=colliders[ci],ox=c.x-st.x,oz=c.z-st.z,od=Math.hypot(ox,oz);
-          if(od<c.r+BUGGY_R+17){const fd=(ox*fdx+oz*fdz)/(od||1);if(fd>0.15&&od<bD){bD=od;bCross=fdx*oz-fdz*ox;}}}
-        if(bD<1e9){st.heading+=(bCross>0?1:-1)*TURN*1.9*(1-Math.min(1,bD/28));st.steer+= (bCross>0?1:-1)*0.5;}}
-      if(dist>TRIGGER-2)st.speed=Math.min(MAXS*2.1,st.speed+ACC*2.6);else{st.speed*=0.9;if(st.speed<0.02)autoTarget=null;}  /* quick-travel: zip to the monument */
+          const along=ox*fdx+oz*fdz,lateral=fdx*oz-fdz*ox;
+          if(along>0&&along<9+c.r&&Math.abs(lateral)<c.r+BUGGY_R+1&&od<bD){bD=od;bCross=lateral;}}
+        if(bD<1e9){st.heading+=(bCross>0?1:-1)*TURN*1.9*(1-Math.min(1,bD/16))*frame;st.steer+= (bCross>0?1:-1)*0.5;}}
+      if(dist>autoStop+.35){const approach=Math.min(MAXS,(dist-autoStop)*0.055);const turnFactor=Math.max(0.12,1-Math.abs(diff)/Math.PI);st.speed+=(approach*turnFactor-st.speed)*(1-Math.pow(.86,frame));}else{st.speed=0;autoTarget=null;projectTravel=null;}  /* gentle guided drive with a soft arrival */
     } else {
-      if(keys.up){const bo=boostKey&&st.speed>0.05;st.speed=Math.min(bo?MAXS*1.9:MAXS,st.speed+(bo?ACC*2.4:ACC));}
-      else if(keys.down)st.speed=Math.max(-MAXS*0.5,st.speed-REV);
-      else st.speed*=FRICTION;
+      if(keys.brake)st.speed*=Math.pow(.72,frame);
+      else if(keys.up){const bo=boostKey&&st.speed>0.05;st.speed=Math.min(bo?MAXS*1.45:MAXS,st.speed+(bo?ACC*1.5:ACC)*frame);}
+      else if(keys.down)st.speed=Math.max(-MAXS*0.5,st.speed-REV*frame);
+      else st.speed*=Math.pow(FRICTION,frame);
       const steer=(keys.left?1:0)-(keys.right?1:0);st.steer=steer;
-      if(steer!==0&&Math.abs(st.speed)>0.01)st.heading+=TURN*steer*(st.speed>=0?1:-1)*Math.min(1,Math.abs(st.speed)/0.25);
-      if(keys.up||keys.down||keys.left||keys.right){hideHint();pinned=null;}
+      if(steer!==0&&Math.abs(st.speed)>0.01)st.heading+=TURN*steer*(st.speed>=0?1:-1)*Math.min(1,Math.abs(st.speed)/0.16)*frame;
+      if(keys.up||keys.down||keys.left||keys.right||keys.brake){hideHint();pinned=null;}
     }
     if(Math.abs(st.speed)<0.001)st.speed=0;
 
-    st.x+=fwd.x*st.speed;st.z+=fwd.z*st.speed;
+    fwd.x=Math.sin(st.heading);fwd.z=Math.cos(st.heading);
+    st.x+=fwd.x*st.speed*frame;st.z+=fwd.z*st.speed*frame;
     const LIM=WORLD-26;st.x=Math.max(-LIM,Math.min(LIM,st.x));st.z=Math.max(-LIM,Math.min(LIM,st.z));
     resolveCollisions();
     st.x=Math.max(-LIM,Math.min(LIM,st.x));st.z=Math.max(-LIM,Math.min(LIM,st.z));
@@ -1413,7 +1437,7 @@ export function startMoonExperience(): () => void {
     const hR=terrainHeight(st.x+rv.x*1.4,st.z+rv.z*1.4),hL=terrainHeight(st.x-rv.x*1.4,st.z-rv.z*1.4);
     buggy.rotation.x=Math.atan2(behind-ahead,3.2);buggy.rotation.z=Math.atan2(hL-hR,2.8);
 
-    wheels.forEach(w=>w.rotation.x+=st.speed*0.9);   /* roll */
+    wheels.forEach(w=>w.rotation.x+=st.speed*frame/W_R);   /* roll */
     const steerTarget=Math.max(-0.6,Math.min(0.6,(st.steer||0)*0.6));
     steerVis+=(steerTarget-steerVis)*0.2;            /* smoothed steer angle */
     steerPivots.forEach(p=>p.rotation.y=steerVis);   /* front wheels turn */
@@ -1421,7 +1445,7 @@ export function startMoonExperience(): () => void {
     chimp.position.y=1.4+Math.sin(clock*3)*0.015;   /* idle bob */
 
     // tracks
-    lastTrackDist+=Math.abs(st.speed);
+    lastTrackDist+=Math.abs(st.speed)*frame;
     if(lastTrackDist>0.9&&Math.abs(st.speed)>0.06){lastTrackDist=0;
       dropTrack(st.x-fwd.x*1.3+rv.x*1.3,st.z-fwd.z*1.3+rv.z*1.3,st.heading);
       dropTrack(st.x-fwd.x*1.3-rv.x*1.3,st.z-fwd.z*1.3-rv.z*1.3,st.heading);
@@ -1432,29 +1456,34 @@ export function startMoonExperience(): () => void {
     dustGeo.attributes.position.needsUpdate=true;
 
     // isometric camera follow (fixed orientation)
-    camDesired.set(st.x+ISO.x,st.y+ISO.y,st.z+ISO.z);
-    camera.position.lerp(camDesired,0.09);
-    camera.lookAt(st.x,st.y+1.2,st.z);
+    camFocus.lerp(tmp.set(st.x+fwd.x*st.speed*7,st.y+1.2,st.z+fwd.z*st.speed*7),1-Math.pow(.90,frame));
+    camera.position.copy(camFocus).add(ISO);
+    camera.lookAt(camFocus);
     sun.position.set(st.x+70,st.y+95,st.z+30);sun.target.position.set(st.x,st.y,st.z);sun.target.updateMatrixWorld();
 
     // proximity panels
     let nearest=null,nd=1e9;
     Object.keys(BUILDS).forEach(k=>{const b=BUILDS[k];const d=Math.hypot(b.pos.x-st.x,b.pos.z-st.z);if(d<nd){nd=d;nearest=k;}});
-    if(pinned){if(openBuild!==pinned)openPanel(pinned);}
+    if(projectTravel){if(openBuild)openPanel(null);}
+    else if(pinned){if(openBuild!==pinned)openPanel(pinned);}
     else if(nd<TRIGGER){if(manualClose!==nearest)openPanel(nearest);}
     else{if(openBuild)openPanel(null);manualClose=null;}
     // compass (screen-space)
     if(nearest){const b=BUILDS[nearest];const a=project(st.x,st.y+1,st.z),c=project(b.pos.x,b.pos.y+1,b.pos.z);const ang=Math.atan2(c.x-a.x,-(c.y-a.y));cArrow.style.transform=`translate(-50%,-100%) rotate(${ang}rad)`;cName.textContent=b.name;cDist.textContent=nd<TRIGGER?'ARRIVED':Math.round(nd)+' M';}
+
+    if(projectTravel){cName.textContent=projectTravel.name;cDist.textContent=Math.round(Math.hypot(st.x-projectTravel.arrival.x,st.z-projectTravel.arrival.z))+' M';}
+    district.update(clock,st,moonEntered);
+    roverDetails.update(clock,st.speed);
 
     // hidden anomalies
     for(let i=0;i<SURPRISES.length;i++){const s=SURPRISES[i];const d=Math.hypot(s.pos.x-st.x,s.pos.z-st.z);
       if(s.armed&&d<9){s.armed=false;triggerSurprise(s.type,s.pos);try{if(navigator.vibrate)navigator.vibrate(18);}catch(e){}if(!s.found){s.found=true;discovered++;updateSecrets();showToast('✦ ANOMALY '+s.type.toUpperCase());checkAllCollected();}else{showToast('✦ ANOMALY '+s.type.toUpperCase());}}
       else if(!s.armed&&d>22)s.armed=true;}
     if(shipSpawned&&Math.hypot(SHIP_POS.x-st.x,SHIP_POS.z-st.z)<13)startTakeoff();   // reach the ship -> liftoff
-    updateFx(0.016);
-    updateColliders();
-    updateSkillIcons(0.016);
-    updateAlien(0.016);
+    updateFx(dt);
+    updateColliders(frame);
+    updateSkillIcons(dt);
+    updateAlien(dt);
     updateEngine();
     updateHUD();
     updateNodes();
@@ -1533,13 +1562,22 @@ export function startMoonExperience(): () => void {
 
 
   return () => {
+    moonSession.entered=moonEntered;
+    moonSession.rover={x:st.x,z:st.z,heading:st.heading};
     __disposed = true;
+    district.dispose();
+    roverDetails.dispose();
+    document.body.classList.remove("moon-exploring");
     try { cancelAnimationFrame(__rafId); } catch (e) {}
     try { clearTimeout(__t1); } catch (e) {}
-    try { clearInterval(mInt); } catch (e) {}
+    try { clearInterval(mInt); clearTimeout(toastTimer); } catch (e) {}
     __cleanups.forEach((f) => { try { f(); } catch (e) {} });
     try { (engine as any) && (engine as any).pause(); } catch (e) {}
     try { (music as any) && (music as any).pause(); } catch (e) {}
+    skillIcons.forEach(icon=>icon.label?.remove());
+    (GLTFLoader as any).prototype.load=_origLoad;
+    (GLTFLoader as any).prototype.parse=_origParse;
+    _ktx2.dispose();
     [nodesWrap, flashEl, spaceHud, spScore, spCtrl].forEach((n: any) => { try { n && n.remove && n.remove(); } catch (e) {} });
     try { document.body.classList.remove("space-mode", "is-touch"); } catch (e) {}
     try { (renderer as any).domElement && (renderer as any).domElement.remove(); } catch (e) {}

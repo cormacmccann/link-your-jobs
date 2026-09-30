@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check, MessageCircle, Bot, Users, Zap, Sparkles, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import kamrokLogo from "/kamrok-logo.png";
 
 const ChatLeadCapture = () => {
   const navigate = useNavigate();
@@ -64,23 +63,6 @@ const ChatLeadCapture = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <header className="border-b border-white/10 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Button variant="ghost" onClick={() => navigate('/')} className="text-white/60 hover:text-white">
-              ← Back
-            </Button>
-            <img src={kamrokLogo} alt="KAMROK" className="h-12" />
-            <Button
-              variant="outline"
-              className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10"
-              onClick={() => navigate('/auth')}
-            >
-              Get Started
-            </Button>
-          </div>
-        </div>
-      </header>
 
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl text-center">

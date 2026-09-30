@@ -1,4 +1,4 @@
-import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const NEXT = [
   { n: "01", h: "You say hello", p: "A line about you, the project and roughly when you'd like to start. No formal brief needed." },
@@ -12,12 +12,9 @@ export default function Contact() {
       title="Contact Cormac — Web Designer & Front-end Developer | KAMROK"
       description="Get in touch with Cormac at KAMROK to start a web design, WordPress or front-end project. Based in Dundalk, working remotely. Email cormac@kamrok.com."
       maxWidth={780}
-      footerRight={<a href="/">← Back to the moon</a>}
     >
-      <Emblem />
-      <div className="kk-eyebrow">OPEN CHANNEL · 04</div>
-      <h1>Let's Talk</h1>
-      <Divider />
+      <div className="kk-eyebrow">GET IN TOUCH</div>
+      <h1>Let’s talk.</h1>
       <p className="kk-contact-lead">
         Got a project, a rough idea, or just want to compare notes on the moon buggy? We read every
         message and reply within one working day.
@@ -25,10 +22,7 @@ export default function Contact() {
 
       <div className="kk-rows">
         <div className="kk-row"><span className="kk-k">EMAIL</span><a href="mailto:cormac@kamrok.com">cormac@kamrok.com</a></div>
-        <div className="kk-row"><span className="kk-k">SITE</span><a href="https://kamrok.com" target="_blank" rel="noopener">kamrok.com</a></div>
-        <div className="kk-row"><span className="kk-k">SOCIAL</span><a href="#" rel="noopener">@kamrok</a></div>
         <div className="kk-row"><span className="kk-k">BASED</span><span className="kk-v">Dundalk, Ireland · remote-friendly</span></div>
-        <div className="kk-row"><span className="kk-k">RESPONSE</span><span className="kk-v">Within one working day</span></div>
         <div className="kk-row"><span className="kk-k">AVAILABILITY</span><span className="kk-v">Open to select projects</span></div>
       </div>
 

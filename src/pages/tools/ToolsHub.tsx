@@ -24,10 +24,10 @@ const TOOL_CATEGORIES = [
     category: "design",
     tools: [
       { name: "QR Code Generator", icon: QrCode, href: "/tools/qr-code-generator", status: "live", description: "Custom QR codes for any URL." },
-      { name: "Image Compressor", icon: Image, href: "/tools/image-compressor", status: "live", description: "Batch compress without losing quality." },
-      { name: "Colour Palette Picker", icon: Palette, href: "/tools/colour-palette", status: "live", description: "Generate harmonic colour schemes." },
+      { name: "Image Compressor", icon: Image, href: "/tools/image-compressor", status: "coming-soon", description: "Batch compress without losing quality." },
+      { name: "Colour Palette Picker", icon: Palette, href: "/tools/colour-palette", status: "coming-soon", description: "Generate harmonic colour schemes." },
       { name: "Favicon Generator", icon: Square, href: "/tools/favicon-generator", status: "coming-soon", description: "Create favicons from any image." },
-      { name: "Irish Lorem Ipsum", icon: Clover, href: "/tools/lorem-ipsum", status: "live", description: "Placeholder text with Irish flair." },
+      { name: "Irish Lorem Ipsum", icon: Clover, href: "/tools/lorem-ipsum", status: "coming-soon", description: "Placeholder text with Irish flair." },
     ],
   },
   {
@@ -35,7 +35,7 @@ const TOOL_CATEGORIES = [
     category: "security",
     tools: [
       { name: "Password Generator", icon: Key, href: "/tools/password-generator", status: "live", description: "Secure random password generation." },
-      { name: "Password Strength Checker", icon: ShieldCheck, href: "/tools/password-checker", status: "live", description: "Test your password security." },
+      { name: "Password Strength Checker", icon: ShieldCheck, href: "/tools/password-checker", status: "coming-soon", description: "Test your password security." },
     ],
   },
   {
@@ -43,10 +43,10 @@ const TOOL_CATEGORIES = [
     category: "seo",
     tools: [
       { name: "UTM Builder", icon: Link2, href: "/tools/utm-builder", status: "live", description: "Track campaigns with UTM parameters." },
-      { name: "Meta Tag Preview", icon: Globe, href: "/tools/meta-tag-preview", status: "live", description: "Preview your search snippets." },
+      { name: "Meta Tag Preview", icon: Globe, href: "/tools/meta-tag-preview", status: "coming-soon", description: "Preview your search snippets." },
       { name: "OpenGraph Preview", icon: Share2, href: "/tools/opengraph-preview", status: "live", description: "Preview social share cards." },
       { name: "Hashtag Suggester", icon: Hash, href: "/tools/hashtag-suggester", status: "live", description: "AI-powered hashtag suggestions." },
-      { name: "Email Subject Tester", icon: MessageSquare, href: "/tools/email-subject-tester", status: "live", description: "Test subject line effectiveness." },
+      { name: "Email Subject Tester", icon: MessageSquare, href: "/tools/email-subject-tester", status: "coming-soon", description: "Test subject line effectiveness." },
     ],
   },
   {
@@ -54,8 +54,8 @@ const TOOL_CATEGORIES = [
     category: "calculators",
     tools: [
       { name: "VAT Calculator", icon: Percent, href: "/tools/vat-calculator", status: "live", description: "Calculate VAT for any amount." },
-      { name: "Break-Even Calculator", icon: Calculator, href: "/tools/break-even-calculator", status: "live", description: "Find your break-even point." },
-      { name: "Hourly Rate Calculator", icon: PoundSterling, href: "/tools/hourly-rate-calculator", status: "live", description: "Calculate your ideal hourly rate." },
+      { name: "Break-Even Calculator", icon: Calculator, href: "/tools/break-even-calculator", status: "coming-soon", description: "Find your break-even point." },
+      { name: "Hourly Rate Calculator", icon: PoundSterling, href: "/tools/hourly-rate-calculator", status: "coming-soon", description: "Calculate your ideal hourly rate." },
     ],
   },
   {
@@ -131,6 +131,7 @@ export default function ToolsHub() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search tools..."
+              aria-label="Search tools"
               className="w-full bg-surface border border-stroke rounded-full px-5 py-3 text-sm text-text-primary placeholder:text-pl-muted focus:outline-none focus:border-text-primary transition-colors"
             />
           </motion.div>
@@ -146,6 +147,7 @@ export default function ToolsHub() {
               <button
                 key={f.id}
                 onClick={() => setActive(f.id)}
+                aria-pressed={isActive}
                 className={`text-xs sm:text-sm rounded-full px-4 py-2 border transition-colors ${
                   isActive
                     ? "border-text-primary bg-text-primary text-bg"

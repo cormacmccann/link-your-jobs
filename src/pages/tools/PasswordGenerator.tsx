@@ -7,7 +7,6 @@ import { GlowCard } from "@/components/ui/GlowCard";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import kamrokLogo from "/kamrok-logo.png";
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState("");
@@ -85,22 +84,7 @@ const PasswordGenerator = () => {
 
   return (
     <div className="min-h-screen bg-bg-0 text-text-1">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-bg-0/80 backdrop-blur-xl border-b border-border-1">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={kamrokLogo} alt="KAMROK" className="h-8 w-auto" />
-          </Link>
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-text-2 hover:text-text-1 transition-colors text-sm">Home</Link>
-            <Link to="/tools" className="text-accent-violet font-medium text-sm">Free Tools</Link>
-            <Link to="/services/web-design" className="text-text-2 hover:text-text-1 transition-colors text-sm">Services</Link>
-            <Link to="/contact" className="text-text-2 hover:text-text-1 transition-colors text-sm">Contact</Link>
-          </div>
-        </div>
-      </nav>
-
-      <div className="pt-24 pb-16 px-4">
+      <div className="pt-10 pb-8 px-4">
         <div className="container mx-auto max-w-3xl">
           {/* Back Link */}
           <Link to="/tools" className="inline-flex items-center gap-2 text-text-2 hover:text-accent-violet transition-colors mb-8">

@@ -54,7 +54,7 @@ const REVIEWS: Review[] = [
   },
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ limit = REVIEWS.length }: { limit?: number }) {
   return (
     <section className="kk-reviews">
       <h2 className="kk-sub">What clients say</h2>
@@ -62,7 +62,7 @@ export default function Testimonials() {
         <span className="kk-review__stars" aria-hidden>★★★★★</span> Rated 5.0 — real reviews from real clients
       </p>
       <div className="kk-reviews__grid">
-        {REVIEWS.map((r) => (
+        {REVIEWS.slice(0, limit).map((r) => (
           <figure className="kk-review" key={r.name + r.date}>
             <span className="kk-review__stars" aria-label="Rated 5 out of 5 stars">★★★★★</span>
             <blockquote>{r.quote}</blockquote>

@@ -7,6 +7,7 @@ import { lazy, Suspense } from "react";
 
 import NotFound from "./pages/NotFound";
 import SeoRouteSync from "./components/SeoRouteSync";
+import StudioShell from "./components/kamrok/StudioShell";
 
 // Retry a dynamic import once, then hard-reload to recover from stale chunk
 // hashes after a new deploy (the old index.js references chunks that no longer exist).
@@ -76,37 +77,39 @@ const App = () => {
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               <Route path="/" element={<MoonHome />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:slug" element={<CaseStudy />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route element={<StudioShell />}>
+                <Route path="/about" element={<About />} />
+                <Route path="/work" element={<Work />} />
+                <Route path="/work/:slug" element={<CaseStudy />} />
+                <Route path="/skills" element={<Skills />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/contact" element={<Contact />} />
 
-              <Route path="/tools" element={<ToolsHub />} />
-              <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
-              <Route path="/tools/password-generator" element={<PasswordGenerator />} />
-              <Route path="/tools/utm-builder" element={<UTMBuilder />} />
-              <Route path="/tools/vat-calculator" element={<VATCalculator />} />
-              <Route path="/tools/email-signature" element={<EmailSignatureGenerator />} />
-              <Route path="/tools/invoice-creator" element={<InvoiceCreator />} />
-              <Route path="/tools/quotation-maker" element={<QuotationMaker />} />
-              <Route path="/tools/business-name-generator" element={<BusinessNameGenerator />} />
-              <Route path="/tools/social-post-sizes" element={<SocialMediaSizeChecker />} />
-              <Route path="/tools/opengraph-preview" element={<OpenGraphPreview />} />
-              <Route path="/tools/hashtag-suggester" element={<HashtagSuggester />} />
+                <Route path="/tools" element={<ToolsHub />} />
+                <Route path="/tools/qr-code-generator" element={<QRCodeGenerator />} />
+                <Route path="/tools/password-generator" element={<PasswordGenerator />} />
+                <Route path="/tools/utm-builder" element={<UTMBuilder />} />
+                <Route path="/tools/vat-calculator" element={<VATCalculator />} />
+                <Route path="/tools/email-signature" element={<EmailSignatureGenerator />} />
+                <Route path="/tools/invoice-creator" element={<InvoiceCreator />} />
+                <Route path="/tools/quotation-maker" element={<QuotationMaker />} />
+                <Route path="/tools/business-name-generator" element={<BusinessNameGenerator />} />
+                <Route path="/tools/social-post-sizes" element={<SocialMediaSizeChecker />} />
+                <Route path="/tools/opengraph-preview" element={<OpenGraphPreview />} />
+                <Route path="/tools/hashtag-suggester" element={<HashtagSuggester />} />
 
-              <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
-              <Route path="/tools/terms-generator" element={<TermsGenerator />} />
-              <Route path="/tools/cookie-consent-manager" element={<CookieConsentManager />} />
-              <Route path="/tools/chat-lead-capture" element={<ChatLeadCapture />} />
-              <Route path="/tools/popup-offer-engine" element={<PopupOfferEngine />} />
-              <Route path="/tools/bookings-demos" element={<BookingsDemos />} />
-              <Route path="/tools/review-widget" element={<ReviewWidget />} />
-              <Route path="/tools/social-wall" element={<SocialWall />} />
-              <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
+                <Route path="/tools/privacy-policy-builder" element={<PrivacyPolicyBuilder />} />
+                <Route path="/tools/terms-generator" element={<TermsGenerator />} />
+                <Route path="/tools/cookie-consent-manager" element={<CookieConsentManager />} />
+                <Route path="/tools/chat-lead-capture" element={<ChatLeadCapture />} />
+                <Route path="/tools/popup-offer-engine" element={<PopupOfferEngine />} />
+                <Route path="/tools/bookings-demos" element={<BookingsDemos />} />
+                <Route path="/tools/review-widget" element={<ReviewWidget />} />
+                <Route path="/tools/social-wall" element={<SocialWall />} />
+                <Route path="/tools/trustpilot-integration" element={<TrustpilotIntegration />} />
 
-              <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
             </Routes>
           </Suspense>
         </BrowserRouter>

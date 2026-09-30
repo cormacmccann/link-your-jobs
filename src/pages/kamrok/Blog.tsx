@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import KamrokLayout, { Emblem, Divider } from "@/components/kamrok/KamrokLayout";
+import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const NOTES = [
   {
@@ -26,10 +26,8 @@ export default function Blog() {
       title="Field Notes — KAMROK"
       description="Short notes from the KAMROK studio — what we're building, what we're learning, and the occasional opinion."
     >
-      <Emblem />
-      <div className="kk-eyebrow">FIELD NOTES · THE LOG</div>
-      <h1>The Log</h1>
-      <Divider />
+      <div className="kk-eyebrow">FROM THE STUDIO</div>
+      <h1>Field notes.</h1>
       <p className="kk-lead-text">
         Short notes from the studio — what we're building, what we're learning, and the occasional
         opinion. New entries as they happen.

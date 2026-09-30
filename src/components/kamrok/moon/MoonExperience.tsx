@@ -5,6 +5,8 @@ import KamrokNav from "@/components/kamrok/KamrokNav";
 import SatelliteFlyby from "./SatelliteFlyby";
 import MoonBoundary from "./MoonBoundary";
 import moonCss from "@/styles/kamrok-moon.css?inline";
+import MoonPortfolio from "./MoonPortfolio";
+import { moonSession } from "./moonSession";
 
 // Desktop-only — the pmndrs game is a second WebGL canvas with bloom, which
 // blows past mobile context limits and would regress the mobile fix.
@@ -15,6 +17,13 @@ export default function MoonExperience() {
     () => typeof window !== "undefined" && !window.matchMedia("(max-width: 767px)").matches
   );
   const [inSpace, setInSpace] = useState(false);
+  const [exploring, setExploring] = useState(moonSession.entered);
+
+  useEffect(() => {
+    const enter = () => setExploring(true);
+    window.addEventListener("kamrok:moon-enter", enter);
+    return () => window.removeEventListener("kamrok:moon-enter", enter);
+  }, []);
 
   useEffect(() => {
     const styleEl = document.createElement("style");
@@ -80,7 +89,8 @@ export default function MoonExperience() {
     <>
       <div className="moon-root" dangerouslySetInnerHTML={{ __html: MOON_MARKUP }} />
       <KamrokNav onMoon />
-      {isDesktop && !inSpace && (
+      <MoonPortfolio hidden={inSpace} />
+      {isDesktop && !inSpace && !exploring && (
         <MoonBoundary fallback={null} label="satellite">
           <SatelliteFlyby />
         </MoonBoundary>

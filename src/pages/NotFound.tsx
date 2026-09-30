@@ -1,25 +1,14 @@
-import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    document.title = "Page Not Found | KAMROK";
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
+export default function NotFound() {
+  useEffect(() => { document.title = "Page Not Found | KAMROK"; }, []);
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-gray-600">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 underline hover:text-blue-700">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <section className="studio-container py-20 min-h-[50vh]">
+      <p className="text-sm text-muted-foreground mb-5">404</p>
+      <h1 className="text-4xl mb-5">This page isn’t here.</h1>
+      <p className="text-muted-foreground mb-8">Take a look at our work, or head back to the moon.</p>
+      <Link to="/work" className="studio-contact">View the work ↗</Link>
+    </section>
   );
-};
-
-export default NotFound;
+}

@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import "@/styles/immersive.css";
 import MobileNav from "./MobileNav";
+import kamrokLogo from "@/assets/kamrok-logo.png.asset.json";
 import lockOnPulse from "@/assets/moon/tracks/lock-on-pulse.mp3.asset.json";
 import orbitCrown from "@/assets/moon/tracks/orbit-crown.mp3.asset.json";
 import orbitalDrift from "@/assets/moon/tracks/orbital-drift.mp3.asset.json";
@@ -88,7 +89,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
           <Menu size={18} strokeWidth={1.4} />
         </button>
         <Link to="/" className="im-rail-logo" aria-label="KAMROK home">
-          <img src="/kamrok-logo.png" alt="KAMROK" />
+          <img src={kamrokLogo.url} alt="KAMROK" />
         </Link>
         <div className="im-rail-icons">
           <Link to="/about" className="im-rail-icon"><Users size={16} strokeWidth={1.4} /><span>ABOUT</span></Link>

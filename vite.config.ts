@@ -8,6 +8,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    // Lovable asset descriptors use this same-origin path in production.
+    proxy: {
+      "/__l5e/assets-v1": { target: "https://kamrok.com", changeOrigin: true },
+    },
   },
   plugins: [
     react(),

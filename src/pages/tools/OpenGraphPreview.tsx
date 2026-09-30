@@ -32,7 +32,7 @@ export default function OpenGraphPreview() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            <Card>
+            <Card className="min-w-0">
               <CardHeader>
                 <CardTitle>OpenGraph Tags</CardTitle>
                 <CardDescription>Enter your meta tag values</CardDescription>
@@ -96,7 +96,7 @@ export default function OpenGraphPreview() {
               </CardContent>
             </Card>
 
-            <div className="space-y-6">
+            <div className="space-y-6 min-w-0">
               <Tabs defaultValue="facebook" className="w-full">
                 <TabsList className="w-full">
                   <TabsTrigger value="facebook" className="flex-1">Facebook</TabsTrigger>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, MessageCircle, Youtube, Headphones, Bell, Volume2 } from "lucide-react";
 import MobileTabBar from "./MobileTabBar";
+import kamrokLogo from "@/assets/kamrok-logo.png.asset.json";
 
 const PRIMARY = [
   { to: "/about", label: "ABOUT", count: "00/02", note: "The studio & team" },
@@ -53,7 +54,7 @@ export default function MobileNav({ onMoon = false }: { onMoon?: boolean }) {
     <div className="im-mobile">
       <header className={`im-mtop ${scrolled || onMoon ? "is-solid" : ""}`}>
         <Link to="/" className="im-mtop-mark" aria-label="KAMROK home">
-          KAMROK<small>DESIGN STUDIO</small>
+          <img src={kamrokLogo.url} alt="KAMROK" width="86" height="48" style={{ width: 86, height: 48, objectFit: "contain" }} />
         </Link>
         <button
           className="im-mtop-btn"
