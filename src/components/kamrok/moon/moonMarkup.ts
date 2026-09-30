@@ -1,4 +1,5 @@
-// AUTO-GENERATED from public/index-kamrok.html via scripts/gen-moon.mjs — do not hand-edit.
+// Originally ported from the standalone moon; maintained with the React experience.
+import { MOON_PROJECTS } from "./moonDistrict";
 export const MOON_MARKUP = `
   <div id="app"></div>
 
@@ -131,9 +132,8 @@ export const MOON_MARKUP = `
     <div class="tag">02 — WORK</div>
     <h2>Selected<br/>work.</h2>
     <div class="rule"></div>
-    <div class="work-card"><div class="n">OWN PRODUCT</div><h3>Clubrovia</h3><p>A complete club operating system — registration, finances, fundraising and a generated club website.</p></div>
-    <div class="work-card"><div class="n">CLIENT</div><h3>McKevitt's</h3><p>A warm, modern website for a long-standing Irish business.</p></div>
-    <div class="work-card"><div class="n">CLIENT</div><h3>Digital Screen Displays</h3><p>Signage & commercial displays — and a roster from Guinness to Coca-Cola.</p></div>
+    <p>Our work has landed. Pick a destination and take the short drive over.</p>
+    ${MOON_PROJECTS.map(p => `<button type="button" class="moon-work-stop" data-project="${p.id}"><img src="${p.image}" alt="" loading="lazy" /><span><small>${p.number} / ${p.place}</small><strong>${p.name}</strong><span>DRIVE OVER →</span></span></button>`).join("")}
     <a class="panel-cta" href="/work">VIEW FULL PAGE →</a>
   </aside>
   <aside class="panel" id="panel-skills">

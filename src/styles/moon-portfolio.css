@@ -1,0 +1,98 @@
+.moon-portfolio {
+  position: fixed; z-index: 32; bottom: 24px; left: 24px;
+  width: min(500px, calc(100% - 172px));
+  font-family: 'Montserrat', sans-serif; color: #f2efe8; pointer-events: none;
+}
+.moon-portfolio button, .moon-portfolio a { -webkit-tap-highlight-color: transparent; }
+.moon-portfolio button:focus-visible, .moon-portfolio a:focus-visible { outline: 2px solid #d6cbff; outline-offset: 4px; }
+.moon-portfolio__status { display: flex; justify-content: space-between; gap: 12px; padding: 0 10px 10px; font-size: 10px; letter-spacing: .07em; text-shadow: 0 2px 8px #000; }
+.moon-portfolio__status > span:first-child { display: flex; align-items: center; gap: 8px; }
+.moon-portfolio__dot { width: 6px; height: 6px; border-radius: 50%; background: #b8efc1; box-shadow: 0 0 12px #b8efc166; }
+.moon-portfolio__tray { pointer-events: auto; background: rgba(17, 19, 30, .96); border: 1px solid #ffffff29; border-radius: 14px; box-shadow: 0 12px 42px #0005; overflow: hidden; }
+.moon-portfolio__toggle { display: flex; align-items: center; gap: 9px; width: 100%; background: transparent; color: #c8c6d3; padding: 11px 16px; border: 0; font-size: 11px; cursor: pointer; text-align: left; }
+.moon-portfolio__toggle svg:last-child { margin-left: auto; }
+.moon-portfolio__destinations { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0 8px 8px; }
+.moon-destination { min-width: 0; display: flex; align-items: center; gap: 9px; text-align: left; border: 1px solid #ffffff12; border-radius: 9px; background: #ffffff05; color: #f2efe8; padding: 12px 10px; cursor: pointer; transition: background .2s, border-color .2s; }
+.moon-destination:hover, .moon-destination[aria-pressed="true"] { border-color: var(--project-color); background: color-mix(in srgb, var(--project-color) 12%, #171925); }
+.moon-destination__number { color: var(--project-color); font: 11px monospace; }
+.moon-destination strong { display: block; font-size: 12px; font-weight: 600; }
+.moon-destination small { display: block; font-size: 9px; margin-top: 5px; color: #b7b6c4; }
+.moon-destination > svg { margin-left: auto; flex-shrink: 0; color: var(--project-color); }
+.moon-portfolio__foot { display: flex; align-items: center; gap: 16px; padding: 9px 16px; border-top: 1px solid #ffffff0c; font-size: 9px; color: #aaa9b8; }
+.moon-portfolio__foot button, .moon-portfolio__foot a { display: inline-flex; align-items: center; gap: 5px; background: transparent; border: 0; color: #d0cedc; text-decoration: none; font: inherit; cursor: pointer; min-height: 24px; }
+.moon-portfolio__foot a { margin-left: auto; }
+.moon-project { display: grid; grid-template-columns: 105px minmax(0, 1fr); position: relative; width: min(390px, 100%); pointer-events: auto; margin-bottom: 12px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--project-color) 45%, transparent); border-radius: 14px; background: #151724; box-shadow: 0 15px 60px #0006; }
+.moon-project__image { width: 100%; height: 100%; min-height: 200px; object-fit: cover; object-position: top center; background: #24283a; }
+.moon-project__body { padding: 21px 30px 20px 22px; }
+.moon-project__eyebrow { display: block; font-size: 9px; letter-spacing: .12em; color: var(--project-color); margin-bottom: 9px; }
+.moon-project h2 { font: 500 22px/1.15 'Montserrat', sans-serif; letter-spacing: -.04em; margin: 0 0 10px; text-transform: none; }
+.moon-project p { color: #c5c5cf; font-size: 11px; line-height: 1.75; margin: 0 0 15px; }
+.moon-project__link { display: inline-flex; align-items: center; gap: 16px; color: var(--project-color); font-size: 11px; font-weight: 600; text-decoration: none; }
+.moon-project__close { position: absolute; right: 6px; top: 6px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; border: 0; background: #151724; color: #f2efe8; cursor: pointer; }
+.moon-portfolio__announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.moon-root .moon-work-stop { display: flex; align-items: center; gap: 14px; width: 100%; margin-top: 14px; padding: 10px; border: 1px solid #ffffff25; border-radius: 9px; background: #ffffff05; color: #f2efe8; text-align: left; cursor: pointer; }
+.moon-work-stop img { width: 85px; height: 72px; object-fit: cover; object-position: top; border-radius: 4px; }
+.moon-work-stop strong, .moon-work-stop small, .moon-work-stop span > span { display: block; }
+.moon-work-stop strong { font-size: 16px; margin: 7px 0; }
+.moon-work-stop small { font-size: 9px; color: #c5bedb; }
+.moon-work-stop span > span { font-size: 9px; letter-spacing: .08em; color: #b6a9ff; }
+.moon-work-stop:hover { border-color: #b6a9ff; }
+body.moon-exploring .hud-speed, body.moon-exploring .hint { display: none !important; }
+body.moon-exploring .moon-root .corner { opacity: .3; }
+body.moon-exploring .moon-root .frame { opacity: .45; }
+body.space-mode .moon-portfolio { display: none; }
+.moon-camera { position: fixed; top: 78px; right: 150px; z-index: 31; display: flex; align-items: center; padding: 4px; background: #141623ed; border: 1px solid #ffffff26; border-radius: 10px; color: #efecf5; }
+.moon-camera button { display: grid; place-items: center; min-width: 34px; min-height: 34px; background: transparent; border: 0; border-radius: 7px; color: inherit; cursor: pointer; font: 10px 'Montserrat', sans-serif; padding: 0 8px; }
+.moon-camera button:hover { background: #ffffff15; }
+.moon-camera button:focus-visible { outline: 2px solid #d6cbff; }
+body.space-mode .moon-camera { display: none; }
+.moon-business { position: fixed; z-index: 31; right: 150px; top: 24px; display: flex; gap: 8px; font: 500 11px 'Montserrat', sans-serif; }
+.moon-business a { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 0 18px; background: #141623ed; border: 1px solid #ffffff26; border-radius: 8px; color: #f2efe8; text-decoration: none; }
+.moon-business .moon-business__contact { background: #e8c48e; border-color: #e8c48e; color: #191a24; }
+.moon-business a:focus-visible { outline: 2px solid #d6cbff; outline-offset: 4px; }
+body.moon-exploring .moon-root .qt-pill, body.moon-exploring .moon-root .frame, body.moon-exploring .moon-root .corner { display: none; }
+body.moon-exploring .moon-root .nav { top: 24px; left: 24px; }
+body.moon-exploring .moon-root .wordmark .wm-logo { height: 42px; }
+body.moon-exploring .moon-root .wordmark small { display: none; }
+body.moon-exploring .moon-root .edge { opacity: .28; }
+body.moon-exploring .im-hub { left: auto; right: 150px; bottom: 106px; }
+body.moon-exploring .moon-root .hud-radar { top: auto !important; bottom: 150px !important; right: 150px !important; left: auto !important; }
+body.moon-exploring .moon-root .hud-obj { top: auto !important; bottom: 350px !important; right: 150px !important; left: auto !important; }
+@media (max-width: 1000px) and (min-width: 768px) {
+  .moon-portfolio { left: 20px; transform: none; width: min(430px, calc(100% - 164px)); }
+  body.moon-exploring .compass { bottom: 200px !important; }
+}
+@media (max-width: 767px) {
+  .moon-portfolio { left: 12px; bottom: 160px; width: calc(100% - 24px); transform: none; }
+  .moon-camera { right: 12px; top: 108px; }
+  .moon-business { left: 12px; right: 12px; top: 59px; justify-content: center; }
+  .moon-business a { min-height: 40px; padding: 0 14px; font-size: 10px; }
+  body.moon-exploring .m-travel { display: none !important; }
+  body.moon-exploring .im-hub { display: none; }
+  .moon-camera button { min-width: 44px; min-height: 44px; }
+  .moon-portfolio__status { font-size: 9px; }
+  .moon-portfolio__toggle { min-height: 44px; padding: 10px 12px; }
+  .moon-portfolio__destinations { gap: 4px; padding: 0 6px 6px; }
+  .moon-destination { padding: 10px 6px; gap: 5px; min-height: 52px; }
+  .moon-destination strong { font-size: 10px; }
+  .moon-destination small, .moon-destination > svg { display: none; }
+  .moon-destination__number { font-size: 9px; }
+  .moon-portfolio__keys { display: none; }
+  .moon-portfolio__foot { padding: 0 12px; }
+  .moon-portfolio__foot button, .moon-portfolio__foot a { min-height: 40px; }
+  .moon-project { grid-template-columns: 90px minmax(0, 1fr); margin-bottom: 8px; width: 100%; }
+  .moon-project__body { padding: 15px 24px 15px 14px; }
+  .moon-project__image { min-height: 156px; }
+  .moon-project h2 { font-size: 18px; }
+  .moon-project p { font-size: 10px; line-height: 1.5; margin-bottom: 9px; }
+  .moon-project__close { width: 38px; height: 38px; right: 0; top: 0; }
+  .moon-project__link { min-height: 36px; font-size: 10px; }
+}
+@media (max-height: 620px) {
+  .moon-project__image { min-height: 100px; }
+  .moon-project__body { padding: 12px 30px 12px 15px; }
+  .moon-project p { display: none; }
+  .moon-portfolio { bottom: 16px; }
+}
+@media (max-height: 620px) and (max-width: 767px) { .moon-portfolio { bottom: 130px; } }
+@media (prefers-reduced-motion: reduce) { .moon-destination { transition: none; } }
