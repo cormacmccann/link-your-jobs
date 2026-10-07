@@ -1,0 +1,18 @@
+{
+  "generator": "Built-in image_gen",
+  "transparent_background": true,
+  "selectedAssets": [
+    "public/art/orbit/cinematic-terrain.webp",
+    "public/art/orbit/cinematic-moon.webp"
+  ],
+  "prompts": [
+    {
+      "key": "cinematic-terrain",
+      "prompt": "Use case: photorealistic-natural. Asset: transparent panoramic lunar terrain layer for a sophisticated cinematic creative-studio website. Actual alpha transparency above the horizon; no sky or rectangular matte. Create a photographic, physically believable desolate moon surface stretching across a very wide 3:1 image. Low distant ridge, vast empty plain, razor-sharp rough basalt, powdery regolith and subtle geological texture. Low horizon in bottom half, foreground flows off bottom/left/right edges. A single distant tiny research antenna right of centre for scale. Frame looks like a still from a serious 70mm science-fiction film, shot on location with real miniature terrain and anamorphic lens. Deep midnight navy and almost-black shadows, very restrained violet edge-light on distant ridges, a whisper of cold cyan light from horizon. No candy colour, no pink mountains, no oversaturation, no glowing crystals, no fantasy illustration, no game art, no cute shapes, no neon outlines, no people, no monkey, no planets, no text. Majestic, quiet, tactile, dark, cinematic. Fine real film grain, not painterly. Transparent alpha outside the ground silhouette."
+    },
+    {
+      "key": "cinematic-moon",
+      "prompt": "Use case: photorealistic-natural. Asset: isolated transparent celestial body for a premium dark cinematic website. A single enormous realistic cratered moon in a nearly total eclipse, entire circular disc visible and fully inside image. 1:1 canvas. The body is 85 percent swallowed by deep midnight shadow, with one narrow cream-white crescent at upper left revealing extraordinarily detailed realistic lunar craters and relief. Subtle violet reflected light near lower limb, barely visible cyan glancing highlight. Looks like NASA-grade lunar photography from a cinema camera with deep black exposure, no stylisation. Tiny fine film grain. Actual alpha transparent background outside disc, no sky, no stars, no halo, no neon rings, no saturated globe, no toys, no cartoon, no text. Dark, mysterious and physically believable. Keep darkness INSIDE the disc opaque, only the surroundings transparent."
+    }
+  ]
+}

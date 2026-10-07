@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { Lightbulb, FileText } from "lucide-react";
+import ActionFeedback from "@/components/kamrok/ActionFeedback";
+
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const NOTES = [
@@ -40,15 +43,15 @@ export default function Blog() {
             <h2>{n.title}</h2>
             <p>{n.body}</p>
             {n.to && (
-              <Link className="kk-visit kk-visit--solid" to={n.to}>
-                READ THE CASE STUDY →
+              <Link className="kk-visit kk-visit--solid cinematic-action" to={n.to}>
+                Read the case study <ActionFeedback icon={FileText} />
               </Link>
             )}
           </article>
         ))}
       </div>
 
-      <Link className="kk-cta" to="/contact">START A PROJECT →</Link>
+      <Link className="kk-cta cinematic-action" to="/contact">Start a project <ActionFeedback icon={Lightbulb} /></Link>
     </KamrokLayout>
   );
 }

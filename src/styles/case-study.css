@@ -16,10 +16,10 @@
 .case-page main:focus { outline: none; }
 .case-page h1, .case-page h2 {
   display: block;
-  font-family: 'Montserrat', 'Segoe UI', sans-serif !important;
+  font-family: 'Oswald', 'GOBOLD', 'Arial Narrow', Impact, sans-serif !important;
   font-style: normal !important;
   font-weight: 500;
-  text-transform: none;
+  text-transform: uppercase;
   letter-spacing: -.045em;
   background: none;
   -webkit-text-fill-color: currentColor;
@@ -92,3 +92,11 @@
   .case-next-image { display: none; }
   .case-next h2 { font-size: 28px; margin-bottom: 9px; }
 }
+
+/* Interface screenshots keep their original proportions and readable details. */
+.case-page--screens .case-hero .case-image-surface,
+.case-page--screens .case-gallery .case-image-surface { aspect-ratio: auto; }
+.case-page--screens :is(.case-hero,.case-gallery) img { height: auto; max-height: none; object-fit: contain; }
+.case-page--screens .case-gallery { align-items: start; gap: 40px 24px; }
+.case-page--screens .case-gallery > figure:first-child { grid-column: 1 / -1; }
+@media(max-width:767px) { .case-page--screens .case-gallery { gap: 28px; } }

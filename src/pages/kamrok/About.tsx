@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { Orbit } from "lucide-react";
+import { useStudioTheme } from "@/hooks/useStudioTheme";
+import ActionFeedback from "@/components/kamrok/ActionFeedback";
+
+import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
-import cormacPhoto from "@/assets/team/cormac.png.asset.json";
-import kaylaPhoto from "@/assets/team/kayla.png.asset.json";
 
 const PRINCIPLES = [
   { h: "Clarity over decoration", p: "Every element earns its place. If it doesn't help the visitor, it goes." },
@@ -12,30 +15,32 @@ const PRINCIPLES = [
 
 const TEAM = [
   {
-    id: "cormac", name: "Cormac McCann", role: "Founder · Design & development", photo: cormacPhoto.url,
+    id: "cormac", name: "Cormac McCann", role: "Founder · Design & development",
     bio: "Cormac designs and builds our sites from first sketch to launch. His background in hospitality, sales and marketing brings a practical understanding of what a business needs from its website.",
   },
   {
-    id: "kayla", name: "Kayla Minto", role: "Creative & client projects", photo: kaylaPhoto.url,
+    id: "kayla", name: "Kayla Minto", role: "Creative & client projects",
     bio: "A Creative Media graduate from DKIT, Kayla brings experience across sales, hardware and software. She keeps projects and clients moving, with a fresh creative eye on everything we make.",
   },
 ];
 
 export default function About() {
+  const { theme } = useStudioTheme();
   return (
     <KamrokLayout
       title="About KAMROK — Design Studio in Dundalk"
       description="Meet Cormac McCann and Kayla Minto, the small, hands-on team behind KAMROK. Design and development from Dundalk, Ireland."
     >
-      <div className="kk-eyebrow">THE STUDIO</div>
-      <h1>Small team.<br />Considered work.</h1>
-      <p className="kk-lead-text">We’re KAMROK, the design studio of Candy Shop Digital Ltd. Based in Dundalk, Ireland, we bring brands, websites and digital products to life.</p>
-      <div className="kk-body"><p>We work with you from the first conversation to launch. For bigger projects, we bring in a trusted circle of specialists — with the same care throughout.</p></div>
+      <div className="studio-about-intro"><div><div className="kk-eyebrow">THE STUDIO</div>
+      <h1>A curious mind.<br />A changing world.</h1>
+      <p className="kk-lead-text">I’m Cormac: designer, illustrator, marketer and the curious mind behind KAMROK. A certified Lovable expert and award-winning WordPress designer, I love finding what new technology makes possible — then making something useful, distinctive and full of personality.</p>
+      </div><figure className="orbit-profile orbit-profile--studio"><img src={`/people/cormac-mccann-${theme}.webp`} alt="Cormac McCann in an astronaut helmet, lit in ruby and cyan" width="720" height="956" decoding="async" /><figcaption><strong>Cormac McCann</strong><span>Designer. Illustrator. Marketer.</span></figcaption></figure></div>
+      <div className="kk-body"><p>Based in Dundalk, Ireland, we work directly with you from first conversation to launch. KAMROK is part of Candy Shop Digital Ltd, with a small team and a trusted circle of specialists for bigger projects.</p></div>
+      <div className="orbit-about-cert"><a className="orbit-lovable-link" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer" aria-label="Explore Lovable — affiliate link"><img src="/certifications/lovable-certified-full-on-dark.svg" alt="Lovable certified" width="522" height="176" /></a><div><span className="orbit-eyebrow">RECOGNISED FOR THE WORK</span><p>Best Use of Internet Technology<br /><small>Business Awards</small></p></div></div>
       <h2 className="kk-sub">The people behind it</h2>
       <div className="studio-team">
         {TEAM.map((member) => (
           <article key={member.id} id={member.id}>
-            <img src={member.photo} alt={member.name} width="100" height="110" loading="lazy" />
             <h3>{member.name}</h3>
             <p className="studio-team-role">{member.role}</p>
             <p>{member.bio}</p>
@@ -48,7 +53,7 @@ export default function About() {
       </div>
       <h2 className="kk-sub">And the moon?</h2>
       <div className="kk-body"><p>A little room to play. Our explorable world brings together the design, code and interaction we love working on.</p></div>
-      <Link className="kk-cta" to="/">Explore the moon ↗</Link>
+      <Link className="kk-cta cinematic-action" to="/fun">Explore the moon <ActionFeedback icon={Orbit} /></Link>
     </KamrokLayout>
   );
 }

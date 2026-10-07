@@ -1,0 +1,19 @@
+{
+  "generator": "Built-in image_gen",
+  "reference": "monkey-reference.jpg",
+  "transparent_background": true,
+  "prompts": [
+    {
+      "key": "terrain",
+      "prompt": "Use case: stylized-concept. Asset type: transparent wide parallax terrain layer for KAMROK portfolio website. Input image is STYLE REFERENCE ONLY: match its rich cinematic astronaut-monkey universe, realistic crafted materials and vibrant rim lighting, not its layout. Create one panoramic low lunar ridge, 3:1 wide composition, occupying lower half of canvas, upper half entirely transparent alpha. Amethyst craggy moon rocks, sculpted powdery lunar valleys, distant layered peaks softly receding. A tiny elegant observatory on the far right with mint-lit windows. Rich navy shadows, purple and hot pink luminous edges, icy cyan highlights. Detailed painterly realism, fine dry-brush contours and subtle pencil texture, cinematic but handmade. Terrain runs off left/right/bottom edges for seamless full-width website layering. Keep middle horizon LOW to leave room for HTML text above. No sky, no backdrop, no stars, no planet, no characters, no lettering, no logos, no checkerboard. Actual clean transparent background with alpha around the upper silhouette. This is one single landscape layer, not a sheet or collage."
+    },
+    {
+      "key": "foreground",
+      "prompt": "Use case: stylized-concept. Asset type: transparent foreground illustration layer for a designer/illustrator portfolio hero. Input image is style and character reference. Create a warm, curious astronaut chimp with expressive realistic face and beautiful fur, wearing a detailed cream-and-navy spacesuit with purple, pink and cyan/mint edge lighting, seated beside an open dark laptop on a small rugged lunar rock shelf. Three-quarter view facing slightly left. Match the original chimp's crafted cinematic aesthetic, enriched with fine hand-painted brush texture and delicate pencil contour accents. Portrait 4:5 composition; character and small rock base centered, whole body fully contained, plenty of transparent margin. Warm and playful, highly detailed, editorial art direction, not cartoon emoji or plastic toy. Navy shadows, luminous purple/pink/mint. NO orange wash. Actual transparent alpha background everywhere outside chimp, laptop and small rock shelf. No sky, no stars, no distant landscape, no floating symbols, no text, no logos, no watermark, no checkerboard."
+    },
+    {
+      "key": "planet",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent planet layer for an original space portfolio parallax hero. Input is a style reference for luminous cinematic material detail. One majestic lilac and pink ringed planet, entire planet and all rings fully visible with wide transparent margins, 1:1 canvas. Planet has marbled cloud bands, subtle craters and hand-painted grain, a luminous mint-cyan thin ring sweeping diagonally lower-left to upper-right, rich navy shadow on lower-right. Glowing highlights with believable dimensionality, beautiful rich painterly texture with occasional fine sketch contours, premium editorial sci-fi illustration. Actual transparent alpha background; no sky, no nebula, no stars, no horizon, no monkey, no text, no logos, no checkerboard. No rectangular matte. Edges are crisp with very subtle translucent glow."
+    }
+  ]
+}

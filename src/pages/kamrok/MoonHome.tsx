@@ -46,7 +46,7 @@ const ATV_SVG = `
 
 export default function MoonHome() {
   useEffect(() => {
-    document.title = "KAMROK — Cormac · Web Designer & Interactive Portfolio";
+    document.title = "The Moon Playground | KAMROK";
   }, []);
 
   // Wire objective list quick-travel: click li -> trigger matching nav button (drives buggy there)
@@ -88,7 +88,8 @@ export default function MoonHome() {
 
   return (
     <MoonBoundary fallback={<MoonHomeFallback />} label="moon-home">
-      <MoonExperience />
+      <MoonExperience autoEnter />
+      <Link className="moon-return-site" to="/">← Back to the website</Link>
     </MoonBoundary>
   );
 }

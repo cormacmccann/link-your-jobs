@@ -101,7 +101,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
         <div className="im-rail-wordmark">KAMROK · DESIGN STUDIO</div>
         <div className="im-rail-bottom">
           <Link
-            to="/"
+            to="/fun"
             className="im-rail-icon im-rail-moon"
             aria-label="Back to the moonscape"
             onClick={() => {
@@ -184,11 +184,11 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
             ))}
           </ul>
           <div className="im-nav-section">
-            <a href="/" className="im-nav-secondary">
+            <Link to="/fun" className="im-nav-secondary">
               <span className="im-nav-tag">INTERACTIVE</span>
               <span className="im-nav-sec-label">MOONSCAPE</span>
               <span className="im-nav-note">Drive the buggy</span>
-            </a>
+            </Link>
           </div>
           <div className="im-nav-socials">
             {SOCIAL.map((s) => {

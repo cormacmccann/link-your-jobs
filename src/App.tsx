@@ -8,6 +8,8 @@ import { lazy, Suspense } from "react";
 import NotFound from "./pages/NotFound";
 import SeoRouteSync from "./components/SeoRouteSync";
 import StudioShell from "./components/kamrok/StudioShell";
+import { StudioThemeProvider } from "./components/kamrok/StudioTheme";
+import StudioHome from "./pages/kamrok/StudioHome";
 
 // Retry a dynamic import once, then hard-reload to recover from stale chunk
 // hashes after a new deploy (the old index.js references chunks that no longer exist).
@@ -25,12 +27,12 @@ const lazyRetry = <T,>(factory: () => Promise<T>) =>
     }),
   );
 
-// KAMROK site — eagerly load the moon homepage so first paint is fast,
-// lazy-load every other route so phones don't pull tools/case-study chunks upfront.
-import MoonHome from "./pages/kamrok/MoonHome";
+// The playground only downloads after a visitor chooses FUN.
+const MoonHome = lazyRetry(() => import("./pages/kamrok/MoonHome"));
 
 const About = lazyRetry(() => import("./pages/kamrok/About"));
 const Work = lazyRetry(() => import("./pages/kamrok/Work"));
+const Templates = lazyRetry(() => import("./pages/kamrok/Templates"));
 const CaseStudy = lazyRetry(() => import("./pages/kamrok/CaseStudy"));
 const Skills = lazyRetry(() => import("./pages/kamrok/Skills"));
 const Blog = lazyRetry(() => import("./pages/kamrok/Blog"));
@@ -63,7 +65,7 @@ const TrustpilotIntegration = lazyRetry(() => import("./pages/TrustpilotIntegrat
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
-  <div style={{ minHeight: "100vh", background: "#07071a" }} aria-hidden />
+  <div style={{ minHeight: "100vh", background: "#0c1a1d" }} aria-hidden />
 );
 
 const App = () => {
@@ -73,13 +75,16 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <StudioThemeProvider>
           <SeoRouteSync />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
-              <Route path="/" element={<MoonHome />} />
+              <Route path="/fun" element={<MoonHome />} />
               <Route element={<StudioShell />}>
+                <Route path="/" element={<StudioHome />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/work" element={<Work />} />
+                <Route path="/templates" element={<Templates />} />
                 <Route path="/work/:slug" element={<CaseStudy />} />
                 <Route path="/skills" element={<Skills />} />
                 <Route path="/blog" element={<Blog />} />
@@ -112,6 +117,7 @@ const App = () => {
               </Route>
             </Routes>
           </Suspense>
+        </StudioThemeProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

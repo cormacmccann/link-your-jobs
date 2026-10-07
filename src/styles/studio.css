@@ -35,12 +35,12 @@
 .studio-page a { text-decoration: none; }
 .studio-page :is(a, button, summary, input, textarea):focus-visible { outline: 2px solid var(--studio-gold); outline-offset: 5px; }
 .studio-page main:focus { outline: none; }
-.studio-page :is(h1,h2,h3,h4), .studio-page .kk-step h3, .studio-page .kk-team-name {
+.studio-page :is(h1,h2,h3,h4,h5,h6), .studio-page .kk-step h3, .studio-page .kk-team-name {
   display: block;
-  font-family: 'Montserrat', 'Segoe UI', sans-serif !important;
+  font-family: 'Oswald', 'GOBOLD', 'Arial Narrow', Impact, sans-serif !important;
   font-style: normal !important;
   font-weight: 500;
-  text-transform: none !important;
+  text-transform: uppercase !important;
   letter-spacing: -.035em;
   line-height: 1.2;
   background: none !important;
@@ -157,7 +157,7 @@
 .studio-tools [data-glow]::before, .studio-tools [data-glow]::after, .studio-tools [data-glow] > [data-glow] { display: none; }
 .studio-tools h1 { letter-spacing: -.04em; line-height: 1.15; }
 .studio-tools :is(h2,h3) { letter-spacing: -.025em; }
-.studio-tools .bg-white :is(h1,h2,h3,h4) { color: #111827 !important; }
+.studio-tools .bg-white :is(h1,h2,h3,h4,h5,h6) { color: #111827 !important; }
 
 @media(max-width: 900px) {
   .studio-container { width: calc(100% - 48px); }

@@ -81,7 +81,7 @@ export default function MobileNav({ onMoon = false }: { onMoon?: boolean }) {
           </ul>
 
           {!onMoon && (
-            <Link to="/" className="im-mnav-moon">
+            <Link to="/fun" className="im-mnav-moon">
               <span className="im-mnav-tag">INTERACTIVE</span>
               <span className="im-mnav-moon-label">MOONSCAPE →</span>
             </Link>

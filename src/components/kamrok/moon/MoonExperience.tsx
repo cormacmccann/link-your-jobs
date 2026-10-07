@@ -12,12 +12,12 @@ import { moonSession } from "./moonSession";
 // blows past mobile context limits and would regress the mobile fix.
 const KamrokSpaceGame = lazy(() => import("@/components/kamrok/space-game/KamrokSpaceGame"));
 
-export default function MoonExperience() {
+export default function MoonExperience({ autoEnter = false }: { autoEnter?: boolean }) {
   const [isDesktop] = useState(
     () => typeof window !== "undefined" && !window.matchMedia("(max-width: 767px)").matches
   );
   const [inSpace, setInSpace] = useState(false);
-  const [exploring, setExploring] = useState(moonSession.entered);
+  const [exploring, setExploring] = useState(moonSession.entered || autoEnter);
 
   useEffect(() => {
     const enter = () => setExploring(true);
@@ -31,14 +31,14 @@ export default function MoonExperience() {
     styleEl.textContent = moonCss;
     document.head.appendChild(styleEl);
 
-    // Phones: don't download the 3.7MB hero video on mobile data — the intro's
-    // gradient + logo carry it. (Desktop keeps the full cinematic.)
-    if (window.matchMedia("(max-width: 767px)").matches) {
+    // Direct entry skips the old introductory video entirely.
+    if (autoEnter || window.matchMedia("(max-width: 767px)").matches) {
       document.querySelectorAll(".moon-root video.hero-vid").forEach((v) => v.remove());
     }
 
     let stop: () => void = () => {};
     try {
+      if (autoEnter) moonSession.entered = true;
       stop = startMoonExperience();
     } catch (e) {
       console.error("MoonExperience failed to start", e);
@@ -48,7 +48,7 @@ export default function MoonExperience() {
       try { stop(); } catch (e) { /* noop */ }
       styleEl.remove();
     };
-  }, []);
+  }, [autoEnter]);
 
   useEffect(() => {
     if (!isDesktop) return;
