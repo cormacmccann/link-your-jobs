@@ -12,7 +12,7 @@ export default function ScrollFilm({ source = monkeyFilm.url, poster, id = "film
   const [load, setLoad] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -23,6 +23,7 @@ export default function ScrollFilm({ source = monkeyFilm.url, poster, id = "film
     observer.observe(section);
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(preference.matches);
+    update();
     preference.addEventListener("change", update);
     return () => { observer.disconnect(); preference.removeEventListener("change", update); };
   }, []);

@@ -9,7 +9,8 @@ export default function MoonPortfolio({ hidden }: { hidden: boolean }) {
   const [entered, setEntered] = useState(moonSession.entered);
   const [selected, setSelected] = useState<MoonProjectId | null>(null);
   const [nearby, setNearby] = useState<MoonProjectId | null>(null);
-  const [expanded, setExpanded] = useState(() => !window.matchMedia("(max-width: 767px)").matches);
+  const [expanded, setExpanded] = useState(true);
+  useEffect(() => { setExpanded(!window.matchMedia("(max-width: 767px)").matches); }, []);
   const [hoops, setHoops] = useState(0);
   const [goals, setGoals] = useState(0);
   const [visited, setVisited] = useState<MoonProjectId[]>(() => MOON_PROJECTS.filter(p => moonSession.visited.includes(p.id)).map(p => p.id));
