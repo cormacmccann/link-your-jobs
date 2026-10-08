@@ -16,7 +16,7 @@ const NAV = [
   ["/contact", "Let’s talk", "A big idea or a small question. Start here."],
 ];
 export type DrawerKind = "menu" | "fun" | null;
-export default function StudioDrawer({ kind, onChange, trigger }: { kind: DrawerKind; onChange: (kind: DrawerKind) => void; trigger: React.RefObject<HTMLElement> }) {
+export default function StudioDrawer({ kind, onChange, trigger }: { kind: DrawerKind; onChange: (kind: DrawerKind) => void; trigger: React.RefObject<HTMLElement | null> }) {
   const { theme } = useStudioTheme();
   const fun = kind === "fun";
   return <Dialog.Root open={kind !== null} onOpenChange={open => { if (!open) onChange(null); }}>
