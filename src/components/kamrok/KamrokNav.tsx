@@ -89,7 +89,7 @@ export default function KamrokNav({ onMoon = false }: { onMoon?: boolean }) {
           <Menu size={18} strokeWidth={1.4} />
         </button>
         <Link to="/" className="im-rail-logo" aria-label="KAMROK home">
-          <img src={kamrokLogo.url} alt="KAMROK" />
+          <img src={kamrokLogo.url} alt="KAMROK studio logo" />
         </Link>
         <div className="im-rail-icons">
           <Link to="/about" className="im-rail-icon"><Users size={16} strokeWidth={1.4} /><span>ABOUT</span></Link>

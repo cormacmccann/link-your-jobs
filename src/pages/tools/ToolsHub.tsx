@@ -139,7 +139,8 @@ export default function ToolsHub() {
       </section>
 
       {/* Filter pills */}
-      <section className="px-6 mb-10">
+      <section className="px-6 mb-10" aria-labelledby="tools-filter-title">
+        <h2 id="tools-filter-title" className="sr-only">Filter tools by category</h2>
         <div className="w-full mx-auto flex flex-wrap items-center justify-center gap-2">
           {FILTERS.map((f) => {
             const isActive = active === f.id;
@@ -162,7 +163,8 @@ export default function ToolsHub() {
       </section>
 
       {/* Tools Grid */}
-      <section className="px-6 pb-24">
+      <section className="px-6 pb-24" aria-labelledby="tools-grid-title">
+        <h2 id="tools-grid-title" className="sr-only">Free business, design, marketing and legal tools</h2>
         <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-stroke border border-stroke rounded-2xl overflow-hidden">
           {filtered.map((tool, i) => {
             const Icon = tool.icon;

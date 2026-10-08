@@ -26,9 +26,27 @@ export default function SeoRouteSync() {
       upsert('meta[property="og:image"]', meta("og:image"), "content", image);
       upsert('meta[name="twitter:image"]', () => { const m = document.createElement("meta"); m.name = "twitter:image"; return m; }, "content", image);
       upsert('meta[property="og:title"]' , meta("og:title"), "content", document.title);
+      if (pathname.startsWith("/tools/")) {
+        const lead = document.querySelector("main h1")?.parentElement?.querySelector("p")?.textContent?.trim();
+        const name = document.querySelector("main h1")?.textContent?.trim();
+        if (lead && name) upsert('meta[name="description"]', () => { const m = document.createElement("meta"); m.name = "description"; return m; }, "content", `${name}: ${lead}. A free tool from KAMROK, no login needed.`);
+      }
       const desc = document.querySelector('meta[name="description"]')?.getAttribute("content");
       if (desc) upsert('meta[property="og:description"]', meta("og:description"), "content", desc);
-    }, 50);
+      const d = document.querySelector('meta[name="description"]')?.getAttribute("content") || "";
+      const headline = document.title.replace(/\s*[|—].*$/, "");
+      let ld: Record<string, unknown> | null = null;
+      if (pathname === "/work") ld = { "@type": "CollectionPage", name: document.title, description: d, url };
+      else if (pathname.startsWith("/work/")) ld = { "@type": "Article", headline, description: d, url, author: { "@id": `${BASE}/#org` }, publisher: { "@id": `${BASE}/#org` } };
+      else if (pathname.startsWith("/tools/")) ld = { "@type": "WebApplication", name: headline, description: d, url, applicationCategory: "BusinessApplication", operatingSystem: "Any", offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" }, provider: { "@id": `${BASE}/#org` } };
+      document.getElementById("route-ld")?.remove();
+      if (ld) {
+        const s = document.createElement("script");
+        s.type = "application/ld+json"; s.id = "route-ld";
+        s.text = JSON.stringify({ "@context": "https://schema.org", ...ld });
+        document.head.appendChild(s);
+      }
+    }, 400);
     return () => window.clearTimeout(t);
   }, [pathname]);
   return null;

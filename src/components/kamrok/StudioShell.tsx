@@ -42,7 +42,7 @@ export default function StudioShell() {
       <a className="studio-skip" href="#studio-content">Skip to content</a>
       <div className="studio-header-wrap">
         <header className="studio-header studio-container">
-          <Link to="/" className="studio-logo" aria-label="KAMROK home"><img src={theme === "light" ? "/kamrok-logo-bright-mode.png" : kamrokLogo.url} alt="KAMROK" width="118" height="66" /></Link>
+          <Link to="/" className="studio-logo" aria-label="KAMROK home"><img src={theme === "light" ? "/kamrok-logo-bright-mode.png" : kamrokLogo.url} alt="KAMROK studio logo" width="118" height="66" /></Link>
           <nav className="studio-desktop-nav" aria-label="Main navigation">
             {LINKS.map(link => <NavLink className="cinematic-action" key={link.to} to={link.to}>{link.label}<ActionFeedback icon={link.icon} size={15} /></NavLink>)}
             <NavLink className="cinematic-action" to="/contact">Let’s talk <ActionFeedback icon={MessageCircle} size={15} /></NavLink>
