@@ -6,6 +6,12 @@ import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const NOTES = [
   {
+    date: "OCT 2026",
+    title: "How to get found on Google in Dundalk (I only copped this myself)",
+    body: "I build websites for a living and I still only fixed my own Google listing a couple of weeks ago. Referrals have been kind to me, but that's luck, not a plan. Here's the step-by-step guide I wish someone had handed me — Google Business Profile, reviews, local keywords, the lot.",
+    to: "/blog/dundalk-seo-guide",
+  },
+  {
     date: "JUN 2026",
     title: "Why we built a moon",
     body: "Most portfolios are a grid of screenshots and a contact form. Ours is a place you drive through. We think the work should feel like the thing it's selling — so we built a moon, put a buggy on it, and hid our projects out in the dark. If a portfolio can be an experience, it should be.",
@@ -44,7 +50,7 @@ export default function Blog() {
             <p>{n.body}</p>
             {n.to && (
               <Link className="kk-visit kk-visit--solid cinematic-action" to={n.to}>
-                Read the case study <ActionFeedback icon={FileText} />
+                {n.to.startsWith("/work/") ? "Read the case study" : "Read the guide"} <ActionFeedback icon={FileText} />
               </Link>
             )}
           </article>
