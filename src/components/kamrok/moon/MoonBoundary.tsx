@@ -16,17 +16,17 @@ interface State {
  * This catches it and shows a graceful fallback instead.
  */
 export default class MoonBoundary extends Component<Props, State> {
-  state: State = { hasError: false };
+  override state: State = { hasError: false };
 
-  static getDerivedStateFromError(): State {
+  static override getDerivedStateFromError(): State {
     return { hasError: true };
   }
 
-  componentDidCatch(error: unknown) {
+  override componentDidCatch(error: unknown) {
     console.warn(`MoonBoundary${this.props.label ? ` (${this.props.label})` : ""} caught:`, error);
   }
 
-  render() {
+  override render() {
     return this.state.hasError ? this.props.fallback : this.props.children;
   }
 }

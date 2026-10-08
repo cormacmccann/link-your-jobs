@@ -26,7 +26,7 @@ export default function Galaxy({ paused = false, className = "" }: { paused?: bo
     const resize = () => {
       if (!renderer) return;
       renderer.setSize(Math.max(1, host.clientWidth), Math.max(1, host.clientHeight));
-      program.uniforms.uResolution.value = new Float32Array([renderer.gl.canvas.width, renderer.gl.canvas.height, host.clientWidth / Math.max(1, host.clientHeight)]);
+      program.uniforms["uResolution"]!.value = new Float32Array([renderer.gl.canvas.width, renderer.gl.canvas.height, host.clientWidth / Math.max(1, host.clientHeight)]);
       if (visible && !document.hidden) renderer.render({ scene: mesh });
     };
     const init = () => {
@@ -55,11 +55,11 @@ export default function Galaxy({ paused = false, className = "" }: { paused?: bo
         canvas.addEventListener("webglcontextlost", lost);
         host.appendChild(canvas);
         resize();
-        host.dataset.ready = "true";
+        host.dataset["ready"] = "true";
       } catch {
         failed = true;
         stop();
-        host.dataset.ready = "false";
+        host.dataset["ready"] = "false";
         renderer?.gl.getExtension("WEBGL_lose_context")?.loseContext();
         renderer = undefined;
         host.replaceChildren();
@@ -72,12 +72,12 @@ export default function Galaxy({ paused = false, className = "" }: { paused?: bo
       if (!previous || now - previous >= 1000 / 30) {
         time += previous ? Math.min(now - previous, 100) / 1000 : 0;
         previous = now;
-        program.uniforms.uTime.value = time;
-        program.uniforms.uStarSpeed.value = .5 + time * .05;
-        const mouse = program.uniforms.uMouse.value;
+        program.uniforms["uTime"]!.value = time;
+        program.uniforms["uStarSpeed"]!.value = .5 + time * .05;
+        const mouse = program.uniforms["uMouse"]!.value;
         mouse[0] += (targetX - mouse[0]) * .09;
         mouse[1] += (targetY - mouse[1]) * .09;
-        program.uniforms.uMouseActiveFactor.value += (targetActive - program.uniforms.uMouseActiveFactor.value) * .09;
+        program.uniforms["uMouseActiveFactor"]!.value += (targetActive - program.uniforms["uMouseActiveFactor"]!.value) * .09;
         renderer.render({ scene: mesh });
       }
       frame = requestAnimationFrame(update);
@@ -87,11 +87,11 @@ export default function Galaxy({ paused = false, className = "" }: { paused?: bo
       if (!visible || document.hidden || failed) return;
       init();
       if (!renderer) return;
-      program.uniforms.uMouseActiveFactor.value = 0;
+      program.uniforms["uMouseActiveFactor"]!.value = 0;
       renderer.render({ scene: mesh });
       if (moving()) frame = requestAnimationFrame(update);
     };
-    function lost(event: Event) { event.preventDefault(); failed = true; stop(); host!.dataset.ready = "false"; }
+    function lost(event: Event) { event.preventDefault(); failed = true; stop(); host!.dataset["ready"] = "false"; }
     const move = (event: PointerEvent) => {
       if (!fine.matches || !moving()) return;
       const bounds = host.getBoundingClientRect();
@@ -100,7 +100,7 @@ export default function Galaxy({ paused = false, className = "" }: { paused?: bo
       targetActive = 1;
     };
     const leave = () => { targetActive = 0; };
-    const intersection = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    const intersection = new IntersectionObserver(([entry]) => { visible = !!entry?.isIntersecting; sync(); });
     const size = new ResizeObserver(resize);
     intersection.observe(host); size.observe(host);
     surface.addEventListener("pointermove", move, { passive: true });
