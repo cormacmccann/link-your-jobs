@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import {
   QrCode, Key, Link2, Calculator, Mail, FileText, Receipt,
   Sparkles, Image, Palette, Square, Lock, ShieldCheck, Hash,

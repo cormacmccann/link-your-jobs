@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { SiShopify, SiWordpress } from "react-icons/si";
 import { Award, Code2, FileText, LayoutGrid, LifeBuoy, Lightbulb, MessageCircle, MousePointer2, Pause, Play, Plus, Search, Sparkles, UserRound, Workflow } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";

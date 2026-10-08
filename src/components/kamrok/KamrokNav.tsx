@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@/lib/router-compat";
 import {
   Users, Briefcase, Sparkles, Mail, Menu, X, Settings, Map as MapIcon, Target, Volume2,
   MessageCircle, Youtube, Headphones, Bell, Music,

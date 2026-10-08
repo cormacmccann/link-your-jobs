@@ -1,5 +1,5 @@
 import { useEffect, type CSSProperties } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "@/lib/router-compat";
 import { FileText, Globe, LayoutGrid } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 

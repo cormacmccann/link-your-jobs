@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Sparkles, RefreshCw, Copy, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { toast } from "sonner";
 
 const prefixes = ["Nova", "Apex", "Zen", "Flux", "Pulse", "Core", "Peak", "Edge", "Bold", "Swift", "Bright", "Clear", "Prime", "True", "Pure", "Smart", "Next", "Pro", "Max", "Ultra"];

@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "@/lib/router-compat";
 import { Mail, PenLine, Phone } from "lucide-react";
 import BrandMascot from "@/components/kamrok/BrandMascot";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";

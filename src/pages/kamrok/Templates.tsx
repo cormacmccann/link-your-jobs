@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Code2, Download, ExternalLink, MessageCircle, Monitor, RotateCcw, Smartphone, WandSparkles } from "lucide-react";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import BrandMascot from "@/components/kamrok/BrandMascot";

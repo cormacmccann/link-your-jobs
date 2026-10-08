@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "@/lib/router-compat";
 import { BookOpen, Code2, Copy, LayoutGrid, Mail, Menu, MessageCircle, Phone, Moon, Sun, Orbit, UserRound, Wrench } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import StudioDrawer, { type DrawerKind } from "@/components/kamrok/StudioDrawer";

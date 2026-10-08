@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "@/lib/router-compat";
 import { ArrowDownUp, Code2, FileCode2, FileText, Grid2X2, Grid3X3, Layers, LayoutList, PenTool, RotateCcw, Search, ShoppingBag, ShoppingCart, X, type LucideIcon } from "lucide-react";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";

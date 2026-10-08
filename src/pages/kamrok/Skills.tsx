@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowDown, Award, CalendarDays, Check, Code2, GraduationCap, LayoutGrid, MessageCircle, MousePointer2, Palette, Plus, Search, ShoppingBag, Ticket, Workflow, Wrench } from "lucide-react";
 import { SiWordpress } from "react-icons/si";
 import HumanAiStory from "@/components/kamrok/HumanAiStory";

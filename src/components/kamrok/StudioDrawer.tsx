@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "@/lib/router-compat";
 import { ArrowUpRight, Mail, Phone, X } from "lucide-react";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import { CONTACT_PHONE, CONTACT_TEL } from "@/lib/brand";

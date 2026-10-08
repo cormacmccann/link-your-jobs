@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@/lib/router-compat";
 import { Menu, X, MessageCircle, Youtube, Headphones, Bell, Volume2 } from "lucide-react";
 import MobileTabBar from "./MobileTabBar";
 import kamrokLogo from "@/assets/kamrok-logo.png.asset.json";

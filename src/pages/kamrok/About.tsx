@@ -1,5 +1,5 @@
 import "@/styles/brand-stories.css";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Orbit } from "lucide-react";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
