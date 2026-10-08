@@ -18,7 +18,7 @@ interface State {
 export default class MoonBoundary extends Component<Props, State> {
   override state: State = { hasError: false };
 
-  static override getDerivedStateFromError(): State {
+  static getDerivedStateFromError(): State {
     return { hasError: true };
   }
 

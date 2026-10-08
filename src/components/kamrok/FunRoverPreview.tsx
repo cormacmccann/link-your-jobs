@@ -34,7 +34,7 @@ function Rover() {
 }
 class PreviewBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   override state = { failed: false };
-  static override getDerivedStateFromError() { return { failed: true }; }
+  static getDerivedStateFromError() { return { failed: true }; }
   override render() { return this.state.failed ? <p className="fun-preview-fallback">Your moon buggy is waiting. Open the 3D playground below.</p> : this.props.children; }
 }
 export default function FunRoverPreview() {

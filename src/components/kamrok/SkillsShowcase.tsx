@@ -38,7 +38,7 @@ SKILL_ICONS.forEach((s) => useGLTF.preload(s.url, true, true, extendGltfLoader))
 // crashing the whole canvas — the glowing centre still shows.
 class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   override state = { failed: false };
-  static override getDerivedStateFromError() {
+  static getDerivedStateFromError() {
     return { failed: true };
   }
   override render() {
