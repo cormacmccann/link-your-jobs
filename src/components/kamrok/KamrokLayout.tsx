@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   title: string;
@@ -9,6 +10,14 @@ interface Props {
 }
 
 export default function KamrokLayout({ title, description, maxWidth = 1160, fullWidth = true, children }: Props) {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start", behavior: "instant" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [hash]);
   useEffect(() => {
     document.title = title;
     let meta = document.querySelector('meta[name="description"]');

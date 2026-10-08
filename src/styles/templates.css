@@ -47,3 +47,11 @@
 .template-collection-title { font-size:30px; margin-bottom:26px; }
 @media(max-width:760px) { .template-featured { grid-template-columns:1fr; gap:26px; padding:20px; }.template-featured-image { aspect-ratio:1.5; } }
 @media(prefers-reduced-motion:reduce) { .template-featured-image img { transition:none; transform:none !important; } }
+.template-commission { grid-column:1/-1; padding:16px 0 32px; border-bottom:1px solid var(--studio-line); }
+.template-commission > strong { display:block; font:700 clamp(80px,12vw,180px)/.95 Oswald,sans-serif; color:var(--studio-mint); letter-spacing:-.035em; }
+.template-commission > strong span { font-size:.55em; }
+.studio-page .template-commission h3 { font:700 clamp(24px,3.5vw,48px)/1.2 Oswald,sans-serif; margin:24px 0 15px; }
+.template-featured .template-commission p { font-size:clamp(16px,2vw,24px); color:var(--studio-text); }
+.template-commission small { display:block; max-width:95ch; margin-top:15px; font-size:11px; line-height:1.8; color:var(--studio-muted); }
+.template-independence strong { display:block; color:var(--studio-text); }
+@media(max-width:480px) { .template-commission > strong span { display:block; font-size:.38em; margin-top:14px; letter-spacing:0; } }
