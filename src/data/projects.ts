@@ -1,4 +1,3 @@
-import clubLaptop from "@/assets/clubrovia/laptop.png.asset.json";
 import mckHero from "@/assets/mckevitts/hero.png.asset.json";
 import mckRooms from "@/assets/mckevitts/rooms.jpg.asset.json";
 
@@ -16,10 +15,79 @@ export type CaseData = {
   gallery?: ProjectImage[];
   presentation?: "screens";
   categories?: string[];
+  outcomes?: ProjectResult[];
   next: string;
 };
 
 export const PROJECT_CASES: Record<string, CaseData> = {
+  tafl: {
+    name: "TAFL",
+    category: "Just for fun · Interactive strategy games",
+    url: "https://hnefataflkamrok.lovable.app/",
+    intro: "Ancient strategy. A whole new world to play in.",
+    surface: "#30271b",
+    presentation: "screens",
+    categories: ["apps"],
+    hero: { src: "/projects/tafl/catalogue.webp", alt: "TAFL game catalogue with atmospheric settings and a choice of traditional strategy games", caption: "Choose your saga: a catalogue built for curiosity and play." },
+    description: [
+      "A personal Lovable project exploring the fascinating world of Tafl and other traditional strategy games. A richly illustrated catalogue invites players to discover a game, explore its story and get straight to the board.",
+      "Atmospheric worlds, interactive 3D boards, rules and lore turn the collection into somewhere to spend time. From choosing a variant to working through a daily puzzle, it is a project made for the pleasure of learning, experimenting and playing.",
+    ],
+    services: ["Game experience design", "Lovable development", "Interactive 3D boards", "Game catalogue & visual storytelling"],
+    gallery: [{ src: "/projects/tafl/board.webp", alt: "Interactive circular Fidchell game board with pieces, turn information and move history", caption: "Step into the game: an interactive board with the next move in your hands." }],
+    next: "roco9",
+  },
+  roco9: {
+    name: "ROCO9",
+    category: "Machinery & manufacturing · B2B website",
+    url: "https://roco9.com",
+    intro: "Heavy machinery. A powerful digital presence.",
+    surface: "#171717",
+    presentation: "screens",
+    categories: ["websites"],
+    hero: { src: "/projects/roco9/homepage.webp", alt: "ROCO machinery website showcasing the ICON 1100, RYDER 1000 and SPRINTER 1500 in yellow and black", caption: "A bold introduction to the ROCO machinery range." },
+    description: [
+      "A WordPress website built with Elementor One for ROCO, bringing its crushing and screening machinery into a bold, product-led experience. Industrial yellow, deep black and strong typography carry the brand through every page.",
+      "Product pages turn technical detail into a clear buying journey: machine overviews, feature highlights, metric and imperial specifications, and downloadable spec sheets. The range is easy to explore, with the information a prospective buyer needs close at hand.",
+      "News, aftermarket information and upcoming showcases sit alongside the machinery, giving customers a connected view of the business and a clear route to its team.",
+    ],
+    services: ["Website design", "WordPress development", "Elementor One", "B2B product presentation", "Technical specifications & content structure"],
+    gallery: [
+      { src: "/projects/roco9/product.webp", alt: "ROCO ICON 1100 product page with machinery imagery and a download spec sheet action", caption: "Product storytelling with a direct route to the technical details." },
+      { src: "/projects/roco9/features.webp", alt: "ROCO crushing chamber and feed system feature highlights", caption: "Complex machinery, explained through visual highlights." },
+      { src: "/projects/roco9/specifications.webp", alt: "ROCO specification table showing metric and imperial measurements", caption: "The specifications buyers need, presented side by side." },
+      { src: "/projects/roco9/showcases.webp", alt: "ROCO upcoming machinery showcase and industry event cards", caption: "Connecting the online experience with the next live showcase." },
+    ],
+    next: "26-events",
+  },
+  "26-events": {
+    name: "26 Events",
+    category: "26 Extreme · Events & virtual challenges",
+    intro: "One platform. Every start line.",
+    surface: "#08251f",
+    presentation: "screens",
+    categories: ["websites", "apps", "commerce"],
+    hero: { src: "/projects/26-events/homepage.webp", alt: "26 Events homepage with a runner silhouetted against a mountain sunset and the headline Find your next start line", caption: "The feeling of an adventure, from the first visit." },
+    description: [
+      "26 Events, part of 26 Extreme, brings event discovery, entries and virtual challenges into one experience. Built and hosted on Lovable, the platform pairs the energy of outdoor adventure with a clear, commercially focused journey from finding an event to choosing an entry.",
+      "The brief centred on making signups easier and giving participants a better experience. Searchable event listings, detailed entry pages and a personal ticket area help people find their next start line and keep track of their bookings.",
+      "Beyond event day, virtual challenges give participants a reason to return. Interactive coastal terrain and a Channel crossing chart turn activity into a journey, with progress, landmarks and collected postcards bringing each route to life.",
+    ],
+    services: ["Website & app design", "Lovable development & hosting", "Event discovery & booking UX", "Participant portal", "Interactive virtual challenges"],
+    outcomes: [
+      { value: "90%", label: "Reduction in signup issues", source: "Supplied by KAMROK for the 26 Events partner story" },
+      { value: "95%", label: "More happy customers", source: "Supplied by KAMROK for the 26 Events partner story" },
+      { value: "130%", label: "Increase in sales", source: "Supplied by KAMROK for the 26 Events partner story" },
+    ],
+    gallery: [
+      { src: "/projects/26-events/causeway-coast.webp", alt: "Interactive 3D Causeway Coast Way challenge showing terrain, landmarks and a participant progress panel", caption: "A virtual journey along the Causeway Coast, with landmarks and progress in view." },
+      { src: "/projects/26-events/event-discovery.webp", alt: "26 Events catalogue with activity filters, event dates, locations and entry prices", caption: "Find an event by activity, then compare the details that matter." },
+      { src: "/projects/26-events/event-booking.webp", alt: "Donard in the Dark event page with event details, announcements and an entry selection panel", caption: "The event story and the next step, brought together." },
+      { src: "/projects/26-events/participant-dashboard.webp", alt: "Participant ticket area with virtual challenge tabs and journey cards", caption: "Tickets, bookings and virtual adventures in one personal space." },
+      { src: "/projects/26-events/channel-crossing.webp", alt: "Channel Crossing challenge with a nautical route chart from Dover to Cap Gris-Nez and journey progress", caption: "A different kind of challenge: follow your progress across the Channel." },
+    ],
+    next: "global-tiles-bathrooms",
+  },
   "global-tiles-bathrooms": {
     name: "Global Tiles & Bathrooms",
     category: "Interiors & retail · Website & app design",
@@ -54,12 +122,21 @@ export const PROJECT_CASES: Record<string, CaseData> = {
     intro: "More time for the club. Less time running it.",
     year: "2024 — present",
     surface: "#171329",
-    hero: { src: clubLaptop.url, alt: "Clubrovia dashboard presented on a laptop", caption: "Club management, brought together." },
+    presentation: "screens",
+    categories: ["websites", "apps"],
+    hero: { src: "/projects/clubrovia/landing.webp", alt: "Clubrovia landing page with the headline Less admin. More club. and connected club management screens", caption: "The connected sports club platform, from the first introduction." },
     description: [
       "We designed and built Clubrovia to bring memberships, payments, fundraising and communication into one place for sports clubs.",
       "A clear dashboard helps committees manage the day-to-day, while each club gets its own branded website. The same design system carries through to the mobile experience for coaches and members.",
     ],
-    services: ["Product design", "Design system", "Web development"],
+    services: ["Product design", "Design system", "Lovable development", "Club management app", "Marketing website"],
+    gallery: [
+      { src: "/projects/clubrovia/club-admin.webp", alt: "Clubrovia club administration dashboard with grouped settings for identity, people, payments and communications", caption: "Club administration organised around the jobs people need to do." },
+      { src: "/projects/clubrovia/schedule.webp", alt: "Clubrovia weekly schedule with a training event editor", caption: "Training, events and RSVPs, planned in one schedule." },
+      { src: "/projects/clubrovia/members.webp", alt: "Clubrovia member directory with filters, registration and payment status", caption: "A clearer view of members, registrations and payments." },
+      { src: "/projects/clubrovia/member-profile.webp", alt: "Clubrovia member profile drawer with information organised into tabs", caption: "The detail behind each member, without losing your place." },
+      { src: "/projects/clubrovia/family-portal.webp", alt: "Clubrovia family portal with member cards and next-step reminders", caption: "A shared home for families, with the next action in view." },
+    ],
     next: "mckevitts",
   },
   mckevitts: {
@@ -211,7 +288,7 @@ export const PROJECT_CASES: Record<string, CaseData> = {
       "We brought their services, credentials and team together in a clear, confident design. Regional contact details make it easy for prospective clients to reach the right people.",
     ],
     services: ["Web design", "Content structure", "Web development"],
-    next: "global-tiles-bathrooms",
+    next: "tafl",
   },
 };
 
@@ -228,6 +305,9 @@ export type PortfolioProject = CaseData & {
 // Add only platforms and results confirmed by the project brief or the client.
 // Percentage results require a source; omitted results never create placeholder claims.
 const PROJECT_PLATFORMS: Partial<Record<string, ProjectPlatform[]>> = {
+  tafl: ["Lovable"],
+  roco9: ["WordPress"],
+  "26-events": ["Lovable"],
   clubrovia: ["Lovable"],
   "global-tiles-bathrooms": ["Lovable"],
   greyhound: ["Shopify"],
@@ -247,5 +327,5 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = Object.entries(PROJECT_CAS
   const categories = [...(project.categories ?? [slug === "clubrovia" ? "apps" : "websites"])];
   if (commerce) categories.push("commerce");
   if (project.services.includes("Brand identity")) categories.push("branding");
-  return { ...project, slug, platforms, categories, results: PROJECT_RESULTS[slug] ?? [] };
+  return { ...project, slug, platforms, categories, results: project.outcomes ?? PROJECT_RESULTS[slug] ?? [] };
 });

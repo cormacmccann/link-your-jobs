@@ -1,0 +1,28 @@
+.human-ai-story { margin-top: 80px; }
+.human-ai-intro { padding: 40px 0 55px; border-top: 1px solid var(--studio-line); }
+.human-ai-intro p { max-width: 60ch; margin-top: 22px; font-size: 15px; line-height: 1.85; color: var(--studio-copy); }
+.human-ai-intro a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin-top: 15px; font-size: 12px; color: var(--studio-mint); }
+.orbit-film--skills { border-radius: 12px; background: var(--studio-bg); }
+.orbit-film--skills .orbit-film-stories { width: calc(100% - 64px); }
+.orbit-film--skills .orbit-film-video { object-position: center; }
+.orbit-film--skills .orbit-film-chapter { max-width: 600px; min-height: 85svh; }
+.orbit-film--skills .orbit-film-chapter p { max-width: 47ch; }
+.orbit-film--skills .orbit-film-shade { background: linear-gradient(90deg,var(--studio-bg) 0%,color-mix(in srgb,var(--studio-bg) 90%,transparent) 25%,color-mix(in srgb,var(--studio-bg) 30%,transparent) 68%,transparent); }
+.human-ai-skills { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 16px 0; padding: 0; max-width: 48ch; }
+.human-ai-skills li { border: 1px solid var(--studio-line); padding: 7px 11px; background: color-mix(in srgb,var(--studio-bg) 85%,transparent); border-radius: 4px; font-size: 10px; line-height: 1.5; color: var(--studio-copy); }
+.orbit-film--skills.orbit-film--still .orbit-film-chapter { min-height: 0; }
+.orbit-film--skills:not(.is-ready) .orbit-film-video { opacity: .7; }
+.brand-mascot { display: block; width: 100%; height: auto; object-fit: contain; }
+.brand-mascot--contact { width: min(100%, 480px); margin: 20px auto 0 0; mask-image: linear-gradient(#000 78%,transparent); }
+.template-help-section > div:has(.brand-mascot) { position: relative; overflow: hidden; min-height: 360px; padding-right: 35%; }
+.brand-mascot--templates { position: absolute; width: 55%; right: -12%; bottom: -4%; pointer-events: none; }
+.brand-world { margin-top: 75px; }
+.brand-world-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+.brand-world-heading h2 { font-size: clamp(34px,4vw,56px); line-height: 1.1; margin: 0; }
+.brand-world-heading p { color: var(--studio-copy); font-size: 14px; line-height: 1.9; max-width: 60ch; }
+.brand-world-images { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.brand-world-images figure { margin: 0; }
+.brand-world-images img { width: 100%; display: block; border: 1px solid var(--studio-line); border-radius: 8px; aspect-ratio: 16 / 9; object-fit: cover; }
+.brand-world-images figcaption { font-size: 10px; color: var(--studio-muted); margin-top: 13px; letter-spacing: .08em; }
+@media(max-width:760px) { .human-ai-story { margin-top: 50px; }.orbit-film--skills .orbit-film-stories { width: calc(100% - 32px); }.orbit-film--skills .orbit-film-chapter { max-width: 100%; min-height: 90svh; }.orbit-film--skills .orbit-film-shade { background: color-mix(in srgb,var(--studio-bg) 65%,transparent); }.human-ai-skills { max-width: 100%; }.brand-world-heading,.brand-world-images { grid-template-columns: 1fr; gap: 25px; }.brand-mascot--contact { width: 230px; margin: 0 auto; }.brand-world { margin-top: 50px; } }
+@media(prefers-reduced-motion:reduce) { .orbit-film--skills .orbit-film-chapter { min-height: 0; } }

@@ -100,7 +100,7 @@ export default function BusinessNameGenerator() {
           Back to Tools
         </Link>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">Business Name Generator</h1>
             <p className="text-muted-foreground">Get creative name ideas for your new venture</p>

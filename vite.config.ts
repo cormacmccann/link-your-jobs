@@ -1,3 +1,4 @@
+import { takeawaySeo } from "./build/takeawaySeo";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -15,6 +16,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
+    takeawaySeo(),
     mode === "development" && componentTagger(),
   ].filter(Boolean),
   resolve: {

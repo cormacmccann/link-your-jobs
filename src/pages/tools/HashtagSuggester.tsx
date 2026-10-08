@@ -96,7 +96,7 @@ export default function HashtagSuggester() {
           Back to Tools
         </Link>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">Hashtag Suggester</h1>
             <p className="text-muted-foreground">Generate relevant hashtags for your social media posts</p>

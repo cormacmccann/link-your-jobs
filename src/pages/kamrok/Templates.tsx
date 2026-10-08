@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Code2, Download, MessageCircle, Monitor, RotateCcw, Smartphone, WandSparkles } from "lucide-react";
+import { Code2, Download, ExternalLink, MessageCircle, Monitor, RotateCcw, Smartphone, WandSparkles } from "lucide-react";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
+import BrandMascot from "@/components/kamrok/BrandMascot";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import { SITE_TEMPLATES, renderTemplate, type SiteTemplate } from "@/data/templates";
 import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
@@ -28,8 +29,17 @@ export default function Templates() {
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     setNotice("Your HTML download is ready. Replace the sample content and contact details before publishing.");
   };
-  return <KamrokLayout title="Templates to make your own | KAMROK" description="Explore KAMROK website starters. Remix the wording and colours, preview your design and download the HTML.">
-    <div className="template-heading"><span className="orbit-eyebrow">A HEAD START. YOUR OWN DIRECTION.</span><h1>Start somewhere.<br /><em>Make it yours.</em></h1><p className="kk-lead-text">A few ideas to get you moving. Choose a starter, change the words and colours, and take it somewhere of your own.</p><span className="template-format">Free HTML starters · No sign-up · Yours to customise</span></div>
+  return <KamrokLayout title="Lovable Templates & Website Starters | KAMROK" description="Explore Takeaway Hub, a Lovable starter for food businesses, alongside free website templates you can customise and download.">
+    <div className="template-heading"><span className="orbit-eyebrow">A HEAD START. YOUR OWN DIRECTION.</span><h1>Start somewhere.<br /><em>Make it yours.</em></h1><p className="kk-lead-text">A starting point with a bit of ambition. Explore a ready-made Lovable project or personalise a free website starter, then make it your own.</p><span className="template-format">Lovable projects + free HTML starters</span></div>
+    <section className="template-featured" aria-labelledby="takeaway-title">
+      <Link className="template-featured-image" to="/templates/takeaway-hub" aria-label="Explore Takeaway Hub"><img src="/templates/takeaway-hub/preview.webp" alt="Takeaway Hub demo with food photography, a digital menu and a clear ordering action" width="1420" height="1004" /></Link>
+      <div><span className="orbit-eyebrow">FEATURED LOVABLE STARTER · FOOD & HOSPITALITY</span><h2 id="takeaway-title">Your menu.<br />Your takeaway hub.</h2><p>Give your food business its own home online. Start with Takeaway Hub, then make the branding, menu, opening hours and delivery information yours in Lovable.</p><ul><li>Digital menu</li><li>Food photography</li><li>Opening hours</li><li>Delivery information</li></ul>
+        <div className="template-featured-price"><strong>Lovable Pro from US$25 / month</strong><small>Includes connecting your own domain. Lovable subscription paid separately; domain registration, usage and payment-provider costs may be additional. Local currency and taxes are confirmed by Lovable. Price checked October 2026.</small></div>
+        <div className="template-featured-actions"><Link className="orbit-button cinematic-action" to="/templates/takeaway-hub">Explore Takeaway Hub <ActionFeedback icon={ExternalLink} /></Link><a className="orbit-text-link cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Get started with Lovable <ActionFeedback icon={WandSparkles} /></a></div>
+        <p className="template-help">Lovable sign-up uses my affiliate link. Want help making this your own? <Link to="/contact?service=Takeaway%20Hub%20template">Talk to me about your takeaway.</Link></p>
+      </div>
+    </section>
+    <h2 className="template-collection-title">Free website starters</h2>
     <div className="template-grid">
       {SITE_TEMPLATES.map(template => <article className="template-card" key={template.id}>
         <div className="template-thumbnail" aria-hidden="true"><iframe tabIndex={-1} sandbox="" title={`${template.name} design thumbnail`} srcDoc={renderTemplate(template, template.brand, template.headline, template.accent)} loading="lazy" /></div>
@@ -48,6 +58,6 @@ export default function Templates() {
         <p className="template-notice" role="status">{notice}</p>
       </div><div className={`template-live-preview${mobile ? " is-mobile" : ""}`}><iframe title={`Your ${selected.name} remix preview`} sandbox="" srcDoc={html} /></div></div>
     </section>
-    <section className="template-help-section"><div><span className="orbit-eyebrow">A STARTING POINT, NOT THE FINISH LINE</span><h2>Want to take it further?</h2><p>I can shape the design around your brand, connect the functionality and help you launch.</p><Link className="orbit-text-link cinematic-action" to="/contact?help=template">Make it work for your business <ActionFeedback icon={MessageCircle} /></Link></div><div><h3>Building with Lovable?</h3><p>Try Lovable to build your own app or website. These downloads are HTML starters; published Lovable project remixes will be listed separately when available.</p><a className="orbit-text-link cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Explore Lovable <ActionFeedback icon={Code2} /></a><small>Affiliate link</small></div></section>
+    <section className="template-help-section"><div><span className="orbit-eyebrow">A STARTING POINT, NOT THE FINISH LINE</span><h2>Want to take it further?</h2><p>I can shape the design around your brand, connect the functionality and help you launch.</p><Link className="orbit-text-link cinematic-action" to="/contact?service=Template%20customisation">Make it work for your business <ActionFeedback icon={MessageCircle} /></Link></div><div><h3>Building with Lovable?</h3><p>Takeaway Hub is a Lovable project. Orbit, Form and Signal are standalone HTML starters you can customise here and download. Choose the starting point that fits your idea.</p><a className="orbit-text-link cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Explore Lovable <ActionFeedback icon={Code2} /></a><small>Affiliate link</small><BrandMascot pose="front" className="brand-mascot--templates" /></div></section>
   </KamrokLayout>;
 }

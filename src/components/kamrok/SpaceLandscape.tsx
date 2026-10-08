@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Galaxy from "./Galaxy";
 
 const STARS = Array.from({ length: 36 }, (_, index) => ({
   x: (index * 167 + 53) % 1440,
@@ -64,6 +65,7 @@ export default function SpaceLandscape({ paused }: { paused: boolean }) {
   return (
     <div className={`space-landscape space-landscape--cinematic${paused ? " is-paused" : ""}`} ref={sceneRef} aria-hidden="true">
       <div className="space-nebula" />
+      <Galaxy paused={paused} />
       <svg className="space-starmap" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
         <g className="space-stars" fill="var(--star-color)">{STARS.map((star, index) => <circle key={index} cx={star.x} cy={star.y} r={star.r * .65} opacity={index % 3 === 0 ? .45 : .18} />)}</g>
       </svg>

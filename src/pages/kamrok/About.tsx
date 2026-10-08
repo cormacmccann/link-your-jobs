@@ -1,3 +1,4 @@
+import "@/styles/brand-stories.css";
 import { Link } from "react-router-dom";
 import { Orbit } from "lucide-react";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
@@ -51,6 +52,7 @@ export default function About() {
       <div className="studio-principles">
         {PRINCIPLES.map((principle) => <section key={principle.h}><h3>{principle.h}</h3><p>{principle.p}</p></section>)}
       </div>
+      <section className="brand-world" aria-labelledby="brand-world-title"><div className="brand-world-heading"><h2 id="brand-world-title">A curious studio.<br />A world of its own.</h2><p>The chimp, the moon and a little space to imagine. KAMROK’s visual world carries the same curiosity we bring to the work: familiar ideas, unexpected directions and plenty of character.</p></div><div className="brand-world-images"><figure><img src="/art/brand/chimp-moon.webp" alt="KAMROK’s astronaut chimp exploring a moon landscape with Earth on the horizon" loading="lazy" width="1672" height="941" /><figcaption>ROOM TO EXPLORE.</figcaption></figure><figure><img src="/art/brand/chimp-cockpit.webp" alt="KAMROK’s chimp astronaut looking towards Earth from a spacecraft" loading="lazy" width="1672" height="941" /><figcaption>A DIFFERENT PERSPECTIVE.</figcaption></figure></div></section>
       <h2 className="kk-sub">And the moon?</h2>
       <div className="kk-body"><p>A little room to play. Our explorable world brings together the design, code and interaction we love working on.</p></div>
       <Link className="kk-cta cinematic-action" to="/fun">Explore the moon <ActionFeedback icon={Orbit} /></Link>

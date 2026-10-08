@@ -5,11 +5,11 @@ import { Award, Code2, FileText, LayoutGrid, LifeBuoy, Lightbulb, MessageCircle,
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 
 import SpaceLandscape from "@/components/kamrok/SpaceLandscape";
+import ChimpHero from "@/components/kamrok/ChimpHero";
 import ScrollFilm from "@/components/kamrok/ScrollFilm";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import Testimonials from "@/components/kamrok/Testimonials";
 import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
-import clubLaptop from "@/assets/clubrovia/laptop.png.asset.json";
 import mckHero from "@/assets/mckevitts/hero.png.asset.json";
 
 const SERVICES = [
@@ -29,7 +29,6 @@ const FAQ = [
 
 export default function StudioHome() {
   const { theme } = useStudioTheme();
-  const [chimpReady, setChimpReady] = useState(false);
   const [paused, setPaused] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   useEffect(() => {
     document.title = "KAMROK — Lovable Expert & Award-Winning WordPress Designer";
@@ -40,9 +39,7 @@ export default function StudioHome() {
     <>
       <section className="space-hero" aria-labelledby="home-title">
         <SpaceLandscape paused={paused} />
-        <div className={`space-hero-chimp${chimpReady ? " is-ready" : ""}${paused ? " is-paused" : ""}`} aria-hidden="true">
-          <img src={`/art/orbit/chimp-hero-${theme}.webp`} alt="" width="1265" height="1244" fetchPriority="high" decoding="async" onLoad={() => setChimpReady(true)} />
-        </div>
+        <ChimpHero paused={paused} />
         <div className="space-hero-copy studio-container">
           <p className="orbit-eyebrow"><span className="orbit-status-dot" /> INDEPENDENT DESIGN & DIGITAL STUDIO</p>
           <h1 id="home-title">Design for<br /><em>what’s next.</em></h1>
@@ -68,7 +65,7 @@ export default function StudioHome() {
       <section className="orbit-section studio-container" id="selected-work" aria-labelledby="work-title">
         <div className="orbit-section-heading"><div><span className="orbit-eyebrow">01 / SELECTED WORK</span><h2 id="work-title">Selected work.<br /><em>A closer look.</em></h2></div><Link className="orbit-text-link cinematic-action" to="/work">The whole collection <ActionFeedback icon={LayoutGrid} /></Link></div>
         <div className="orbit-projects">
-          <Link className="action-trigger orbit-project orbit-project--club" to="/work/clubrovia"><div className="orbit-project-visual"><span className="orbit-project-tag">OUR OWN PRODUCT</span><img src={clubLaptop.url} alt="Clubrovia club management dashboard on a laptop and phone" width="1200" height="800" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>Clubrovia</h3><p>Less club admin. More time for the game.</p></div><span>PRODUCT DESIGN & BUILD</span></div></Link>
+          <Link className="action-trigger orbit-project orbit-project--club" to="/work/clubrovia"><div className="orbit-project-visual"><span className="orbit-project-tag">OUR OWN PRODUCT</span><img src="/projects/clubrovia/landing.webp" alt="Clubrovia: Less admin. More club. — the connected sports club platform" width="1202" height="827" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>Clubrovia</h3><p>Less club admin. More time for the game.</p></div><span>PRODUCT DESIGN & BUILD</span></div></Link>
           <Link className="action-trigger orbit-project orbit-project--hotel" to="/work/mckevitts"><div className="orbit-project-visual"><span className="orbit-project-tag">HOSPITALITY</span><img src={mckHero.url} alt="McKevitt’s Village Hotel website overlooking Carlingford" width="1200" height="800" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>McKevitt’s Village Hotel</h3><p>A proper welcome, before you arrive.</p></div><span>BRANDING & WORDPRESS</span></div></Link>
         </div>
         <div className="orbit-work-note"><span>LOCAL FAVOURITES. AMBITIOUS START-UPS. GOOD PEOPLE.</span><p>Different businesses. The same care in every detail.</p></div>

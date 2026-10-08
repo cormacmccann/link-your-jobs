@@ -1,0 +1,37 @@
+.studio-mobile-trigger { display: none; width: 44px; height: 44px; place-items: center; color: var(--studio-text); }
+.studio-drawer-overlay { position: fixed; inset: 0; z-index: 100; background: #0009; backdrop-filter: blur(7px); animation: drawer-fade .2s ease-out; }
+.studio-page.studio-drawer { position: fixed; inset: 0 0 0 auto; z-index: 101; width: min(610px, 100%); height: 100dvh; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 24px 36px 40px; border-left: 1px solid var(--studio-line); background: var(--studio-bg); animation: drawer-enter .25s ease-out; }
+.studio-drawer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 10px; letter-spacing: .17em; color: var(--studio-muted); }
+.studio-drawer-close { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--studio-line); border-radius: 50%; color: var(--studio-text); }
+.studio-page.studio-drawer h2 { font-size: clamp(32px, 4vw, 46px); line-height: 1.12; max-width: 17ch; margin: 0 0 20px; }
+.studio-drawer p { color: var(--studio-copy); line-height: 1.8; font-size: 14px; }
+.studio-drawer-nav { margin: 26px 0; }
+.studio-drawer-nav a { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--studio-line); font-family: Oswald, sans-serif; font-weight: 700; text-transform: uppercase; font-size: 25px; gap: 16px; }
+.studio-drawer-nav a.active { color: var(--studio-mint); }
+.studio-drawer small { display: block; margin-top: 5px; font-family: inherit; font-size: 12px; line-height: 1.6; font-weight: 400; text-transform: none; color: var(--studio-muted); }
+.studio-drawer-nav small { font-family: Inter, sans-serif; }
+.studio-drawer-play { width: 100%; display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 20px; background: var(--studio-soft); border: 1px solid var(--studio-line); font-size: 20px; font-weight: 700; }
+.studio-drawer-contact { padding-top: 32px; display: grid; gap: 17px; }
+.studio-drawer-contact > span { font-size: 10px; letter-spacing: .16em; color: var(--studio-muted); }
+.studio-drawer-contact a { display: flex; gap: 12px; align-items: center; font-size: 17px; }
+.fun-projects { margin-top: 26px; }
+.fun-project { padding-bottom: 36px; margin-bottom: 32px; border-bottom: 1px solid var(--studio-line); }
+.fun-project img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--studio-line); }
+.fun-project h3 { font-size: 29px; line-height: 1.2; margin: 12px 0; }
+.fun-project .orbit-button { margin-top: 22px; }
+.fun-number { font-size: 10px !important; letter-spacing: .15em; color: var(--studio-mint) !important; margin: 22px 0 0; }
+.fun-preview { position: relative; height: 320px; border: 1px solid var(--studio-line); border-radius: 12px; background: radial-gradient(ellipse at 50% 75%, #54716d55, transparent 70%), #0b111c; }
+.fun-preview canvas { touch-action: pan-y; }
+.fun-preview > span { position: absolute; bottom: 14px; left: 0; right: 0; pointer-events: none; text-align: center; font-size: 8px; letter-spacing: .17em; color: #c0c7d4; }
+.fun-preview-fallback { padding: 35px; color: #d8e6e3 !important; }
+.fun-signoff { font-style: italic; text-align: center; }
+.studio-drawer :is(a,button):focus-visible { outline: 2px solid var(--studio-mint); outline-offset: 5px; }
+@keyframes drawer-enter { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes drawer-fade { from { opacity: 0; } to { opacity: 1; } }
+@media(max-width:900px) { .studio-mobile-trigger { display: grid; } .studio-desktop-nav { display: none; } }
+@media(max-width:760px) { .studio-page.studio-drawer { width: 100%; border: 0; padding: max(16px, env(safe-area-inset-top)) 22px max(32px, env(safe-area-inset-bottom)); } .fun-preview { height: 275px; } }
+@media(prefers-reduced-motion:reduce) { .studio-drawer-overlay,.studio-page.studio-drawer { animation: none; } }
+
+.studio-page.studio-drawer :is(h2,h3) { font-family: Oswald, sans-serif; font-weight: 600; }
+.studio-footer-bottom button { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; }
+.studio-footer-bottom { flex-wrap: wrap; }

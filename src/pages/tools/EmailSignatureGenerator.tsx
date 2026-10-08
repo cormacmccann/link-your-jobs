@@ -93,7 +93,7 @@ export default function EmailSignatureGenerator() {
           Back to Tools
         </Link>
 
-        <div className="max-w-5xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">Email Signature Generator</h1>
             <p className="text-muted-foreground">Create a professional email signature in seconds</p>

@@ -103,7 +103,7 @@ export default function ToolsHub() {
     <div className="portfolio-landing-root font-body bg-bg text-text-primary min-h-screen">
       {/* Heading */}
       <section className="pt-20 pb-12 px-6">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="w-full mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="h-px w-8 bg-stroke" />
             <span className="text-[10px] uppercase tracking-[0.3em] text-pl-muted">
@@ -140,7 +140,7 @@ export default function ToolsHub() {
 
       {/* Filter pills */}
       <section className="px-6 mb-10">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2">
+        <div className="w-full mx-auto flex flex-wrap items-center justify-center gap-2">
           {FILTERS.map((f) => {
             const isActive = active === f.id;
             return (
@@ -163,7 +163,7 @@ export default function ToolsHub() {
 
       {/* Tools Grid */}
       <section className="px-6 pb-24">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-stroke border border-stroke rounded-2xl overflow-hidden">
+        <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-stroke border border-stroke rounded-2xl overflow-hidden">
           {filtered.map((tool, i) => {
             const Icon = tool.icon;
             const isLive = tool.status === "live";

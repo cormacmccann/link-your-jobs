@@ -32,6 +32,7 @@ const MoonHome = lazyRetry(() => import("./pages/kamrok/MoonHome"));
 
 const About = lazyRetry(() => import("./pages/kamrok/About"));
 const Work = lazyRetry(() => import("./pages/kamrok/Work"));
+const TakeawayHub = lazyRetry(() => import("./pages/kamrok/TakeawayHub"));
 const Templates = lazyRetry(() => import("./pages/kamrok/Templates"));
 const CaseStudy = lazyRetry(() => import("./pages/kamrok/CaseStudy"));
 const Skills = lazyRetry(() => import("./pages/kamrok/Skills"));
@@ -85,6 +86,7 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/work" element={<Work />} />
                 <Route path="/templates" element={<Templates />} />
+                <Route path="/templates/takeaway-hub" element={<TakeawayHub />} />
                 <Route path="/work/:slug" element={<CaseStudy />} />
                 <Route path="/skills" element={<Skills />} />
                 <Route path="/blog" element={<Blog />} />

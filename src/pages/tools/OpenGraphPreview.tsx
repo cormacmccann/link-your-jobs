@@ -25,7 +25,7 @@ export default function OpenGraphPreview() {
           Back to Tools
         </Link>
 
-        <div className="max-w-5xl mx-auto">
+        <div className="w-full mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-2">OpenGraph Preview</h1>
             <p className="text-muted-foreground">See how your links will appear on social media</p>

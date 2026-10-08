@@ -56,6 +56,12 @@ export default function CaseStudy() {
               </dl>
             </section>
 
+            {data.outcomes && <section className="case-outcomes" aria-labelledby="case-outcomes-title">
+              <h2 id="case-outcomes-title">Project outcomes</h2>
+              <dl>{data.outcomes.map(outcome => <div key={outcome.label}><dt>{outcome.label}</dt><dd>{outcome.value}</dd></div>)}</dl>
+              <p>{[...new Set(data.outcomes.map(outcome => outcome.source))].join(". ")}.</p>
+            </section>}
+
             {data.gallery && (
               <div className={`case-gallery${data.gallery.length === 1 ? " case-gallery--single" : ""}`}>
                 {data.gallery.map((shot) => (

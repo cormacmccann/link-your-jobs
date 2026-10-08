@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { LayoutGrid, MessageCircle, Wrench } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 
@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import monkeyFilm from "@/assets/home-monkey-space.mp4.asset.json";
 
 /** The video always stays paused. Scrolling, rather than a playback clock, selects its frame. */
-export default function ScrollFilm() {
+export default function ScrollFilm({ source = monkeyFilm.url, poster, id = "film-title", className = "", children }: { source?: string; poster?: string; id?: string; className?: string; children?: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [load, setLoad] = useState(false);
@@ -68,15 +68,15 @@ export default function ScrollFilm() {
   }, [load, reduced]);
 
   return (
-    <section ref={sectionRef} className={`orbit-film${reduced || failed ? " orbit-film--still" : ""}${ready ? " is-ready" : ""}`} aria-labelledby="film-title">
+    <section ref={sectionRef} className={`orbit-film ${className}${reduced || failed ? " orbit-film--still" : ""}${ready ? " is-ready" : ""}`} aria-labelledby={id}>
       <div className="orbit-film-sticky" aria-hidden="true">
-        <video ref={videoRef} className="orbit-film-video" src={load ? monkeyFilm.url : undefined} muted playsInline preload="auto" disablePictureInPicture aria-hidden="true" tabIndex={-1} onLoadedData={() => setReady(true)} onError={() => setFailed(true)} />
+        <video ref={videoRef} className="orbit-film-video" src={load ? source : undefined} poster={poster} muted playsInline preload="auto" disablePictureInPicture aria-hidden="true" tabIndex={-1} onLoadedData={() => setReady(true)} onError={() => setFailed(true)} />
         <div className="orbit-film-shade" />
       </div>
       <div className="orbit-film-stories studio-container">
-        <article className="orbit-film-chapter">
+        {children ?? <><article className="orbit-film-chapter">
           <span className="orbit-eyebrow">LOOK DIFFERENT. MEAN SOMETHING.</span>
-          <h2 id="film-title">Make them look.<br /><em>Make it matter.</em></h2>
+          <h2 id={id}>Make them look.<br /><em>Make it matter.</em></h2>
           <p>Your website should make it easy to understand what you do, why it matters and how to work with you. A memorable first impression, with a clear next step.</p>
           <Link className="orbit-text-link cinematic-action" to="/work">See what that looks like <ActionFeedback icon={LayoutGrid} /></Link>
         </article>
@@ -91,7 +91,7 @@ export default function ScrollFilm() {
           <h2>Your next chapter.<br /><em>Ready when you are.</em></h2>
           <p>A site you can update. An app you can build on. Useful connections that save you time. I’ll help you launch with confidence, then keep improving as your business grows.</p>
           <Link className="orbit-text-link cinematic-action" to="/contact">Tell me what you’re thinking <ActionFeedback icon={MessageCircle} /></Link>
-        </article>
+        </article></>}
       </div>
     </section>
   );

@@ -31,13 +31,11 @@
   --acc-pink: 322 52% 42%; --acc-violet: 256 30% 53%; color-scheme: light;
 }
 .studio-page { transition: background-color .25s, color .25s; }
-.studio-container { width: min(1200px, calc(100% - 96px)); }
+.studio-container { width: calc(100% - 96px); }
 .studio-header-wrap { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--studio-bg) 92%, transparent); backdrop-filter: blur(16px); }
 .studio-header { min-height: 88px; gap: 40px; border: 0; }
 .studio-logo { width: 102px; }
 .studio-logo img { width: 102px; }
-[data-theme='light'] .studio-logo { background: #171d3b; border-radius: 8px; padding: 3px 7px; width: 106px; }
-[data-theme='light'] .studio-logo img { width: 92px; }
 .studio-desktop-nav { gap: 30px; }
 .studio-desktop-nav a { font-size: 12px; color: var(--studio-copy); gap: 5px; }
 .studio-header-actions { display: flex; align-items: center; gap: 16px; }
@@ -172,7 +170,7 @@
 /* The same theme carries through all existing case studies and utilities. */
 .studio-page :is(.kk-lead-text,.kk-contact-lead,.kk-body p,.kk-grid p,.kk-step p,.kk-note p,.kk-review blockquote,.studio-team p,.studio-service p,.studio-service ul,.case-deck,.case-description p,.case-facts dd) { color: var(--studio-copy); }
 .studio-page :is(.kk-cta,.kk-visit):hover { background: var(--studio-soft); }
-.studio-page .case-container { width: min(1200px, calc(100% - 96px)); }
+.studio-page .case-container { width: calc(100% - 96px); }
 .studio-page .case-visit { border-color: var(--studio-line); }
 .studio-page .case-visit:hover { background: var(--studio-soft); }
 .studio-page .case-image-surface { color-scheme: dark; }
@@ -202,7 +200,6 @@
   .studio-header { min-height: 78px; gap: 12px; }
   .studio-header-actions { gap: 9px; }
   .studio-logo,.studio-logo img { width: 90px; }
-  [data-theme='light'] .studio-logo { width: 94px; } [data-theme='light'] .studio-logo img { width: 80px; }
   .studio-desktop-nav { display: none; } .studio-mobile-menu { display: block; }
   .studio-mobile-menu summary { display: grid; place-items: center; width: 38px; height: 44px; list-style: none; cursor: pointer; }
   .studio-mobile-menu summary::-webkit-details-marker { display: none; }
@@ -276,7 +273,6 @@
   .studio-container,.studio-page .case-container { width: calc(100% - 32px); }
   .studio-header-actions { gap: 5px; }
   .studio-logo,.studio-logo img { width: 78px; }
-  [data-theme='light'] .studio-logo { width: 84px; } [data-theme='light'] .studio-logo img { width: 70px; }
   .studio-page .space-hero h1 { font-size: 41px; }
   .space-hero-intro { font-size: 11px; }
 }

@@ -38,4 +38,10 @@
   <url><loc>https://kamrok.com/tools/review-widget</loc><priority>0.5</priority></url>
   <url><loc>https://kamrok.com/tools/social-wall</loc><priority>0.5</priority></url>
   <url><loc>https://kamrok.com/tools/trustpilot-integration</loc><priority>0.5</priority></url>
+  <url><loc>https://kamrok.com/templates</loc><priority>0.8</priority></url>
+  <url><loc>https://kamrok.com/templates/takeaway-hub</loc><priority>0.8</priority></url>
+  <url><loc>https://kamrok.com/work/tafl</loc><priority>0.8</priority></url>
+  <url><loc>https://kamrok.com/work/roco9</loc><priority>0.8</priority></url>
+  <url><loc>https://kamrok.com/work/26-events</loc><priority>0.8</priority></url>
+  <url><loc>https://kamrok.com/work/global-tiles-bathrooms</loc><priority>0.8</priority></url>
 </urlset>

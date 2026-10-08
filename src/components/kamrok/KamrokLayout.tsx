@@ -8,7 +8,7 @@ interface Props {
   children: ReactNode;
 }
 
-export default function KamrokLayout({ title, description, maxWidth = 1160, fullWidth = false, children }: Props) {
+export default function KamrokLayout({ title, description, maxWidth = 1160, fullWidth = true, children }: Props) {
   useEffect(() => {
     document.title = title;
     let meta = document.querySelector('meta[name="description"]');

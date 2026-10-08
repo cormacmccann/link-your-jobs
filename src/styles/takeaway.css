@@ -1,0 +1,93 @@
+.takeaway-page { --food-orange: #ff864b; --food-green: #b9efd0; }
+.takeaway-breadcrumb { display: flex; gap: 12px; font-size: 11px; color: var(--studio-muted); margin: -24px 0 38px; }
+.takeaway-breadcrumb a:hover { color: var(--studio-text); }
+.takeaway-kicker { display: inline-flex; align-items: center; gap: 9px; font-size: 10px; font-weight: 600; letter-spacing: .13em; line-height: 1.8; color: var(--studio-mint); margin-bottom: 20px; }
+.takeaway-hero { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 4vw; padding-bottom: 72px; }
+.studio-page .takeaway-hero h1 { font-size: clamp(60px, 6.7vw, 110px); line-height: .99; letter-spacing: -.025em; margin: 0 0 30px; }
+.takeaway-hero h1 em { color: var(--food-orange); font-style: normal; }
+.takeaway-hero-copy > p:not(.takeaway-fine) { max-width: 47ch; font-size: 17px; line-height: 1.85; color: var(--studio-copy); }
+.takeaway-promises { display: grid; gap: 11px; margin: 26px 0; font-size: 13px; }
+.takeaway-promises span { display: flex; align-items: center; gap: 10px; }
+.takeaway-promises svg { color: var(--studio-mint); }
+.takeaway-actions { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
+.takeaway-primary,.takeaway-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 52px; padding: 15px 20px; font-size: 12px; font-weight: 600; border: 1px solid transparent; border-radius: 5px; }
+.takeaway-primary { background: var(--food-orange); color: #1e160f !important; }
+.takeaway-primary:hover { background: #ffa673; }
+.takeaway-secondary { border-color: var(--studio-line); color: var(--studio-text); }
+.takeaway-secondary:hover { border-color: var(--studio-mint); }
+.takeaway-page .takeaway-fine { font-size: 11px; line-height: 1.8; color: var(--studio-muted); margin-top: 18px; max-width: 70ch; }
+.takeaway-fine a { text-decoration: underline; text-underline-offset: 3px; }
+.takeaway-hero-visual { position: relative; padding: 132px 8px 24px 0; }
+.takeaway-zero { position: absolute; top: 0; right: 18px; text-align: right; transform: rotate(6deg); }
+.takeaway-zero strong { display: block; font-family: Oswald,sans-serif; color: var(--food-orange); font-size: clamp(110px,13vw,210px); line-height: .8; font-weight: 700; letter-spacing: -.06em; }
+.takeaway-zero strong span { font-size: .55em; }
+.takeaway-zero > span { display: block; margin-top: 15px; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
+.takeaway-browser { position: relative; display: block; border: 1px solid #ffffff33; border-radius: 12px; overflow: hidden; transform: rotate(-3deg); box-shadow: 0 30px 80px #0006; background: #172327; }
+.takeaway-browser > div { display: flex; align-items: center; gap: 5px; height: 35px; padding: 0 14px; color: #bdcdc8; font-size: 7px; letter-spacing: .14em; }
+.takeaway-browser i { width: 5px; height: 5px; background: #8faaa0; border-radius: 50%; }
+.takeaway-browser div span { margin-left: 10px; flex: 1; }
+.takeaway-browser img { width: 100%; display: block; }
+.takeaway-stamp { position: relative; width: fit-content; margin: 16px auto -24px 25px; padding: 15px 22px; background: var(--food-green); color: #143e2d; font-size: 11px; line-height: 1.7; transform: rotate(3deg); border-radius: 2px; }
+.takeaway-strip { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-block: 1px solid var(--studio-line); padding: 26px 0; font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+.takeaway-strip svg { width: 14px; color: var(--studio-mint); }
+.takeaway-section { padding: 85px 0; border-bottom: 1px solid var(--studio-line); }
+.takeaway-page h2 { font-size: clamp(34px,4vw,62px); line-height: 1.1; margin: 0 0 24px; }
+.takeaway-page h3 { font-size: 23px; line-height: 1.25; margin: 16px 0; }
+.takeaway-section p,.takeaway-feature-grid p,.takeaway-calculator p { color: var(--studio-copy); font-size: 14px; line-height: 1.85; max-width: 65ch; }
+.takeaway-ownership,.takeaway-connect,.takeaway-faq { display: grid; grid-template-columns: 1fr 1fr; gap: 7vw; }
+.takeaway-section .takeaway-lead { font-size: 21px; margin-bottom: 15px; color: var(--studio-text); }
+.takeaway-section p + p { margin-top: 15px; }
+.takeaway-feature-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 35px; padding: 48px 0 85px; }
+.takeaway-feature-grid article > span,.takeaway-steps li > span { display: inline-block; font-family: Oswald,sans-serif; font-size: 13px; color: var(--studio-mint); padding: 9px 12px; border: 1px solid var(--studio-line); border-radius: 50%; }
+.takeaway-calculator { padding: 48px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 6vw; align-items: center; background: var(--studio-surface); border: 1px solid var(--studio-line); border-radius: 12px; scroll-margin-top: 110px; }
+.takeaway-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 30px; }
+.takeaway-fields label { font-size: 11px; line-height: 1.7; color: var(--studio-copy); }
+.takeaway-fields input { display: block; width: 100%; border: 1px solid var(--studio-line); border-radius: 4px; background: var(--studio-bg); padding: 13px; margin-top: 7px; font-size: 20px; color: var(--studio-text); }
+.takeaway-fields input:focus { outline: 2px solid var(--studio-mint); outline-offset: 2px; }
+.takeaway-fields small { display: block; margin-top: 8px; font-size: 10px; line-height: 1.6; color: var(--studio-muted); }
+.takeaway-receipt { background: #fff7e6; color: #28332c; padding: 32px; border-radius: 5px; box-shadow: 0 18px 30px #0002; transform: rotate(1deg); }
+.takeaway-receipt > svg { margin-bottom: 20px; color: #37543d; }
+.takeaway-receipt > span { font-size: 9px; letter-spacing: .13em; }
+.studio-page .takeaway-receipt h3 { color: #28332c; font-size: 29px; }
+.takeaway-receipt dl { border-block: 1px dashed #b8b7a9; padding: 18px 0; margin: 20px 0; }
+.takeaway-receipt dl div { display: flex; justify-content: space-between; gap: 18px; font-size: 11px; padding: 7px 0; }
+.takeaway-receipt dd { font-weight: 700; white-space: nowrap; }
+.takeaway-receipt .takeaway-saving { color: #285f42; font-family: Oswald,sans-serif; font-size: clamp(46px,5vw,76px); line-height: 1.2; overflow-wrap: anywhere; }
+.takeaway-saving small { display: block; font-size: 12px; font-family: Montserrat,sans-serif; letter-spacing: 0; margin: 10px 0; }
+.takeaway-receipt .takeaway-annual { color: #285f42; font-weight: 600; font-size: 13px; }
+.takeaway-receipt .takeaway-calculator-note { color: #666b60; font-size: 10px; margin-top: 20px; }
+.takeaway-section-heading { margin-bottom: 40px; }
+.takeaway-costs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.takeaway-costs article { border: 1px solid var(--studio-line); border-radius: 8px; padding: 30px; }
+.takeaway-costs article:first-child { border-color: var(--studio-mint); }
+.takeaway-costs article > span { display: block; font-size: 9px; letter-spacing: .12em; margin-bottom: 25px; }
+.takeaway-costs strong { display: block; font-family: Oswald,sans-serif; font-size: 50px; font-weight: 500; color: var(--studio-mint); }
+.takeaway-costs strong small { display: inline; margin-left: 5px; font-family: Montserrat,sans-serif; font-size: 11px; }
+.takeaway-costs small { display: block; font-size: 10px; line-height: 1.8; color: var(--studio-muted); margin-top: 17px; }
+.takeaway-connections article { display: flex; gap: 22px; padding: 20px 0; border-bottom: 1px solid var(--studio-line); }
+.takeaway-connections article:first-child { padding-top: 0; }
+.takeaway-connections svg { flex-shrink: 0; color: var(--studio-mint); margin-top: 3px; }
+.takeaway-connections h3 { margin: 0 0 10px; }
+.takeaway-steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 35px; padding: 0; list-style: none; }
+.takeaway-faq details { border-top: 1px solid var(--studio-line); }
+.takeaway-faq summary { display: flex; justify-content: space-between; gap: 20px; align-items: center; cursor: pointer; padding: 22px 0; font-size: 14px; font-weight: 600; list-style: none; }
+.takeaway-faq summary::-webkit-details-marker { display: none; }
+.takeaway-faq summary svg { flex-shrink: 0; }
+.takeaway-faq details[open] summary svg { transform: rotate(45deg); }
+.takeaway-faq details > p { padding-bottom: 25px; }
+.takeaway-close { text-align: center; padding: 85px 24px; background: radial-gradient(ellipse at 50% 100%, #fb864514, transparent 70%); }
+.takeaway-close > p { margin: 18px auto 28px; line-height: 1.8; color: var(--studio-copy); }
+.takeaway-close .takeaway-actions { justify-content: center; }
+.takeaway-sources { border-top: 1px solid var(--studio-line); padding: 25px 0 0; font-size: 10px; color: var(--studio-muted); line-height: 1.8; }
+.takeaway-sources a { text-decoration: underline; text-underline-offset: 3px; }
+[data-theme='light'] .takeaway-page { --food-orange: #cb4b16; }
+[data-theme='light'] .takeaway-primary { background: #ff864b; }
+@media(max-width:1100px) { .takeaway-hero { gap: 28px; }.takeaway-calculator { padding: 30px; gap: 30px; }.takeaway-feature-grid,.takeaway-steps { grid-template-columns: 1fr 1fr; }.takeaway-costs article { padding: 22px; } }
+@media(max-width:760px) { .takeaway-hero,.takeaway-ownership,.takeaway-connect,.takeaway-faq,.takeaway-calculator { grid-template-columns: 1fr; }.takeaway-hero { padding-bottom: 45px; }.studio-page .takeaway-hero h1 { font-size: clamp(54px,12vw,86px); }.takeaway-hero-visual { margin: 25px 8px 10px; padding-top: 110px; }.takeaway-zero strong { font-size: 160px; }.takeaway-strip { flex-wrap: wrap; justify-content: center; font-size: 9px; }.takeaway-strip svg { display: none; }.takeaway-section { padding: 58px 0; }.takeaway-ownership,.takeaway-connect,.takeaway-faq { gap: 26px; }.takeaway-costs { grid-template-columns: 1fr; }.takeaway-calculator { padding: 24px 20px; }.takeaway-receipt { padding: 25px; }.takeaway-fields { gap: 18px; }.takeaway-feature-grid { padding-bottom: 50px; gap: 28px; }.takeaway-close { padding: 60px 0; }.takeaway-breadcrumb { margin-top: -8px; } }
+@media(max-width:420px) { .takeaway-feature-grid,.takeaway-steps,.takeaway-fields { grid-template-columns: 1fr; }.takeaway-primary,.takeaway-secondary { width: 100%; }.takeaway-page h3 { font-size: 24px; } }
+
+.takeaway-hero-visual { padding-top: 215px; }
+.studio-page .kk-card:has(.takeaway-page) { padding-top: 40px; }
+@media(max-width:760px) { .takeaway-hero-visual { padding-top: 180px; } }
+
+.takeaway-savings-link { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; margin-top: 8px; font-size: 11px; color: var(--studio-mint); }
