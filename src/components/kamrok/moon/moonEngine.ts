@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable */
 // Originally ported by scripts/gen-moon.mjs; maintained here since the standalone source was retired.
 // Faithful port of the KAMROK moonscape, adapted to run as a React component
