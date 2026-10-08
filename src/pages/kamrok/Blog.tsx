@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Lightbulb, FileText } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 

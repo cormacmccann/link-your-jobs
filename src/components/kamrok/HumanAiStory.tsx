@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowUpRight } from "lucide-react";
 import ScrollFilm from "./ScrollFilm";
 import "@/styles/brand-stories.css";

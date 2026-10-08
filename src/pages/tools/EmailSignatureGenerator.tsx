@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Copy, Mail, Phone, Globe, Linkedin, Twitter } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { toast } from "sonner";
 
 export default function EmailSignatureGenerator() {
@@ -234,7 +234,7 @@ export default function EmailSignatureGenerator() {
                 </CardHeader>
                 <CardContent>
                   <div 
-                    className="bg-white p-4 rounded border"
+                    className="bg-white p-4 rounded-sm border"
                     dangerouslySetInnerHTML={{ __html: generateHTML() }}
                   />
                 </CardContent>

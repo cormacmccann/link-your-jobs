@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "@/lib/router-compat";
 import { ArrowDownUp, Code2, FileCode2, FileText, Grid2X2, Grid3X3, Layers, LayoutList, PenTool, RotateCcw, Search, ShoppingBag, ShoppingCart, X, type LucideIcon } from "lucide-react";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
@@ -26,7 +26,7 @@ const latestYear = (project: PortfolioProject) => project.year?.includes("presen
 
 export default function Work() {
   const [params, setParams] = useSearchParams();
-  const filter = FILTERS.find(item => item.id === params.get("filter")) ?? FILTERS[0];
+  const filter = FILTERS.find(item => item.id === params.get("filter")) ?? FILTERS[0]!;
   const view = VIEWS.find(item => item.id === params.get("view"))?.id ?? "large";
   const sort = ["featured", "latest", "az", "za"].includes(params.get("sort") ?? "") ? params.get("sort")! : "featured";
   const search = params.get("q") ?? "";

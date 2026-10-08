@@ -1,0 +1,19 @@
+{
+  "customizations": [
+    { "token": "--bg-0 / --bg-1 / --bg-2 (KAMROK dark backgrounds)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--text-1 / --text-2", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--acc-pink / --acc-violet", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "KAMROK dark mapping of shadcn tokens (applied on body, was @apply dark)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--success / --warning / --info / --metric-* tokens", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "--heading-grad / --heading-glow + global GOBOLD heading rules", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "global Montserrat body font rules", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": ".glass / .glass-hover / .gradient-text / .metric-value / .metric-label / .animate-spin-slow", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "reduced-motion + touch press rules", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "font-gobold family", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "accent-pink / accent-violet / accent-cyan / acc-* colours", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "bg-0/1/2, text-1/2, bg, surface, text-primary, pl-muted, stroke colours", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "sidebar colours + radius scale", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "container (centered, 2rem padding, 1400px)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "GOBOLD @font-face + dark html/body background", "source": "index.html", "reappliedIn": "src/styles.css" }
+  ]
+}

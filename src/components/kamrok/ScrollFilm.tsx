@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { LayoutGrid, MessageCircle, Wrench } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import monkeyFilm from "@/assets/home-monkey-space.mp4.asset.json";
 
 /** The video always stays paused. Scrolling, rather than a playback clock, selects its frame. */

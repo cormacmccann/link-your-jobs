@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Code2, Download, ExternalLink, MessageCircle, Monitor, RotateCcw, Smartphone, WandSparkles } from "lucide-react";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import BrandMascot from "@/components/kamrok/BrandMascot";
@@ -9,7 +9,7 @@ import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
 import "@/styles/templates.css";
 
 export default function Templates() {
-  const [selected, setSelected] = useState(SITE_TEMPLATES[0]);
+  const [selected, setSelected] = useState<SiteTemplate>(SITE_TEMPLATES[0]!);
   const [brand, setBrand] = useState(selected.brand);
   const [headline, setHeadline] = useState(selected.headline);
   const [accent, setAccent] = useState(selected.accent);

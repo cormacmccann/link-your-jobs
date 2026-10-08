@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import MoonExperience from "@/components/kamrok/moon/MoonExperience";
 import MoonBoundary from "@/components/kamrok/moon/MoonBoundary";
 

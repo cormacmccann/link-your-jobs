@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Hash, Copy, RefreshCw, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 
@@ -38,7 +38,7 @@ export default function HashtagSuggester() {
   const generateHashtags = () => {
     setIsGenerating(true);
     
-    const baseHashtags = hashtagDatabase[category] || hashtagDatabase.general;
+    const baseHashtags = hashtagDatabase[category] ?? hashtagDatabase["general"] ?? [];
     const results = new Set<string>();
     
     // Add keyword-based hashtags
@@ -47,7 +47,7 @@ export default function HashtagSuggester() {
       keywords.forEach(kw => {
         results.add(kw.replace(/[^a-z0-9]/g, ""));
         // Add variations
-        sizeModifiers.niche.forEach(mod => {
+        (sizeModifiers["niche"] ?? []).forEach(mod => {
           if (Math.random() > 0.6) {
             results.add(kw.replace(/[^a-z0-9]/g, "") + mod);
           }
@@ -60,7 +60,7 @@ export default function HashtagSuggester() {
     shuffled.slice(0, 15).forEach(tag => results.add(tag));
     
     // Add some general engagement hashtags
-    const generalTags = hashtagDatabase.general;
+    const generalTags = hashtagDatabase["general"] ?? [];
     generalTags.slice(0, 5).forEach(tag => {
       if (Math.random() > 0.5) results.add(tag);
     });

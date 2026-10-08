@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowUpRight, ChevronDown, Flag, Home, Minus, Plus, RotateCcw, X } from "lucide-react";
 import { MOON_PROJECTS, type MoonProjectId } from "./moonDistrict";
 import { moonSession } from "./moonSession";

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import {
   QrCode, Key, Link2, Calculator, Mail, FileText, Receipt,
   Sparkles, Image, Palette, Square, Lock, ShieldCheck, Hash,
@@ -132,7 +132,7 @@ export default function ToolsHub() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search tools..."
               aria-label="Search tools"
-              className="w-full bg-surface border border-stroke rounded-full px-5 py-3 text-sm text-text-primary placeholder:text-pl-muted focus:outline-none focus:border-text-primary transition-colors"
+              className="w-full bg-surface border border-stroke rounded-full px-5 py-3 text-sm text-text-primary placeholder:text-pl-muted focus:outline-hidden focus:border-text-primary transition-colors"
             />
           </motion.div>
         </div>

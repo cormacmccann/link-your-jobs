@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, Sparkles, RefreshCw, Copy, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { toast } from "sonner";
 
 const prefixes = ["Nova", "Apex", "Zen", "Flux", "Pulse", "Core", "Peak", "Edge", "Bold", "Swift", "Bright", "Clear", "Prime", "True", "Pure", "Smart", "Next", "Pro", "Max", "Ultra"];
@@ -19,6 +19,8 @@ const industryWords: Record<string, string[]> = {
   retail: ["Shop", "Store", "Market", "Goods", "Trade", "Style", "Fashion", "Trend", "Select", "Choice"],
 };
 
+const pick = <T,>(items: readonly T[]): T => items[Math.floor(Math.random() * items.length)]!;
+
 export default function BusinessNameGenerator() {
   const [keywords, setKeywords] = useState("");
   const [industry, setIndustry] = useState("tech");
@@ -30,7 +32,7 @@ export default function BusinessNameGenerator() {
     setIsGenerating(true);
     const results: string[] = [];
     const words = keywords.split(/[\s,]+/).filter(Boolean);
-    const industryTerms = industryWords[industry] || industryWords.tech;
+    const industryTerms = industryWords[industry] ?? industryWords["tech"] ?? [];
     
     // Generate various combinations
     for (let i = 0; i < 12; i++) {
@@ -40,37 +42,37 @@ export default function BusinessNameGenerator() {
       switch (style) {
         case 0: // Prefix + Keyword
           if (words.length > 0) {
-            const word = words[Math.floor(Math.random() * words.length)];
-            name = prefixes[Math.floor(Math.random() * prefixes.length)] + word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            const word = pick(words);
+            name = pick(prefixes) + word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
           } else {
-            name = prefixes[Math.floor(Math.random() * prefixes.length)] + industryTerms[Math.floor(Math.random() * industryTerms.length)];
+            name = pick(prefixes) + pick(industryTerms);
           }
           break;
         case 1: // Keyword + Suffix
           if (words.length > 0) {
-            const word = words[Math.floor(Math.random() * words.length)];
-            name = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + " " + suffixes[Math.floor(Math.random() * suffixes.length)];
+            const word = pick(words);
+            name = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() + " " + pick(suffixes);
           } else {
-            name = industryTerms[Math.floor(Math.random() * industryTerms.length)] + " " + suffixes[Math.floor(Math.random() * suffixes.length)];
+            name = pick(industryTerms) + " " + pick(suffixes);
           }
           break;
         case 2: // Industry + Suffix
-          name = industryTerms[Math.floor(Math.random() * industryTerms.length)] + suffixes[Math.floor(Math.random() * suffixes.length)];
+          name = pick(industryTerms) + pick(suffixes);
           break;
         case 3: // Prefix + Industry
-          name = prefixes[Math.floor(Math.random() * prefixes.length)] + industryTerms[Math.floor(Math.random() * industryTerms.length)];
+          name = pick(prefixes) + pick(industryTerms);
           break;
         case 4: // Two Keywords combined
           if (words.length >= 2) {
-            const w1 = words[Math.floor(Math.random() * words.length)];
-            const w2 = words[Math.floor(Math.random() * words.length)];
+            const w1 = pick(words);
+            const w2 = pick(words);
             name = w1.charAt(0).toUpperCase() + w1.slice(1).toLowerCase() + w2.charAt(0).toUpperCase() + w2.slice(1).toLowerCase();
           } else {
-            name = prefixes[Math.floor(Math.random() * prefixes.length)] + " " + suffixes[Math.floor(Math.random() * suffixes.length)];
+            name = pick(prefixes) + " " + pick(suffixes);
           }
           break;
         case 5: // Prefix + Suffix
-          name = prefixes[Math.floor(Math.random() * prefixes.length)] + " " + suffixes[Math.floor(Math.random() * suffixes.length)];
+          name = pick(prefixes) + " " + pick(suffixes);
           break;
       }
       

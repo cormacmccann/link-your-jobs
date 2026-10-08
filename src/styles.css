@@ -1,0 +1,346 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * KAMROK design system.
+ *
+ * Colour tokens are HSL triplets (e.g. `220 35% 4%`) consumed as hsl(var(--x)).
+ * The site is always dark: the KAMROK dark palette is applied on <body>
+ * (and on any `.dark` element), with the light palette on :root as fallback.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-gobold: "GOBOLD", "Bebas Neue", Impact, sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-pink: hsl(var(--acc-pink));
+  --color-accent-violet: hsl(var(--acc-violet));
+  --color-accent-cyan: hsl(var(--acc-cyan));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-ring-offset-background: hsl(var(--background));
+
+  --color-acc-orange: hsl(24, 94%, 53%);
+  --color-acc-pink: hsl(var(--acc-pink));
+  --color-acc-violet: hsl(var(--acc-violet));
+  --color-acc-cyan: hsl(var(--acc-cyan));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --color-bg-0: hsl(var(--bg-0));
+  --color-bg-1: hsl(var(--bg-1));
+  --color-bg-2: hsl(var(--bg-2));
+  --color-text-1: hsl(var(--text-1));
+  --color-text-2: hsl(var(--text-2));
+  --color-bg: hsl(var(--bg));
+  --color-surface: hsl(var(--surface));
+  --color-text-primary: hsl(var(--text));
+  --color-pl-muted: hsl(var(--pl-muted));
+  --color-stroke: hsl(var(--stroke));
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+:root {
+  /* Light fallback palette */
+  --background: 0 0% 100%;
+  --foreground: 220 10% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 10% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 10% 15%;
+  --primary: 220 70% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 10% 95%;
+  --secondary-foreground: 220 10% 15%;
+  --muted: 220 10% 96%;
+  --muted-foreground: 220 10% 45%;
+  --accent: 220 10% 94%;
+  --accent-foreground: 220 10% 15%;
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 15% 90%;
+  --input: 220 15% 90%;
+  --ring: 220 70% 50%;
+  --radius: 0.75rem;
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 220 10% 15%;
+  --sidebar-primary: 220 70% 50%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 10% 96%;
+  --sidebar-accent-foreground: 220 10% 15%;
+  --sidebar-border: 220 15% 90%;
+  --sidebar-ring: 220 70% 50%;
+}
+
+/* KAMROK dark theme — futuristic, calm aesthetic. Always on for <body>. */
+body,
+.dark {
+  --bg-0: 220 35% 4%; /* #0B0C10 */
+  --bg-1: 222 30% 6%; /* #0F1117 */
+  --bg-2: 220 25% 9%; /* #141824 */
+  --text-1: 225 15% 92%; /* #E6E9F2 */
+  --text-2: 220 15% 70%; /* #A9B0C0 */
+  --acc-pink: 340 100% 62%; /* #FF3D9A */
+  --acc-violet: 260 100% 68%; /* #7C5CFF */
+
+  --background: var(--bg-0);
+  --foreground: var(--text-1);
+  --card: var(--bg-1);
+  --card-foreground: var(--text-1);
+  --card-glass: 0 0% 100% / 0.05;
+  --popover: var(--bg-2);
+  --popover-foreground: var(--text-1);
+  --primary: var(--acc-violet);
+  --primary-foreground: var(--bg-0);
+  --secondary: var(--bg-2);
+  --secondary-foreground: var(--text-1);
+  --muted: var(--bg-2);
+  --muted-foreground: var(--text-2);
+  --accent: var(--bg-2);
+  --accent-foreground: var(--text-1);
+  --accent-pink: var(--acc-pink);
+  --accent-violet: var(--acc-violet);
+  --destructive: 0 75% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 140 70% 50%;
+  --success-alt: 160 75% 45%;
+  --warning: 25 85% 60%;
+  --warning-alt: 35 90% 65%;
+  --info: 200 75% 55%;
+  --info-alt: 220 80% 60%;
+  --metric-red: 0 75% 60%;
+  --metric-green: 140 70% 50%;
+  --metric-blue: 220 75% 55%;
+  --metric-cyan: var(--acc-violet);
+  --border: 0 0% 100% / 0.1;
+  --input: var(--bg-2);
+  --ring: var(--acc-violet);
+  --radius: 1.25rem;
+  --sidebar-background: var(--bg-1);
+  --sidebar-foreground: var(--text-1);
+  --sidebar-primary: var(--acc-violet);
+  --sidebar-primary-foreground: var(--bg-0);
+  --sidebar-accent: 0 0% 100% / 0.08;
+  --sidebar-accent-foreground: var(--text-1);
+  --sidebar-border: 0 0% 100% / 0.1;
+  --sidebar-ring: var(--acc-violet);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background: #03060d;
+    color-scheme: dark;
+  }
+
+  body {
+    color: var(--color-foreground);
+    font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Tailwind v4 makes buttons use the default cursor; keep v3's pointer. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism utilities */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-hover {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(340, 75%, 60%), hsl(10, 80%, 65%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .metric-value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .metric-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(220, 10%, 60%);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
+
+/* ============================================
+   GLOBAL HEADINGS — Italic GOBOLD/Oswald tilt
+   Bright sunrise gradient, slight upward skew
+   ============================================ */
+:root {
+  --heading-grad: linear-gradient(180deg, #ffffff 0%, #fff8ec 45%, #efe0be 100%);
+  --heading-glow: 0 2px 24px rgba(255, 248, 230, 0.25);
+}
+
+h1, h2, h3, h4, h5, h6,
+.kk-flyout__h, .kk-codex-name, .kk-case-glass span,
+.kk-step h3, .kk-team-name, .kk-case-feature h3 {
+  font-family: "GOBOLD", "Oswald", "Bebas Neue", Impact, sans-serif !important;
+  font-style: italic !important;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  display: inline-block;
+  background: var(--heading-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 2px 18px rgba(255, 255, 255, 0.18));
+  text-shadow: none;
+}
+
+/* Only top-level page titles get the upward tilt */
+h1, .page-title {
+  transform: skew(-6deg, -1.5deg);
+  transform-origin: left center;
+}
+
+/* Landing page headings stay upright */
+.moon-root h1, .intro h1, .intro .intro-headline {
+  transform: none !important;
+}
+
+/* Keep utility / chrome headings untouched */
+[role="dialog"] h1, [role="dialog"] h2, [role="dialog"] h3,
+[role="alertdialog"] h1, [role="alertdialog"] h2, [role="alertdialog"] h3,
+.no-fancy-heading, .no-fancy-heading h1, .no-fancy-heading h2,
+.no-fancy-heading h3, .no-fancy-heading h4, .no-fancy-heading h5, .no-fancy-heading h6 {
+  transform: none !important;
+  background: none !important;
+  -webkit-text-fill-color: currentColor !important;
+  color: inherit !important;
+  filter: none !important;
+  font-style: normal !important;
+  font-family: inherit !important;
+}
+
+/* ============================================
+   GLOBAL BODY FONT — Montserrat everywhere
+   Headings keep GOBOLD via the rule above (!important)
+   ============================================ */
+html, body, p, span, a, li, ul, ol, button, input, textarea, select,
+label, td, th, div, section, article, aside, header, footer, nav, main,
+small, strong, em, blockquote, figcaption,
+.subtitle, .subhead, .eyebrow, .kk-sub, .kk-k, .kk-meta, .kk-n,
+.kk-flyout__tag, .kk-flyout__label, .kk-tags li, .kk-team-role,
+.kk-step__n, .kk-av-mono, .kk-skillbtn__name {
+  font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Restore heading font (re-assert after the broad rule above) */
+h1, h2, h3, h4, h5, h6,
+.kk-flyout__h, .kk-codex-name, .kk-case-glass span,
+.kk-step h3, .kk-team-name, .kk-case-feature h3 {
+  font-family: "GOBOLD", "Oswald", "Bebas Neue", Impact, sans-serif !important;
+}
+
+/* Accessibility — honour "reduce motion". */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Touch feel — no hover on phones, so give taps a physical press response. */
+@media (hover: none) {
+  .kk-cta:active, .kk-cta-big:active, .kk-visit:active, .pill:active,
+  .im-mtab:active, .kk-case-card:active, .kk-client:active, .kk-review:active,
+  .kk-skillbtn:active, .m-travel button:active, .im-mtop-btn:active {
+    transform: scale(0.96);
+    transition: transform 0.08s ease;
+  }
+}
+
+/* GOBOLD display font (was inline in index.html) */
+@font-face {
+  font-family: "GOBOLD";
+  src: url("https://fonts.cdnfonts.com/s/14986/GOBOLD Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GOBOLD";
+  src: url("https://fonts.cdnfonts.com/s/14986/GOBOLD Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

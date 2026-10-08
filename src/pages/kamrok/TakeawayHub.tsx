@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { ArrowDown, ArrowUpRight, Check, CreditCard, Mail, MessageCircle, Plus, Store, UtensilsCrossed } from "lucide-react";
 import TakeawayShowcase from "@/components/kamrok/TakeawayShowcase";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
