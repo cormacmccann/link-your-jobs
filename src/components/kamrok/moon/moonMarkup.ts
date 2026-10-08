@@ -99,10 +99,10 @@ export const MOON_MARKUP = `
 
   <div class="touch">
     <div class="pad">
-      <button class="up" data-k="up">▲</button>
-      <button class="left" data-k="left">◀</button>
-      <button class="down" data-k="down">▼</button>
-      <button class="right" data-k="right">▶</button>
+      <button class="up" data-k="up" aria-label="Drive forward">▲</button>
+      <button class="left" data-k="left" aria-label="Steer left">◀</button>
+      <button class="down" data-k="down" aria-label="Drive backward">▼</button>
+      <button class="right" data-k="right" aria-label="Steer right">▶</button>
     </div>
   </div>
 
@@ -119,7 +119,7 @@ export const MOON_MARKUP = `
   </div>
 
   <aside class="panel" id="panel-about">
-    <button class="close" data-close>✕</button>
+    <button class="close" data-close aria-label="Close about panel">✕</button>
     <div class="tag">01 — ABOUT</div>
     <h2>KAMROK</h2>
     <div class="rule"></div>
@@ -128,7 +128,7 @@ export const MOON_MARKUP = `
     <a class="panel-cta" href="/about">VIEW FULL PAGE →</a>
   </aside>
   <aside class="panel" id="panel-work">
-    <button class="close" data-close>✕</button>
+    <button class="close" data-close aria-label="Close work panel">✕</button>
     <div class="tag">02 — WORK</div>
     <h2>Selected<br/>work.</h2>
     <div class="rule"></div>
@@ -137,7 +137,7 @@ export const MOON_MARKUP = `
     <a class="panel-cta" href="/work">VIEW FULL PAGE →</a>
   </aside>
   <aside class="panel" id="panel-skills">
-    <button class="close" data-close>✕</button>
+    <button class="close" data-close aria-label="Close skills panel">✕</button>
     <div class="tag">03 — SKILLS</div>
     <h2>What we<br/>do.</h2>
     <div class="rule"></div>
@@ -152,7 +152,7 @@ export const MOON_MARKUP = `
     <a class="panel-cta" href="/skills">VIEW FULL PAGE →</a>
   </aside>
   <aside class="panel" id="panel-contact">
-    <button class="close" data-close>✕</button>
+    <button class="close" data-close aria-label="Close contact panel">✕</button>
     <div class="tag">04 — CONTACT</div>
     <h2>Let's<br/>talk.</h2>
     <div class="rule"></div>
@@ -166,7 +166,7 @@ export const MOON_MARKUP = `
   </aside>
 
   <div class="skill-pop" id="skillPop">
-    <button class="skill-pop__x" id="skillPopX">✕</button>
+    <button class="skill-pop__x" id="skillPopX" aria-label="Close skill details">✕</button>
     <div class="skill-pop__k" id="skillPopK">SKILL</div>
     <h3 class="skill-pop__h" id="skillPopH"></h3>
     <p class="skill-pop__p" id="skillPopP"></p>
@@ -176,7 +176,7 @@ export const MOON_MARKUP = `
   <div class="alien-bubble" id="alienBubble">
     <span class="ab-tag">◎ VISITOR</span>
     <p id="alienLine"></p>
-    <button id="alienReply" type="button"></button>
+    <button id="alienReply" type="button" aria-label="Reply to the visitor"></button>
   </div>
 
   <div id="loader">
