@@ -109,3 +109,21 @@
 .takeaway-table-wrap td:nth-child(2) { color:var(--studio-mint); }
 .takeaway-section .takeaway-independence { font-size:clamp(22px,3vw,34px); color:var(--studio-text); margin-top:35px; max-width:50ch; }
 @media(max-width:760px) { .takeaway-quote-examples { grid-template-columns:1fr; }.takeaway-tracking-note { margin-top:-20px; } }
+
+.takeaway-showcase { padding:65px 0; border-bottom:1px solid var(--studio-line); }
+.takeaway-showcase-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:35px; margin-bottom:25px; }
+.takeaway-showcase-heading h2 { margin-bottom:0; }
+.takeaway-showcase-heading > p { max-width:38ch; color:var(--studio-copy); font-size:14px; line-height:1.8; }
+.takeaway-screen-picker { display:flex; flex-wrap:wrap; gap:8px; padding:20px 0; }
+.takeaway-screen-picker button { min-height:42px; padding:10px 15px; border:1px solid var(--studio-line); color:var(--studio-copy); font-size:11px; border-radius:4px; }
+.takeaway-screen-picker button[aria-pressed='true'] { color:var(--studio-bg); background:var(--studio-mint); border-color:var(--studio-mint); }
+.takeaway-screen-picker button:focus-visible { outline:2px solid var(--studio-mint); outline-offset:3px; }
+.takeaway-showcase figure { margin:0; border:1px solid var(--studio-line); border-radius:8px; overflow:hidden; background:var(--studio-surface); }
+.takeaway-screen-image { background:#eeeae3; padding:20px; height:clamp(300px,50vw,740px); display:flex; align-items:center; justify-content:center; }
+.takeaway-screen-image img { width:100%; height:100%; object-fit:contain; }
+.takeaway-showcase figcaption { padding:28px; display:flex; justify-content:space-between; gap:32px; align-items:flex-end; }
+.takeaway-showcase figcaption span { color:var(--studio-mint); font-size:10px; letter-spacing:.1em; }
+.takeaway-showcase figcaption h3 { margin:10px 0; font-size:26px; }
+.takeaway-showcase figcaption p { color:var(--studio-copy); font-size:13px; line-height:1.8; max-width:62ch; }
+.takeaway-showcase figcaption small { color:var(--studio-muted); font-size:10px; line-height:1.8; max-width:30ch; }
+@media(max-width:760px) { .takeaway-showcase { padding:45px 0; }.takeaway-showcase-heading,.takeaway-showcase figcaption { flex-direction:column; align-items:flex-start; gap:18px; }.takeaway-screen-image { padding:8px; height:clamp(220px,62vw,470px); }.takeaway-showcase figcaption { padding:20px; }.takeaway-screen-picker { gap:6px; }.takeaway-screen-picker button { font-size:10px; padding:9px 12px; } }

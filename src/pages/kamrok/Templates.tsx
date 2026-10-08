@@ -32,22 +32,27 @@ export default function Templates() {
   return <KamrokLayout title="Lovable Templates & Website Starters | KAMROK" description="Explore Takeaway Hub, a Lovable starter for food businesses, alongside free website templates you can customise and download.">
     <div className="template-heading"><span className="orbit-eyebrow">A HEAD START. YOUR OWN DIRECTION.</span><h1>Start somewhere.<br /><em>Make it yours.</em></h1><p className="kk-lead-text">A starting point with a bit of ambition. Explore a ready-made Lovable project or personalise a free website starter, then make it your own.</p><span className="template-format">Lovable projects + free HTML starters</span></div>
     <section className="template-featured" aria-labelledby="takeaway-title">
-      <div className="template-commission">
-        <strong>0% <span>COMMISSION</span></strong>
-        <h3>No hidden design fees.<br />No hidden website build fees.</h3>
-        <p>Your website. Your order system. Hosted on Lovable.</p>
-        <small>€0 KAMROK design and build fees when you customise the template yourself. Lovable, domain, payment processing and extra usage costs are separate. Optional hands-on help is quoted upfront.</small>
+      <div className="template-featured-topline"><span className="orbit-eyebrow">FEATURED STARTER / 01</span><span>FOOD & HOSPITALITY · BUILT WITH LOVABLE</span></div>
+      <div className="template-featured-main">
+        <div className="template-featured-copy">
+          <h2 id="takeaway-title">Your menu.<br /><em>Your takeaway hub.</em></h2>
+          <p className="template-featured-intro">Your website. Your order system. Your name above the door. Make the menu, branding and delivery experience yours, then host it on Lovable.</p>
+          <div className="template-commission"><strong>0%</strong><div><span>COMMISSION</span><p>Every order. Zero KAMROK cut.</p></div></div>
+          <p className="template-fee-promise">No hidden design fees.<br />No hidden website build fees.</p>
+          <div className="template-featured-actions"><Link className="orbit-button cinematic-action" to="/templates/takeaway-hub">Explore Takeaway Hub <ActionFeedback icon={ExternalLink} /></Link><a className="orbit-text-link cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Make it yours <ActionFeedback icon={WandSparkles} /></a></div>
+        </div>
+        <div className="template-featured-product">
+          <Link className="template-featured-image" to="/templates/takeaway-hub" aria-label="Explore Takeaway Hub"><div className="template-preview-bar"><span><i /><i /><i /></span><span>YOUR NEXT CHAPTER, ONLINE</span><ExternalLink size={13} /></div><img src="/templates/takeaway-hub/website.webp" alt="Takeaway Hub demo with food photography, a digital menu and a clear ordering action" width="1219" height="894" /></Link>
+          <div className="template-product-details"><span className="orbit-eyebrow">FROM YOUR MENU TO THEIR FRONT DOOR</span><ul><li>Pizza options & combo deals</li><li>Customer rewards</li><li>Owner controls</li><li>Order timeline</li><li>Individual driver links</li><li>Practical remix guide</li></ul></div>
+        </div>
       </div>
-      <Link className="template-featured-image" to="/templates/takeaway-hub" aria-label="Explore Takeaway Hub"><img src="/templates/takeaway-hub/preview.webp" alt="Takeaway Hub demo with food photography, a digital menu and a clear ordering action" width="1420" height="1004" /></Link>
-      <div><span className="orbit-eyebrow">FEATURED LOVABLE STARTER · FOOD & HOSPITALITY</span><h2 id="takeaway-title">Your menu.<br />Your takeaway hub.</h2><p>Give your food business its own home online. Start with Takeaway Hub, then make the branding, menu, opening hours and delivery information yours in Lovable.</p><ul><li>Pizza options & combo deals</li><li>Customer rewards</li><li>Owner controls</li><li>Kitchen-to-delivery timeline</li><li>Individual driver links</li><li>Remix guide</li></ul>
-        <p className="template-independence"><strong>Skip the setup bill. Keep your independence.</strong> If your alternative is a €500 or €2,000 studio setup quote, doing it yourself with this free starter avoids that upfront fee. Put the budget into your food, your team and your next idea.</p>
-        <Link className="orbit-text-link" to="/templates/takeaway-hub#compare">Compare Wix, studio setup and DIY costs →</Link>
-        <div className="template-featured-price"><strong>Lovable Pro from US$25 / month</strong><small>Includes connecting your own domain. Lovable subscription paid separately; domain registration, usage and payment-provider costs may be additional. Local currency and taxes are confirmed by Lovable. Price checked October 2026.</small></div>
-        <div className="template-featured-actions"><Link className="orbit-button cinematic-action" to="/templates/takeaway-hub">Explore Takeaway Hub <ActionFeedback icon={ExternalLink} /></Link><a className="orbit-text-link cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Get started with Lovable <ActionFeedback icon={WandSparkles} /></a></div>
-        <p className="template-help">Lovable sign-up uses my affiliate link. Want help making this your own? <Link to="/contact?service=Takeaway%20Hub%20template">Talk to me about your takeaway.</Link></p>
+      <div className="template-featured-bottom">
+        <div className="template-featured-price"><span>YOUR STARTING POINT</span><strong>€0 template.<br />Lovable Pro from US$25<span> / month</span></strong><p>Customise it yourself. Connect your own domain. Pay Lovable directly.</p></div>
+        <div className="template-independence"><span>KEEP YOUR INDEPENDENCE</span><h3>Put the budget back into your business.</h3><p>A €500 or €2,000 studio setup quote? This free DIY starter lets you avoid that upfront fee and build it your way.</p><Link className="orbit-text-link cinematic-action" to="/templates/takeaway-hub#compare">Compare the costs & savings <ActionFeedback icon={ExternalLink} /></Link></div>
       </div>
+      <div className="template-featured-notes"><p>€0 KAMROK design and build fees for DIY use. Lovable subscription, domain registration, payment processing and extra usage are separate. Optional hands-on help is quoted upfront. Studio quotes are illustrative; DIY takes your time. Local currency and taxes confirmed by Lovable. Price checked October 2026.</p><p>Lovable sign-up uses my affiliate link. <Link to="/contact?service=Takeaway%20Hub%20template">Want a hand making it yours?</Link></p></div>
     </section>
-    <h2 className="template-collection-title">Free website starters</h2>
+    <div className="template-collection-heading"><div><span className="orbit-eyebrow">MORE WAYS TO START</span><h2 className="template-collection-title">A blank canvas.<br />With a head start.</h2></div><p>Three free website starters. Pick a direction, add your personality and download your own version.</p></div>
     <div className="template-grid">
       {SITE_TEMPLATES.map(template => <article className="template-card" key={template.id}>
         <div className="template-thumbnail" aria-hidden="true"><iframe tabIndex={-1} sandbox="" title={`${template.name} design thumbnail`} srcDoc={renderTemplate(template, template.brand, template.headline, template.accent)} loading="lazy" /></div>

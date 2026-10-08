@@ -11,7 +11,7 @@ export function takeawaySeo(): Plugin {
       const title = "Commission-Free Takeaway Website Template | KAMROK";
       const description = "Launch your own takeaway website with Takeaway Hub. Free DIY Lovable template, no KAMROK design fee and 0% order commission. Explore the demo and calculate savings.";
       const url = "https://kamrok.com/templates/takeaway-hub";
-      const image = "https://kamrok.com/templates/takeaway-hub/preview.webp";
+      const image = "https://kamrok.com/templates/takeaway-hub/website.webp";
       let html = String(index.source).replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
       html = html.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${description}">`);
       html = html.replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${url}">`);
