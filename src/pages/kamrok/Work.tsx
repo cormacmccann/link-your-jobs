@@ -78,6 +78,32 @@ export default function Work() {
         {!projects.length && <div className="work-empty"><Search size={28} strokeWidth={1.2} aria-hidden="true" /><h2>A different direction?</h2><p>{search ? `No projects match “${search}” in this selection.` : "No published projects in this selection yet."}</p><button type="button" className="orbit-button cinematic-action" onClick={reset}>Explore all work <ActionFeedback icon={Layers} /></button></div>}
 
         <div className="work-afterword"><h2 className="kk-sub">In good company</h2><div className="kk-logos">{LOGOS.map(logo => <img key={logo} src={`/clients/${logo}.${["coca-cola","boylesports"].includes(logo) ? "png" : "webp"}`} alt={`${logo.replace(/-/g," ")} client logo`} loading="lazy" />)}</div><Testimonials limit={2} /></div>
+
+        <section className="work-contact" aria-label="Contact KAMROK">
+          <div className="work-contact-inner">
+            <span className="kk-eyebrow">BASED IN DUNDALK, WORKING EVERYWHERE</span>
+            <h2 className="kk-sub">Talk to the studio.</h2>
+            <address className="work-contact-details">
+              <strong>KAMROK — Candy Shop Digital Ltd</strong>
+              <span>Glenmore, Riverstown, Dundalk, Co. Louth, A91 VW95, Ireland</span>
+              <a href="tel:+353860285904">086 028 5904</a>
+              <a href="mailto:cormac@kamrok.com">cormac@kamrok.com</a>
+            </address>
+            <p className="work-contact-note">Web design, app development and branding for businesses across Louth, Ireland and the UK.</p>
+          </div>
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "@id": "https://kamrok.com/#org",
+            name: "KAMROK",
+            legalName: "Candy Shop Digital Ltd",
+            url: "https://kamrok.com/",
+            telephone: "+353860285904",
+            email: "cormac@kamrok.com",
+            address: { "@type": "PostalAddress", streetAddress: "Glenmore, Riverstown", addressLocality: "Dundalk", addressRegion: "Co. Louth", postalCode: "A91 VW95", addressCountry: "IE" },
+            areaServed: ["Dundalk", "Co. Louth", "Ireland", "United Kingdom"],
+          }) }} />
+        </section>
       </div>
     </KamrokLayout>
   );

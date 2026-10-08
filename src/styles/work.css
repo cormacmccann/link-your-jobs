@@ -153,3 +153,13 @@
   .work-sort select { min-width: 0; width: 100%; padding-left: 0; }
   .work-view-switch { grid-column: 1 / -1; }
 }
+
+/* Studio contact block */
+.work-contact { margin-top: 90px; padding: 60px 0 20px; border-top: 1px solid var(--studio-line, rgba(255,255,255,.08)); }
+.work-contact-inner { max-width: 640px; }
+.work-contact .kk-sub { margin: 10px 0 24px; }
+.work-contact-details { display: flex; flex-direction: column; gap: 8px; font-style: normal; font-size: 15px; line-height: 1.6; color: var(--studio-muted, rgba(255,255,255,.65)); }
+.work-contact-details strong { color: var(--studio-ink, #fff); font-size: 17px; letter-spacing: .02em; }
+.work-contact-details a { color: var(--studio-ink, #fff); text-decoration: none; border-bottom: 1px solid var(--studio-line, rgba(255,255,255,.25)); width: fit-content; transition: border-color .2s ease, opacity .2s ease; }
+.work-contact-details a:hover { border-color: var(--studio-ink, #fff); }
+.work-contact-note { margin-top: 22px; font-size: 13px; color: var(--studio-muted, rgba(255,255,255,.5)); max-width: 46ch; }
