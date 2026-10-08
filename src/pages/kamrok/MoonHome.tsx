@@ -89,5 +89,10 @@ export default function MoonHome() {
     return () => window.clearInterval(t);
   }, []);
 
-  return <MoonHomeFallback />;
+  return (
+    <MoonBoundary fallback={<MoonHomeFallback />} label="moon-home">
+      <MoonExperience autoEnter />
+      <Link className="moon-return-site" to="/">← Back to the website</Link>
+    </MoonBoundary>
+  );
 }
