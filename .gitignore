@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local source libraries and generated deployment output
+/portfolio-assets-*/
+/portfolio-assets-*.zip
+/.output/
+/.wrangler/
