@@ -21,7 +21,10 @@ function MoonHomeFallback() {
       <div style={{ fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: ".3em", color: "#9b8dff" }}>
         KAMROK · CANDY SHOP DIGITAL
       </div>
-      <h1 style={{ fontSize: "clamp(34px,9vw,72px)", fontWeight: 600, margin: 0, letterSpacing: ".04em" }}>KAMROK</h1>
+      <h1 style={{ margin: 0 }}>
+        <span style={{ display: "block", fontSize: "clamp(34px,9vw,72px)", fontWeight: 600, letterSpacing: ".04em" }}>KAMROK</span>
+        <span style={{ display: "block", marginTop: 10, fontSize: "clamp(15px,3.2vw,21px)", fontWeight: 500, fontStyle: "italic", letterSpacing: ".02em", color: "#cfc9f2" }}>Interactive Moon Playground</span>
+      </h1>
       <p style={{ maxWidth: 420, fontSize: 17, fontStyle: "italic", color: "#cfc9f2", margin: 0 }}>
         The interactive moon is taking a moment on this device — dive straight into the work.
       </p>
