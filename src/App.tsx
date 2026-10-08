@@ -37,6 +37,7 @@ const Templates = lazyRetry(() => import("./pages/kamrok/Templates"));
 const CaseStudy = lazyRetry(() => import("./pages/kamrok/CaseStudy"));
 const Skills = lazyRetry(() => import("./pages/kamrok/Skills"));
 const Blog = lazyRetry(() => import("./pages/kamrok/Blog"));
+const DundalkSeoGuide = lazyRetry(() => import("./pages/kamrok/DundalkSeoGuide"));
 const Contact = lazyRetry(() => import("./pages/kamrok/Contact"));
 
 // Tools Hub — every tool is its own chunk
@@ -89,7 +90,8 @@ const App = () => {
                 <Route path="/templates/takeaway-hub" element={<TakeawayHub />} />
                 <Route path="/work/:slug" element={<CaseStudy />} />
                 <Route path="/skills" element={<Skills />} />
-                <Route path="/blog" element={<Blog />} />
+<Route path="/blog" element={<Blog />} />
+                <Route path="/blog/dundalk-seo-guide" element={<DundalkSeoGuide />} />
                 <Route path="/contact" element={<Contact />} />
 
                 <Route path="/tools" element={<ToolsHub />} />

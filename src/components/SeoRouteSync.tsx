@@ -37,7 +37,7 @@ export default function SeoRouteSync() {
       const headline = document.title.replace(/\s*[|—].*$/, "");
       let ld: Record<string, unknown> | null = null;
       if (pathname === "/work") ld = { "@type": "CollectionPage", name: document.title, description: d, url };
-      else if (pathname.startsWith("/work/")) ld = { "@type": "Article", headline, description: d, url, author: { "@id": `${BASE}/#org` }, publisher: { "@id": `${BASE}/#org` } };
+      else if (pathname.startsWith("/work/") || pathname.startsWith("/blog/")) ld = { "@type": "Article", headline, description: d, url, author: { "@id": `${BASE}/#org` }, publisher: { "@id": `${BASE}/#org` } };
       else if (pathname.startsWith("/tools/")) ld = { "@type": "WebApplication", name: headline, description: d, url, applicationCategory: "BusinessApplication", operatingSystem: "Any", offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" }, provider: { "@id": `${BASE}/#org` } };
       document.getElementById("route-ld")?.remove();
       if (ld) {
