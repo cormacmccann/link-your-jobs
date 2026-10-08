@@ -1,43 +1,32 @@
-/*
- * Self-destroying service worker.
- *
- * An earlier build of this site shipped a PWA (vite-plugin-pwa) which registered
- * a service worker at /sw.js. The PWA has since been removed, but service workers
- * already registered in visitors' browsers stay put and keep serving a stale,
- * cached copy of the app — which surfaces as "loading an old cache" / Internal
- * Server Error after a deploy, with no automatic way out.
- *
- * Browsers re-fetch the service worker script itself from the network on
- * navigation, so serving THIS file at /sw.js lets it take over from the stale
- * worker, delete every cache, unregister itself, and reload open tabs onto the
- * current build. Once it has reached returning visitors, this file can be removed.
- */
-self.addEventListener('install', () => {
-  // Activate immediately instead of waiting for old tabs to close.
+// Replaces the old Workbox SW so returning users stop receiving cached SPA assets.
+// Cache Storage is origin-scoped; only delete Workbox caches for this scope.
+
+function isWorkboxCacheForThisRegistration(name) {
+  const hasWorkboxBucket = /(^|-)precache-v\d+-|(^|-)runtime-|(^|-)googleAnalytics-/.test(name);
+  return hasWorkboxBucket && name.endsWith(self.registration.scope);
+}
+
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
-      // 1. Delete every Cache Storage entry the old worker created.
+      // activate fires once: any reject above unregister() would strand the SW
+      // registered forever, so unregister() lives in finally.
       try {
-        const keys = await caches.keys();
-        await Promise.all(keys.map((key) => caches.delete(key)));
-      } catch (e) { /* ignore */ }
-
-      // 2. Unregister this worker so no service worker controls the site anymore.
-      try {
+        const cacheNames = await caches.keys();
+        const workboxCacheNames = cacheNames.filter(isWorkboxCacheForThisRegistration);
+        await Promise.allSettled(workboxCacheNames.map((name) => caches.delete(name)));
+        await self.clients.claim();
+        const windowClients = await self.clients.matchAll({ type: "window" });
+        await Promise.allSettled(
+          windowClients.map((client) => client.navigate(client.url)),
+        );
+      } finally {
         await self.registration.unregister();
-      } catch (e) { /* ignore */ }
-
-      // 3. Reload any open tabs so they fetch the fresh app from the network.
-      try {
-        const clients = await self.clients.matchAll({ type: 'window' });
-        for (const client of clients) {
-          client.navigate(client.url);
-        }
-      } catch (e) { /* ignore */ }
-    })()
+      }
+    })(),
   );
 });
