@@ -5,7 +5,13 @@ import { useStudioTheme } from "@/hooks/useStudioTheme";
 export default function ChimpHero({ paused }: { paused: boolean }) {
   const { theme } = useStudioTheme();
   const [ready, setReady] = useState(false);
+  const portraitRef = useRef<HTMLImageElement>(null);
   const artRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    // Server-rendered images can finish loading before React attaches onLoad.
+    const portrait = portraitRef.current;
+    if (portrait?.complete && portrait.naturalWidth > 0) setReady(true);
+  }, [theme]);
   useEffect(() => {
     const art = artRef.current;
     const hero = art?.closest(".space-hero");
@@ -48,7 +54,7 @@ export default function ChimpHero({ paused }: { paused: boolean }) {
   }, []);
   return <div className={`space-hero-chimp${ready ? " is-ready" : ""}${paused ? " is-paused" : ""}`} aria-hidden="true">
     <div className="space-chimp-art" ref={artRef}>
-      <img src={`/art/orbit/chimp-hero-${theme}.webp`} alt="" width="1265" height="1244" fetchPriority="high" decoding="async" onLoad={() => setReady(true)} />
+      <img ref={portraitRef} src={`/art/orbit/chimp-hero-${theme}.webp`} alt="" width="1265" height="1244" fetchPriority="high" decoding="async" onLoad={() => setReady(true)} />
       <img className="space-chimp-reveal" src="/art/orbit/chimp-hero-robot.webp" alt="" width="1265" height="1244" decoding="async" />
     </div>
   </div>;
