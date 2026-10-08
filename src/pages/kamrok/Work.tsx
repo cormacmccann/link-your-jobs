@@ -26,7 +26,7 @@ const latestYear = (project: PortfolioProject) => project.year?.includes("presen
 
 export default function Work() {
   const [params, setParams] = useSearchParams();
-  const filter = FILTERS.find(item => item.id === params.get("filter")) ?? FILTERS[0];
+  const filter = FILTERS.find(item => item.id === params.get("filter")) ?? FILTERS[0]!;
   const view = VIEWS.find(item => item.id === params.get("view"))?.id ?? "large";
   const sort = ["featured", "latest", "az", "za"].includes(params.get("sort") ?? "") ? params.get("sort")! : "featured";
   const search = params.get("q") ?? "";

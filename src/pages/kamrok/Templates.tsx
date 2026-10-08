@@ -9,7 +9,7 @@ import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
 import "@/styles/templates.css";
 
 export default function Templates() {
-  const [selected, setSelected] = useState(SITE_TEMPLATES[0]);
+  const [selected, setSelected] = useState<SiteTemplate>(SITE_TEMPLATES[0]!);
   const [brand, setBrand] = useState(selected.brand);
   const [headline, setHeadline] = useState(selected.headline);
   const [accent, setAccent] = useState(selected.accent);
