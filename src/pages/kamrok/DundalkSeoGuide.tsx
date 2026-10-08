@@ -120,9 +120,10 @@ export default function DundalkSeoGuide() {
         do it, that's us.
       </p>
       <p>
-        You'll find us in Dundalk, Co. Louth. Give us a shout on <strong>+353 (0)87 000 0000</strong> or
-        drop a line to <strong>cormac@kamrok.com</strong> — or use the contact page and we'll
-        come back to you quick.
+        We're based in Dundalk, Co. Louth and we work with businesses all over Louth, Dublin
+        and Belfast. Give us a shout on <strong>+353 86 028 5904</strong> or drop a line
+        to <strong>cormac@kamrok.com</strong> — or use the contact page and we'll come back
+        to you quick.
       </p>
 
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
