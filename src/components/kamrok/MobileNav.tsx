@@ -54,7 +54,7 @@ export default function MobileNav({ onMoon = false }: { onMoon?: boolean }) {
     <div className="im-mobile">
       <header className={`im-mtop ${scrolled || onMoon ? "is-solid" : ""}`}>
         <Link to="/" className="im-mtop-mark" aria-label="KAMROK home">
-          <img src={kamrokLogo.url} alt="KAMROK" width="86" height="48" style={{ width: 86, height: 48, objectFit: "contain" }} />
+          <img src={kamrokLogo.url} alt="KAMROK studio logo" width="86" height="48" style={{ width: 86, height: 48, objectFit: "contain" }} />
         </Link>
         <button
           className="im-mtop-btn"
