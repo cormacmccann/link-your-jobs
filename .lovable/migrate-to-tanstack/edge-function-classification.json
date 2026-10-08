@@ -1,0 +1,18 @@
+{"functions": [
+  {"name": "ai-contact-insights", "classification": "unknown", "signal": "no internal call sites in src/, no signature check", "outcome": "left"},
+  {"name": "ai-email-composer", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "ai-lead-scoring", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "ai-persona-generator", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "chat-websocket", "classification": "custom response", "signal": "WebSocket upgrade handler, no internal call sites", "outcome": "left"},
+  {"name": "create-stripe-invoice", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "enrich-company", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "execute-automation", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "import-portfolio-url", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "policy-chat", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "process-support-email", "classification": "webhook receiver", "signal": "inbound email processor, no internal call sites", "outcome": "left"},
+  {"name": "scan-cookies", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "send-support-reply", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "stripe-webhook", "classification": "webhook receiver", "signal": "verifies stripe-signature header", "outcome": "left"},
+  {"name": "sync-all-sources", "classification": "unknown", "signal": "no internal call sites in src/", "outcome": "left"},
+  {"name": "sync-jobs", "classification": "cron target", "signal": "net.http_post URL in supabase/migrations", "outcome": "left"}
+]}
