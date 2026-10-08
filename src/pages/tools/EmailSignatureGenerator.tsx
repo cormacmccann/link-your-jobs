@@ -234,7 +234,7 @@ export default function EmailSignatureGenerator() {
                 </CardHeader>
                 <CardContent>
                   <div 
-                    className="bg-white p-4 rounded border"
+                    className="bg-white p-4 rounded-sm border"
                     dangerouslySetInnerHTML={{ __html: generateHTML() }}
                   />
                 </CardContent>
