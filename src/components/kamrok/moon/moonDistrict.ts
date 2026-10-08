@@ -93,7 +93,7 @@ export function createMoonDistrict({ scene, height, colliders, mobile, camera, c
     box(frame, w + .85, .12, .7, glow(project.color), 0, -h / 2 - .35);
     const material = track(new THREE.MeshBasicMaterial({ map: textTexture(project.name, project.category, project.color) }));
     const display = mesh(frame, new THREE.PlaneGeometry(w, h), material, 0, 0, .3);
-    display.userData.projectId = project.id;
+    display.userData["projectId"] = project.id;
     screens.push(display);
     // A readable, branded sign stays in place if a project image is unavailable.
     loader.load(project.image, texture => {
@@ -189,7 +189,7 @@ export function createMoonDistrict({ scene, height, colliders, mobile, camera, c
     box(root, .6, .08, .18, glow("#e8c48e"), Math.cos(angle) * 10.5, .08, 8 + Math.sin(angle) * 10.5).rotation.y = -angle;
   }
   // Equipment is arranged as small scenes, leaving the streets free for driving.
-  for (const [x, z] of [[-30, 33], [37, -6]]) {
+  for (const [x, z] of ([[-30, 33], [37, -6]] as [number, number][])) {
     const station = new THREE.Group(); station.position.set(x, height(x, z), z); root.add(station);
     const panel = box(station, 5, .18, 3, track(new THREE.MeshStandardMaterial({ color: "#526d9e", metalness: .4, roughness: .4 })), 0, 2.1, 0);
     panel.rotation.x = -.32;
@@ -218,7 +218,7 @@ export function createMoonDistrict({ scene, height, colliders, mobile, camera, c
     colliders.push(collider); toys.push({ collider, x, z });
     return collider;
   }
-  [[-7, -3], [3, -8], [11, 3]].forEach(([x, z], i) => toy(x, z, ["#ff985b", "#a397ff", "#8cded0"][i], true));
+  ([[-7, -3], [3, -8], [11, 3]] as [number, number][]).forEach(([x, z], i) => toy(x, z, ["#ff985b", "#a397ff", "#8cded0"][i]!, true));
   for (let i = 0; i < 5; i++) toy(-14 + i * 2.4, 23 + (i % 2) * 2, i % 2 ? "#e8bf73" : "#a397ff", false);
   const football = toy(18, -30, "#eee8da", true);
   const ballBand = mesh(football.mesh, new THREE.TorusGeometry(1.39, .065, 5, 24), dark);
@@ -230,8 +230,8 @@ export function createMoonDistrict({ scene, height, colliders, mobile, camera, c
   toySign.rotation.y = Math.PI / 4;
 
   // Collectible drive-through hoops reward short excursions around the neighbourhood.
-  const hoops = [[15, 36], [-6, 32], [-24, 10]].map(([x, z], i) => {
-    const material = glow(["#ff985b", "#a397ff", "#8cded0"][i]);
+  const hoops = ([[15, 36], [-6, 32], [-24, 10]] as [number, number][]).map(([x, z], i) => {
+    const material = glow(["#ff985b", "#a397ff", "#8cded0"][i]!);
     const object = mesh(root, new THREE.TorusGeometry(3.8, .24, 8, 40), material, x, height(x, z) + 3.5, z);
     object.rotation.y = Math.PI / 4;
     return { object, x, z, found: false };
@@ -246,7 +246,7 @@ export function createMoonDistrict({ scene, height, colliders, mobile, camera, c
     pointer.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1, 1 - ((event.clientY - bounds.top) / bounds.height) * 2);
     ray.setFromCamera(pointer, camera);
     const hit = ray.intersectObjects(screens, false)[0];
-    if (hit) window.dispatchEvent(new CustomEvent("kamrok:moon-travel", { detail: hit.object.userData.projectId }));
+    if (hit) window.dispatchEvent(new CustomEvent("kamrok:moon-travel", { detail: hit.object.userData["projectId"] }));
   };
   canvas.addEventListener("pointerup", selectScreen);
   function resetToys() {
