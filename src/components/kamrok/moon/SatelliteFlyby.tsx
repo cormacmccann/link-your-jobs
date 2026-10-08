@@ -92,7 +92,7 @@ export default function SatelliteFlyby() {
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent", pointerEvents: "none" }}
-        eventSource={typeof document !== "undefined" ? document.body : undefined}
+        {...(typeof document !== "undefined" ? { eventSource: document.body } : {})}
         eventPrefix="client"
       >
         <ambientLight intensity={0.6} />

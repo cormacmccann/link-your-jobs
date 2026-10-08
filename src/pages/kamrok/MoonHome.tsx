@@ -57,8 +57,8 @@ export default function MoonHome() {
       const lis = document.querySelectorAll<HTMLLIElement>("#objList li[data-b]");
       if (!lis.length) return false;
       lis.forEach((li) => {
-        if (li.dataset.qtWired === "1") return;
-        li.dataset.qtWired = "1";
+        if (li.dataset["qtWired"] === "1") return;
+        li.dataset["qtWired"] = "1";
         // Inject ATV icon once
         const atv = document.createElement("span");
         atv.className = "atv";
@@ -68,7 +68,7 @@ export default function MoonHome() {
           if (li.classList.contains("traveling")) return;
           li.classList.add("traveling");
           window.setTimeout(() => li.classList.remove("traveling"), 1500);
-          const key = li.dataset.b;
+          const key = li.dataset["b"];
           const btn = document.querySelector<HTMLButtonElement>(
             `#navItems button[data-build="${key}"]`
           );

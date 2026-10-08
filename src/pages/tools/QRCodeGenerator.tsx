@@ -138,7 +138,7 @@ const QRCodeGenerator = () => {
                   </Label>
                   <Slider
                     value={[size]}
-                    onValueChange={(v) => setSize(v[0])}
+                    onValueChange={(v) => setSize(v[0] ?? size)}
                     min={128}
                     max={512}
                     step={32}
