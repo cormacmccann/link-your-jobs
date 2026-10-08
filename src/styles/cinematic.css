@@ -246,11 +246,11 @@ html[data-studio-theme='light'],html[data-studio-theme='light'] body { backgroun
 .space-hero-chimp.is-paused { animation: none; }
 .space-hero-chimp.is-paused .space-chimp-art { transform: none; transition: none; }
 .space-hero-chimp .space-chimp-reveal {
-  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  position: absolute; inset: 0; opacity: var(--reveal-opacity, 0); pointer-events: none;
   mask-image: radial-gradient(circle at var(--reveal-x, 50%) var(--reveal-y, 50%), #000 0 65px, #000e 82px, transparent 104px);
   transition: opacity .18s ease;
 }
-.space-chimp-art.is-revealing .space-chimp-reveal { opacity: 1; }
+.space-chimp-art.is-revealing { --reveal-opacity: 1; }
 @keyframes hero-chimp-rise {
   from { opacity: 0; transform: translateY(45%); }
   to { opacity: 1; transform: translateY(0); }
