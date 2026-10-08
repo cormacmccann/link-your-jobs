@@ -33,9 +33,9 @@ function Rover() {
   </group>;
 }
 class PreviewBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
+  override state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
-  render() { return this.state.failed ? <p className="fun-preview-fallback">Your moon buggy is waiting. Open the 3D playground below.</p> : this.props.children; }
+  override render() { return this.state.failed ? <p className="fun-preview-fallback">Your moon buggy is waiting. Open the 3D playground below.</p> : this.props.children; }
 }
 export default function FunRoverPreview() {
   return <PreviewBoundary><Canvas frameloop="demand" dpr={[1, 1.5]} camera={{ position: [6, 3, 7], fov: 42 }} aria-label="3D chimp on a moon buggy. Drag to rotate the view.">

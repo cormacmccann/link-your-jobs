@@ -7,7 +7,7 @@ export function moonTerrainHeight(x: number, z: number) {
     + Math.sin((x + z) * .045) * .55;
   let height = Math.sin(x * .08) * Math.cos(z * .07) * .035 + relief * outskirts;
   // Shallow, deliberately placed craters never intersect a project or the landing plaza.
-  for (const [cx, cz, radius] of [[-96, -38, 13], [90, -55, 16], [-70, 90, 12], [98, 58, 14]]) {
+  for (const [cx, cz, radius] of ([[-96, -38, 13], [90, -55, 16], [-70, 90, 12], [98, 58, 14]] as [number, number, number][])) {
     const d = Math.hypot(x - cx, z - cz) / radius;
     if (d < 1) height -= .9 * (1 - d * d) ** 2;
   }

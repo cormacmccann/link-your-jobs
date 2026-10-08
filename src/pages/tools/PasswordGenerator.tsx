@@ -34,7 +34,7 @@ const PasswordGenerator = () => {
     crypto.getRandomValues(array);
     
     for (let i = 0; i < length; i++) {
-      newPassword += charset[array[i] % charset.length];
+      newPassword += charset[array[i]! % charset.length];
     }
 
     setPassword(newPassword);
@@ -159,7 +159,7 @@ const PasswordGenerator = () => {
                 <Slider
                   value={[length]}
                   onValueChange={(v) => {
-                    setLength(v[0]);
+                    setLength(v[0] ?? length);
                     setTimeout(generatePassword, 0);
                   }}
                   min={8}

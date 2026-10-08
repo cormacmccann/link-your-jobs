@@ -14,7 +14,7 @@ const screens = [
 
 export default function TakeawayShowcase() {
   const [selected, setSelected] = useState(0);
-  const screen = screens[selected];
+  const screen = screens[selected] ?? screens[0]!;
   return <section className="takeaway-showcase" aria-labelledby="showcase-title">
     <div className="takeaway-showcase-heading"><div><span className="takeaway-kicker">TAKE A LOOK INSIDE</span><h2 id="showcase-title">One hub.<br />Both sides of the counter.</h2></div><p>From choosing dinner to running the kitchen. Explore the customer experience and the owner workspace.</p></div>
     <div className="takeaway-screen-picker" role="group" aria-label="Choose a Takeaway Hub screenshot">{screens.map((item, index) => <button key={item.id} type="button" aria-pressed={index === selected} aria-controls="takeaway-screen" onClick={() => setSelected(index)}>{item.label}</button>)}</div>

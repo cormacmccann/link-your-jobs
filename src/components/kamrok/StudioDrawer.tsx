@@ -14,9 +14,9 @@ const NAV = [
   ["/skills", "What I do", "Design, development and the right platform."],
   ["/about", "The studio", "Meet Cormac. Meet KAMROK."],
   ["/contact", "Let’s talk", "A big idea or a small question. Start here."],
-];
+] as const;
 export type DrawerKind = "menu" | "fun" | null;
-export default function StudioDrawer({ kind, onChange, trigger }: { kind: DrawerKind; onChange: (kind: DrawerKind) => void; trigger: React.RefObject<HTMLElement> }) {
+export default function StudioDrawer({ kind, onChange, trigger }: { kind: DrawerKind; onChange: (kind: DrawerKind) => void; trigger: React.RefObject<HTMLElement | null> }) {
   const { theme } = useStudioTheme();
   const fun = kind === "fun";
   return <Dialog.Root open={kind !== null} onOpenChange={open => { if (!open) onChange(null); }}>

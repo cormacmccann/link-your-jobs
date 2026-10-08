@@ -29,7 +29,8 @@ const FAQ = [
 
 export default function StudioHome() {
   const { theme } = useStudioTheme();
-  const [paused, setPaused] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => { setPaused(window.matchMedia("(prefers-reduced-motion: reduce)").matches); }, []);
   useEffect(() => {
     document.title = "KAMROK — Lovable Expert & Award-Winning WordPress Designer";
     document.querySelector('meta[name="description"]')?.setAttribute("content", "Design for what’s next. Cormac McCann: designer, illustrator, marketer, certified Lovable expert and award-winning WordPress designer. Brands, websites and apps.");

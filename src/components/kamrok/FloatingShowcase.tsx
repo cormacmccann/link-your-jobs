@@ -87,7 +87,7 @@ export default function FloatingShowcase() {
       // Pick a replacement from logos not currently blurred (and not the hovered one)
       const candidates = logoIndices.filter((idx) => idx !== i && !next.has(idx));
       if (candidates.length) {
-        const pick = candidates[Math.floor(Math.random() * candidates.length)];
+        const pick = candidates[Math.floor(Math.random() * candidates.length)]!;
         next.add(pick);
       }
       return next;
@@ -102,7 +102,7 @@ export default function FloatingShowcase() {
       const target = e.target as HTMLElement | null;
       const a = target?.closest?.(".im-float-logo") as HTMLElement | null;
       if (!a) return;
-      const idx = Number(a.dataset.idx);
+      const idx = Number(a.dataset["idx"]);
       if (Number.isFinite(idx)) onLogoEnter(idx);
     };
     layer.addEventListener("mouseover", onOver);
@@ -146,7 +146,7 @@ export default function FloatingShowcase() {
           el.classList.contains("im-float-logo") &&
           mx >= r.left && mx <= r.right && my >= r.top && my <= r.bottom
         ) {
-          const idx = Number((el as HTMLElement).dataset.idx);
+          const idx = Number((el as HTMLElement).dataset["idx"]);
           if (Number.isFinite(idx)) onLogoEnter(idx);
         }
       }

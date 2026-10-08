@@ -37,11 +37,11 @@ SKILL_ICONS.forEach((s) => useGLTF.preload(s.url, true, true, extendGltfLoader))
 // If a model fails to load (e.g. CDN unreachable), render nothing instead of
 // crashing the whole canvas — the glowing centre still shows.
 class ModelBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
-  state = { failed: false };
+  override state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
   }
-  render() {
+  override render() {
     return this.state.failed ? null : this.props.children;
   }
 }

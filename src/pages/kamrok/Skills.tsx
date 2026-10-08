@@ -96,7 +96,7 @@ export default function Skills() {
 
         <section className="services-section" aria-labelledby="services-proof-title">
           <div className="services-section-heading"><div><p className="services-kicker">FROM THE STUDIO</p><h2 id="services-proof-title">The work does<br />the talking.</h2></div><Link className="services-text-link cinematic-action" to="/work">Explore all projects <ActionFeedback icon={LayoutGrid} /></Link></div>
-          <div className="services-proof">{WORK.map(({slug,label}) => {const project = PROJECT_CASES[slug]; return <Link className="services-proof-project" key={slug} to={`/work/${slug}`}><div className="services-proof-image"><img src={project.hero.src} alt={project.hero.alt} loading="lazy" /></div><div className="services-proof-caption"><div><p>{label}</p><h3>{project.name}</h3></div><span className="cinematic-action"><ActionFeedback icon={LayoutGrid} /></span></div></Link>;})}</div>
+          <div className="services-proof">{WORK.map(({slug,label}) => {const project = PROJECT_CASES[slug]; if (!project) return null; return <Link className="services-proof-project" key={slug} to={`/work/${slug}`}><div className="services-proof-image"><img src={project.hero.src} alt={project.hero.alt} loading="lazy" /></div><div className="services-proof-caption"><div><p>{label}</p><h3>{project.name}</h3></div><span className="cinematic-action"><ActionFeedback icon={LayoutGrid} /></span></div></Link>;})}</div>
           <p className="services-award-note"><Award size={18} aria-hidden="true" /> WordPress design recognised at the Business Awards: <strong>Best Use of Internet Technology.</strong></p>
         </section>
 
