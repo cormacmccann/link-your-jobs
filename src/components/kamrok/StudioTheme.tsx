@@ -7,7 +7,7 @@ export function StudioThemeProvider({ children }: { children: ReactNode }) {
   // A visitor can switch to bright mode while moving between pages.
   const [theme, setTheme] = useState<StudioTheme>("dark");
   useEffect(() => {
-    document.documentElement.dataset.studioTheme = theme;
+    document.documentElement.dataset["studioTheme"] = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#03060d" : "#faf5e7");
   }, [theme]);
   return <StudioThemeContext.Provider value={{ theme, toggleTheme: () => setTheme(current => current === "dark" ? "light" : "dark") }}>{children}</StudioThemeContext.Provider>;

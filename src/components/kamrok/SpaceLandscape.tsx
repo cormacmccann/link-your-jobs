@@ -41,7 +41,7 @@ export default function SpaceLandscape({ paused }: { paused: boolean }) {
       queue();
     };
     const reset = () => { pointerX = 0; pointerY = 0; queue(); };
-    const observer = new IntersectionObserver(([entry]) => scene.classList.toggle("is-offscreen", !entry.isIntersecting));
+    const observer = new IntersectionObserver(([entry]) => scene.classList.toggle("is-offscreen", !entry?.isIntersecting));
     observer.observe(scene);
     paint();
     window.addEventListener("scroll", queue, { passive: true });
