@@ -26,3 +26,77 @@
 .brand-world-images figcaption { font-size: 10px; color: var(--studio-muted); margin-top: 13px; letter-spacing: .08em; }
 @media(max-width:760px) { .human-ai-story { margin-top: 50px; }.orbit-film--skills .orbit-film-stories { width: calc(100% - 32px); }.orbit-film--skills .orbit-film-chapter { max-width: 100%; min-height: 90svh; }.orbit-film--skills .orbit-film-shade { background: color-mix(in srgb,var(--studio-bg) 65%,transparent); }.human-ai-skills { max-width: 100%; }.brand-world-heading,.brand-world-images { grid-template-columns: 1fr; gap: 25px; }.brand-mascot--contact { width: 230px; margin: 0 auto; }.brand-world { margin-top: 50px; } }
 @media(prefers-reduced-motion:reduce) { .orbit-film--skills .orbit-film-chapter { min-height: 0; } }
+
+/* A personal presence, with room for the studio's visual world. */
+.studio-working-portrait {
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+  justify-self: end;
+}
+.studio-working-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 6 / 5;
+  object-fit: cover;
+  object-position: 62% center;
+  border-radius: 4px;
+}
+.studio-working-portrait figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--studio-line);
+  font-size: 11px;
+  color: var(--studio-copy);
+}
+.studio-working-portrait figcaption strong {
+  color: var(--studio-text);
+  font-weight: 500;
+}
+.studio-working-approach {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(26px, 4vw, 64px);
+  margin-top: 60px;
+  border-block: 1px solid var(--studio-line);
+}
+.studio-working-backdrop {
+  position: absolute;
+  z-index: -2;
+  inset: 0 0 0 auto;
+  width: 65%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  opacity: .65;
+}
+.studio-working-approach::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, var(--studio-bg) 25%, color-mix(in srgb, var(--studio-bg) 94%, transparent) 52%, color-mix(in srgb, var(--studio-bg) 25%, transparent));
+}
+.studio-working-content { max-width: 66%; }
+.studio-working-content .kk-sub { margin-top: 0; }
+.studio-working-content .studio-principles { gap: 30px; }
+@media (max-width: 1000px) {
+  .studio-working-content { max-width: 80%; }
+  .studio-working-approach::before {
+    background: linear-gradient(90deg, var(--studio-bg), color-mix(in srgb, var(--studio-bg) 92%, transparent) 70%, color-mix(in srgb, var(--studio-bg) 60%, transparent));
+  }
+}
+@media (max-width: 760px) {
+  .studio-working-portrait { max-width: 480px; justify-self: start; }
+  .studio-working-content { max-width: none; }
+  .studio-working-approach { margin-top: 40px; }
+  .studio-working-backdrop { width: 100%; opacity: .22; }
+  .studio-working-approach::before {
+    background: color-mix(in srgb, var(--studio-bg) 82%, transparent);
+  }
+}
