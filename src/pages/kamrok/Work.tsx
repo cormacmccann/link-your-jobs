@@ -1,3 +1,5 @@
+import ClassicPortfolio from "@/components/kamrok/ClassicPortfolio";
+import ProjectQuoteLink from "@/components/kamrok/ProjectQuoteLink";
 import { Link, useSearchParams } from "@/lib/router-compat";
 import {
   ArrowDownUp,
@@ -125,6 +127,13 @@ const latestYear = (project: PortfolioProject) =>
 
 export default function Work() {
   const [params, setParams] = useSearchParams();
+  const classic = params.get("view") === "gallery";
+  const openIllustrations = () => {
+    const next = new URLSearchParams(params);
+    next.set("view", "gallery");
+    next.set("gallery", "illustrations");
+    setParams(next, { replace: true, preventScrollReset: true });
+  };
   const filter =
     FILTERS.find((item) => item.id === params.get("filter")) ?? FILTERS[0]!;
   const view =
@@ -206,6 +215,11 @@ export default function Work() {
           </p>
         </header>
 
+        <div className="portfolio-modes" role="group" aria-label="Portfolio experience">
+          <button type="button" aria-pressed={!classic} onClick={() => update("view", "large", "large")}><FileText size={20} /><span>Project case studies<small>The story and thinking behind each project</small></span></button>
+          <button type="button" aria-pressed={classic} onClick={() => update("view", "gallery")}><Grid3X3 size={20} /><span>Classic portfolio<small>A big grid of designs, brands and illustrations</small></span></button>
+        </div>
+        {classic ? <ClassicPortfolio /> : <>
         <div
           className="work-collections"
           role="group"
@@ -236,7 +250,7 @@ export default function Work() {
             </button>
           ))}
         </div>
-        <p className="work-collection-intro">{collection.description}</p>
+        <p className="work-collection-intro">{collection.description} <button type="button" className="work-art-link" onClick={openIllustrations}>Illustrations, just for fun →</button></p>
 
         <section className="work-controls" aria-label="Browse the portfolio">
           <div
@@ -361,7 +375,7 @@ export default function Work() {
                 aria-label={`View ${project.name} case study`}
               >
                 <div
-                  className="work-project-image"
+                  className={`work-project-image${project.presentation === "identity" || project.hero.fit === "contain" ? " work-project-image--identity" : ""}`}
                   style={{ backgroundColor: project.surface }}
                 >
                   <img
@@ -401,7 +415,9 @@ export default function Work() {
                               ? project.categories.includes("websites")
                                 ? "Website & app"
                                 : "Web app"
-                              : "Web design",
+                              : project.categories.includes("branding") && !project.categories.includes("websites")
+                                ? "Brand identity"
+                                : "Web design",
                         ]
                     ).map((platform) => (
                       <span key={platform}>{platform}</span>
@@ -463,6 +479,8 @@ export default function Work() {
             </button>
           </div>
         )}
+
+        </>}
 
         <div className="work-afterword">
           <h2 className="kk-sub">In good company</h2>
@@ -528,6 +546,7 @@ export default function Work() {
             }}
           />
         </section>
+        <ProjectQuoteLink />
       </div>
     </KamrokLayout>
   );

@@ -449,3 +449,78 @@
     gap: 10px;
   }
 }
+
+/* Brand artwork stays complete, with space around the mark. */
+.case-page--identity .case-hero .case-image-surface {
+  aspect-ratio: auto;
+  min-height: 320px;
+}
+.case-page--identity .case-hero img {
+  width: min(100%, 680px);
+  height: auto;
+  max-height: none;
+}
+.case-page--identity .case-gallery .case-image-surface {
+  aspect-ratio: 1;
+  background: #fff;
+}
+.case-design-notes, .case-films {
+  margin-bottom: 76px;
+}
+.case-design-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--case-line);
+}
+.case-design-notes-grid article {
+  padding: 30px 26px;
+  border-bottom: 1px solid var(--case-line);
+}
+.case-design-notes-grid article + article {
+  border-left: 1px solid var(--case-line);
+}
+.case-design-number {
+  display: block;
+  color: #cbb47d;
+  font-size: 12px;
+  letter-spacing: .12em;
+  margin-bottom: 28px;
+}
+.case-design-notes h3 {
+  margin: 0 0 8px;
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.4;
+}
+.case-design-subtitle {
+  color: var(--case-muted);
+  font-size: 12px;
+}
+.case-design-notes p {
+  color: var(--case-muted);
+  font-size: 14px;
+  line-height: 1.85;
+  margin: 22px 0;
+}
+.case-design-notes summary {
+  cursor: pointer;
+  font-size: 12px;
+  padding: 12px 0;
+  min-height: 44px;
+}
+.case-design-notes summary span { float: right; }
+.case-design-notes details[open] summary span { transform: rotate(45deg); }
+.case-design-notes summary:focus-visible { outline: 2px solid #cbb47d; outline-offset: 4px; }
+.case-films video {
+  display: block;
+  width: 100%;
+  max-height: 680px;
+  background: var(--case-surface);
+  border-radius: 5px;
+}
+@media (max-width: 767px) {
+  .case-design-notes-grid { grid-template-columns: 1fr; }
+  .case-design-notes-grid article { padding: 26px 0; }
+  .case-design-notes-grid article + article { border-left: 0; }
+  .case-design-notes, .case-films { margin-bottom: 42px; }
+  .case-page--identity .case-hero .case-image-surface { min-height: 0; }
+}

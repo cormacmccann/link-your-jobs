@@ -1,12 +1,12 @@
 import * as THREE from "three";
 import clubrovia from "@/assets/clubrovia/laptop.png.asset.json";
-import mckevitts from "@/assets/mckevitts/hero.png.asset.json";
+import { BRAND_ARTWORK } from "@/data/brandArtwork";
 
 export const MOON_PROJECTS = [
   {
     id: "mckevitts", number: "01", name: "McKevitt’s", place: "The lunar hotel",
     category: "BRAND · HOSPITALITY · WEB", color: "#f5c778", x: -28, z: -17,
-    arrival: { x: -18, z: -3 }, image: mckevitts.url,
+    arrival: { x: -18, z: -3 }, image: BRAND_ARTWORK["mckevitts"]!.hero.src,
     description: "A little Carlingford, a long way from Earth. Explore the identity and website for a family-run hotel, bar and restaurant.",
   },
   {

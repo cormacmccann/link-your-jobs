@@ -1,5 +1,4 @@
-import mckHero from "@/assets/mckevitts/hero.png.asset.json";
-import mckRooms from "@/assets/mckevitts/rooms.jpg.asset.json";
+import { BRAND_ARTWORK } from "./brandArtwork";
 import { CLIENT_PORTFOLIO } from "./clientPortfolio";
 import { PORTFOLIO_CAPTURES } from "./portfolioCaptures";
 
@@ -9,6 +8,7 @@ export type ProjectImage = {
   caption: string;
   width?: number;
   height?: number;
+  fit?: "contain" | "cover";
 };
 export type CaseData = {
   name: string;
@@ -21,7 +21,18 @@ export type CaseData = {
   description: string[];
   services: string[];
   gallery?: ProjectImage[];
-  presentation?: "screens";
+  presentation?: "screens" | "identity";
+  designNotes?: {
+    title: string;
+    subtitle: string;
+    text: string;
+    irish: string;
+  }[];
+  films?: {
+    src: string;
+    poster: string;
+    caption: string;
+  }[];
   categories?: string[];
   outcomes?: ProjectResult[];
   collection?: "platforms" | "identity";
@@ -30,6 +41,68 @@ export type CaseData = {
 };
 
 export const PROJECT_CASES: Record<string, CaseData> = {
+  airnean: {
+    name: "Airneán",
+    category: "Irish culture · Brand identity",
+    intro: "Music, moonlight and a welcome at the door.",
+    year: "2025",
+    surface: "#00251e",
+    presentation: "identity",
+    categories: ["branding"],
+    hero: {
+      src: "/projects/airnean/gold-on-green.jpg",
+      alt: "Airneán logo in gold on deep green, with Celtic moon knotwork and a candle beneath flowing lettering",
+      caption: "A mark for music, storytelling and gathering after dark.",
+      width: 800,
+      height: 800,
+    },
+    description: [],
+    services: ["Brand identity", "Logo design", "Custom lettering"],
+    designNotes: [
+      {
+        title: "An Ceol",
+        subtitle: "The music",
+        text: "Quaver notes and brace-like curves are woven into the lettering, reflecting the music and singing at the heart of Airneán. Strong lines echo the stave of sheet music; sweeping curves bring movement and flow.",
+        irish: "Cuimsíonn na litreacha camáin agus cuartha ar nós cuingeacha go caolchúiseach, ag tabhairt le fios go bhfuil an ceol agus an amhránaíocht lárnach in Airneán. Déanann línte láidre aithris ar chliath an cheoil scríofa, ag tabhairt struchtúr agus rithim don dearadh, agus i gcodarsnacht leis sin, tugann cuartha agus línte scuabtha le fios gluaiseacht agus sreabhadh.",
+      },
+      {
+        title: "An Ghealach Cheilteach",
+        subtitle: "The Celtic moon",
+        text: "The circular knotwork suggests the moon and the idea of gathering at night. Celtic-inspired swirls draw on Ireland’s ancient art tradition, connecting the identity with heritage and continuity.",
+        irish: "Tugann an íomhá snaidhmthe ciorclach le fios an ghealach, ag tagairt don tóstal san oíche. Léiríonn na guairneán Ceilteacha traidisiún ealaín ársa na hÉireann, ag neartú oidhreachta agus leanúnachais.",
+      },
+      {
+        title: "Coinneal na hOíche",
+        subtitle: "The night candle",
+        text: "The candle at the centre recalls neighbours gathering by candlelight to share music, stories and warmth. It represents welcome, community and the passing on of culture.",
+        irish: "Sa lár, músclaíonn coinneal stílithe an tAirneán, nós Éireannach inar bhailigh comharsan le solas coinnle lena gceol, scéalta, is teas a roinnt. Seasann an choinneal d’fháilte, do phobal, agus do thabhairt ar aghaidh an chultúir.",
+      },
+    ],
+    films: [
+      {
+        src: "/projects/airnean/logo-motion.mp4",
+        poster: "/projects/airnean/gold-on-green.jpg",
+        caption: "Airneán — animated identity study. Silent film, 8 seconds.",
+      },
+    ],
+    gallery: [
+      {
+        src: "/projects/airnean/black-on-white.jpg",
+        alt: "Airneán logo in black on white, showing the custom lettering, moon and candle silhouette",
+        caption: "The complete identity in a single colour.",
+        width: 1600,
+        height: 1600,
+      },
+      {
+        src: "/projects/airnean/gold-on-white.jpg",
+        alt: "Airneán gold logo on white with a softly lit candle",
+        caption: "A lighter expression of the gold identity.",
+        width: 1600,
+        height: 1600,
+      },
+    ],
+    next: "clubrovia",
+  },
   tafl: {
     name: "TAFL",
     category: "Just for fun · Interactive strategy games",
@@ -307,23 +380,13 @@ export const PROJECT_CASES: Record<string, CaseData> = {
     intro: "A warm welcome, from the very first visit.",
     year: "2024 — 2025",
     surface: "#29261e",
-    hero: {
-      src: mckHero.url,
-      alt: "McKevitt’s Village Hotel website",
-      caption: "One identity for the hotel, bar and restaurant.",
-    },
+    hero: PORTFOLIO_CAPTURES["mckevitts"]!.hero,
     description: [
       "A new identity and website for a family-run hotel in the heart of Carlingford. We brought the hotel, bar and restaurant together under one considered brand.",
       "The website puts the rooms, food and setting first, with a clear route to booking. The family can update menus, offers and events themselves.",
     ],
     services: ["Brand identity", "Web design", "WordPress development"],
-    gallery: [
-      {
-        src: mckRooms.url,
-        alt: "A guest room at McKevitt’s Village Hotel",
-        caption: "A closer look at the stay.",
-      },
-    ],
+
     next: "carlingford-arms",
   },
   "carlingford-arms": {
@@ -542,7 +605,7 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
   const categories = new Set(existing?.categories ?? []);
   if (brief.services.some((service) => /web design|wordpress/i.test(service)))
     categories.add("websites");
-  if (brief.services.some((service) => /app|portal|ERP|tool/i.test(service)))
+  if (brief.services.some((service) => /\bapp\b|\bapplication|portal|ERP|tool/i.test(service)))
     categories.add("apps");
   if (brief.services.some((service) => /brand|identity|logo/i.test(service)))
     categories.add("branding");
@@ -554,7 +617,7 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
     categories.add("marketing");
   if (
     brief.services.some((service) =>
-      /editorial|print|bottle|brochure|livery|menu design/i.test(service),
+      /editorial|print|poster|apparel|bottle|brochure|livery|menu design/i.test(service),
     )
   )
     categories.add("print");
@@ -606,6 +669,24 @@ for (const [slug, capture] of Object.entries(PORTFOLIO_CAPTURES)) {
   project.description = [...project.description, capture.description];
   if (capture.gallery.length)
     project.gallery = [...capture.gallery, ...(project.gallery ?? [])];
+}
+
+// Brand covers lead the portfolio; reviewed website captures remain available in the gallery.
+for (const [slug, artwork] of Object.entries(BRAND_ARTWORK)) {
+  const project = PROJECT_CASES[slug];
+  if (!project) continue;
+  const previousHero = project.hero;
+  project.hero = artwork.hero;
+  if (artwork.category) project.category = artwork.category;
+  project.presentation = "screens";
+  const gallery = [
+    ...(artwork.gallery ?? []),
+    ...(previousHero.src.includes("/portfolio-covers/") ? [] : [previousHero]),
+    ...(project.gallery ?? []),
+  ];
+  project.gallery = gallery.filter((shot, index) =>
+    shot.src !== project.hero.src && gallery.findIndex((candidate) => candidate.src === shot.src) === index,
+  );
 }
 
 export const CLIENT_BRAND_COUNT = CLIENT_PORTFOLIO.length;

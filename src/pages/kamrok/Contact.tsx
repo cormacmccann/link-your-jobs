@@ -1,3 +1,4 @@
+import ProjectQuoteLink from "@/components/kamrok/ProjectQuoteLink";
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "@/lib/router-compat";
 import { Mail, PenLine, Phone } from "lucide-react";
@@ -37,6 +38,8 @@ export default function Contact() {
     <KamrokLayout title="Let’s Talk — Lovable & WordPress Projects | KAMROK" description="Tell Cormac about your next website, Lovable app or project that needs a fresh pair of eyes. KAMROK, Dundalk, Ireland.">
       <div className="orbit-contact-layout">
         <div><div className="kk-eyebrow">A GOOD PLACE TO START</div><h1>What are<br />you thinking?</h1><p className="kk-lead-text">A big idea, a small fix or a “could this work?” is plenty to go on. Tell me a little about it and we’ll take it from there.</p><a className="orbit-contact-email cinematic-action" href="mailto:cormac@kamrok.com">cormac@kamrok.com <ActionFeedback icon={Mail} size={20} /></a><a className="orbit-contact-email cinematic-action" href={CONTACT_TEL}>{CONTACT_PHONE} <ActionFeedback icon={Phone} size={20} /></a><p className="orbit-contact-note">Based in Dundalk, Ireland. Working with good people wherever they are.</p><BrandMascot className="brand-mascot--contact" /></div>
+        <div>
+          <ProjectQuoteLink compact />
         <form className="orbit-enquiry" onSubmit={openDraft}>
           <label htmlFor="enquiry-help">What can I help with?</label><select id="enquiry-help" value={help} onChange={event => setHelp(event.target.value)}>{HELP.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}</select>
           <div className="orbit-enquiry-pair"><div><label htmlFor="enquiry-name">Your name</label><input id="enquiry-name" value={name} onChange={event => setName(event.target.value)} autoComplete="name" required placeholder="Hello, I’m…" /></div><div><label htmlFor="enquiry-email">Email address</label><input id="enquiry-email" type="email" value={email} onChange={event => setEmail(event.target.value)} autoComplete="email" required placeholder="you@yourbusiness.com" /></div></div>
@@ -45,6 +48,7 @@ export default function Contact() {
           <button className="orbit-button cinematic-action" type="submit">Open email draft <ActionFeedback icon={PenLine} /></button><p className="orbit-enquiry-hint">Opens in your email app. You can review everything before sending.</p>
           {draftOpened && <p className="orbit-enquiry-status" role="status">Your email app should open with the details ready. If it doesn’t, email <a href={emailLink}>cormac@kamrok.com</a> directly. Your message hasn’t been sent by this website.</p>}
         </form>
+        </div>
       </div>
     </KamrokLayout>
   );

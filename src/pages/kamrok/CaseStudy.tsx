@@ -16,7 +16,7 @@ export default function CaseStudy() {
 
   return (
     <div
-      className={`case-page${data?.presentation === "screens" ? " case-page--screens" : ""}`}
+      className={`case-page${data?.presentation ? ` case-page--${data.presentation}` : ""}`}
       style={{ "--case-surface": data?.surface } as CSSProperties}
     >
       <div className="case-container">
@@ -131,6 +131,47 @@ export default function CaseStudy() {
               </section>
             )}
 
+            {!!data.designNotes?.length && (
+              <section className="case-design-notes" aria-labelledby="case-design-title">
+                <div className="case-gallery-heading">
+                  <h2 id="case-design-title">One mark. Three stories.</h2>
+                  <p>The thinking behind the identity.</p>
+                </div>
+                <div className="case-design-notes-grid">
+                  {data.designNotes.map((note, index) => (
+                    <article key={note.title}>
+                      <span className="case-design-number" aria-hidden="true">0{index + 1}</span>
+                      <h3 lang="ga">{note.title}</h3>
+                      <span className="case-design-subtitle">{note.subtitle}</span>
+                      <p>{note.text}</p>
+                      <details>
+                        <summary lang="ga">Léigh as Gaeilge <span aria-hidden="true">+</span></summary>
+                        <p lang="ga">{note.irish}</p>
+                      </details>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {!!data.films?.length && (
+              <section className="case-films" aria-labelledby="case-films-title">
+                <div className="case-gallery-heading">
+                  <h2 id="case-films-title">The identity in motion</h2>
+                  <p>Press play to see the mark come to life.</p>
+                </div>
+                {data.films.map((film) => (
+                  <figure key={film.src}>
+                    <video controls playsInline preload="none" poster={film.poster} aria-label={film.caption}>
+                      <source src={film.src} type="video/mp4" />
+                      <a href={film.src}>Watch {film.caption}</a>
+                    </video>
+                    <figcaption>{film.caption}</figcaption>
+                  </figure>
+                ))}
+              </section>
+            )}
+
             {!!data.gallery?.length && (
               <section
                 className="case-gallery-section"
@@ -182,7 +223,7 @@ export default function CaseStudy() {
                     className="case-next-image"
                     style={{ backgroundColor: next.surface }}
                   >
-                    <img src={next.hero.src} alt="" loading="lazy" />
+                    <img src={next.hero.src} alt="" loading="lazy" style={next.presentation === "identity" || next.hero.fit === "contain" ? { objectFit: "contain" } : undefined} />
                   </div>
                   <span className="case-next-arrow cinematic-action">
                     <ActionFeedback

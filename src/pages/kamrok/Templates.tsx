@@ -48,7 +48,7 @@ export default function Templates() {
       </div>
       <div className="template-featured-bottom">
         <div className="template-featured-price"><span>YOUR STARTING POINT</span><strong>€0 template.<br />Lovable Pro from US$25<span> / month</span></strong><p>Customise it yourself. Connect your own domain. Pay Lovable directly.</p></div>
-        <div className="template-independence"><span>KEEP YOUR INDEPENDENCE</span><h3>Put the budget back into your business.</h3><p>A €500 or €2,000 studio setup quote? This free DIY starter lets you avoid that upfront fee and build it your way.</p><Link className="orbit-text-link cinematic-action" to="/templates/takeaway-hub#compare">Compare the costs & savings <ActionFeedback icon={ExternalLink} /></Link></div>
+        <div className="template-independence"><span>KEEP YOUR INDEPENDENCE</span><h3>Put the budget back into your business.</h3><p>A €500 or €2,000 studio setup quote? This free DIY starter lets you avoid that upfront fee and build it your way.</p><Link className="orbit-text-link cinematic-action" to="/lovable-savings">Compare the costs & savings <ActionFeedback icon={ExternalLink} /></Link></div>
       </div>
       <div className="template-featured-notes"><p>€0 KAMROK design and build fees for DIY use. Lovable subscription, domain registration, payment processing and extra usage are separate. Optional hands-on help is quoted upfront. Studio quotes are illustrative; DIY takes your time. Local currency and taxes confirmed by Lovable. Price checked October 2026.</p><p>Lovable sign-up uses my affiliate link. <Link to="/contact?service=Takeaway%20Hub%20template">Want a hand making it yours?</Link></p></div>
     </section>

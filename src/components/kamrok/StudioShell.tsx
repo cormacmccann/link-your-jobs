@@ -38,7 +38,7 @@ export default function StudioShell() {
   }, [pathname, hash]);
 
   return (
-    <div data-theme={theme} className={`studio-page${pathname === "/" ? " studio-home" : ""}${pathname.startsWith("/tools") ? " studio-tools" : ""}${pathname === "/work" ? " studio-work" : ""}`}>
+    <div data-theme={theme} className={`studio-page${pathname === "/" ? " studio-home" : ""}${pathname.startsWith("/tools") ? " studio-tools" : ""}${pathname === "/work" ? " studio-work" : ""}${["/project-planner", "/lovable-savings"].includes(pathname) ? " studio-planning" : ""}`}>
       <a className="studio-skip" href="#studio-content">Skip to content</a>
       <div className="studio-header-wrap">
         <header className="studio-header studio-container">
@@ -68,7 +68,7 @@ export default function StudioShell() {
           <span>© {new Date().getFullYear()} KAMROK<br />Candy Shop Digital Ltd · Dundalk, Ireland</span>
           <a className="cinematic-action" href="mailto:cormac@kamrok.com">cormac@kamrok.com <ActionFeedback icon={Mail} size={15} /></a>
           <a className="cinematic-action" href={CONTACT_TEL}>{CONTACT_PHONE} <ActionFeedback icon={Phone} size={15} /></a>
-          <nav aria-label="Footer navigation"><Link className="cinematic-action" to="/blog">Field notes <ActionFeedback icon={BookOpen} size={14} /></Link><Link className="cinematic-action" to="/tools">Free tools <ActionFeedback icon={Wrench} size={14} /></Link><button className="cinematic-action" onClick={event => openDrawer("fun", event.currentTarget)}>Off-duty <ActionFeedback icon={Orbit} size={14} /></button><a className="cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Try Lovable <ActionFeedback icon={Code2} size={14} /> <span className="orbit-affiliate-note">Affiliate link</span></a></nav>
+          <nav aria-label="Footer navigation"><Link className="cinematic-action" to="/project-planner">Plan your project <ActionFeedback icon={Wrench} size={14} /></Link><Link className="cinematic-action" to="/blog">Field notes <ActionFeedback icon={BookOpen} size={14} /></Link><Link className="cinematic-action" to="/tools">Free tools <ActionFeedback icon={Wrench} size={14} /></Link><button className="cinematic-action" onClick={event => openDrawer("fun", event.currentTarget)}>Off-duty <ActionFeedback icon={Orbit} size={14} /></button><a className="cinematic-action" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Try Lovable <ActionFeedback icon={Code2} size={14} /> <span className="orbit-affiliate-note">Affiliate link</span></a></nav>
         </div>
         <div className="studio-footer-signoff"><span>DESIGN · ILLUSTRATION · DEVELOPMENT · MARKETING</span><span>54° N · 6° W</span></div>
       </footer>

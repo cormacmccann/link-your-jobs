@@ -13,6 +13,8 @@ const TOOL_CATEGORIES = [
     name: "Business Essentials",
     category: "business",
     tools: [
+      { name: "Project Planner", icon: Sparkles, href: "/project-planner", status: "live", description: "A playful website brief, sitemap inventory and build estimate." },
+      { name: "Lovable Savings Wizard", icon: Calculator, href: "/lovable-savings", status: "live", description: "Compare the real costs of your next website, including your time." },
       { name: "Email Signature Generator", icon: Mail, href: "/tools/email-signature", status: "live", description: "Professional email signatures in seconds." },
       { name: "Invoice Creator", icon: FileText, href: "/tools/invoice-creator", status: "live", description: "Create and download invoices instantly." },
       { name: "Quotation Maker", icon: Receipt, href: "/tools/quotation-maker", status: "live", description: "Generate professional quotations." },

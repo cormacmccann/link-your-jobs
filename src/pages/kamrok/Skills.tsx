@@ -1,24 +1,17 @@
 import { Link } from "@/lib/router-compat";
-import { ArrowDown, Award, CalendarDays, Check, Code2, GraduationCap, LayoutGrid, MessageCircle, MousePointer2, Palette, Plus, Search, ShoppingBag, Ticket, Workflow, Wrench } from "lucide-react";
+import { ArrowDown, Award, Check, LayoutGrid, MessageCircle, Plus, ShoppingBag, Workflow, Wrench } from "lucide-react";
 import { SiWordpress } from "react-icons/si";
 import HumanAiStory from "@/components/kamrok/HumanAiStory";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
+import { SERVICES } from "@/data/services";
 import { PROJECT_CASES } from "@/data/projects";
 import "@/styles/services.css";
+import "@/styles/planning.css";
 
-const SERVICES = [
-  { icon: MousePointer2, name: "Websites & landing pages", line: "Make the right first impression. Then make the next step obvious.", body: "Distinctive, mobile-first websites with a clear story, intuitive navigation and purposeful calls to action. From a focused campaign page to a complete business website.", items: ["Brand-led design & content structure", "B2B websites & lead generation", "Campaign landing pages & redesigns"] },
-  { icon: ShoppingBag, name: "Ecommerce", line: "Turn browsing into a better buying experience.", body: "Help customers find the right product, understand its value and move confidently towards checkout. The store is designed around your products and how you run your business.", items: ["WooCommerce & Shopify stores", "Product discovery, filters & collections", "Payments & business integrations"] },
-  { icon: Code2, name: "Apps & customer portals", line: "Give your big idea a working interface.", body: "Bring accounts, information and everyday tasks into one considered product. I shape the flows and build the features around the people who will actually use them.", items: ["Lovable apps & product prototypes", "Member areas & customer dashboards", "Internal tools & connected workflows"] },
-  { icon: Ticket, name: "Events & ticketing", line: "From “that looks brilliant” to “I’m going”.", body: "Event experiences that carry the excitement all the way through discovery, entry and the participant journey. Built around the needs of your audience and organisers.", items: ["Event listings & ticket purchase journeys", "Participant accounts & communications", "Interactive challenges & experiences"] },
-  { icon: CalendarDays, name: "Booking & reservations", line: "Make getting booked the easy part.", body: "A clear path from checking the options to choosing a time or sending an enquiry. I connect the right booking tools to the experience, with availability and next steps easy to understand.", items: ["Appointments & service bookings", "Hospitality, activities & reservations", "Booking integrations & enquiry flows"] },
-  { icon: GraduationCap, name: "Learning & membership", line: "A useful place to learn, belong and return.", body: "Organise content into a journey people can follow. From a resource library to course and member experiences, we plan access, navigation and management around your offer.", items: ["Learning websites & resource libraries", "Course-platform integrations", "Member access & content organisation"] },
-  { icon: Search, name: "Search & discoverability", line: "Help people find you. Help them understand you.", body: "Search engine optimisation (SEO) starts with useful content and a well-built website. For AI-powered search (GEO), the focus is equally practical: clear answers, credible information and content that is easy to interpret.", items: ["Technical SEO & page structure", "Content planning & structured data", "Search visibility reviews & improvements"] },
-  { icon: Palette, name: "Brand & creative direction", line: "Make it unmistakably yours.", body: "Design, illustration and marketing thinking, working together. I help you find a distinctive visual language and carry it through the website, the campaign and the little details people remember.", items: ["Brand identity & original illustration", "Campaign visuals & digital content", "Motion & interactive storytelling"] },
-];
+
 const WORK = [
   { slug: "26-events", label: "Lovable · Events, ticketing & virtual challenges" },
   { slug: "mckevitts", label: "WordPress · Hospitality & website design" },
@@ -83,14 +76,16 @@ export default function Skills() {
           <p className="services-platform-note"><ShoppingBag size={18} aria-hidden="true" /> Building a dedicated online store? I also design and build with Shopify. We’ll choose around your products, operations and plans.</p>
         </section>
 
+        <div className="mission-entry"><p>Got an idea? Turn it into a scope, platform choice and starting budget.</p><Link to="/project-planner">Try the project planner ↗</Link><Link to="/lovable-savings">Explore Lovable savings ↗</Link></div>
         <HumanAiStory />
 
         <section className="services-section" aria-labelledby="services-offer-title">
           <div className="services-section-heading"><div><p className="services-kicker">WHAT WE CAN MAKE POSSIBLE</p><h2 id="services-offer-title">Built around<br />your next move.</h2></div><p>Start with the thing your business needs to do better. The design, the build and the tools follow from there.</p></div>
           <div className="services-offerings">{SERVICES.map((service, index) => <article className="services-offering" key={service.name}>
             <div className="services-offering-index"><service.icon size={25} strokeWidth={1.4} aria-hidden="true" /><span>{String(index + 1).padStart(2, "0")}</span></div>
-            <h3>{service.name}</h3><p className="services-offering-line">{service.line}</p>
+            <h3><Link to={`/services/${service.slug}`}>{service.name}</Link></h3><p className="services-offering-line">{service.line}</p>
             <details><summary className="cinematic-action">What’s included <ActionFeedback icon={Plus} direction="down" size={16} /></summary><div className="services-offering-details"><p>{service.body}</p><ul>{service.items.map(item => <li key={item}>{item}</li>)}</ul><Link className="services-text-link cinematic-action" to={`/contact?service=${encodeURIComponent(service.name)}`}>Talk about this <ActionFeedback icon={MessageCircle} size={16} /></Link></div></details>
+            <Link className="services-detail-link" to={`/services/${service.slug}`}>Explore this service <span aria-hidden="true">↗</span></Link>
           </article>)}</div>
         </section>
 

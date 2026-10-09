@@ -15,9 +15,14 @@ import { Route as StudioIndexRouteImport } from './routes/_studio/index'
 import { Route as StudioSplatRouteImport } from './routes/_studio/$'
 import { Route as StudioAboutRouteImport } from './routes/_studio/about'
 import { Route as StudioContactRouteImport } from './routes/_studio/contact'
+import { Route as StudioIllustrationsRouteImport } from './routes/_studio/illustrations'
+import { Route as StudioLovableSavingsRouteImport } from './routes/_studio/lovable-savings'
+import { Route as StudioProjectPlannerRouteImport } from './routes/_studio/project-planner'
 import { Route as StudioSkillsRouteImport } from './routes/_studio/skills'
+import { Route as ApiSitemapAuditRouteImport } from './routes/api/sitemap-audit'
 import { Route as StudioBlogIndexRouteImport } from './routes/_studio/blog/index'
 import { Route as StudioBlogDundalkSeoGuideRouteImport } from './routes/_studio/blog/dundalk-seo-guide'
+import { Route as StudioServicesServiceRouteImport } from './routes/_studio/services/$service'
 import { Route as StudioTemplatesIndexRouteImport } from './routes/_studio/templates/index'
 import { Route as StudioTemplatesTakeawayHubRouteImport } from './routes/_studio/templates/takeaway-hub'
 import { Route as StudioToolsIndexRouteImport } from './routes/_studio/tools/index'
@@ -73,10 +78,30 @@ const StudioContactRoute = StudioContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => StudioRoute,
 } as any)
+const StudioIllustrationsRoute = StudioIllustrationsRouteImport.update({
+  id: '/illustrations',
+  path: '/illustrations',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioLovableSavingsRoute = StudioLovableSavingsRouteImport.update({
+  id: '/lovable-savings',
+  path: '/lovable-savings',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioProjectPlannerRoute = StudioProjectPlannerRouteImport.update({
+  id: '/project-planner',
+  path: '/project-planner',
+  getParentRoute: () => StudioRoute,
+} as any)
 const StudioSkillsRoute = StudioSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
   getParentRoute: () => StudioRoute,
+} as any)
+const ApiSitemapAuditRoute = ApiSitemapAuditRouteImport.update({
+  id: '/api/sitemap-audit',
+  path: '/api/sitemap-audit',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const StudioBlogIndexRoute = StudioBlogIndexRouteImport.update({
   id: '/blog/',
@@ -89,6 +114,11 @@ const StudioBlogDundalkSeoGuideRoute =
     path: '/blog/dundalk-seo-guide',
     getParentRoute: () => StudioRoute,
   } as any)
+const StudioServicesServiceRoute = StudioServicesServiceRouteImport.update({
+  id: '/services/$service',
+  path: '/services/$service',
+  getParentRoute: () => StudioRoute,
+} as any)
 const StudioTemplatesIndexRoute = StudioTemplatesIndexRouteImport.update({
   id: '/templates/',
   path: '/templates/',
@@ -239,8 +269,13 @@ export interface FileRoutesByFullPath {
   '/$': typeof StudioSplatRoute
   '/about': typeof StudioAboutRoute
   '/contact': typeof StudioContactRoute
+  '/illustrations': typeof StudioIllustrationsRoute
+  '/lovable-savings': typeof StudioLovableSavingsRoute
+  '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
   '/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
@@ -273,9 +308,14 @@ export interface FileRoutesByTo {
   '/$': typeof StudioSplatRoute
   '/about': typeof StudioAboutRoute
   '/contact': typeof StudioContactRoute
+  '/illustrations': typeof StudioIllustrationsRoute
+  '/lovable-savings': typeof StudioLovableSavingsRoute
+  '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/': typeof StudioIndexRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
   '/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
@@ -310,9 +350,14 @@ export interface FileRoutesById {
   '/_studio/$': typeof StudioSplatRoute
   '/_studio/about': typeof StudioAboutRoute
   '/_studio/contact': typeof StudioContactRoute
+  '/_studio/illustrations': typeof StudioIllustrationsRoute
+  '/_studio/lovable-savings': typeof StudioLovableSavingsRoute
+  '/_studio/project-planner': typeof StudioProjectPlannerRoute
   '/_studio/skills': typeof StudioSkillsRoute
+  '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/_studio/': typeof StudioIndexRoute
   '/_studio/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/_studio/services/$service': typeof StudioServicesServiceRoute
   '/_studio/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/_studio/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
   '/_studio/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
@@ -348,8 +393,13 @@ export interface FileRouteTypes {
     | '/$'
     | '/about'
     | '/contact'
+    | '/illustrations'
+    | '/lovable-savings'
+    | '/project-planner'
     | '/skills'
+    | '/api/sitemap-audit'
     | '/blog/dundalk-seo-guide'
+    | '/services/$service'
     | '/templates/takeaway-hub'
     | '/tools/bookings-demos'
     | '/tools/business-name-generator'
@@ -382,9 +432,14 @@ export interface FileRouteTypes {
     | '/$'
     | '/about'
     | '/contact'
+    | '/illustrations'
+    | '/lovable-savings'
+    | '/project-planner'
     | '/skills'
+    | '/api/sitemap-audit'
     | '/'
     | '/blog/dundalk-seo-guide'
+    | '/services/$service'
     | '/templates/takeaway-hub'
     | '/tools/bookings-demos'
     | '/tools/business-name-generator'
@@ -418,9 +473,14 @@ export interface FileRouteTypes {
     | '/_studio/$'
     | '/_studio/about'
     | '/_studio/contact'
+    | '/_studio/illustrations'
+    | '/_studio/lovable-savings'
+    | '/_studio/project-planner'
     | '/_studio/skills'
+    | '/api/sitemap-audit'
     | '/_studio/'
     | '/_studio/blog/dundalk-seo-guide'
+    | '/_studio/services/$service'
     | '/_studio/templates/takeaway-hub'
     | '/_studio/tools/bookings-demos'
     | '/_studio/tools/business-name-generator'
@@ -452,6 +512,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   StudioRoute: typeof StudioRouteWithChildren
   FunRoute: typeof FunRoute
+  ApiSitemapAuditRoute: typeof ApiSitemapAuditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -498,12 +559,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioContactRouteImport
       parentRoute: typeof StudioRoute
     }
+    '/_studio/illustrations': {
+      id: '/_studio/illustrations'
+      path: '/illustrations'
+      fullPath: '/illustrations'
+      preLoaderRoute: typeof StudioIllustrationsRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/lovable-savings': {
+      id: '/_studio/lovable-savings'
+      path: '/lovable-savings'
+      fullPath: '/lovable-savings'
+      preLoaderRoute: typeof StudioLovableSavingsRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/project-planner': {
+      id: '/_studio/project-planner'
+      path: '/project-planner'
+      fullPath: '/project-planner'
+      preLoaderRoute: typeof StudioProjectPlannerRouteImport
+      parentRoute: typeof StudioRoute
+    }
     '/_studio/skills': {
       id: '/_studio/skills'
       path: '/skills'
       fullPath: '/skills'
       preLoaderRoute: typeof StudioSkillsRouteImport
       parentRoute: typeof StudioRoute
+    }
+    '/api/sitemap-audit': {
+      id: '/api/sitemap-audit'
+      path: '/api/sitemap-audit'
+      fullPath: '/api/sitemap-audit'
+      preLoaderRoute: typeof ApiSitemapAuditRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_studio/blog/': {
       id: '/_studio/blog/'
@@ -517,6 +606,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/dundalk-seo-guide'
       fullPath: '/blog/dundalk-seo-guide'
       preLoaderRoute: typeof StudioBlogDundalkSeoGuideRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/services/$service': {
+      id: '/_studio/services/$service'
+      path: '/services/$service'
+      fullPath: '/services/$service'
+      preLoaderRoute: typeof StudioServicesServiceRouteImport
       parentRoute: typeof StudioRoute
     }
     '/_studio/templates/': {
@@ -701,9 +797,13 @@ interface StudioRouteChildren {
   StudioSplatRoute: typeof StudioSplatRoute
   StudioAboutRoute: typeof StudioAboutRoute
   StudioContactRoute: typeof StudioContactRoute
+  StudioIllustrationsRoute: typeof StudioIllustrationsRoute
+  StudioLovableSavingsRoute: typeof StudioLovableSavingsRoute
+  StudioProjectPlannerRoute: typeof StudioProjectPlannerRoute
   StudioSkillsRoute: typeof StudioSkillsRoute
   StudioIndexRoute: typeof StudioIndexRoute
   StudioBlogDundalkSeoGuideRoute: typeof StudioBlogDundalkSeoGuideRoute
+  StudioServicesServiceRoute: typeof StudioServicesServiceRoute
   StudioTemplatesTakeawayHubRoute: typeof StudioTemplatesTakeawayHubRoute
   StudioToolsBookingsDemosRoute: typeof StudioToolsBookingsDemosRoute
   StudioToolsBusinessNameGeneratorRoute: typeof StudioToolsBusinessNameGeneratorRoute
@@ -736,9 +836,13 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioSplatRoute: StudioSplatRoute,
   StudioAboutRoute: StudioAboutRoute,
   StudioContactRoute: StudioContactRoute,
+  StudioIllustrationsRoute: StudioIllustrationsRoute,
+  StudioLovableSavingsRoute: StudioLovableSavingsRoute,
+  StudioProjectPlannerRoute: StudioProjectPlannerRoute,
   StudioSkillsRoute: StudioSkillsRoute,
   StudioIndexRoute: StudioIndexRoute,
   StudioBlogDundalkSeoGuideRoute: StudioBlogDundalkSeoGuideRoute,
+  StudioServicesServiceRoute: StudioServicesServiceRoute,
   StudioTemplatesTakeawayHubRoute: StudioTemplatesTakeawayHubRoute,
   StudioToolsBookingsDemosRoute: StudioToolsBookingsDemosRoute,
   StudioToolsBusinessNameGeneratorRoute: StudioToolsBusinessNameGeneratorRoute,
@@ -773,6 +877,7 @@ const StudioRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   StudioRoute: StudioRouteWithChildren,
   FunRoute: FunRoute,
+  ApiSitemapAuditRoute: ApiSitemapAuditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

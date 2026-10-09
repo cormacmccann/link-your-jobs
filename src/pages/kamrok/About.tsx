@@ -1,3 +1,4 @@
+import ProjectQuoteLink from "@/components/kamrok/ProjectQuoteLink";
 import "@/styles/brand-stories.css";
 import { Link } from "@/lib/router-compat";
 import { Orbit } from "lucide-react";
@@ -188,6 +189,7 @@ export default function About() {
       <Link className="kk-cta cinematic-action" to="/fun">
         Explore the moon <ActionFeedback icon={Orbit} />
       </Link>
+      <ProjectQuoteLink />
     </KamrokLayout>
   );
 }

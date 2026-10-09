@@ -12,6 +12,16 @@ export type ClientPortfolioBrief = {
 
 export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
   {
+    slug: "airnean",
+    name: "Airneán",
+    collection: "identity",
+    services: ["Brand identity", "Logo design", "Custom lettering"],
+    tools: [],
+    intro: "Music, moonlight and a welcome at the door.",
+    description:
+      "A logo and brand identity inspired by the Irish tradition of airneán: neighbours gathering at night to share music, stories and warmth. Custom lettering, Celtic-inspired knotwork and a central candle bring that sense of welcome and cultural continuity into one mark.",
+  },
+  {
     slug: "clubrovia",
     name: "Clubrovia",
     collection: "platforms",
@@ -76,18 +86,29 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "thehenie",
     name: "The Hen",
     collection: "platforms",
-    services: ["Web design", "WordPress development", "Full app build"],
+    services: [
+      "Logo design",
+      "Web design",
+      "WordPress development",
+      "Full app build",
+    ],
     tools: ["Kinsta", "WordPress", "Vite", "Google"],
     intro: "Package and offer strategy, with an app built around the demand.",
     description:
-      "Web design, WordPress development and a full application build, supported by package and offer strategy for the customer journey.",
+      "Logo design, web design, WordPress development and a full application build, supported by package and offer strategy for the customer journey.",
     url: "https://thehen.ie",
   },
   {
     slug: "26-events",
     name: "26.events",
     collection: "platforms",
-    services: ["Branding", "Web design", "Entry portal", "App development"],
+    services: [
+      "Logo design",
+      "Branding",
+      "Web design",
+      "Entry portal",
+      "App development",
+    ],
     tools: ["WordPress", "Vite", "Google", "Lovable"],
     intro: "Marketing owned end to end: entries, retention and the calendar.",
     description:
@@ -174,11 +195,11 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "vithit",
     name: "VITHIT Drinks",
     collection: "identity",
-    services: ["Corporate identity", "Marketing design", "Web design"],
+    services: ["Poster design", "Apparel design", "Web design"],
     tools: ["Adobe"],
-    intro: "Brand and campaign thinking across retail and digital.",
+    intro: "Posters, apparel and a website for an established drinks brand.",
     description:
-      "Corporate identity, marketing design and web design for VITHIT Drinks, with brand and campaign advice across retail and digital.",
+      "Poster, apparel and website design for VITHIT Drinks, applying the existing brand across print, clothing and digital. The VITHIT logo was not designed by KAMROK.",
     url: "https://vithit.com",
   },
   {
@@ -201,7 +222,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "ruby-ellens",
     name: "Ruby Ellens",
     collection: "identity",
-    services: ["Corporate identity", "Web design", "Marketing"],
+    services: ["Logo design", "Corporate identity", "Web design", "Marketing"],
     tools: ["WordPress", "Kinsta", "Google", "Adobe"],
     intro: "Identity and launch marketing for a consumer brand.",
     description:
@@ -212,7 +233,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "carlingford-arms",
     name: "Carlingford Arms",
     collection: "identity",
-    services: ["Corporate identity", "Web design", "Marketing"],
+    services: ["Logo design", "Corporate identity", "Web design", "Marketing"],
     tools: ["WordPress", "Kinsta", "Google", "Adobe"],
     intro: "A hospitality identity, with bookings and local demand behind it.",
     description:
@@ -266,7 +287,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "mckevitts",
     name: "McKevitt’s",
     collection: "identity",
-    services: ["Branding", "Web design", "Menu design"],
+    services: ["Logo design", "Branding", "Web design", "Menu design"],
     tools: ["WordPress", "Google", "Kinsta", "Cloudflare"],
     intro: "A hospitality brand, from the menu to the next visit.",
     description:
@@ -277,11 +298,16 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "carlingford-heritage-centre",
     name: "Carlingford Heritage Centre",
     collection: "identity",
-    services: ["Web design", "Email & communications", "Google Workspace"],
+    services: [
+      "Logo design",
+      "Web design",
+      "Email & communications",
+      "Google Workspace",
+    ],
     tools: ["WordPress", "Vite", "Google"],
     intro: "Visitor marketing, with the communications tools behind it.",
     description:
-      "Web design, email and communications, and Google Workspace support for Carlingford Heritage Centre, connecting visitor marketing with the tools behind it.",
+      "Logo design, web design, email and communications, and Google Workspace support for Carlingford Heritage Centre, connecting visitor marketing with the tools behind it.",
     url: "https://carlingfordheritage.ie/",
   },
   {
@@ -322,6 +348,7 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     name: "OnYerBike",
     collection: "identity",
     services: [
+      "Logo design",
       "Corporate identity",
       "Web design",
       "Marketing",
@@ -382,11 +409,91 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     slug: "last-leprechauns-of-ireland",
     name: "The Last Leprechauns of Ireland",
     collection: "identity",
-    services: ["Web design"],
+    services: ["Logo design", "Web design"],
     tools: ["WordPress"],
     intro: "A local story with a world of character.",
     description:
-      "A visitor website for The Last Leprechauns of Ireland in Carlingford, connecting its storyteller, folklore and cavern experience.",
+      "Logo design and a visitor website for The Last Leprechauns of Ireland in Carlingford, connecting its storyteller, folklore and cavern experience.",
     url: "https://www.thelastleprechaunsofireland.com/",
+  },
+  {
+    slug: "kieran-mcgee",
+    name: "Kieran & McGee Auctioneers",
+    collection: "identity",
+    services: ["Logo design"],
+    tools: [],
+    intro: "A distinctive local identity for property and auctions.",
+    description:
+      "Logo design for Kieran & McGee Auctioneers, shown here in a brand presentation featuring Ardee Castle.",
+  },
+  {
+    slug: "cranny-mechanical",
+    name: "Cranny Mechanical",
+    collection: "identity",
+    services: ["Logo design"],
+    tools: [],
+    intro: "Engineering expertise, expressed in one clear mark.",
+    description:
+      "Logo design for Cranny Mechanical, pairing a blue water drop with a gear motif and a strong wordmark.",
+  },
+  {
+    slug: "conor-clarke",
+    name: "Conor Clarke",
+    collection: "identity",
+    services: ["Logo design", "Brand identity"],
+    tools: [],
+    intro: "A bold identity for wrapping and signage.",
+    description:
+      "Logo and brand identity design for Conor Clarke, presented alongside its vehicle wrapping and commercial signage services.",
+  },
+  {
+    slug: "dundalk-trucks-trailers",
+    name: "Dundalk Trucks & Trailers",
+    collection: "identity",
+    services: ["Logo design"],
+    tools: [],
+    intro: "A transport identity with presence on the road.",
+    description:
+      "Logo design for Dundalk Trucks & Trailers, combining the DTT initials with a clear business wordmark.",
+  },
+  {
+    slug: "jk-kitchens-woodwork",
+    name: "JK Kitchens & Woodwork",
+    collection: "identity",
+    services: ["Logo design", "Web design"],
+    tools: [],
+    intro: "An identity and website shaped around craftsmanship.",
+    description:
+      "Logo and website design for John Kane’s JK Kitchens & Woodwork, presenting handcrafted kitchens, furniture and fitted storage through a warm, material-led visual style.",
+  },
+  {
+    slug: "tranquility-ireland",
+    name: "Tranquility Ireland",
+    collection: "identity",
+    services: ["Logo design", "Web design"],
+    tools: [],
+    intro: "A quiet sense of luxury, from identity to website.",
+    description:
+      "Logo and website design for Tranquility Ireland. A refined gold wordmark and emblem carry through the accommodation website and its property presentations.",
+  },
+  {
+    slug: "owen-v-woods",
+    name: "Owen V Woods",
+    collection: "identity",
+    services: ["Logo design"],
+    tools: [],
+    intro: "A recognisable identity for a local property business.",
+    description:
+      "Logo design for Owen V Woods Estate Agent and Auctioneer, shown against the landscape around Carlingford.",
+  },
+  {
+    slug: "visit-carlingford",
+    name: "Carlingford & Cooley Peninsula",
+    collection: "identity",
+    services: ["Logo design", "Web design"],
+    tools: [],
+    intro: "A destination with a story of its own.",
+    description:
+      "Logo and website design for Carlingford & Cooley Peninsula, bringing the area’s landscape, heritage and visitor experiences into a destination identity and mobile guide.",
   },
 ];

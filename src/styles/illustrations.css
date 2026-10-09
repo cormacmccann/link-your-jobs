@@ -1,0 +1,222 @@
+.illustrations-page {
+  padding-top: 64px;
+}
+.illustrations-intro h1 {
+  font-size: clamp(44px, 6.5vw, 88px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin: 22px 0 30px;
+}
+.illustrations-intro h1 em {
+  color: var(--studio-gold);
+  font-style: normal;
+}
+.illustrations-lead {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  padding-bottom: 40px;
+}
+.illustrations-lead p {
+  max-width: 660px;
+  color: var(--studio-muted);
+  font-size: 17px;
+  line-height: 1.85;
+}
+.illustrations-lead > span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  line-height: 2;
+  color: var(--studio-muted);
+}
+.illustrations-toolbar {
+  border-top: 1px solid var(--studio-line);
+  padding: 26px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.illustrations-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.illustrations-filters button {
+  border: 1px solid var(--studio-line);
+  border-radius: 30px;
+  padding: 12px 18px;
+  min-height: 44px;
+  font-size: 12px;
+  color: var(--studio-muted);
+}
+.illustrations-filters button[aria-pressed="true"] {
+  background: var(--studio-gold);
+  color: #181811;
+  border-color: var(--studio-gold);
+}
+.illustrations-toolbar p {
+  font-size: 11px;
+  color: var(--studio-muted);
+}
+.illustration-gallery {
+  columns: 3;
+  column-gap: 24px;
+}
+.illustration-piece {
+  break-inside: avoid;
+  margin: 0 0 30px;
+}
+.illustration-open {
+  display: block;
+  position: relative;
+  width: 100%;
+  cursor: zoom-in;
+  background: #101514;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.illustration-open img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.illustration-expand {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #08090ccf;
+  border: 1px solid #ffffff40;
+  border-radius: 50%;
+  color: #fff;
+}
+.illustration-piece figcaption {
+  padding: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.illustration-piece figcaption > span {
+  font-size: 14px;
+}
+.illustration-piece figcaption small {
+  font-size: 10px;
+  color: var(--studio-muted);
+}
+.illustrations-signoff {
+  border-top: 1px solid var(--studio-line);
+  margin-top: 30px;
+  padding: 42px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+.illustrations-signoff p {
+  color: var(--studio-muted);
+  line-height: 1.8;
+}
+.illustrations-signoff a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--studio-gold);
+  font-size: 13px;
+}
+.illustration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000e;
+}
+.illustration-viewer {
+  position: fixed;
+  inset: 16px;
+  z-index: 101;
+  color: #f4f4f0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1500px;
+  margin: auto;
+  background: #101114;
+  padding: 18px;
+  border: 1px solid #36383c;
+  border-radius: 8px;
+}
+.illustration-viewer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.illustration-viewer-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.illustration-viewer-heading p {
+  font-size: 12px;
+  color: #b4b4b4;
+  margin: 5px 0 0;
+}
+.illustration-viewer button {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #45464a;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+.illustration-viewer button:focus-visible {
+  outline: 2px solid #ddbd80;
+  outline-offset: 3px;
+}
+.illustration-full {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
+}
+.illustration-viewer-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .illustration-gallery {
+    columns: 2;
+  }
+  .illustrations-lead,
+  .illustrations-toolbar {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 560px) {
+  .illustrations-page {
+    padding-top: 34px;
+  }
+  .illustration-gallery {
+    columns: 1;
+  }
+  .illustrations-lead p {
+    font-size: 15px;
+  }
+  .illustrations-signoff {
+    flex-direction: column;
+    align-items: start;
+  }
+  .illustration-viewer {
+    inset: 8px;
+    padding: 12px;
+  }
+}

@@ -1,9 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import CaseStudy from "@/pages/kamrok/CaseStudy";
 import { PROJECT_CASES } from "@/data/projects";
 import { articleLd, pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/_studio/work/$slug")({
+  beforeLoad: ({ params }) => {
+    if (params.slug === "kamrok-archive") throw redirect({ to: "/illustrations", statusCode: 301 });
+  },
   head: ({ params }) => {
     const data = Object.prototype.hasOwnProperty.call(PROJECT_CASES, params.slug) ? PROJECT_CASES[params.slug] : undefined;
     if (!data) {

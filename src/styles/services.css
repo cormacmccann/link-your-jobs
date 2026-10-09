@@ -125,3 +125,6 @@
 @media(prefers-reduced-motion:reduce) {
   .services-hero-work,.services-proof-image img { transition: none; transform: none !important; }
 }
+
+.services-detail-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; margin-top: 12px; color: var(--studio-mint); font-size: 12px; }
+.services-offering h3 a:hover { color: var(--studio-mint); }

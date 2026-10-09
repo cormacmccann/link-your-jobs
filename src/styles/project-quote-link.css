@@ -1,0 +1,118 @@
+.project-quote-link {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 64px;
+  padding: clamp(24px, 3vw, 44px);
+  border: 1px solid var(--studio-line);
+  border-radius: 12px;
+  background: radial-gradient(
+    ellipse at top left,
+    color-mix(in srgb, var(--studio-mint) 10%, transparent),
+    transparent 65%
+  );
+}
+.project-quote-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border: 1px solid color-mix(in srgb, var(--studio-mint) 35%, transparent);
+  border-radius: 16px;
+  color: var(--studio-mint);
+}
+.project-quote-copy {
+  flex: 1;
+  min-width: 0;
+}
+.project-quote-copy .kk-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  margin: 0 0 10px;
+}
+.project-quote-copy h2 {
+  font-size: clamp(24px, 2.4vw, 36px);
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+.project-quote-copy p {
+  max-width: 58ch;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--studio-copy);
+  margin: 0;
+}
+.project-quote-action {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.project-quote-action .orbit-button {
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.project-quote-action small {
+  color: var(--studio-copy);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.project-quote-link--compact {
+  margin: 0 0 28px;
+  padding: 26px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 20px;
+}
+.project-quote-link--compact .project-quote-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+.project-quote-link--compact .project-quote-copy h2 {
+  font-size: 26px;
+}
+.project-quote-link--compact .project-quote-action {
+  grid-column: 1 / -1;
+}
+@media (max-width: 1000px) {
+  .project-quote-link {
+    flex-wrap: wrap;
+  }
+  .project-quote-action {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .project-quote-link {
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .project-quote-copy {
+    flex-basis: calc(100% - 78px);
+  }
+  .project-quote-link--compact {
+    padding: 20px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .project-quote-action,
+  .project-quote-action .orbit-button {
+    width: 100%;
+  }
+  .project-quote-action .orbit-button {
+    white-space: normal;
+    text-align: center;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .project-quote-action .orbit-button svg {
+    transition: transform 0.2s;
+  }
+  .project-quote-action .orbit-button:hover svg {
+    transform: translate(3px, -3px);
+  }
+}
