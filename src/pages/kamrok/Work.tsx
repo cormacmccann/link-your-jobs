@@ -23,6 +23,7 @@ import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import Testimonials from "@/components/kamrok/Testimonials";
 import {
   CLIENT_BRAND_COUNT,
+  getProjectCover,
   PORTFOLIO_PROJECTS,
   PORTFOLIO_DESCRIPTION,
   type PortfolioProject,
@@ -127,7 +128,10 @@ const latestYear = (project: PortfolioProject) =>
 
 export default function Work() {
   const [params, setParams] = useSearchParams();
-  const classic = params.get("view") === "gallery";
+  const classic =
+    params.get("view") === "gallery" ||
+    (!params.has("view") &&
+      !["filter", "collection", "q", "sort"].some((key) => params.has(key)));
   const openIllustrations = () => {
     const next = new URLSearchParams(params);
     next.set("view", "gallery");
@@ -180,6 +184,17 @@ export default function Work() {
         .toLowerCase()
         .includes(search.trim().toLowerCase()),
   );
+  const coverContext = ["branding", "print"].includes(filter.id)
+    ? "designs"
+    : ["wordpress", "lovable", "shopify", "commerce", "apps"].includes(
+          filter.id,
+        )
+      ? "websites"
+      : collection.id === "identity"
+        ? "designs"
+        : collection.id === "platforms"
+          ? "websites"
+          : undefined;
   if (sort === "az") projects.sort((a, b) => a.name.localeCompare(b.name));
   if (sort === "za") projects.sort((a, b) => b.name.localeCompare(a.name));
   if (sort === "latest") projects.sort((a, b) => latestYear(b) - latestYear(a));
@@ -215,272 +230,318 @@ export default function Work() {
           </p>
         </header>
 
-        <div className="portfolio-modes" role="group" aria-label="Portfolio experience">
-          <button type="button" aria-pressed={!classic} onClick={() => update("view", "large", "large")}><FileText size={20} /><span>Project case studies<small>The story and thinking behind each project</small></span></button>
-          <button type="button" aria-pressed={classic} onClick={() => update("view", "gallery")}><Grid3X3 size={20} /><span>Classic portfolio<small>A big grid of designs, brands and illustrations</small></span></button>
-        </div>
-        {classic ? <ClassicPortfolio /> : <>
         <div
-          className="work-collections"
+          className="portfolio-modes"
           role="group"
-          aria-label="Portfolio collections"
+          aria-label="Portfolio experience"
         >
-          {COLLECTIONS.map((item) => (
-            <button
-              type="button"
-              key={item.id}
-              aria-pressed={item.id === collection.id}
-              aria-controls="work-results"
-              onClick={() => {
-                const next = new URLSearchParams(params);
-                if (item.id === "all") next.delete("collection");
-                else next.set("collection", item.id);
-                next.delete("filter");
-                setParams(next, { replace: true, preventScrollReset: true });
-              }}
-            >
-              <span>{item.label}</span>
-              <small>
-                {item.id === "all"
-                  ? PORTFOLIO_PROJECTS.length
-                  : PORTFOLIO_PROJECTS.filter(
-                      (project) => project.collection === item.id,
-                    ).length}
-              </small>
-            </button>
-          ))}
-        </div>
-        <p className="work-collection-intro">{collection.description} <button type="button" className="work-art-link" onClick={openIllustrations}>Illustrations, just for fun →</button></p>
-
-        <section className="work-controls" aria-label="Browse the portfolio">
-          <div
-            className="work-filter-row"
-            role="group"
-            aria-label="Filter projects"
+          <button
+            type="button"
+            aria-pressed={classic}
+            onClick={() => update("view", "gallery")}
           >
-            {FILTERS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className="work-filter cinematic-action"
-                aria-pressed={filter.id === item.id}
-                aria-controls="work-results"
-                onClick={() => update("filter", item.id, "all")}
-              >
-                <ActionFeedback icon={item.icon} size={15} direction="down" />
-                <span>{item.label}</span>
-                <small
-                  aria-label={`${collectionProjects.filter(item.match).length} projects`}
-                >
-                  {collectionProjects.filter(item.match).length}
-                </small>
-              </button>
-            ))}
-          </div>
-          <div className="work-toolbar">
-            <div className="work-search">
-              <Search size={16} aria-hidden="true" />
-              <input
-                type="search"
-                aria-label="Search projects"
-                placeholder="Find a project…"
-                value={search}
-                onChange={(event) => update("q", event.target.value)}
-              />
-              {search && (
-                <button
-                  className="work-search-clear cinematic-action"
-                  type="button"
-                  aria-label="Clear search"
-                  onClick={() => update("q", "")}
-                >
-                  <ActionFeedback icon={X} size={15} />
-                </button>
-              )}
-            </div>
-            <div className="work-sort">
-              <ArrowDownUp size={15} aria-hidden="true" />
-              <label htmlFor="work-sort">Sort by</label>
-              <select
-                id="work-sort"
-                value={sort}
-                onChange={(event) =>
-                  update("sort", event.target.value, "featured")
-                }
-              >
-                <option value="featured">Featured</option>
-                <option value="latest">Latest</option>
-                <option value="az">Name A–Z</option>
-                <option value="za">Name Z–A</option>
-              </select>
-            </div>
+            <Grid3X3 size={16} />
+            <span>Visual portfolio</span>
+          </button>
+          <button
+            type="button"
+            aria-pressed={!classic}
+            onClick={() => update("view", "list")}
+          >
+            <LayoutList size={16} />
+            <span>Project index</span>
+          </button>
+        </div>
+        {classic ? (
+          <ClassicPortfolio />
+        ) : (
+          <>
             <div
-              className="work-view-switch"
+              className="work-collections"
               role="group"
-              aria-label="Portfolio layout"
+              aria-label="Portfolio collections"
             >
-              {VIEWS.map((item) => (
+              {COLLECTIONS.map((item) => (
                 <button
-                  className="cinematic-action"
                   type="button"
                   key={item.id}
-                  aria-label={`${item.label} view`}
-                  aria-pressed={view === item.id}
+                  aria-pressed={item.id === collection.id}
                   aria-controls="work-results"
-                  onClick={() => update("view", item.id, "large")}
+                  onClick={() => {
+                    const next = new URLSearchParams(params);
+                    if (item.id === "all") next.delete("collection");
+                    else next.set("collection", item.id);
+                    next.delete("filter");
+                    setParams(next, {
+                      replace: true,
+                      preventScrollReset: true,
+                    });
+                  }}
                 >
-                  <ActionFeedback
-                    icon={item.icon}
-                    size={16}
-                    direction="right"
-                  />
                   <span>{item.label}</span>
+                  <small>
+                    {item.id === "all"
+                      ? PORTFOLIO_PROJECTS.length
+                      : PORTFOLIO_PROJECTS.filter(
+                          (project) => project.collection === item.id,
+                        ).length}
+                  </small>
                 </button>
               ))}
             </div>
-          </div>
-        </section>
-
-        <div className="work-results-heading">
-          <p id="work-results-label" role="status" aria-live="polite">
-            {String(projects.length).padStart(2, "0")}{" "}
-            {projects.length === 1 ? "PROJECT" : "PROJECTS"}
-            <span>
-              {filter.id === "all"
-                ? ` / ${collection.label.toUpperCase()}`
-                : ` / ${filter.label.toUpperCase()}`}
-            </span>
-          </p>
-          {(filter.id !== "all" || collection.id !== "all" || search) && (
-            <button
-              className="work-reset cinematic-action"
-              type="button"
-              onClick={reset}
-            >
-              Clear filters <ActionFeedback icon={RotateCcw} size={14} />
-            </button>
-          )}
-        </div>
-
-        <div
-          id="work-results"
-          className={`work-results work-results--${view}`}
-          aria-labelledby="work-results-label"
-        >
-          {projects.map((project, index) => (
-            <article className="work-project" key={project.slug}>
-              <Link
-                className="work-project-link action-trigger"
-                to={`/work/${project.slug}`}
-                aria-label={`View ${project.name} case study`}
+            <p className="work-collection-intro">
+              {collection.description}{" "}
+              <button
+                type="button"
+                className="work-art-link"
+                onClick={openIllustrations}
               >
-                <div
-                  className={`work-project-image${project.presentation === "identity" || project.hero.fit === "contain" ? " work-project-image--identity" : ""}`}
-                  style={{ backgroundColor: project.surface }}
-                >
-                  <img
-                    src={project.hero.src}
-                    width={project.hero.width}
-                    height={project.hero.height}
-                    alt={project.hero.alt}
-                    loading={index < 2 ? "eager" : "lazy"}
-                    decoding="async"
-                  />
-                  <span className="work-project-number">
-                    {String(PORTFOLIO_PROJECTS.indexOf(project) + 1).padStart(
-                      2,
-                      "0",
-                    )}
-                  </span>
-                  <span className="work-project-open cinematic-action">
-                    <ActionFeedback icon={FileText} size={20} />
-                  </span>
-                </div>
-                <div className="work-project-copy">
-                  <span className="work-project-category">
-                    {project.category}
-                  </span>
-                  <h2>{project.name}</h2>
-                  <p className="work-project-intro">{project.intro}</p>
-                  <p className="work-project-description">
-                    {project.description[0]}
-                  </p>
-                  <div className="work-project-tags">
-                    {(project.platforms.length
-                      ? project.platforms
-                      : [
-                          project.tools?.includes("Adobe")
-                            ? "Adobe"
-                            : project.categories.includes("apps")
-                              ? project.categories.includes("websites")
-                                ? "Website & app"
-                                : "Web app"
-                              : project.categories.includes("branding") && !project.categories.includes("websites")
-                                ? "Brand identity"
-                                : "Web design",
-                        ]
-                    ).map((platform) => (
-                      <span key={platform}>{platform}</span>
-                    ))}
-                    {project.year && (
-                      <span className="work-project-year">{project.year}</span>
-                    )}
-                  </div>
-                </div>
-                <div className="work-project-details">
-                  <span className="work-detail-label">WHAT WE DID</span>
-                  <ul>
-                    {project.services.map((service) => (
-                      <li key={service}>{service}</li>
-                    ))}
-                  </ul>
-                  {!!project.tools?.length && (
-                    <div className="work-project-tools">
-                      <span className="work-detail-label">
-                        TOOLS & PLATFORMS
-                      </span>
-                      <p>{project.tools.join(" · ")}</p>
-                    </div>
-                  )}
-                  {project.results.length > 0 && (
-                    <dl className="work-project-results">
-                      {project.results.map((result) => (
-                        <div key={result.label}>
-                          <dt>{result.label}</dt>
-                          <dd>{result.value}</dd>
-                          <span>{result.source}</span>
-                        </div>
-                      ))}
-                    </dl>
-                  )}
-                  <span className="work-read-case cinematic-action">
-                    View case study <ActionFeedback icon={FileText} size={14} />
-                  </span>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-        {!projects.length && (
-          <div className="work-empty">
-            <Search size={28} strokeWidth={1.2} aria-hidden="true" />
-            <h2>A different direction?</h2>
-            <p>
-              {search
-                ? `No projects match “${search}” in this selection.`
-                : "No published projects in this selection yet."}
+                Illustrations, just for fun →
+              </button>
             </p>
-            <button
-              type="button"
-              className="orbit-button cinematic-action"
-              onClick={reset}
-            >
-              Explore all work <ActionFeedback icon={Layers} />
-            </button>
-          </div>
-        )}
 
-        </>}
+            <section
+              className="work-controls"
+              aria-label="Browse the portfolio"
+            >
+              <div
+                className="work-filter-row"
+                role="group"
+                aria-label="Filter projects"
+              >
+                {FILTERS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="work-filter cinematic-action"
+                    aria-pressed={filter.id === item.id}
+                    aria-controls="work-results"
+                    onClick={() => update("filter", item.id, "all")}
+                  >
+                    <ActionFeedback
+                      icon={item.icon}
+                      size={15}
+                      direction="down"
+                    />
+                    <span>{item.label}</span>
+                    <small
+                      aria-label={`${collectionProjects.filter(item.match).length} projects`}
+                    >
+                      {collectionProjects.filter(item.match).length}
+                    </small>
+                  </button>
+                ))}
+              </div>
+              <div className="work-toolbar">
+                <div className="work-search">
+                  <Search size={16} aria-hidden="true" />
+                  <input
+                    type="search"
+                    aria-label="Search projects"
+                    placeholder="Find a project…"
+                    value={search}
+                    onChange={(event) => update("q", event.target.value)}
+                  />
+                  {search && (
+                    <button
+                      className="work-search-clear cinematic-action"
+                      type="button"
+                      aria-label="Clear search"
+                      onClick={() => update("q", "")}
+                    >
+                      <ActionFeedback icon={X} size={15} />
+                    </button>
+                  )}
+                </div>
+                <div className="work-sort">
+                  <ArrowDownUp size={15} aria-hidden="true" />
+                  <label htmlFor="work-sort">Sort by</label>
+                  <select
+                    id="work-sort"
+                    value={sort}
+                    onChange={(event) =>
+                      update("sort", event.target.value, "featured")
+                    }
+                  >
+                    <option value="featured">Featured</option>
+                    <option value="latest">Latest</option>
+                    <option value="az">Name A–Z</option>
+                    <option value="za">Name Z–A</option>
+                  </select>
+                </div>
+                <div
+                  className="work-view-switch"
+                  role="group"
+                  aria-label="Portfolio layout"
+                >
+                  {VIEWS.map((item) => (
+                    <button
+                      className="cinematic-action"
+                      type="button"
+                      key={item.id}
+                      aria-label={`${item.label} view`}
+                      aria-pressed={view === item.id}
+                      aria-controls="work-results"
+                      onClick={() => update("view", item.id, "large")}
+                    >
+                      <ActionFeedback
+                        icon={item.icon}
+                        size={16}
+                        direction="right"
+                      />
+                      <span>{item.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <div className="work-results-heading">
+              <p id="work-results-label" role="status" aria-live="polite">
+                {String(projects.length).padStart(2, "0")}{" "}
+                {projects.length === 1 ? "PROJECT" : "PROJECTS"}
+                <span>
+                  {filter.id === "all"
+                    ? ` / ${collection.label.toUpperCase()}`
+                    : ` / ${filter.label.toUpperCase()}`}
+                </span>
+              </p>
+              {(filter.id !== "all" || collection.id !== "all" || search) && (
+                <button
+                  className="work-reset cinematic-action"
+                  type="button"
+                  onClick={reset}
+                >
+                  Clear filters <ActionFeedback icon={RotateCcw} size={14} />
+                </button>
+              )}
+            </div>
+
+            <div
+              id="work-results"
+              className={`work-results work-results--${view}`}
+              aria-labelledby="work-results-label"
+            >
+              {projects.map((project, index) => {
+                const cover = getProjectCover(project, coverContext);
+                return (
+                  <article className="work-project" key={project.slug}>
+                    <Link
+                      className="work-project-link action-trigger"
+                      to={`/work/${project.slug}`}
+                      aria-label={`View ${project.name} case study`}
+                    >
+                      <div
+                        className={`work-project-image${cover.fit === "contain" || (cover === project.hero && project.presentation === "identity") ? " work-project-image--identity" : ""}`}
+                        style={{ backgroundColor: project.surface }}
+                      >
+                        <img
+                          src={cover.src}
+                          width={cover.width}
+                          height={cover.height}
+                          alt={cover.alt}
+                          loading={index < 2 ? "eager" : "lazy"}
+                          decoding="async"
+                        />
+                        <span className="work-project-number">
+                          {String(
+                            PORTFOLIO_PROJECTS.indexOf(project) + 1,
+                          ).padStart(2, "0")}
+                        </span>
+                        <span className="work-project-open cinematic-action">
+                          <ActionFeedback icon={FileText} size={20} />
+                        </span>
+                      </div>
+                      <div className="work-project-copy">
+                        <span className="work-project-category">
+                          {project.category}
+                        </span>
+                        <h2>{project.name}</h2>
+                        <p className="work-project-intro">{project.intro}</p>
+                        <p className="work-project-description">
+                          {project.description[0]}
+                        </p>
+                        <div className="work-project-tags">
+                          {(project.platforms.length
+                            ? project.platforms
+                            : [
+                                project.tools?.includes("Adobe")
+                                  ? "Adobe"
+                                  : project.categories.includes("apps")
+                                    ? project.categories.includes("websites")
+                                      ? "Website & app"
+                                      : "Web app"
+                                    : project.categories.includes("branding") &&
+                                        !project.categories.includes("websites")
+                                      ? "Brand identity"
+                                      : "Web design",
+                              ]
+                          ).map((platform) => (
+                            <span key={platform}>{platform}</span>
+                          ))}
+                          {project.year && (
+                            <span className="work-project-year">
+                              {project.year}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="work-project-details">
+                        <span className="work-detail-label">WHAT WE DID</span>
+                        <ul>
+                          {project.services.map((service) => (
+                            <li key={service}>{service}</li>
+                          ))}
+                        </ul>
+                        {!!project.tools?.length && (
+                          <div className="work-project-tools">
+                            <span className="work-detail-label">
+                              TOOLS & PLATFORMS
+                            </span>
+                            <p>{project.tools.join(" · ")}</p>
+                          </div>
+                        )}
+                        {project.results.length > 0 && (
+                          <dl className="work-project-results">
+                            {project.results.map((result) => (
+                              <div key={result.label}>
+                                <dt>{result.label}</dt>
+                                <dd>{result.value}</dd>
+                                <span>{result.source}</span>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
+                        <span className="work-read-case cinematic-action">
+                          View case study{" "}
+                          <ActionFeedback icon={FileText} size={14} />
+                        </span>
+                      </div>
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+            {!projects.length && (
+              <div className="work-empty">
+                <Search size={28} strokeWidth={1.2} aria-hidden="true" />
+                <h2>A different direction?</h2>
+                <p>
+                  {search
+                    ? `No projects match “${search}” in this selection.`
+                    : "No published projects in this selection yet."}
+                </p>
+                <button
+                  type="button"
+                  className="orbit-button cinematic-action"
+                  onClick={reset}
+                >
+                  Explore all work <ActionFeedback icon={Layers} />
+                </button>
+              </div>
+            )}
+          </>
+        )}
 
         <div className="work-afterword">
           <h2 className="kk-sub">In good company</h2>

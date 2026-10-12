@@ -3,8 +3,72 @@ import type { ProjectImage } from "./projects";
 
 export const BRAND_ARTWORK: Record<
   string,
-  { hero: ProjectImage; gallery?: ProjectImage[]; category?: string }
+  {
+    hero: ProjectImage;
+    gallery?: ProjectImage[];
+    category?: string;
+    covers?: Partial<Record<"websites" | "designs", ProjectImage>>;
+    story?: { title: string; text: string }[];
+    defaultCover?: "websites" | "designs";
+    groupGallery?: boolean;
+  }
 > = {
+  guinness: {
+    category: "Guinness / Diageo · Brand wrap concepts",
+    hero: {
+      src: "/projects/guinness-diageo/guinness-six-nations-tanker.jpg",
+      alt: "Guinness Six Nations branding across a black truck and polished tanker outside the Guinness brewery",
+      caption:
+        "Guinness Six Nations — tanker livery presentation. Agency: Dundalk Trucks and Trailers.",
+      width: 1024,
+      height: 768,
+      fit: "contain",
+    },
+    gallery: [
+      {
+        src: "/projects/guinness-diageo/guinness-six-nations-angle.jpg",
+        alt: "A wider view of the Guinness Six Nations truck and tanker at the brewery",
+        caption: "Guinness Six Nations — the vehicle and tanker seen together.",
+        width: 1024,
+        height: 768,
+        fit: "contain",
+      },
+      {
+        src: "/projects/guinness-diageo/guinness-tanker-side.jpg",
+        alt: "Side view of a polished tanker carrying the Guinness wordmark and harp behind a white and blue truck",
+        caption:
+          "Guinness — a simple wordmark and harp treatment across the tanker.",
+        width: 1024,
+        height: 768,
+        fit: "contain",
+      },
+      {
+        src: "/projects/guinness-diageo/guinness-tanker-front.jpg",
+        alt: "Front three-quarter view of the truck and Guinness-branded tanker",
+        caption: "Guinness — the tanker identity from a different perspective.",
+        width: 1024,
+        height: 768,
+        fit: "contain",
+      },
+      {
+        src: "/projects/guinness-diageo/rockshore-wave-wrap-concept.jpg",
+        alt: "Rockshore tanker wrap concept with turquoise illustrated waves and a large Rockshore Irish Lager badge",
+        caption: "Rockshore — an illustrated wave wrap concept.",
+        width: 1600,
+        height: 1200,
+        fit: "contain",
+      },
+      {
+        src: "/projects/guinness-diageo/rockshore-can-wrap-concept.jpg",
+        alt: "Rockshore tanker wrap concept using two oversized turquoise and cream lager can designs",
+        caption:
+          "Rockshore — an alternative wrap concept built around the can design.",
+        width: 1600,
+        height: 1200,
+        fit: "contain",
+      },
+    ],
+  },
   "kieran-mcgee": {
     hero: {
       src: "/projects/brand-artwork/kieran-mcgee.jpg",
@@ -144,15 +208,156 @@ export const BRAND_ARTWORK: Record<
     },
   },
   mckevitts: {
+    defaultCover: "websites",
+    groupGallery: true,
+    category: "Hospitality · Brand identity & web design",
     hero: {
-      src: "/projects/brand-artwork/mckevitts.jpg",
-      alt: "McKevitt’s Hotel Restaurant Bar stag logo beside a beer being poured",
+      src: "/projects/mckevitts/brand-presentation.jpg",
+      alt: "McKevitt’s stag and mountain identity with the hotel building behind it",
       caption:
-        "The McKevitt’s logo, bringing hotel, restaurant and bar together.",
-      width: 1920,
-      height: 990,
+        "A new identity rooted in family, landscape and the building itself.",
+      width: 2048,
+      height: 2048,
       fit: "contain",
     },
+    covers: {
+      websites: {
+        src: "/projects/mckevitts/website-cover.png",
+        kind: "website",
+        alt: "McKevitt’s website design presented on a desktop monitor and laptop",
+        caption: "The identity carried through to the hotel website.",
+        width: 1688,
+        height: 1125,
+        fit: "contain",
+      },
+    },
+    story: [
+      {
+        title: "The mountain after sundown",
+        text: "The colours of the mountain in the evening and at night inspired the palette: layered, muted tones that move into deep purple and dark shades. That sense of place is carried into the landscape within the stag.",
+      },
+      {
+        title: "A connection to the family",
+        text: "The stag comes from the McKevitt family crest. Reinterpreted as the central mark, it connects the hotel’s identity to the family behind it, with the mountain landscape giving the symbol a local character.",
+      },
+      {
+        title: "Made to belong to the building",
+        text: "Purple and dark colours were already synonymous with the building. The identity was adapted to complement that existing character, so the exterior signage, printed materials and website feel like parts of the same place.",
+      },
+      {
+        title: "From the sign to the screen",
+        text: "The stag, refined lettering and evening palette bring hotel, restaurant and bar together. The website extends that visual language into pages for staying, dining and visiting Carlingford, while the business cards and exterior sign show how the identity works beyond the screen.",
+      },
+    ],
+    gallery: [
+      {
+        src: "/projects/brand-artwork/mckevitts.jpg",
+        alt: "McKevitt’s Hotel Restaurant Bar stag logo beside a beer being poured",
+        caption:
+          "The McKevitt’s identity, bringing hotel, restaurant and bar together.",
+        width: 1920,
+        height: 990,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/design-studies.jpg",
+        alt: "McKevitt’s stag, mountain and colour studies on paper with a pencil resting across the drawings",
+        caption: "Hands-on design — working through studies and ideas.",
+        width: 1920,
+        height: 1281,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/logo.jpg",
+        alt: "McKevitt’s Hotel Restaurant Bar logo with a stag formed from layers of mountain colour",
+        caption:
+          "The complete identity — family heritage and the evening landscape.",
+        width: 879,
+        height: 879,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/logo-bright-mode.avif",
+        themeSources: {
+          dark: "/projects/mckevitts/logo-dark-mode.png",
+          light: "/projects/mckevitts/logo-bright-mode.avif",
+        },
+        presentation: "logo",
+        alt: "McKevitt’s horizontal stag and wordmark with layered teal, blue and purple mountain colours",
+        caption:
+          "The horizontal logo — the evening mountain colours within the stag.",
+        width: 1536,
+        height: 484,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/family-crest-reference.png",
+        alt: "Supplied McKevitt family crest reference featuring a red stag",
+        caption:
+          "Family crest reference supplied for the story — the stag provided the starting point for the new mark.",
+        width: 1086,
+        height: 1448,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/exterior-sign.jpg",
+        alt: "McKevitt’s dimensional stag and wordmark signage mounted on the purple exterior at night",
+        caption:
+          "The identity in place — signage that complements the building’s purple exterior.",
+        width: 800,
+        height: 1067,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/business-cards.jpg",
+        alt: "McKevitt’s business card designs in dark mountain colours and white",
+        caption:
+          "The brand in print — business cards using the stag, landscape and refined lettering.",
+        width: 2048,
+        height: 1536,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/website-devices.jpg",
+        kind: "website",
+        alt: "McKevitt’s homepage and dining page shown on desktop and laptop screens",
+        caption:
+          "Web design — the same identity across the homepage and dining experience.",
+        width: 1688,
+        height: 1125,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/website-presentation.jpg",
+        kind: "website",
+        alt: "McKevitt’s website design with Carlingford photography, dark navigation and a room availability form",
+        caption:
+          "Web design — a welcome to Carlingford, with rooms and availability close at hand.",
+        width: 2048,
+        height: 2048,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/historic-identity.jpg",
+        kind: "archive",
+        alt: "Historic McKevitt’s Village Hotel identity with a line drawing of the building",
+        caption:
+          "Before the redesign — the earlier illustrated hotel identity, included as historical context.",
+        width: 547,
+        height: 302,
+        fit: "contain",
+      },
+      {
+        src: "/projects/mckevitts/previous-identity.png",
+        kind: "archive",
+        alt: "Previous Village Hotel logo using a burgundy building illustration and cream wordmark panel",
+        caption:
+          "Before the redesign — the previous Village Hotel logo, included as historical context.",
+        width: 1920,
+        height: 1190,
+        fit: "contain",
+      },
+    ],
   },
   "old-carrick-mill": {
     hero: {

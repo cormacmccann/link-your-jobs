@@ -1,6 +1,7 @@
 import { BRAND_ARTWORK } from "./brandArtwork";
 import { CLIENT_PORTFOLIO } from "./clientPortfolio";
 import { PORTFOLIO_CAPTURES } from "./portfolioCaptures";
+import { buildMckevittsChapters } from "./mckevittsStory";
 
 export type ProjectImage = {
   src: string;
@@ -9,15 +10,24 @@ export type ProjectImage = {
   width?: number;
   height?: number;
   fit?: "contain" | "cover";
+  surface?: string;
+  themeSources?: { dark: string; light: string };
+  presentation?: "logo";
+  kind?: "website" | "branding" | "archive";
 };
 export type CaseData = {
   name: string;
+  agency?: string;
   category: string;
   url?: string;
   intro: string;
   year?: string;
   surface: string;
   hero: ProjectImage;
+  covers?: Partial<Record<"websites" | "designs", ProjectImage>>;
+  story?: { title: string; text: string }[];
+  groupGallery?: boolean;
+  chapters?: CaseChapter[];
   description: string[];
   services: string[];
   gallery?: ProjectImage[];
@@ -38,6 +48,16 @@ export type CaseData = {
   collection?: "platforms" | "identity";
   tools?: string[];
   next: string;
+};
+export type CaseChapter = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+  images: ProjectImage[];
+  supportingImages?: ProjectImage[];
+  supportingLabel?: string;
+  paired?: boolean;
 };
 
 export const PROJECT_CASES: Record<string, CaseData> = {
@@ -63,19 +83,22 @@ export const PROJECT_CASES: Record<string, CaseData> = {
         title: "An Ceol",
         subtitle: "The music",
         text: "Quaver notes and brace-like curves are woven into the lettering, reflecting the music and singing at the heart of Airneán. Strong lines echo the stave of sheet music; sweeping curves bring movement and flow.",
-        irish: "Cuimsíonn na litreacha camáin agus cuartha ar nós cuingeacha go caolchúiseach, ag tabhairt le fios go bhfuil an ceol agus an amhránaíocht lárnach in Airneán. Déanann línte láidre aithris ar chliath an cheoil scríofa, ag tabhairt struchtúr agus rithim don dearadh, agus i gcodarsnacht leis sin, tugann cuartha agus línte scuabtha le fios gluaiseacht agus sreabhadh.",
+        irish:
+          "Cuimsíonn na litreacha camáin agus cuartha ar nós cuingeacha go caolchúiseach, ag tabhairt le fios go bhfuil an ceol agus an amhránaíocht lárnach in Airneán. Déanann línte láidre aithris ar chliath an cheoil scríofa, ag tabhairt struchtúr agus rithim don dearadh, agus i gcodarsnacht leis sin, tugann cuartha agus línte scuabtha le fios gluaiseacht agus sreabhadh.",
       },
       {
         title: "An Ghealach Cheilteach",
         subtitle: "The Celtic moon",
         text: "The circular knotwork suggests the moon and the idea of gathering at night. Celtic-inspired swirls draw on Ireland’s ancient art tradition, connecting the identity with heritage and continuity.",
-        irish: "Tugann an íomhá snaidhmthe ciorclach le fios an ghealach, ag tagairt don tóstal san oíche. Léiríonn na guairneán Ceilteacha traidisiún ealaín ársa na hÉireann, ag neartú oidhreachta agus leanúnachais.",
+        irish:
+          "Tugann an íomhá snaidhmthe ciorclach le fios an ghealach, ag tagairt don tóstal san oíche. Léiríonn na guairneán Ceilteacha traidisiún ealaín ársa na hÉireann, ag neartú oidhreachta agus leanúnachais.",
       },
       {
         title: "Coinneal na hOíche",
         subtitle: "The night candle",
         text: "The candle at the centre recalls neighbours gathering by candlelight to share music, stories and warmth. It represents welcome, community and the passing on of culture.",
-        irish: "Sa lár, músclaíonn coinneal stílithe an tAirneán, nós Éireannach inar bhailigh comharsan le solas coinnle lena gceol, scéalta, is teas a roinnt. Seasann an choinneal d’fháilte, do phobal, agus do thabhairt ar aghaidh an chultúir.",
+        irish:
+          "Sa lár, músclaíonn coinneal stílithe an tAirneán, nós Éireannach inar bhailigh comharsan le solas coinnle lena gceol, scéalta, is teas a roinnt. Seasann an choinneal d’fháilte, do phobal, agus do thabhairt ar aghaidh an chultúir.",
       },
     ],
     films: [
@@ -605,7 +628,11 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
   const categories = new Set(existing?.categories ?? []);
   if (brief.services.some((service) => /web design|wordpress/i.test(service)))
     categories.add("websites");
-  if (brief.services.some((service) => /\bapp\b|\bapplication|portal|ERP|tool/i.test(service)))
+  if (
+    brief.services.some((service) =>
+      /\bapp\b|\bapplication|portal|ERP|tool/i.test(service),
+    )
+  )
     categories.add("apps");
   if (brief.services.some((service) => /brand|identity|logo/i.test(service)))
     categories.add("branding");
@@ -617,7 +644,9 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
     categories.add("marketing");
   if (
     brief.services.some((service) =>
-      /editorial|print|poster|apparel|bottle|brochure|livery|menu design/i.test(service),
+      /editorial|print|poster|apparel|bottle|brochure|livery|menu design/i.test(
+        service,
+      ),
     )
   )
     categories.add("print");
@@ -626,6 +655,7 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
   PROJECT_CASES[brief.slug] = {
     ...existing,
     name: brief.name,
+    ...(brief.agency ? { agency: brief.agency } : {}),
     ...(brief.url ? { url: brief.url } : {}),
     category:
       existing?.category ??
@@ -633,10 +663,16 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
         ? "Platforms & growth"
         : "Identity & campaign"),
     intro: brief.intro,
-    description: [brief.description],
+    description: [
+      ...new Set([
+        brief.description,
+        ...(brief.slug === "mckevitts" ? (existing?.description ?? []) : []),
+      ]),
+    ],
     services: [
       ...new Set([
         ...brief.services,
+        ...(brief.slug === "mckevitts" ? (existing?.services ?? []) : []),
         ...(brief.slug === "roco9" ? ["Elementor One development"] : []),
       ]),
     ],
@@ -663,12 +699,19 @@ for (const [index, brief] of CLIENT_PORTFOLIO.entries()) {
 for (const [slug, capture] of Object.entries(PORTFOLIO_CAPTURES)) {
   const project = PROJECT_CASES[slug];
   if (!project) continue;
-  project.hero = capture.hero;
+  project.hero = { ...capture.hero, kind: "website" };
+  project.covers = { ...project.covers, websites: project.hero };
   project.category = capture.category;
   project.presentation = "screens";
   project.description = [...project.description, capture.description];
   if (capture.gallery.length)
-    project.gallery = [...capture.gallery, ...(project.gallery ?? [])];
+    project.gallery = [
+      ...capture.gallery.map((image) => ({
+        ...image,
+        kind: "website" as const,
+      })),
+      ...(project.gallery ?? []),
+    ];
 }
 
 // Brand covers lead the portfolio; reviewed website captures remain available in the gallery.
@@ -676,20 +719,46 @@ for (const [slug, artwork] of Object.entries(BRAND_ARTWORK)) {
   const project = PROJECT_CASES[slug];
   if (!project) continue;
   const previousHero = project.hero;
-  project.hero = artwork.hero;
+  project.covers = {
+    ...project.covers,
+    designs: { ...artwork.hero, kind: "branding" },
+    ...artwork.covers,
+  };
+  project.hero =
+    (artwork.defaultCover && project.covers[artwork.defaultCover]) ||
+    project.covers.designs!;
+  if (artwork.story) project.story = artwork.story;
+  if (artwork.groupGallery) project.groupGallery = true;
   if (artwork.category) project.category = artwork.category;
   project.presentation = "screens";
   const gallery = [
-    ...(artwork.gallery ?? []),
+    ...(artwork.defaultCover && project.covers[artwork.defaultCover]
+      ? [project.covers[artwork.defaultCover]!]
+      : []),
+    { ...artwork.hero, kind: "branding" as const },
+    ...(artwork.gallery ?? []).map((image) => ({
+      ...image,
+      kind: image.kind ?? ("branding" as const),
+    })),
     ...(previousHero.src.includes("/portfolio-covers/") ? [] : [previousHero]),
     ...(project.gallery ?? []),
   ];
-  project.gallery = gallery.filter((shot, index) =>
-    shot.src !== project.hero.src && gallery.findIndex((candidate) => candidate.src === shot.src) === index,
+  project.gallery = gallery.filter(
+    (shot, index) =>
+      shot.src !== project.hero.src &&
+      gallery.findIndex((candidate) => candidate.src === shot.src) === index,
   );
 }
 
 export const CLIENT_BRAND_COUNT = CLIENT_PORTFOLIO.length;
+PROJECT_CASES["mckevitts"]!.chapters = buildMckevittsChapters(
+  PROJECT_CASES["mckevitts"]!,
+);
+// Covers change with browsing context; the case study always keeps the full project.
+export const getProjectCover = (
+  project: CaseData,
+  context?: "websites" | "designs",
+): ProjectImage => (context && project.covers?.[context]) || project.hero;
 export const PORTFOLIO_DESCRIPTION = `Explore ${CLIENT_BRAND_COUNT} client brands: identity, campaigns, websites, ecommerce, ERP, apps and portals. Brand thinking and the platforms behind it, by KAMROK.`;
 
 const projectOrder = [

@@ -2,6 +2,7 @@
 export type ClientPortfolioBrief = {
   slug: string;
   name: string;
+  agency?: string;
   url?: string;
   collection: "platforms" | "identity";
   services: string[];
@@ -183,13 +184,14 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
   },
   {
     slug: "guinness",
-    name: "Guinness",
+    name: "Guinness / Diageo",
+    agency: "Dundalk Trucks and Trailers",
     collection: "identity",
-    services: ["Retail brand design", "Vehicle livery"],
+    services: ["Brand wrap concepts", "Vehicle livery", "Retail brand design"],
     tools: ["Adobe"],
-    intro: "Retail brand execution, in store and on the road.",
+    intro: "Guinness and Rockshore, with presence on the road.",
     description:
-      "Retail brand design and vehicle livery for Guinness / Diageo, bringing the brand into physical retail environments and on-road visibility.",
+      "Brand wrap concepts and vehicle livery for Guinness / Diageo, developed through agency Dundalk Trucks and Trailers. The presentations explore Guinness, Guinness Six Nations and Rockshore treatments across tanker vehicles.",
   },
   {
     slug: "vithit",
@@ -289,9 +291,9 @@ export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
     collection: "identity",
     services: ["Logo design", "Branding", "Web design", "Menu design"],
     tools: ["WordPress", "Google", "Kinsta", "Cloudflare"],
-    intro: "A hospitality brand, from the menu to the next visit.",
+    intro: "Family heritage. Mountain colours. A familiar welcome.",
     description:
-      "Branding, web design and menu design for McKevitt’s, supported by hospitality advice around menus, the offer and local demand.",
+      "A connected brand identity and website for McKevitt’s Hotel, Restaurant & Bar in Carlingford. The stag draws on the family crest, while the colours of the mountain in evening and night complement the purple and dark character of the building. The identity carries through signage, business cards and the website.",
     url: "https://mckevitts.ie",
   },
   {
