@@ -7,8 +7,8 @@ import KamrokLayout from "@/components/kamrok/KamrokLayout";
 const NOTES = [
   {
     date: "OCT 2026",
-    title: "How to get found on Google in Dundalk (I only copped this myself)",
-    body: "I build websites for a living and I still only fixed my own Google listing a couple of weeks ago. Referrals have been kind to me, but that's luck, not a plan. Here's the step-by-step guide I wish someone had handed me — Google Business Profile, reviews, local keywords, the lot.",
+    title: "How to get found on Google in Dundalk",
+    body: "Six practical steps to help nearby customers find your business. Follow the click paths, see real examples, adapt a review-request message and work through the local search checklist.",
     to: "/blog/dundalk-seo-guide",
   },
   {
@@ -38,8 +38,8 @@ export default function Blog() {
       <div className="kk-eyebrow">FROM THE STUDIO</div>
       <h1>Field notes.</h1>
       <p className="kk-lead-text">
-        Short notes from the studio — what we're building, what we're learning, and the occasional
-        opinion. New entries as they happen.
+        Short notes from the studio — what we're building, what we're learning,
+        and the occasional opinion. New entries as they happen.
       </p>
 
       <div className="kk-notes">
@@ -49,15 +49,23 @@ export default function Blog() {
             <h2>{n.title}</h2>
             <p>{n.body}</p>
             {n.to && (
-              <Link className="kk-visit kk-visit--solid cinematic-action" to={n.to}>
-                {n.to.startsWith("/work/") ? "Read the case study" : "Read the guide"} <ActionFeedback icon={FileText} />
+              <Link
+                className="kk-visit kk-visit--solid cinematic-action"
+                to={n.to}
+              >
+                {n.to.startsWith("/work/")
+                  ? "Read the case study"
+                  : "Read the guide"}{" "}
+                <ActionFeedback icon={FileText} />
               </Link>
             )}
           </article>
         ))}
       </div>
 
-      <Link className="kk-cta cinematic-action" to="/contact">Start a project <ActionFeedback icon={Lightbulb} /></Link>
+      <Link className="kk-cta cinematic-action" to="/contact">
+        Start a project <ActionFeedback icon={Lightbulb} />
+      </Link>
     </KamrokLayout>
   );
 }

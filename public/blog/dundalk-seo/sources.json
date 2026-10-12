@@ -1,0 +1,10 @@
+{
+  "sourcePage": "https://business.google.com/us/business-profile/",
+  "retrieved": "2026-10-12",
+  "description": "Google product illustrations, credited beside each image. Example businesses and figures are illustrative, not KAMROK results. Display variants are resized WebP files in src/assets/blog.",
+  "images": {
+    "google-profile-example.webp": "https://www.gstatic.com/marketing-cms/assets/images/ads/f2/99/23a32bb841acb29bfc0e29a8acfc/2026-bgc-refresh-gbp-hero-show-image.webp",
+    "google-review-example.webp": "https://www.gstatic.com/marketing-cms/assets/images/ads/ab/4b/32faafd747c0a9a7cf140d6b1eff/2026-bgc-refresh-gbp-hero-build-image.webp",
+    "google-performance-example.webp": "https://www.gstatic.com/marketing-cms/assets/images/ads/d2/27/4bf5bd41475ca4274bafc73b230b/2026-bgc-refresh-gbp-2up-gaininsights-image.webp"
+  }
+}
