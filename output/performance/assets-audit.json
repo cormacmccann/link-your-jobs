@@ -1,0 +1,13 @@
+{
+  "measurement": "Homepage portrait and landscape file bytes only, not page/network timings or a Lighthouse score. Responsive source selection varies with viewport and pixel density.",
+  "beforeBytes": 1678238,
+  "compactResponsiveBytes": 264062,
+  "compactReductionPercent": 84.3,
+  "largeResponsiveBytes": 565150,
+  "largeReductionPercent": 66.3,
+  "robotOriginalDeferredBytes": 595542,
+  "phoneWebGL": "Disabled; CSS starfield remains visible",
+  "desktopWebGL": "Near viewport, after fine-pointer interaction and idle; render surface capped at 640x480; 20fps; paused offscreen",
+  "googleFontsStylesheet": "Removed; original fonts self-hosted, font-display swap, two Latin subsets preloaded",
+  "livePageSpeed": "User-provided baseline: mobile 31, LCP 8.7s, TBT 34770ms. Changes require publication and a fresh live test."
+}

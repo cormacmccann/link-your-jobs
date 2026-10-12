@@ -7,3 +7,5 @@
 [data-theme='light'] .studio-galaxy { opacity: .45; }
 [data-theme='light'] .studio-footer > .studio-galaxy { opacity: .28; }
 @media(max-width:760px) { .studio-galaxy { opacity: .48; } }
+
+.studio-galaxy > .studio-galaxy { opacity: 1; }

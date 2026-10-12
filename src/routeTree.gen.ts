@@ -19,6 +19,9 @@ import { Route as StudioIllustrationsRouteImport } from './routes/_studio/illust
 import { Route as StudioLovableSavingsRouteImport } from './routes/_studio/lovable-savings'
 import { Route as StudioProjectPlannerRouteImport } from './routes/_studio/project-planner'
 import { Route as StudioSkillsRouteImport } from './routes/_studio/skills'
+import { Route as StudioWebDesignDundalkRouteImport } from './routes/_studio/web-design-dundalk'
+import { Route as StudioWebDesignRostrevorRouteImport } from './routes/_studio/web-design-rostrevor'
+import { Route as StudioWebDesignWarrenpointRouteImport } from './routes/_studio/web-design-warrenpoint'
 import { Route as ApiSitemapAuditRouteImport } from './routes/api/sitemap-audit'
 import { Route as StudioBlogIndexRouteImport } from './routes/_studio/blog/index'
 import { Route as StudioBlogDundalkSeoGuideRouteImport } from './routes/_studio/blog/dundalk-seo-guide'
@@ -98,6 +101,23 @@ const StudioSkillsRoute = StudioSkillsRouteImport.update({
   path: '/skills',
   getParentRoute: () => StudioRoute,
 } as any)
+const StudioWebDesignDundalkRoute = StudioWebDesignDundalkRouteImport.update({
+  id: '/web-design-dundalk',
+  path: '/web-design-dundalk',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioWebDesignRostrevorRoute =
+  StudioWebDesignRostrevorRouteImport.update({
+    id: '/web-design-rostrevor',
+    path: '/web-design-rostrevor',
+    getParentRoute: () => StudioRoute,
+  } as any)
+const StudioWebDesignWarrenpointRoute =
+  StudioWebDesignWarrenpointRouteImport.update({
+    id: '/web-design-warrenpoint',
+    path: '/web-design-warrenpoint',
+    getParentRoute: () => StudioRoute,
+  } as any)
 const ApiSitemapAuditRoute = ApiSitemapAuditRouteImport.update({
   id: '/api/sitemap-audit',
   path: '/api/sitemap-audit',
@@ -273,6 +293,9 @@ export interface FileRoutesByFullPath {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
+  '/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
   '/services/$service': typeof StudioServicesServiceRoute
@@ -312,6 +335,9 @@ export interface FileRoutesByTo {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
+  '/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/': typeof StudioIndexRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
@@ -354,6 +380,9 @@ export interface FileRoutesById {
   '/_studio/lovable-savings': typeof StudioLovableSavingsRoute
   '/_studio/project-planner': typeof StudioProjectPlannerRoute
   '/_studio/skills': typeof StudioSkillsRoute
+  '/_studio/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/_studio/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
+  '/_studio/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/_studio/': typeof StudioIndexRoute
   '/_studio/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
@@ -397,6 +426,9 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/web-design-dundalk'
+    | '/web-design-rostrevor'
+    | '/web-design-warrenpoint'
     | '/api/sitemap-audit'
     | '/blog/dundalk-seo-guide'
     | '/services/$service'
@@ -436,6 +468,9 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/web-design-dundalk'
+    | '/web-design-rostrevor'
+    | '/web-design-warrenpoint'
     | '/api/sitemap-audit'
     | '/'
     | '/blog/dundalk-seo-guide'
@@ -477,6 +512,9 @@ export interface FileRouteTypes {
     | '/_studio/lovable-savings'
     | '/_studio/project-planner'
     | '/_studio/skills'
+    | '/_studio/web-design-dundalk'
+    | '/_studio/web-design-rostrevor'
+    | '/_studio/web-design-warrenpoint'
     | '/api/sitemap-audit'
     | '/_studio/'
     | '/_studio/blog/dundalk-seo-guide'
@@ -585,6 +623,27 @@ declare module '@tanstack/react-router' {
       path: '/skills'
       fullPath: '/skills'
       preLoaderRoute: typeof StudioSkillsRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/web-design-dundalk': {
+      id: '/_studio/web-design-dundalk'
+      path: '/web-design-dundalk'
+      fullPath: '/web-design-dundalk'
+      preLoaderRoute: typeof StudioWebDesignDundalkRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/web-design-rostrevor': {
+      id: '/_studio/web-design-rostrevor'
+      path: '/web-design-rostrevor'
+      fullPath: '/web-design-rostrevor'
+      preLoaderRoute: typeof StudioWebDesignRostrevorRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/web-design-warrenpoint': {
+      id: '/_studio/web-design-warrenpoint'
+      path: '/web-design-warrenpoint'
+      fullPath: '/web-design-warrenpoint'
+      preLoaderRoute: typeof StudioWebDesignWarrenpointRouteImport
       parentRoute: typeof StudioRoute
     }
     '/api/sitemap-audit': {
@@ -801,6 +860,9 @@ interface StudioRouteChildren {
   StudioLovableSavingsRoute: typeof StudioLovableSavingsRoute
   StudioProjectPlannerRoute: typeof StudioProjectPlannerRoute
   StudioSkillsRoute: typeof StudioSkillsRoute
+  StudioWebDesignDundalkRoute: typeof StudioWebDesignDundalkRoute
+  StudioWebDesignRostrevorRoute: typeof StudioWebDesignRostrevorRoute
+  StudioWebDesignWarrenpointRoute: typeof StudioWebDesignWarrenpointRoute
   StudioIndexRoute: typeof StudioIndexRoute
   StudioBlogDundalkSeoGuideRoute: typeof StudioBlogDundalkSeoGuideRoute
   StudioServicesServiceRoute: typeof StudioServicesServiceRoute
@@ -840,6 +902,9 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioLovableSavingsRoute: StudioLovableSavingsRoute,
   StudioProjectPlannerRoute: StudioProjectPlannerRoute,
   StudioSkillsRoute: StudioSkillsRoute,
+  StudioWebDesignDundalkRoute: StudioWebDesignDundalkRoute,
+  StudioWebDesignRostrevorRoute: StudioWebDesignRostrevorRoute,
+  StudioWebDesignWarrenpointRoute: StudioWebDesignWarrenpointRoute,
   StudioIndexRoute: StudioIndexRoute,
   StudioBlogDundalkSeoGuideRoute: StudioBlogDundalkSeoGuideRoute,
   StudioServicesServiceRoute: StudioServicesServiceRoute,

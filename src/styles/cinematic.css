@@ -230,7 +230,7 @@ html[data-studio-theme='light'],html[data-studio-theme='light'] body { backgroun
   width: min(58vw, 920px);
   aspect-ratio: 1265 / 1244;
   pointer-events: none;
-  opacity: 0;
+  opacity: 1;
   mask-image: linear-gradient(to bottom, #000 83%, transparent 100%);
 }
 .space-hero-chimp img {
@@ -252,8 +252,8 @@ html[data-studio-theme='light'],html[data-studio-theme='light'] body { backgroun
 }
 .space-chimp-art.is-revealing { --reveal-opacity: 1; }
 @keyframes hero-chimp-rise {
-  from { opacity: 0; transform: translateY(45%); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(8%); }
+  to { transform: translateY(0); }
 }
 @media (max-width: 1000px) and (min-width: 761px) {
   .space-hero-chimp { width: 62vw; right: -10%; }

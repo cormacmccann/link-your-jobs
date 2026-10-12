@@ -519,3 +519,25 @@
   .orbit-about { grid-template-columns: minmax(0,1fr); }
   .orbit-about-discipline > p { font-size: clamp(38px,11.8vw,62px); }
 }
+
+/* Crawlable local service links in the footer and services page. */
+.studio-service-areas {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 30px;
+  padding-block: 25px;
+  border-top: 1px solid var(--studio-line);
+  font-size: 10px;
+  color: var(--studio-copy);
+}
+.studio-service-areas span {
+  color: var(--studio-muted);
+}
+.studio-service-areas a:hover {
+  color: var(--studio-mint);
+}
+
+.orbit-film.orbit-film--still .orbit-film-video { opacity: .65; }
+[data-theme="light"] .orbit-film.orbit-film--still .orbit-film-video { opacity: .3; }

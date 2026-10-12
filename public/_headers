@@ -1,0 +1,17 @@
+# Nitro supplies immutable caching for content-hashed /assets bundles.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Artwork uses stable URLs: allow repeat-visit caching without making changes permanent.
+/art/*
+  Cache-Control: public, max-age=604800
+/projects/*
+  Cache-Control: public, max-age=604800
+/services/*
+  Cache-Control: public, max-age=604800
+/people/*
+  Cache-Control: public, max-age=604800
+/certifications/*
+  Cache-Control: public, max-age=604800
+/brand/*
+  Cache-Control: public, max-age=604800

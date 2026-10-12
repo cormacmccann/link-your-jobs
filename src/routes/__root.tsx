@@ -16,7 +16,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { StudioThemeProvider } from "@/components/kamrok/StudioTheme";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
-import { DEFAULT_SHARE_IMAGE } from "@/lib/seo";
+import { LOVABLE_PARTNER_URL } from "@/lib/brand";
 import appCss from "../styles.css?url";
 
 const SITE_TITLE = "KAMROK · Lovable Expert & Award-Winning WordPress Designer";
@@ -35,7 +35,9 @@ const SITE_LD = {
       logo: "https://kamrok.com/kamrok-logo.png",
       email: "cormac@kamrok.com",
       address: { "@type": "PostalAddress", addressLocality: "Dundalk", addressRegion: "Louth", addressCountry: "IE" },
-      areaServed: "Ireland",
+      areaServed: ["Ireland", "Northern Ireland"],
+      telephone: "+353860285904",
+      sameAs: [LOVABLE_PARTNER_URL],
     },
     {
       "@type": "WebSite",
@@ -60,20 +62,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: SITE_DESCRIPTION },
-      { property: "og:image", content: DEFAULT_SHARE_IMAGE },
-      { property: "og:image:alt", content: "KAMROK logo with our astronaut chimp in space" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SITE_TITLE },
       { name: "twitter:description", content: SITE_DESCRIPTION },
-      { name: "twitter:image", content: DEFAULT_SHARE_IMAGE },
-      { name: "twitter:image:alt", content: "KAMROK logo with our astronaut chimp in space" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap",
-      },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2", crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2", crossOrigin: "anonymous" },
       { rel: "apple-touch-icon", href: "/kamrok-logo.png" },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
     ],

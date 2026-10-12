@@ -49,159 +49,188 @@ export default function ProcessJourney() {
     let cancelled = false;
     let dispose: (() => void) | undefined;
 
-    // Load animation code on the client; the server renders the complete process.
-    void Promise.all([
-      import("gsap"),
-      import("gsap/ScrollTrigger"),
-      import("gsap/MorphSVGPlugin"),
-    ])
-      .then(([{ gsap }, { ScrollTrigger }, { MorphSVGPlugin }]) => {
-        if (cancelled) return;
-        gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
-        const media = gsap.matchMedia();
-        media.add(
-          {
-            all: "all",
-            desktop: "(min-width: 901px) and (min-height: 650px)",
-            reduce: "(prefers-reduced-motion: reduce)",
-          },
-          (context) => {
-            const { desktop, reduce } = context.conditions!;
-            const cards = Array.from(
-              root.querySelectorAll<HTMLElement>(".process-card"),
-            );
-            const select = (index: number) => {
-              setActive(index);
-              root.dataset["active"] = String(index);
-            };
-            select(0);
-            root.dataset["motion"] = reduce
-              ? "still"
-              : desktop
-                ? "pinned"
-                : "flow";
-            if (reduce) {
-              previewRef.current = select;
-              return () => {
-                previewRef.current = null;
+    // Keep the complete SVG story in SSR; fetch animation code near the section.
+    const initialise = () => {
+      void Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+        import("gsap/MorphSVGPlugin"),
+      ])
+        .then(([{ gsap }, { ScrollTrigger }, { MorphSVGPlugin }]) => {
+          if (cancelled) return;
+          gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
+          const media = gsap.matchMedia();
+          media.add(
+            {
+              all: "all",
+              desktop: "(min-width: 901px) and (min-height: 650px)",
+              reduce: "(prefers-reduced-motion: reduce)",
+            },
+            (context) => {
+              const { desktop, reduce } = context.conditions!;
+              const cards = Array.from(
+                root.querySelectorAll<HTMLElement>(".process-card"),
+              );
+              const select = (index: number) => {
+                setActive(index);
+                root.dataset["active"] = String(index);
               };
-            }
+              select(0);
+              root.dataset["motion"] = reduce
+                ? "still"
+                : desktop
+                  ? "pinned"
+                  : "flow";
+              if (reduce) {
+                previewRef.current = select;
+                return () => {
+                  previewRef.current = null;
+                };
+              }
 
-            const makeStage = (card: HTMLElement, index: number) => {
-              const shape = card.querySelector(".process-morph");
-              const detail = card.querySelector(".process-detail");
-              gsap.set(shape, { attr: { d: SEED } });
-              gsap.set(detail, { strokeDashoffset: 1 });
-              gsap.set(card.querySelector(".process-card-progress"), {
-                scaleX: 0,
-              });
-              return gsap
-                .timeline()
-                .to(
-                  shape,
-                  {
-                    morphSVG: STEPS[index]!.shape,
-                    duration: 0.65,
-                    ease: "power2.inOut",
+              const makeStage = (card: HTMLElement, index: number) => {
+                const shape = card.querySelector(".process-morph");
+                const detail = card.querySelector(".process-detail");
+                gsap.set(shape, { attr: { d: SEED } });
+                gsap.set(detail, { strokeDashoffset: 1 });
+                gsap.set(card.querySelector(".process-card-progress"), {
+                  scaleX: 0,
+                });
+                return gsap
+                  .timeline()
+                  .to(
+                    shape,
+                    {
+                      morphSVG: STEPS[index]!.shape,
+                      duration: 0.65,
+                      ease: "power2.inOut",
+                    },
+                    0,
+                  )
+                  .to(
+                    detail,
+                    {
+                      strokeDashoffset: 0,
+                      duration: 0.6,
+                      ease: "none",
+                      autoRound: false,
+                    },
+                    0.3,
+                  )
+                  .to(
+                    card.querySelector(".process-card-progress"),
+                    { scaleX: 1, duration: 0.9, ease: "none" },
+                    0,
+                  );
+              };
+
+              if (desktop) {
+                const stage = root.querySelector<HTMLElement>(
+                  ".process-journey-stage",
+                )!;
+                const rail = root.querySelector(".process-rail-draw");
+                gsap.set(rail, { strokeDashoffset: 1 });
+                const timeline = gsap.timeline({
+                  scrollTrigger: {
+                    trigger: stage,
+                    start: "top 110px",
+                    end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
+                    pin: true,
+                    scrub: 0.45,
+                    invalidateOnRefresh: true,
                   },
-                  0,
-                )
-                .to(
-                  detail,
+                  onUpdate: () =>
+                    select(Math.min(2, Math.floor(timeline.progress() * 3))),
+                });
+                cards.forEach((card, index) =>
+                  timeline.add(makeStage(card, index), index),
+                );
+                timeline.to(
+                  rail,
                   {
                     strokeDashoffset: 0,
-                    duration: 0.6,
+                    duration: 2.4,
                     ease: "none",
                     autoRound: false,
                   },
                   0.3,
-                )
-                .to(
-                  card.querySelector(".process-card-progress"),
-                  { scaleX: 1, duration: 0.9, ease: "none" },
-                  0,
                 );
-            };
-
-            if (desktop) {
-              const stage = root.querySelector<HTMLElement>(
-                ".process-journey-stage",
-              )!;
-              const rail = root.querySelector(".process-rail-draw");
-              gsap.set(rail, { strokeDashoffset: 1 });
-              const timeline = gsap.timeline({
-                scrollTrigger: {
-                  trigger: stage,
-                  start: "top 110px",
-                  end: () => `+=${Math.round(window.innerHeight * 1.8)}`,
-                  pin: true,
-                  scrub: 0.45,
-                  invalidateOnRefresh: true,
-                },
-                onUpdate: () =>
-                  select(Math.min(2, Math.floor(timeline.progress() * 3))),
-              });
-              cards.forEach((card, index) =>
-                timeline.add(makeStage(card, index), index),
-              );
-              timeline.to(
-                rail,
-                {
-                  strokeDashoffset: 0,
-                  duration: 2.4,
-                  ease: "none",
-                  autoRound: false,
-                },
-                0.3,
-              );
-              // Keep the final, fully drawn stage visible before releasing the pin.
-              timeline.to({}, { duration: 0.3 }, 2.7);
-              triggerRef.current = timeline.scrollTrigger!;
-              previewRef.current = (index) => {
-                const trigger = triggerRef.current;
-                if (trigger)
-                  window.scrollTo({
-                    top:
-                      trigger.start +
-                      ((index + 0.95) / 3) * (trigger.end - trigger.start),
-                    behavior: "smooth",
+                // Keep the final, fully drawn stage visible before releasing the pin.
+                timeline.to({}, { duration: 0.3 }, 2.7);
+                triggerRef.current = timeline.scrollTrigger!;
+                previewRef.current = (index) => {
+                  const trigger = triggerRef.current;
+                  if (trigger)
+                    window.scrollTo({
+                      top:
+                        trigger.start +
+                        ((index + 0.95) / 3) * (trigger.end - trigger.start),
+                      behavior: "smooth",
+                    });
+                };
+              } else {
+                const stages = cards.map((card, index) => {
+                  const timeline = makeStage(card, index);
+                  const trigger = ScrollTrigger.create({
+                    trigger: card,
+                    start: "top 78%",
+                    end: "center 45%",
+                    animation: timeline,
+                    scrub: 0.35,
+                    onEnter: () => select(index),
+                    onEnterBack: () => select(index),
                   });
-              };
-            } else {
-              const stages = cards.map((card, index) => {
-                const timeline = makeStage(card, index);
-                const trigger = ScrollTrigger.create({
-                  trigger: card,
-                  start: "top 78%",
-                  end: "center 45%",
-                  animation: timeline,
-                  scrub: 0.35,
-                  onEnter: () => select(index),
-                  onEnterBack: () => select(index),
+                  return { timeline, trigger };
                 });
-                return { timeline, trigger };
-              });
-              previewRef.current = (index) => {
-                select(index);
-                const stage = stages[index];
-                stage?.trigger.getTween()?.pause();
-                stage?.timeline.progress(1);
+                previewRef.current = (index) => {
+                  select(index);
+                  const stage = stages[index];
+                  stage?.trigger.getTween()?.pause();
+                  stage?.timeline.progress(1);
+                };
+              }
+              return () => {
+                triggerRef.current = null;
+                previewRef.current = null;
+                delete root.dataset["motion"];
               };
-            }
-            return () => {
-              triggerRef.current = null;
-              previewRef.current = null;
-              delete root.dataset["motion"];
-            };
-          },
-          root,
-        );
-        dispose = () => media.revert();
-      })
-      .catch(() => {
-        // The static SVGs and all three descriptions remain usable if loading fails.
-      });
+            },
+            root,
+          );
+          dispose = () => media.revert();
+        })
+        .catch(() => {
+          // The static SVGs and all three descriptions remain usable if loading fails.
+        });
+    };
+    let nearby = false;
+    let started = false;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const begin = () => {
+      if (!nearby || started || cancelled) return;
+      if (preference.matches) {
+        root.dataset["motion"] = "still";
+        return;
+      }
+      started = true;
+      initialise();
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          nearby = true;
+          observer.disconnect();
+          begin();
+        }
+      },
+      { rootMargin: "700px" },
+    );
+    preference.addEventListener("change", begin);
+    observer.observe(root);
     return () => {
+      observer.disconnect();
+      preference.removeEventListener("change", begin);
+      delete root.dataset["motion"];
       cancelled = true;
       dispose?.();
     };

@@ -112,6 +112,7 @@ export default function DundalkSeoGuide() {
       </p>
 
       <h2>What we do (the short version)</h2>
+      <p>Looking for a website? Explore <Link to="/web-design-dundalk">web design in Dundalk</Link>, or our services for businesses in <Link to="/web-design-warrenpoint">Warrenpoint</Link> and <Link to="/web-design-rostrevor">Rostrevor</Link>.</p>
       <p>
         Since you're here — we're KAMROK, a design studio based in Dundalk. We design and
         build websites, apps and brands for businesses around Louth and beyond, and we set up

@@ -5,7 +5,7 @@ import HumanAiStory from "@/components/kamrok/HumanAiStory";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
-import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
+import { LOVABLE_PARTNER_URL } from "@/lib/brand";
 import { SERVICES } from "@/data/services";
 import { PROJECT_CASES } from "@/data/projects";
 import "@/styles/services.css";
@@ -70,14 +70,14 @@ export default function Skills() {
               <ul><li><Check />Custom interfaces shaped around your customers</li><li><Check />Accounts, dashboards and connected workflows</li><li><Check />A practical route from prototype to a refined build</li></ul>
               <div className="services-platform-fit"><strong>A strong fit for</strong><span>Customer portals, business tools, new products and interactive websites.</span></div>
               <Link className="services-platform-cta cinematic-action" to="/contact?platform=lovable">Let’s build with Lovable <ActionFeedback icon={MessageCircle} /></Link>
-              <a className="services-source" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer">Explore Lovable ↗ <span>Affiliate link</span></a>
+              <a className="services-source" href={LOVABLE_PARTNER_URL} target="_blank" rel="noopener noreferrer">View my Lovable partner profile ↗</a>
             </article>
           </div>
           <p className="services-platform-note"><ShoppingBag size={18} aria-hidden="true" /> Building a dedicated online store? I also design and build with Shopify. We’ll choose around your products, operations and plans.</p>
         </section>
 
         <div className="mission-entry"><p>Got an idea? Turn it into a scope, platform choice and starting budget.</p><Link to="/project-planner">Try the project planner ↗</Link><Link to="/lovable-savings">Explore Lovable savings ↗</Link></div>
-        <HumanAiStory />
+        <nav className="studio-service-areas" aria-label="Local website design"><span>WEBSITE DESIGN NEAR YOU</span><Link to="/web-design-dundalk">Web design Dundalk ↗</Link><Link to="/web-design-warrenpoint">Web design Warrenpoint ↗</Link><Link to="/web-design-rostrevor">Web design Rostrevor ↗</Link></nav><HumanAiStory />
 
         <section className="services-section" aria-labelledby="services-offer-title">
           <div className="services-section-heading"><div><p className="services-kicker">WHAT WE CAN MAKE POSSIBLE</p><h2 id="services-offer-title">Built around<br />your next move.</h2></div><p>Start with the thing your business needs to do better. The design, the build and the tools follow from there.</p></div>

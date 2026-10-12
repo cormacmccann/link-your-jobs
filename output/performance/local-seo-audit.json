@@ -1,0 +1,53 @@
+[
+  {
+    "page": "https://kamrok.com/web-design-dundalk",
+    "title": "Web Design Dundalk | WordPress & Lovable Websites | KAMROK",
+    "h1": "Web design in Dundalk.",
+    "ogImage": "https://kamrok.com/projects/local/global-tiles-1200.webp",
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Dundalk",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dundalk",
+        "addressRegion": "County Louth",
+        "addressCountry": "IE"
+      }
+    },
+    "status": "Built SSR, metadata, profile, hero and initial bundle checks passed"
+  },
+  {
+    "page": "https://kamrok.com/web-design-warrenpoint",
+    "title": "Web Design Warrenpoint | Business Websites & Ecommerce | KAMROK",
+    "h1": "Web design in Warrenpoint.",
+    "ogImage": "https://kamrok.com/projects/local/mckevitts-1200.webp",
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Warrenpoint",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Warrenpoint",
+        "addressRegion": "County Down",
+        "addressCountry": "GB"
+      }
+    },
+    "status": "Built SSR, metadata, profile, hero and initial bundle checks passed"
+  },
+  {
+    "page": "https://kamrok.com/web-design-rostrevor",
+    "title": "Web Design Rostrevor | Tourism & Business Websites | KAMROK",
+    "h1": "Web design in Rostrevor.",
+    "ogImage": "https://kamrok.com/projects/local/onyerbike-1200.webp",
+    "serviceArea": {
+      "@type": "Place",
+      "name": "Rostrevor",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Rostrevor",
+        "addressRegion": "County Down",
+        "addressCountry": "GB"
+      }
+    },
+    "status": "Built SSR, metadata, profile, hero and initial bundle checks passed"
+  }
+]

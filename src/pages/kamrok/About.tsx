@@ -4,7 +4,7 @@ import { Link } from "@/lib/router-compat";
 import { Orbit } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 
-import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
+import { LOVABLE_PARTNER_URL } from "@/lib/brand";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const PRINCIPLES = [
@@ -86,10 +86,10 @@ export default function About() {
       <div className="orbit-about-cert">
         <a
           className="orbit-lovable-link"
-          href={LOVABLE_AFFILIATE_URL}
+          href={LOVABLE_PARTNER_URL}
           target="_blank"
-          rel="sponsored noopener noreferrer"
-          aria-label="Explore Lovable — affiliate link"
+          rel="noopener noreferrer"
+          aria-label="View KAMROK in the Lovable partner directory"
         >
           <img
             src="/certifications/lovable-certified-full-on-dark.svg"

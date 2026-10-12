@@ -10,7 +10,7 @@ import ScrollFilm from "@/components/kamrok/ScrollFilm";
 import ProcessJourney from "@/components/kamrok/ProcessJourney";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import Testimonials from "@/components/kamrok/Testimonials";
-import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
+import { LOVABLE_PARTNER_URL } from "@/lib/brand";
 import { BRAND_ARTWORK } from "@/data/brandArtwork";
 import "@/styles/service-illustrations.css";
 
@@ -33,10 +33,7 @@ export default function StudioHome() {
   const { theme } = useStudioTheme();
   const [paused, setPaused] = useState(false);
   useEffect(() => { setPaused(window.matchMedia("(prefers-reduced-motion: reduce)").matches); }, []);
-  useEffect(() => {
-    document.title = "KAMROK — Lovable Expert & Award-Winning WordPress Designer";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "Design for what’s next. Cormac McCann: designer, illustrator, marketer, certified Lovable expert and award-winning WordPress designer. Brands, websites and apps.");
-  }, []);
+
 
   return (
     <>
@@ -49,7 +46,7 @@ export default function StudioHome() {
           <p className="space-hero-intro">I’m Cormac. Designer, illustrator and marketer. I bring creative thinking and emerging technology together to build distinctive brands, websites and digital experiences.</p>
           <div className="orbit-actions"><a className="orbit-button cinematic-action" href="#selected-work">Explore the work <ActionFeedback icon={LayoutGrid} direction="down" /></a><Link className="orbit-text-link cinematic-action" to="/contact">Let’s build something <ActionFeedback icon={MessageCircle} /></Link></div>
           <div className="space-hero-platforms" role="group" aria-label="Platforms I build with">
-            <a className="space-hero-certified" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer" aria-label="Lovable certified expert — explore Lovable (affiliate link)">
+            <a className="space-hero-certified" href={LOVABLE_PARTNER_URL} target="_blank" rel="noopener noreferrer" aria-label="View KAMROK’s certified Lovable partner profile">
               <img src={`/certifications/lovable-expert-app-builder-full-on-${theme}.svg`} alt="Lovable Certified Expert App Builder" width="534" height="176" />
             </a>
             <span className="space-hero-platform space-hero-platform--shopify"><SiShopify aria-hidden="true" /><span>shopify</span></span>
@@ -61,15 +58,15 @@ export default function StudioHome() {
 
       <section className="orbit-credentials studio-container" id="credentials" aria-label="Credentials">
         <div className="orbit-credential-intro"><span className="orbit-eyebrow">EXPERIENCE & RECOGNITION</span><p>Independent thinking.<br /><strong>Experienced hands.</strong></p></div>
-        <a className="orbit-lovable-link" href={LOVABLE_AFFILIATE_URL} target="_blank" rel="sponsored noopener noreferrer" aria-label="Explore Lovable — affiliate link"><img className="orbit-lovable-badge" src={`/certifications/lovable-expert-app-builder-full-on-${theme}.svg`} alt="Lovable certified expert app builder" width="534" height="176" /></a>
+        <a className="orbit-lovable-link" href={LOVABLE_PARTNER_URL} target="_blank" rel="noopener noreferrer" aria-label="View KAMROK in the Lovable partner directory"><img className="orbit-lovable-badge" src={`/certifications/lovable-expert-app-builder-full-on-${theme}.svg`} alt="Lovable certified expert app builder" width="534" height="176" /></a>
         <div className="orbit-award"><Award size={33} strokeWidth={1.3} aria-hidden="true" /><div><span>AWARD-WINNING WORDPRESS DESIGNER</span><strong>Best Use of Internet Technology</strong><small>Business Awards</small></div></div>
       </section>
 
       <section className="orbit-section studio-container" id="selected-work" aria-labelledby="work-title">
         <div className="orbit-section-heading"><div><span className="orbit-eyebrow">01 / SELECTED WORK</span><h2 id="work-title">Selected work.<br /><em>A closer look.</em></h2></div><Link className="orbit-text-link cinematic-action" to="/work">The whole collection <ActionFeedback icon={LayoutGrid} /></Link></div>
         <div className="orbit-projects">
-          <Link className="action-trigger orbit-project orbit-project--club" to="/work/clubrovia"><div className="orbit-project-visual"><span className="orbit-project-tag">OUR OWN PRODUCT</span><img src="/projects/clubrovia/landing.webp" alt="Clubrovia: Less admin. More club. — the connected sports club platform" width="1202" height="827" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>Clubrovia</h3><p>Less club admin. More time for the game.</p></div><span>PRODUCT DESIGN & BUILD</span></div></Link>
-          <Link className="action-trigger orbit-project orbit-project--hotel" to="/work/mckevitts"><div className="orbit-project-visual"><span className="orbit-project-tag">HOSPITALITY</span><img src={BRAND_ARTWORK["mckevitts"]!.hero.src} alt={BRAND_ARTWORK["mckevitts"]!.hero.alt} width="1920" height="990" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>McKevitt’s Village Hotel</h3><p>A proper welcome, before you arrive.</p></div><span>BRANDING & WORDPRESS</span></div></Link>
+          <Link className="action-trigger orbit-project orbit-project--club" to="/work/clubrovia"><div className="orbit-project-visual"><span className="orbit-project-tag">OUR OWN PRODUCT</span><img src="/projects/local/clubrovia-840.webp" srcSet="/projects/local/clubrovia-480.webp 480w, /projects/local/clubrovia-840.webp 840w, /projects/local/clubrovia-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 50vw" alt="Clubrovia: Less admin. More club. — the connected sports club platform" width="1202" height="827" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>Clubrovia</h3><p>Less club admin. More time for the game.</p></div><span>PRODUCT DESIGN & BUILD</span></div></Link>
+          <Link className="action-trigger orbit-project orbit-project--hotel" to="/work/mckevitts"><div className="orbit-project-visual"><span className="orbit-project-tag">HOSPITALITY</span><img src="/projects/local/mckevitts-brand-840.webp" srcSet="/projects/local/mckevitts-brand-480.webp 480w, /projects/local/mckevitts-brand-840.webp 840w, /projects/local/mckevitts-brand-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 50vw" alt={BRAND_ARTWORK["mckevitts"]!.hero.alt} width="1920" height="990" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>McKevitt’s Village Hotel</h3><p>A proper welcome, before you arrive.</p></div><span>BRANDING & WORDPRESS</span></div></Link>
         </div>
         <div className="orbit-work-note"><span>LOCAL FAVOURITES. AMBITIOUS START-UPS. GOOD PEOPLE.</span><p>Different businesses. The same care in every detail.</p></div>
       </section>
