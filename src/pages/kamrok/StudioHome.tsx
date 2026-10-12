@@ -7,16 +7,18 @@ import ActionFeedback from "@/components/kamrok/ActionFeedback";
 import SpaceLandscape from "@/components/kamrok/SpaceLandscape";
 import ChimpHero from "@/components/kamrok/ChimpHero";
 import ScrollFilm from "@/components/kamrok/ScrollFilm";
+import ProcessJourney from "@/components/kamrok/ProcessJourney";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 import Testimonials from "@/components/kamrok/Testimonials";
 import { LOVABLE_AFFILIATE_URL } from "@/lib/brand";
 import { BRAND_ARTWORK } from "@/data/brandArtwork";
+import "@/styles/service-illustrations.css";
 
 const SERVICES = [
-  { icon: MousePointer2, number: "01", title: "Websites with a point of view.", text: "Distinctive WordPress and Lovable websites that make the right impression, then make the next step easy.", tags: "WEB DESIGN / WORDPRESS / ECOMMERCE" },
-  { icon: Code2, number: "02", title: "That app you keep thinking about.", text: "Bring the idea. I’ll help shape the product, design the experience and build it in Lovable, with custom code where it counts.", tags: "LOVABLE / WEB APPS / PROTOTYPES" },
-  { icon: Workflow, number: "03", title: "A little less busywork.", text: "Connect the tools you already use. Turn repeated tasks into useful automations and give your team some time back.", tags: "AUTOMATION / INTEGRATIONS / AI" },
-  { icon: Sparkles, number: "04", title: "A personality of your own.", text: "Brand identities, original illustration and campaign visuals that tell your story, shaped by a marketer’s understanding of what makes people care.", tags: "BRANDING / ILLUSTRATION / MARKETING" },
+  { icon: MousePointer2, number: "01", artwork: "websites", label: "Websites & ecommerce", title: "Websites with a point of view.", text: "Distinctive WordPress and Lovable websites that make the right impression, then make the next step easy.", tags: "WEB DESIGN / WORDPRESS / ECOMMERCE" },
+  { icon: Code2, number: "02", artwork: "apps", label: "Apps & digital products", title: "That app you keep thinking about.", text: "Bring the idea. I’ll help shape the product, design the experience and build it in Lovable, with custom code where it counts.", tags: "LOVABLE / WEB APPS / PROTOTYPES" },
+  { icon: Workflow, number: "03", artwork: "automation", label: "Automation & integrations", title: "A little less busywork.", text: "Connect the tools you already use. Turn repeated tasks into useful automations and give your team some time back.", tags: "AUTOMATION / INTEGRATIONS / AI" },
+  { icon: Sparkles, number: "04", artwork: "branding", label: "Branding & illustration", title: "A personality of your own.", text: "Brand identities, original illustration and campaign visuals that tell your story, shaped by a marketer’s understanding of what makes people care.", tags: "BRANDING / ILLUSTRATION / MARKETING" },
 ];
 const FAQ = [
   { q: "Can you help with an unfinished Lovable app?", a: "Absolutely. I’ll start by looking at what you have, what’s working and where you’re stuck. Then we can agree a focused fix, a design refresh or a plan to get the whole thing ready for launch." },
@@ -75,7 +77,14 @@ export default function StudioHome() {
       <section className="orbit-services-band">
         <div className="orbit-section studio-container" aria-labelledby="services-title">
           <div className="orbit-section-heading"><div><span className="orbit-eyebrow">02 / EXPERTISE</span><h2 id="services-title">Creative direction.<br /><em>Technical depth.</em></h2></div><p>Design that gets noticed.<br />Development that gets things done.</p></div>
-          <div className="orbit-services">{SERVICES.map(service => <Link className="orbit-service action-trigger" to="/skills" key={service.number}><div className="orbit-service-top"><service.icon size={28} strokeWidth={1.4} aria-hidden="true" /><span>{service.number}</span></div><h3>{service.title}</h3><p>{service.text}</p><div className="orbit-service-bottom"><span>{service.tags}</span><span className="orbit-service-action cinematic-action"><ActionFeedback icon={service.icon} size={20} /></span></div></Link>)}</div>
+          <div className="orbit-services">{SERVICES.map(service => <Link className="orbit-service orbit-service--illustrated action-trigger" to="/skills" key={service.number}>
+            <div className="orbit-service-top"><span className="orbit-service-kind"><service.icon size={21} strokeWidth={1.4} aria-hidden="true" />{service.label}</span><span>{service.number}</span></div>
+            <div className="orbit-service-main">
+              <div className="orbit-service-copy"><h3>{service.title}</h3><p>{service.text}</p></div>
+              <div className="orbit-service-art" aria-hidden="true"><img src={`/services/${service.artwork}-${theme}.webp`} alt="" width="960" height="640" loading="lazy" decoding="async" /></div>
+            </div>
+            <div className="orbit-service-bottom"><span>{service.tags}</span><span className="orbit-service-action cinematic-action"><ActionFeedback icon={service.icon} size={20} /></span></div>
+          </Link>)}</div>
         </div>
       </section>
 
@@ -86,10 +95,7 @@ export default function StudioHome() {
 
       <ScrollFilm />
 
-      <section id="process" className="orbit-section orbit-process studio-container" aria-labelledby="process-title">
-        <div className="orbit-section-heading"><div><span className="orbit-eyebrow">03 / HOW WE WORK</span><h2 id="process-title">A clear process.<br /><em>Room to explore.</em></h2></div></div>
-        <div className="orbit-steps">{[{n:"01",h:"Find the real idea.",p:"We talk about your business, the people you want to reach and what a good result looks like. Then I map the way forward."},{n:"02",h:"Make it take shape.",p:"Design and development happen with you in the loop. You see real progress, try things out and help steer the details."},{n:"03",h:"Put it out into the world.",p:"We check the details, launch with care and make sure you know how everything works. There’s room to keep improving, too."}].map(step => <article key={step.n}><span className="orbit-step-number">{step.n}<span /></span><h3>{step.h}</h3><p>{step.p}</p></article>)}</div>
-      </section>
+      <ProcessJourney />
 
       <section className="orbit-hire-band">
         <div className="orbit-section studio-container" aria-labelledby="hire-title"><div className="orbit-section-heading"><div><span className="orbit-eyebrow">04 / YOUR NEXT MOVE</span><h2 id="hire-title">Start where<br /><em>you are.</em></h2></div><p>A blank page, a half-built app or a site that needs<br className="desktop-break" /> some love. There’s a sensible way forward.</p></div>
