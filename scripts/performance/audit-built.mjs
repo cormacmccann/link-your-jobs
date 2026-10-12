@@ -77,14 +77,91 @@ const before =
   bytes("art/orbit/chimp-hero-robot.webp") +
   bytes("art/orbit/cinematic-moon.webp") +
   terrain.reduce((n, name) => n + bytes(`art/orbit/${name}.webp`), 0);
-const after = (size) =>
-  bytes(`art/orbit/chimp-hero-dark-${size === "compact" ? 800 : 1200}.webp`) +
+const previousCompactHeroBytes =
+  bytes("art/orbit/chimp-hero-dark-800.webp") +
   bytes("art/orbit/cinematic-moon-480.webp") +
+  terrain.reduce((sum, name) => sum + bytes(`art/orbit/${name}-1080.webp`), 0);
+const builtBytes = (url) =>
+  statSync(`.output/public${new URL(url, "https://kamrok.com").pathname}`).size;
+const portrait = doc.querySelector(".space-chimp-art img");
+const moon = doc.querySelector(".space-planet-layer img");
+const terrainImage = doc.querySelector(".space-moon-plane--back img");
+assert.equal(terrainImage.getAttribute("fetchpriority"), "high");
+const mobileTerrain = doc
+  .querySelector(".space-moon-plane--back source")
+  .getAttribute("srcset");
+assert.match(mobileTerrain, /^\/assets\/mobile-terrain-[^/]+\.webp$/);
+for (const selector of [
+  ".space-chimp-art",
+  ".space-planet-layer",
+  ".orbit-service-art",
+  ".orbit-profile",
+  ".studio-logo",
+]) {
+  const image = doc.querySelector(`${selector} img`);
+  assert.match(image.src, /\/assets\//);
+  assert.ok(
+    image
+      .closest("picture")
+      .querySelector('source[media="(max-width: 760px)"]'),
+  );
+}
+assert.equal(doc.querySelector(".orbit-service-art img").getAttribute("loading"), "lazy");
+for (const plane of ["middle", "front"]) {
+  assert.match(
+    doc
+      .querySelector(`.space-moon-plane--${plane} source`)
+      .getAttribute("srcset"),
+    /^data:image\/svg/,
+  );
+}
+const candidate = (element, width, mobile = false) => {
+  const source = mobile
+    ? element.closest("picture").querySelector("source")
+    : element;
+  return source
+    .getAttribute("srcset")
+    .split(", ")
+    .find((value) => value.endsWith(` ${width}w`))
+    .split(" ")[0];
+};
+const mobileBytes =
+  builtBytes(candidate(portrait, 640, true)) +
+  builtBytes(candidate(moon, 480, true)) +
+  builtBytes(mobileTerrain);
+const desktopBytes =
+  builtBytes(candidate(portrait, 800)) +
+  builtBytes(candidate(moon, 850)) +
   terrain.reduce(
-    (n, name) =>
-      n + bytes(`art/orbit/${name}-${size === "compact" ? 1080 : 1920}.webp`),
+    (sum, name) =>
+      sum +
+      builtBytes(
+        candidate(
+          doc.querySelector(
+            `.space-moon-plane--${name.replace("moon-", "")} img`,
+          ),
+          1536,
+        ),
+      ),
     0,
   );
+const mckevittsResponse = await worker.fetch(
+  new Request("https://kamrok.com/work/mckevitts"),
+  {},
+  { waitUntil() {} },
+);
+const mckevitts = new JSDOM(await mckevittsResponse.text()).window.document;
+assert.equal(mckevittsResponse.status, 200);
+for (const chapter of [
+  "website",
+  "before",
+  "process",
+  "identity",
+  "applications",
+])
+  assert.ok(mckevitts.querySelector(`#chapter-${chapter}`));
+assert.match(mckevitts.querySelector(".process-hero img").src, /\/assets\//);
+assert.ok(mckevitts.querySelector(".case-image-surface picture source"));
 writeFileSync(
   "output/performance/assets-audit.json",
   JSON.stringify(
@@ -92,20 +169,30 @@ writeFileSync(
       measurement:
         "Homepage portrait and landscape file bytes only, not page/network timings or a Lighthouse score. Responsive source selection varies with viewport and pixel density.",
       beforeBytes: before,
-      compactResponsiveBytes: after("compact"),
-      compactReductionPercent: +(100 * (1 - after("compact") / before)).toFixed(
-        1,
-      ),
-      largeResponsiveBytes: after("large"),
-      largeReductionPercent: +(100 * (1 - after("large") / before)).toFixed(1),
+      previousCompactHeroBytes,
+      mobileHeroImageBytes: mobileBytes,
+      reductionFromPreviousCompactPercent: +(100 * (1 - mobileBytes / previousCompactHeroBytes)).toFixed(1),
+      mobileReductionFromOriginalPercent: +(
+        100 *
+        (1 - mobileBytes / before)
+      ).toFixed(1),
+      desktopHeroImageBytes: desktopBytes,
+      desktopReductionFromOriginalPercent: +(
+        100 *
+        (1 - desktopBytes / before)
+      ).toFixed(1),
       robotOriginalDeferredBytes: bytes("art/orbit/chimp-hero-robot.webp"),
+      mobileArtwork:
+        "One terrain plate, hero portrait capped at 640px, decorative moon capped at 480px; services capped at 640px; below-fold artwork lazy-loaded",
+      cacheDelivery:
+        "Vite content-hashed /assets URLs, the path confirmed to have a one-year immutable cache on the current live host",
       phoneWebGL: "Disabled; CSS starfield remains visible",
       desktopWebGL:
         "Near viewport, after fine-pointer interaction and idle; render surface capped at 640x480; 20fps; paused offscreen",
       googleFontsStylesheet:
         "Removed; original fonts self-hosted, font-display swap, two Latin subsets preloaded",
       livePageSpeed:
-        "User-provided baseline: mobile 31, LCP 8.7s, TBT 34770ms. Changes require publication and a fresh live test.",
+        "Latest user-provided live result: mobile 86, LCP 3.6s, TBT 0ms; desktop 98. This follow-up has not been published or measured with live Lighthouse.",
     },
     null,
     2,

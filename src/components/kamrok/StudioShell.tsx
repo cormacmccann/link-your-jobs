@@ -1,3 +1,5 @@
+import ResponsiveImage from "./ResponsiveImage";
+import { headerImages } from "@/assets/responsive/headerImages";
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "@/lib/router-compat";
 import { BookOpen, Code2, Copy, LayoutGrid, Mail, Menu, MessageCircle, Phone, Moon, Sun, Orbit, UserRound, Wrench } from "lucide-react";
@@ -41,7 +43,7 @@ export default function StudioShell() {
       <a className="studio-skip" href="#studio-content">Skip to content</a>
       <div className="studio-header-wrap">
         <header className="studio-header studio-container">
-          <Link to="/" className="studio-logo" aria-label="KAMROK home"><img src={`/brand/kamrok-header-${theme}.webp`} alt="KAMROK studio logo" width="118" height="66" /></Link>
+          <Link to="/" className="studio-logo" aria-label="KAMROK home"><ResponsiveImage variants={headerImages[theme]} mobileMax={256} sizes="(max-width: 760px) 78px, (max-width: 1000px) 90px, 102px" alt="KAMROK studio logo" width="118" height="66" /></Link>
           <nav className="studio-desktop-nav" aria-label="Main navigation">
             {LINKS.map(link => <NavLink className="cinematic-action" key={link.to} to={link.to}>{link.label}<ActionFeedback icon={link.icon} size={15} /></NavLink>)}
             <NavLink className="cinematic-action" to="/contact">Let’s talk <ActionFeedback icon={MessageCircle} size={15} /></NavLink>

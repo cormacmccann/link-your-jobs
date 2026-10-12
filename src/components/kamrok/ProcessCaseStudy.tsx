@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/kamrok/PortfolioImage";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import CaseImageGallery from "./CaseImageGallery";
 import type { CaseData } from "@/data/projects";
@@ -67,7 +68,7 @@ export default function ProcessCaseStudy({ data }: { data: CaseData }) {
         ))}
       </nav>
       <figure className="process-hero">
-        <img
+        <PortfolioImage
           src={data.hero.src}
           alt={data.hero.alt}
           width={data.hero.width}

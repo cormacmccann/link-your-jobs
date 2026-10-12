@@ -1,13 +1,17 @@
 {
   "measurement": "Homepage portrait and landscape file bytes only, not page/network timings or a Lighthouse score. Responsive source selection varies with viewport and pixel density.",
   "beforeBytes": 1678238,
-  "compactResponsiveBytes": 264062,
-  "compactReductionPercent": 84.3,
-  "largeResponsiveBytes": 565150,
-  "largeReductionPercent": 66.3,
+  "previousCompactHeroBytes": 264062,
+  "mobileHeroImageBytes": 122584,
+  "reductionFromPreviousCompactPercent": 53.6,
+  "mobileReductionFromOriginalPercent": 92.7,
+  "desktopHeroImageBytes": 363428,
+  "desktopReductionFromOriginalPercent": 78.3,
   "robotOriginalDeferredBytes": 595542,
+  "mobileArtwork": "One terrain plate, hero portrait capped at 640px, decorative moon capped at 480px; services capped at 640px; below-fold artwork lazy-loaded",
+  "cacheDelivery": "Vite content-hashed /assets URLs, the path confirmed to have a one-year immutable cache on the current live host",
   "phoneWebGL": "Disabled; CSS starfield remains visible",
   "desktopWebGL": "Near viewport, after fine-pointer interaction and idle; render surface capped at 640x480; 20fps; paused offscreen",
   "googleFontsStylesheet": "Removed; original fonts self-hosted, font-display swap, two Latin subsets preloaded",
-  "livePageSpeed": "User-provided baseline: mobile 31, LCP 8.7s, TBT 34770ms. Changes require publication and a fresh live test."
+  "livePageSpeed": "Latest user-provided live result: mobile 86, LCP 3.6s, TBT 0ms; desktop 98. This follow-up has not been published or measured with live Lighthouse."
 }

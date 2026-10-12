@@ -1,3 +1,5 @@
+import montserratLatin from "@/assets/responsive/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2?no-inline";
+import oswaldLatin from "@/assets/responsive/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2?no-inline";
 import { useEffect, type ReactNode } from "react";
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import {
@@ -68,8 +70,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2", crossOrigin: "anonymous" },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2", crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: montserratLatin, crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: oswaldLatin, crossOrigin: "anonymous" },
       { rel: "apple-touch-icon", href: "/kamrok-logo.png" },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
     ],

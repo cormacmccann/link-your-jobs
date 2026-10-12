@@ -191,6 +191,9 @@ html[data-studio-theme='light'],html[data-studio-theme='light'] body { backgroun
 [data-theme='light'] .space-moonscape { opacity: .48; }
 @media (max-width: 760px) {
   .space-moonscape { width: 240%; left: -70%; bottom: 0; opacity: .72; }
+  /* The back picture serves one compact composite on phones. The unused
+     planes have transparent sources, so their desktop artwork is not fetched. */
+  .space-moon-plane--middle, .space-moon-plane--front { display: none; }
   [data-theme='light'] .space-moonscape { opacity: .48; }
 }
 @media (prefers-reduced-motion: reduce) {

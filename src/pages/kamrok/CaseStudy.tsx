@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/kamrok/PortfolioImage";
 import { type CSSProperties } from "react";
 import { Link, useParams } from "@/lib/router-compat";
 import { ArrowUpRight, FileText, Globe, LayoutGrid } from "lucide-react";
@@ -57,7 +58,7 @@ export default function CaseStudy() {
                     className={`case-hero${websiteHero ? " case-hero--website" : ""}`}
                   >
                     <div className="case-image-surface">
-                      <img
+                      <PortfolioImage
                         src={data.hero.src}
                         alt={data.hero.alt}
                         width={data.hero.width}
@@ -297,7 +298,7 @@ export default function CaseStudy() {
                     key={project.slug}
                   >
                     <div style={{ backgroundColor: project.surface }}>
-                      <img
+                      <PortfolioImage
                         src={project.hero.src}
                         alt={project.hero.alt}
                         width={project.hero.width}
@@ -332,7 +333,7 @@ export default function CaseStudy() {
                     className="case-next-image"
                     style={{ backgroundColor: next.surface }}
                   >
-                    <img
+                    <PortfolioImage
                       src={next.hero.src}
                       alt=""
                       loading="lazy"

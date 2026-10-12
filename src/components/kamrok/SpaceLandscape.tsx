@@ -1,3 +1,6 @@
+import ResponsiveImage from "./ResponsiveImage";
+import { homeImages } from "@/assets/responsive/homeImages";
+import mobileTerrain from "@/assets/responsive/mobile-terrain.webp?no-inline";
 import { useEffect, useRef } from "react";
 import DeferredGalaxy from "./DeferredGalaxy";
 
@@ -124,52 +127,75 @@ export default function SpaceLandscape({ paused }: { paused: boolean }) {
         </g>
       </svg>
       <div className="space-planet-layer">
-        <img
-          src="/art/orbit/cinematic-moon-480.webp"
+        <ResponsiveImage
+          variants={homeImages["cinematic-moon"]}
+          mobileMax={480}
+          sizes="(max-width: 760px) 430px, (max-width: 1000px) 69vw, min(59vw, 850px)"
           alt=""
           width="1254"
           height="1254"
-          fetchPriority="high"
+          fetchPriority="auto"
           decoding="async"
         />
       </div>
       <div className="space-horizon-light" />
       <div className="space-moonscape">
         <div className="space-moon-plane space-moon-plane--back">
-          <img
-            src="/art/orbit/moon-back-1080.webp"
-            srcSet="/art/orbit/moon-back-1080.webp 1080w, /art/orbit/moon-back-1920.webp 1920w"
-            sizes="100vw"
-            fetchPriority="low"
-            alt=""
-            width="2172"
-            height="703"
-            decoding="async"
-          />
+          <picture style={{ display: "contents" }}>
+            <source media="(max-width: 760px)" srcSet={mobileTerrain} />
+            <img
+              src={homeImages["moon-back"][0]!.src}
+              srcSet={homeImages["moon-back"]
+                .map((image) => `${image.src} ${image.width}w`)
+                .join(", ")}
+              sizes="112vw"
+              fetchPriority="high"
+              alt=""
+              width="2172"
+              height="703"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div className="space-moon-plane space-moon-plane--middle">
-          <img
-            src="/art/orbit/moon-middle-1080.webp"
-            srcSet="/art/orbit/moon-middle-1080.webp 1080w, /art/orbit/moon-middle-1920.webp 1920w"
-            sizes="100vw"
-            fetchPriority="low"
-            alt=""
-            width="2172"
-            height="287"
-            decoding="async"
-          />
+          <picture style={{ display: "contents" }}>
+            <source
+              media="(max-width: 760px)"
+              srcSet="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'/%3E"
+            />
+            <img
+              src={homeImages["moon-middle"][0]!.src}
+              srcSet={homeImages["moon-middle"]
+                .map((image) => `${image.src} ${image.width}w`)
+                .join(", ")}
+              sizes="112vw"
+              fetchPriority="low"
+              alt=""
+              width="2172"
+              height="287"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div className="space-moon-plane space-moon-plane--front">
-          <img
-            src="/art/orbit/moon-front-1080.webp"
-            srcSet="/art/orbit/moon-front-1080.webp 1080w, /art/orbit/moon-front-1920.webp 1920w"
-            sizes="100vw"
-            fetchPriority="low"
-            alt=""
-            width="2172"
-            height="317"
-            decoding="async"
-          />
+          <picture style={{ display: "contents" }}>
+            <source
+              media="(max-width: 760px)"
+              srcSet="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'/%3E"
+            />
+            <img
+              src={homeImages["moon-front"][0]!.src}
+              srcSet={homeImages["moon-front"]
+                .map((image) => `${image.src} ${image.width}w`)
+                .join(", ")}
+              sizes="112vw"
+              fetchPriority="low"
+              alt=""
+              width="2172"
+              height="317"
+              decoding="async"
+            />
+          </picture>
         </div>
       </div>
       <div className="space-ground-fade" />

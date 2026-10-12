@@ -1,3 +1,5 @@
+import ResponsiveImage from "./ResponsiveImage";
+import { homeImages } from "@/assets/responsive/homeImages";
 import { useEffect, useRef, useState } from "react";
 import { useStudioTheme } from "@/hooks/useStudioTheme";
 
@@ -86,10 +88,10 @@ export default function ChimpHero({ paused }: { paused: boolean }) {
       aria-hidden="true"
     >
       <div className="space-chimp-art" ref={artRef}>
-        <img
+        <ResponsiveImage
           ref={portraitRef}
-          src={`/art/orbit/chimp-hero-${theme}-800.webp`}
-          srcSet={`/art/orbit/chimp-hero-${theme}-480.webp 480w, /art/orbit/chimp-hero-${theme}-800.webp 800w, /art/orbit/chimp-hero-${theme}-1200.webp 1200w`}
+          variants={homeImages[`chimp-${theme}`]}
+          mobileMax={640}
           sizes="(max-width: 760px) min(100vw, 570px), (max-width: 1000px) 62vw, min(58vw, 920px)"
           alt=""
           width="1265"
@@ -99,10 +101,10 @@ export default function ChimpHero({ paused }: { paused: boolean }) {
           onLoad={() => setReady(true)}
         />
         {loadRobot && (
-          <img
+          <ResponsiveImage
             className="space-chimp-reveal"
-            src="/art/orbit/chimp-hero-robot-800.webp"
-            srcSet="/art/orbit/chimp-hero-robot-480.webp 480w, /art/orbit/chimp-hero-robot-800.webp 800w, /art/orbit/chimp-hero-robot-1200.webp 1200w"
+            variants={homeImages["chimp-robot"]}
+            mobileMax={640}
             sizes="(max-width: 760px) min(100vw, 570px), min(58vw, 920px)"
             fetchPriority="low"
             alt=""

@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/kamrok/PortfolioImage";
 import ClassicPortfolio from "@/components/kamrok/ClassicPortfolio";
 import ProjectQuoteLink from "@/components/kamrok/ProjectQuoteLink";
 import { Link, useSearchParams } from "@/lib/router-compat";
@@ -435,7 +436,8 @@ export default function Work() {
                         className={`work-project-image${cover.fit === "contain" || (cover === project.hero && project.presentation === "identity") ? " work-project-image--identity" : ""}`}
                         style={{ backgroundColor: project.surface }}
                       >
-                        <img
+                        <PortfolioImage
+                          sizes="(max-width: 760px) 92vw, 46vw"
                           src={cover.src}
                           width={cover.width}
                           height={cover.height}

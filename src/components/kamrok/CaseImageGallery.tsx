@@ -1,3 +1,4 @@
+import PortfolioImage from "@/components/kamrok/PortfolioImage";
 import { useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowLeft, ArrowRight, Expand, X } from "lucide-react";
@@ -107,7 +108,7 @@ export default function CaseImageGallery({
                           setSelected(index);
                         }}
                       >
-                        <img
+                        <PortfolioImage
                           src={source(shot)}
                           alt={shot.alt}
                           width={shot.width}
