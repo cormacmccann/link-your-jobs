@@ -1,0 +1,2 @@
+- [ ] Add Newry, Armagh, Banbridge, Newcastle (County Down) and Dundalk to the existing Google Business service area, preserving other areas.
+- [ ] Update and verify the Work page with those service towns.
