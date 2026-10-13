@@ -19,7 +19,10 @@ import { Route as StudioIllustrationsRouteImport } from './routes/_studio/illust
 import { Route as StudioLovableSavingsRouteImport } from './routes/_studio/lovable-savings'
 import { Route as StudioProjectPlannerRouteImport } from './routes/_studio/project-planner'
 import { Route as StudioSkillsRouteImport } from './routes/_studio/skills'
+import { Route as StudioWebDesignArmaghRouteImport } from './routes/_studio/web-design-armagh'
+import { Route as StudioWebDesignDroghedaRouteImport } from './routes/_studio/web-design-drogheda'
 import { Route as StudioWebDesignDundalkRouteImport } from './routes/_studio/web-design-dundalk'
+import { Route as StudioWebDesignNewryRouteImport } from './routes/_studio/web-design-newry'
 import { Route as StudioWebDesignRostrevorRouteImport } from './routes/_studio/web-design-rostrevor'
 import { Route as StudioWebDesignWarrenpointRouteImport } from './routes/_studio/web-design-warrenpoint'
 import { Route as ApiSitemapAuditRouteImport } from './routes/api/sitemap-audit'
@@ -101,9 +104,24 @@ const StudioSkillsRoute = StudioSkillsRouteImport.update({
   path: '/skills',
   getParentRoute: () => StudioRoute,
 } as any)
+const StudioWebDesignArmaghRoute = StudioWebDesignArmaghRouteImport.update({
+  id: '/web-design-armagh',
+  path: '/web-design-armagh',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioWebDesignDroghedaRoute = StudioWebDesignDroghedaRouteImport.update({
+  id: '/web-design-drogheda',
+  path: '/web-design-drogheda',
+  getParentRoute: () => StudioRoute,
+} as any)
 const StudioWebDesignDundalkRoute = StudioWebDesignDundalkRouteImport.update({
   id: '/web-design-dundalk',
   path: '/web-design-dundalk',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioWebDesignNewryRoute = StudioWebDesignNewryRouteImport.update({
+  id: '/web-design-newry',
+  path: '/web-design-newry',
   getParentRoute: () => StudioRoute,
 } as any)
 const StudioWebDesignRostrevorRoute =
@@ -293,7 +311,10 @@ export interface FileRoutesByFullPath {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/web-design-armagh': typeof StudioWebDesignArmaghRoute
+  '/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/web-design-newry': typeof StudioWebDesignNewryRoute
   '/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
   '/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
@@ -335,7 +356,10 @@ export interface FileRoutesByTo {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/web-design-armagh': typeof StudioWebDesignArmaghRoute
+  '/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/web-design-newry': typeof StudioWebDesignNewryRoute
   '/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
   '/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
@@ -380,7 +404,10 @@ export interface FileRoutesById {
   '/_studio/lovable-savings': typeof StudioLovableSavingsRoute
   '/_studio/project-planner': typeof StudioProjectPlannerRoute
   '/_studio/skills': typeof StudioSkillsRoute
+  '/_studio/web-design-armagh': typeof StudioWebDesignArmaghRoute
+  '/_studio/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/_studio/web-design-dundalk': typeof StudioWebDesignDundalkRoute
+  '/_studio/web-design-newry': typeof StudioWebDesignNewryRoute
   '/_studio/web-design-rostrevor': typeof StudioWebDesignRostrevorRoute
   '/_studio/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
@@ -426,7 +453,10 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/web-design-armagh'
+    | '/web-design-drogheda'
     | '/web-design-dundalk'
+    | '/web-design-newry'
     | '/web-design-rostrevor'
     | '/web-design-warrenpoint'
     | '/api/sitemap-audit'
@@ -468,7 +498,10 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/web-design-armagh'
+    | '/web-design-drogheda'
     | '/web-design-dundalk'
+    | '/web-design-newry'
     | '/web-design-rostrevor'
     | '/web-design-warrenpoint'
     | '/api/sitemap-audit'
@@ -512,7 +545,10 @@ export interface FileRouteTypes {
     | '/_studio/lovable-savings'
     | '/_studio/project-planner'
     | '/_studio/skills'
+    | '/_studio/web-design-armagh'
+    | '/_studio/web-design-drogheda'
     | '/_studio/web-design-dundalk'
+    | '/_studio/web-design-newry'
     | '/_studio/web-design-rostrevor'
     | '/_studio/web-design-warrenpoint'
     | '/api/sitemap-audit'
@@ -625,11 +661,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioSkillsRouteImport
       parentRoute: typeof StudioRoute
     }
+    '/_studio/web-design-armagh': {
+      id: '/_studio/web-design-armagh'
+      path: '/web-design-armagh'
+      fullPath: '/web-design-armagh'
+      preLoaderRoute: typeof StudioWebDesignArmaghRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/web-design-drogheda': {
+      id: '/_studio/web-design-drogheda'
+      path: '/web-design-drogheda'
+      fullPath: '/web-design-drogheda'
+      preLoaderRoute: typeof StudioWebDesignDroghedaRouteImport
+      parentRoute: typeof StudioRoute
+    }
     '/_studio/web-design-dundalk': {
       id: '/_studio/web-design-dundalk'
       path: '/web-design-dundalk'
       fullPath: '/web-design-dundalk'
       preLoaderRoute: typeof StudioWebDesignDundalkRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/web-design-newry': {
+      id: '/_studio/web-design-newry'
+      path: '/web-design-newry'
+      fullPath: '/web-design-newry'
+      preLoaderRoute: typeof StudioWebDesignNewryRouteImport
       parentRoute: typeof StudioRoute
     }
     '/_studio/web-design-rostrevor': {
@@ -860,7 +917,10 @@ interface StudioRouteChildren {
   StudioLovableSavingsRoute: typeof StudioLovableSavingsRoute
   StudioProjectPlannerRoute: typeof StudioProjectPlannerRoute
   StudioSkillsRoute: typeof StudioSkillsRoute
+  StudioWebDesignArmaghRoute: typeof StudioWebDesignArmaghRoute
+  StudioWebDesignDroghedaRoute: typeof StudioWebDesignDroghedaRoute
   StudioWebDesignDundalkRoute: typeof StudioWebDesignDundalkRoute
+  StudioWebDesignNewryRoute: typeof StudioWebDesignNewryRoute
   StudioWebDesignRostrevorRoute: typeof StudioWebDesignRostrevorRoute
   StudioWebDesignWarrenpointRoute: typeof StudioWebDesignWarrenpointRoute
   StudioIndexRoute: typeof StudioIndexRoute
@@ -902,7 +962,10 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioLovableSavingsRoute: StudioLovableSavingsRoute,
   StudioProjectPlannerRoute: StudioProjectPlannerRoute,
   StudioSkillsRoute: StudioSkillsRoute,
+  StudioWebDesignArmaghRoute: StudioWebDesignArmaghRoute,
+  StudioWebDesignDroghedaRoute: StudioWebDesignDroghedaRoute,
   StudioWebDesignDundalkRoute: StudioWebDesignDundalkRoute,
+  StudioWebDesignNewryRoute: StudioWebDesignNewryRoute,
   StudioWebDesignRostrevorRoute: StudioWebDesignRostrevorRoute,
   StudioWebDesignWarrenpointRoute: StudioWebDesignWarrenpointRoute,
   StudioIndexRoute: StudioIndexRoute,

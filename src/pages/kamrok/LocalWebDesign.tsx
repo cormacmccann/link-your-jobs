@@ -160,6 +160,19 @@ export default function LocalWebDesign({
           </Link>
         </div>
       </section>
+      {location.localEvidence && (
+        <section className="local-context studio-container" aria-label="Local project evidence">
+          <h2>{location.localEvidence.title}</h2>
+          <div>
+            <p>{location.localEvidence.text}</p>
+            {location.localEvidence.url && (
+              <a className="orbit-text-link" href={location.localEvidence.url} target="_blank" rel="noopener noreferrer">
+                {location.localEvidence.linkLabel} <ArrowUpRight size={17} aria-hidden="true" />
+              </a>
+            )}
+          </div>
+        </section>
+      )}
       <section
         className="local-priorities studio-container"
         aria-labelledby="local-priorities-title"
@@ -207,7 +220,8 @@ export default function LocalWebDesign({
         </div>
         <div className="local-work-grid">
           {location.projects.map((slug) => {
-            const project = LOCAL_PROJECTS[slug]!;
+            const project = LOCAL_PROJECTS[slug];
+            if (!project) return null;
             return (
               <Link key={slug} to={`/work/${slug}`} className="local-project">
                 <div className="local-project-image">
@@ -233,10 +247,25 @@ export default function LocalWebDesign({
           })}
         </div>
         <p className="local-work-note">
-          Selected work from the studio, including projects in Carlingford and
-          across the wider region. Each case study shows the actual scope.
+          {location.workNote ?? "Selected work from the studio, including projects in Carlingford and across the wider region. Each case study shows the actual scope."}
         </p>
       </section>
+      {location.projectOptions && (
+        <section className="local-context studio-container" aria-label="Project prices and retainers">
+          <div>
+            <span className="orbit-eyebrow">ONE-OFF PROJECTS & ONGOING WORK</span>
+            <h2>A clear scope.<br /><em>A price you can plan around.</em></h2>
+          </div>
+          <div>
+            <h3>One-off website or app project</h3>
+            <p>A defined build with an agreed project price, review stages and handover. You do not need a retainer to commission a website.</p>
+            <h3>Monthly retainer</h3>
+            <p>For an ongoing programme of development, maintenance or content work. We agree the work and monthly fee before starting.</p>
+            <p>Request a scoped quote in euros (€) or pounds (£). The proposal identifies tax treatment, hosting, platform and third-party costs separately.</p>
+            <Link className="orbit-text-link" to={contact}>Discuss your project price <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          </div>
+        </section>
+      )}
       <section
         className="local-foundations"
         aria-labelledby="local-foundations-title"

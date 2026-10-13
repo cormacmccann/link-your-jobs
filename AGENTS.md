@@ -5,3 +5,4 @@
 - Components must not read `window`, `document` or `matchMedia` during render or in `useState` initializers; read them in `useEffect`, because every page renders on the server first.
 - The moon engine lives in `moonEngine.js` with a `.d.ts` API declaration, because the original file was untyped and strict TypeScript would otherwise block builds.
 - Backend functions stay on the existing backend runtime (none are called from the public site); move them only with an explicit cutover plan.
+- Local service pages use dedicated route files with a small metadata inventory and shared evidence-driven page data; this keeps each town independently crawlable without duplicating layout code.
