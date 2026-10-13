@@ -52,4 +52,10 @@ describe("Local service pages", () => {
       WEB_DESIGN_LOCATIONS.rostrevor.faqs.map((faq) => faq.a).join(" "),
     ).toContain("based in Dundalk");
   });
+
+  it("uses approved regional feedback without inventing a Drogheda testimonial", () => {
+    expect(WEB_DESIGN_LOCATIONS.newry.testimonial?.author).toBe("Lucy Cumming · 26 Extreme");
+    expect(WEB_DESIGN_LOCATIONS.armagh.testimonial?.context).toContain("not a town-specific commission");
+    expect(WEB_DESIGN_LOCATIONS.drogheda.testimonial).toBeUndefined();
+  });
 });
