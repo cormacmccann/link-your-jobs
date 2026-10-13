@@ -251,6 +251,22 @@ export default function LocalWebDesign({
         </p>
       </section>
       {location.projectOptions && (
+        <>
+        {location.testimonial && (
+          <section className="local-context studio-container" aria-label="Client feedback">
+            <div>
+              <span className="orbit-eyebrow">IN OUR CLIENT’S WORDS</span>
+              <h2>A little adventure.<br /><em>A lot of practical thinking.</em></h2>
+            </div>
+            <figure>
+              <blockquote><p>“{location.testimonial.quote}”</p></blockquote>
+              <figcaption>
+                <strong>{location.testimonial.author}</strong>
+                <p>{location.testimonial.context}</p>
+              </figcaption>
+            </figure>
+          </section>
+        )}
         <section className="local-context studio-container" aria-label="Project prices and retainers">
           <div>
             <span className="orbit-eyebrow">ONE-OFF PROJECTS & ONGOING WORK</span>
@@ -265,6 +281,7 @@ export default function LocalWebDesign({
             <Link className="orbit-text-link" to={contact}>Discuss your project price <ArrowUpRight size={17} aria-hidden="true" /></Link>
           </div>
         </section>
+        </>
       )}
       <section
         className="local-foundations"
