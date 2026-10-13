@@ -275,9 +275,17 @@ export default function LocalWebDesign({
           <div>
             <h3>One-off website or app project</h3>
             <p>A defined build with an agreed project price, review stages and handover. You do not need a retainer to commission a website.</p>
+            <ul>
+              <li>Business website: guide starting budget €3,500 / approximately £2,975.</li>
+              <li>WordPress ecommerce website: guide starting budget €4,500 / approximately £3,825.</li>
+              <li>Custom website or app: guide starting budget €5,500 / approximately £4,675.</li>
+            </ul>
+            <p>Every website is completely different. Pages, content, design, payments and integrations all change the work involved. These are starting-budget guides, not a fixed package or a promise that your build will cost exactly this.</p>
+            <h3>Basic WordPress maintenance</h3>
+            <p>€190 per month / approximately £162 per month. We agree the maintenance tasks, access and any exclusions before starting. New features, redesigns and wider development are quoted separately.</p>
             <h3>Monthly retainer</h3>
             <p>For an ongoing programme of development, maintenance or content work. We agree the work and monthly fee before starting.</p>
-            <p>Request a scoped quote in euros (€) or pounds (£). The proposal identifies tax treatment, hosting, platform and third-party costs separately.</p>
+            <p>Pound figures are illustrative comparisons at €1 = £0.85, rounded where needed; they are not live exchange rates or fixed sterling offers. Request a scoped quote in euros (€) or pounds (£). VAT treatment and any hosting, platform or third-party costs are confirmed separately in your proposal.</p>
             <Link className="orbit-text-link" to={contact}>Discuss your project price <ArrowUpRight size={17} aria-hidden="true" /></Link>
           </div>
         </section>
