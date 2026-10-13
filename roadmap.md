@@ -1,3 +1,5 @@
 - [x] Add Newry, Armagh, Banbridge, Newcastle (County Down) and Dundalk to the existing Google Business service area, preserving other areas. Saved and read back; Google review pending.
 - [x] Update and verify the Work page with those service towns. Requires publishing to reach kamrok.com.
-- [ ] Create distinct Newry, Armagh and Drogheda pages with individual metadata and sitemap entries, verified local projects, client quotes and EUR/GBP prices. Blocked on user-confirmed town-specific evidence and public one-off/retainer pricing.
+- [x] Create and verify distinct Newry, Armagh and Drogheda pages with individual metadata, sitemap entries and honest regional project evidence. Requires publishing to reach kamrok.com.
+- [ ] Add Lucy’s approved regional testimonial and indicative EUR/GBP pricing, including basic WordPress maintenance at 190 and a site-specific quotation caveat.
+- [ ] Add Drogheda-specific project evidence and town-specific client quotes when supplied; currently blocked on genuine client evidence, with regional examples explicitly labelled.

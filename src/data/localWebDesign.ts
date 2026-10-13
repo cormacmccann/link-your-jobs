@@ -14,6 +14,13 @@ export type WebDesignLocation = LocalWebDesignMeta & {
   localEvidence?: { title: string; text: string; url?: string; linkLabel?: string };
   workNote?: string;
   projectOptions?: boolean;
+  testimonial?: { quote: string; author: string; context: string };
+};
+
+const APPROVED_26_EVENTS_TESTIMONIAL = {
+  quote: "Cormac has brought a real sense of adventure to 26 Events. The platform captures the spirit of 26 Extreme while making the practical side — finding an event, choosing an entry and keeping track of tickets — feel clear and connected. The virtual challenges are a particular highlight, turning each route into an experience people can explore. It’s an ambitious piece of work that brings design, technology and our passion for getting people outdoors together.",
+  author: "Lucy Cumming · 26 Extreme",
+  context: "26 Events · regional client feedback, not a town-specific commission",
 };
 
 export const WEB_DESIGN_LOCATIONS: Record<
@@ -32,6 +39,7 @@ export const WEB_DESIGN_LOCATIONS: Record<
       { title: "Connect the work behind the website.", text: "If your team is copying information between forms, spreadsheets and customer emails, a custom portal may be the next step. We define permissions, customer journeys and integrations before committing to the build." },
     ],
     projects: ["global-tiles-bathrooms", "26-events", "roco9"],
+    testimonial: APPROVED_26_EVENTS_TESTIMONIAL,
     localEvidence: { title: "Cooley Gullion Mourne: work across Newry and Armagh.", text: "Cooley Gullion Mourne is a KAMROK client covering the Newry and Armagh area. Explore their website alongside the detailed regional case studies below.", url: "https://cooleygullionmourne.com", linkLabel: "Visit Cooley Gullion Mourne" },
     workNote: "Cooley Gullion Mourne is the confirmed Newry/Armagh-area client above. The case studies below are wider-region examples; they are not all Newry commissions.",
     projectOptions: true,
@@ -53,6 +61,7 @@ export const WEB_DESIGN_LOCATIONS: Record<
       { title: "Build a reason to return.", text: "An app or member area can support customers after the first visit. The 26 Events regional case study shows one approach: discovery, entry, participant accounts and ongoing challenges, all shaped around a particular audience." },
     ],
     projects: ["26-events", "onyerbike", "global-tiles-bathrooms"],
+    testimonial: APPROVED_26_EVENTS_TESTIMONIAL,
     localEvidence: { title: "A confirmed client in the Armagh and Newry area.", text: "Cooley Gullion Mourne is part of KAMROK’s work across Armagh and Newry. Their site is a direct example to explore; the 26 Events and other case studies below show additional work from the wider region.", url: "https://cooleygullionmourne.com", linkLabel: "Explore Cooley Gullion Mourne" },
     workNote: "Cooley Gullion Mourne covers Armagh and Newry. Other examples are regional work, not claims of an Armagh city office or an Armagh commission for every project.",
     projectOptions: true,
