@@ -18,7 +18,10 @@ describe("Local service pages", () => {
       expect(
         head.meta.filter((meta) => meta["property"] === "og:image"),
       ).toHaveLength(1);
-      const graph = JSON.parse(head.scripts[0]!.children)["@graph"];
+      const script = head.scripts[0];
+      expect(script).toBeDefined();
+      if (!script) throw new Error("Missing local service structured data");
+      const graph = JSON.parse(script.children)["@graph"];
       const service = graph.find(
         (node: Record<string, unknown>) => node["@type"] === "Service",
       );
@@ -29,15 +32,16 @@ describe("Local service pages", () => {
         `<loc>${canonical}</loc>`,
       );
       for (const slug of location.projects) {
-        const project = LOCAL_PROJECTS[slug]!;
+        const project = LOCAL_PROJECTS[slug];
         expect(project).toBeDefined();
+        if (!project) throw new Error(`Missing local project ${slug}`);
         expect(
           existsSync(`public/projects/local/${project.image}-480.webp`),
         ).toBe(true);
       }
     }
-    expect(titles.size).toBe(3);
-    expect(new Set(locations.map((location) => location.context)).size).toBe(3);
+    expect(titles.size).toBe(locations.length);
+    expect(new Set(locations.map((location) => location.context)).size).toBe(locations.length);
   });
 
   it("describes Northern Ireland as a service area without inventing local offices", () => {
