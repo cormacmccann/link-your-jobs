@@ -10,7 +10,6 @@
 - [Skills](https://kamrok.com/skills): Technologies and services we offer.
 - [Blog](https://kamrok.com/blog): Articles and notes.
 - [Contact](https://kamrok.com/contact): Start a project.
-- [Free tools](https://kamrok.com/tools): Free business and marketing tools.
 
 ## Case studies
 

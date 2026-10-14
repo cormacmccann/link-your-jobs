@@ -23,7 +23,6 @@ const PRIMARY = [
   { to: "/work", label: "WORK", count: "04/12", note: "Selected projects" },
   { to: "/skills", label: "SKILLS", count: "05/05", note: "What we do" },
   { to: "/blog", label: "BLOG", note: "Field notes" },
-  { to: "/tools", label: "TOOLS", count: "24/24", note: "Free toolkit" },
   { to: "/contact", label: "CONTACT", note: "Open channel" },
 ];
 

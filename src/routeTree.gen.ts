@@ -19,6 +19,7 @@ import { Route as StudioIllustrationsRouteImport } from './routes/_studio/illust
 import { Route as StudioLovableSavingsRouteImport } from './routes/_studio/lovable-savings'
 import { Route as StudioProjectPlannerRouteImport } from './routes/_studio/project-planner'
 import { Route as StudioSkillsRouteImport } from './routes/_studio/skills'
+import { Route as StudioToolsRouteImport } from './routes/_studio/tools'
 import { Route as StudioWebDesignArmaghRouteImport } from './routes/_studio/web-design-armagh'
 import { Route as StudioWebDesignDroghedaRouteImport } from './routes/_studio/web-design-drogheda'
 import { Route as StudioWebDesignDundalkRouteImport } from './routes/_studio/web-design-dundalk'
@@ -31,27 +32,7 @@ import { Route as StudioBlogDundalkSeoGuideRouteImport } from './routes/_studio/
 import { Route as StudioServicesServiceRouteImport } from './routes/_studio/services/$service'
 import { Route as StudioTemplatesIndexRouteImport } from './routes/_studio/templates/index'
 import { Route as StudioTemplatesTakeawayHubRouteImport } from './routes/_studio/templates/takeaway-hub'
-import { Route as StudioToolsIndexRouteImport } from './routes/_studio/tools/index'
-import { Route as StudioToolsBookingsDemosRouteImport } from './routes/_studio/tools/bookings-demos'
-import { Route as StudioToolsBusinessNameGeneratorRouteImport } from './routes/_studio/tools/business-name-generator'
-import { Route as StudioToolsChatLeadCaptureRouteImport } from './routes/_studio/tools/chat-lead-capture'
-import { Route as StudioToolsCookieConsentManagerRouteImport } from './routes/_studio/tools/cookie-consent-manager'
-import { Route as StudioToolsEmailSignatureRouteImport } from './routes/_studio/tools/email-signature'
-import { Route as StudioToolsHashtagSuggesterRouteImport } from './routes/_studio/tools/hashtag-suggester'
-import { Route as StudioToolsInvoiceCreatorRouteImport } from './routes/_studio/tools/invoice-creator'
-import { Route as StudioToolsOpengraphPreviewRouteImport } from './routes/_studio/tools/opengraph-preview'
-import { Route as StudioToolsPasswordGeneratorRouteImport } from './routes/_studio/tools/password-generator'
-import { Route as StudioToolsPopupOfferEngineRouteImport } from './routes/_studio/tools/popup-offer-engine'
-import { Route as StudioToolsPrivacyPolicyBuilderRouteImport } from './routes/_studio/tools/privacy-policy-builder'
-import { Route as StudioToolsQrCodeGeneratorRouteImport } from './routes/_studio/tools/qr-code-generator'
-import { Route as StudioToolsQuotationMakerRouteImport } from './routes/_studio/tools/quotation-maker'
-import { Route as StudioToolsReviewWidgetRouteImport } from './routes/_studio/tools/review-widget'
-import { Route as StudioToolsSocialPostSizesRouteImport } from './routes/_studio/tools/social-post-sizes'
-import { Route as StudioToolsSocialWallRouteImport } from './routes/_studio/tools/social-wall'
-import { Route as StudioToolsTermsGeneratorRouteImport } from './routes/_studio/tools/terms-generator'
-import { Route as StudioToolsTrustpilotIntegrationRouteImport } from './routes/_studio/tools/trustpilot-integration'
-import { Route as StudioToolsUtmBuilderRouteImport } from './routes/_studio/tools/utm-builder'
-import { Route as StudioToolsVatCalculatorRouteImport } from './routes/_studio/tools/vat-calculator'
+import { Route as StudioToolsSplatRouteImport } from './routes/_studio/tools.$'
 import { Route as StudioWorkIndexRouteImport } from './routes/_studio/work/index'
 import { Route as StudioWorkSlugRouteImport } from './routes/_studio/work/$slug'
 
@@ -102,6 +83,11 @@ const StudioProjectPlannerRoute = StudioProjectPlannerRouteImport.update({
 const StudioSkillsRoute = StudioSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
+  getParentRoute: () => StudioRoute,
+} as any)
+const StudioToolsRoute = StudioToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
   getParentRoute: () => StudioRoute,
 } as any)
 const StudioWebDesignArmaghRoute = StudioWebDesignArmaghRouteImport.update({
@@ -168,128 +154,11 @@ const StudioTemplatesTakeawayHubRoute =
     path: '/templates/takeaway-hub',
     getParentRoute: () => StudioRoute,
   } as any)
-const StudioToolsIndexRoute = StudioToolsIndexRouteImport.update({
-  id: '/tools/',
-  path: '/tools/',
-  getParentRoute: () => StudioRoute,
+const StudioToolsSplatRoute = StudioToolsSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => StudioToolsRoute,
 } as any)
-const StudioToolsBookingsDemosRoute =
-  StudioToolsBookingsDemosRouteImport.update({
-    id: '/tools/bookings-demos',
-    path: '/tools/bookings-demos',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsBusinessNameGeneratorRoute =
-  StudioToolsBusinessNameGeneratorRouteImport.update({
-    id: '/tools/business-name-generator',
-    path: '/tools/business-name-generator',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsChatLeadCaptureRoute =
-  StudioToolsChatLeadCaptureRouteImport.update({
-    id: '/tools/chat-lead-capture',
-    path: '/tools/chat-lead-capture',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsCookieConsentManagerRoute =
-  StudioToolsCookieConsentManagerRouteImport.update({
-    id: '/tools/cookie-consent-manager',
-    path: '/tools/cookie-consent-manager',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsEmailSignatureRoute =
-  StudioToolsEmailSignatureRouteImport.update({
-    id: '/tools/email-signature',
-    path: '/tools/email-signature',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsHashtagSuggesterRoute =
-  StudioToolsHashtagSuggesterRouteImport.update({
-    id: '/tools/hashtag-suggester',
-    path: '/tools/hashtag-suggester',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsInvoiceCreatorRoute =
-  StudioToolsInvoiceCreatorRouteImport.update({
-    id: '/tools/invoice-creator',
-    path: '/tools/invoice-creator',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsOpengraphPreviewRoute =
-  StudioToolsOpengraphPreviewRouteImport.update({
-    id: '/tools/opengraph-preview',
-    path: '/tools/opengraph-preview',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsPasswordGeneratorRoute =
-  StudioToolsPasswordGeneratorRouteImport.update({
-    id: '/tools/password-generator',
-    path: '/tools/password-generator',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsPopupOfferEngineRoute =
-  StudioToolsPopupOfferEngineRouteImport.update({
-    id: '/tools/popup-offer-engine',
-    path: '/tools/popup-offer-engine',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsPrivacyPolicyBuilderRoute =
-  StudioToolsPrivacyPolicyBuilderRouteImport.update({
-    id: '/tools/privacy-policy-builder',
-    path: '/tools/privacy-policy-builder',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsQrCodeGeneratorRoute =
-  StudioToolsQrCodeGeneratorRouteImport.update({
-    id: '/tools/qr-code-generator',
-    path: '/tools/qr-code-generator',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsQuotationMakerRoute =
-  StudioToolsQuotationMakerRouteImport.update({
-    id: '/tools/quotation-maker',
-    path: '/tools/quotation-maker',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsReviewWidgetRoute = StudioToolsReviewWidgetRouteImport.update({
-  id: '/tools/review-widget',
-  path: '/tools/review-widget',
-  getParentRoute: () => StudioRoute,
-} as any)
-const StudioToolsSocialPostSizesRoute =
-  StudioToolsSocialPostSizesRouteImport.update({
-    id: '/tools/social-post-sizes',
-    path: '/tools/social-post-sizes',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsSocialWallRoute = StudioToolsSocialWallRouteImport.update({
-  id: '/tools/social-wall',
-  path: '/tools/social-wall',
-  getParentRoute: () => StudioRoute,
-} as any)
-const StudioToolsTermsGeneratorRoute =
-  StudioToolsTermsGeneratorRouteImport.update({
-    id: '/tools/terms-generator',
-    path: '/tools/terms-generator',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsTrustpilotIntegrationRoute =
-  StudioToolsTrustpilotIntegrationRouteImport.update({
-    id: '/tools/trustpilot-integration',
-    path: '/tools/trustpilot-integration',
-    getParentRoute: () => StudioRoute,
-  } as any)
-const StudioToolsUtmBuilderRoute = StudioToolsUtmBuilderRouteImport.update({
-  id: '/tools/utm-builder',
-  path: '/tools/utm-builder',
-  getParentRoute: () => StudioRoute,
-} as any)
-const StudioToolsVatCalculatorRoute =
-  StudioToolsVatCalculatorRouteImport.update({
-    id: '/tools/vat-calculator',
-    path: '/tools/vat-calculator',
-    getParentRoute: () => StudioRoute,
-  } as any)
 const StudioWorkIndexRoute = StudioWorkIndexRouteImport.update({
   id: '/work/',
   path: '/work/',
@@ -311,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/tools': typeof StudioToolsRouteWithChildren
   '/web-design-armagh': typeof StudioWebDesignArmaghRoute
   '/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
@@ -321,30 +191,10 @@ export interface FileRoutesByFullPath {
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
   '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
-  '/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
-  '/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
-  '/tools/chat-lead-capture': typeof StudioToolsChatLeadCaptureRoute
-  '/tools/cookie-consent-manager': typeof StudioToolsCookieConsentManagerRoute
-  '/tools/email-signature': typeof StudioToolsEmailSignatureRoute
-  '/tools/hashtag-suggester': typeof StudioToolsHashtagSuggesterRoute
-  '/tools/invoice-creator': typeof StudioToolsInvoiceCreatorRoute
-  '/tools/opengraph-preview': typeof StudioToolsOpengraphPreviewRoute
-  '/tools/password-generator': typeof StudioToolsPasswordGeneratorRoute
-  '/tools/popup-offer-engine': typeof StudioToolsPopupOfferEngineRoute
-  '/tools/privacy-policy-builder': typeof StudioToolsPrivacyPolicyBuilderRoute
-  '/tools/qr-code-generator': typeof StudioToolsQrCodeGeneratorRoute
-  '/tools/quotation-maker': typeof StudioToolsQuotationMakerRoute
-  '/tools/review-widget': typeof StudioToolsReviewWidgetRoute
-  '/tools/social-post-sizes': typeof StudioToolsSocialPostSizesRoute
-  '/tools/social-wall': typeof StudioToolsSocialWallRoute
-  '/tools/terms-generator': typeof StudioToolsTermsGeneratorRoute
-  '/tools/trustpilot-integration': typeof StudioToolsTrustpilotIntegrationRoute
-  '/tools/utm-builder': typeof StudioToolsUtmBuilderRoute
-  '/tools/vat-calculator': typeof StudioToolsVatCalculatorRoute
+  '/tools/$': typeof StudioToolsSplatRoute
   '/work/$slug': typeof StudioWorkSlugRoute
   '/blog/': typeof StudioBlogIndexRoute
   '/templates/': typeof StudioTemplatesIndexRoute
-  '/tools/': typeof StudioToolsIndexRoute
   '/work/': typeof StudioWorkIndexRoute
 }
 export interface FileRoutesByTo {
@@ -356,6 +206,7 @@ export interface FileRoutesByTo {
   '/lovable-savings': typeof StudioLovableSavingsRoute
   '/project-planner': typeof StudioProjectPlannerRoute
   '/skills': typeof StudioSkillsRoute
+  '/tools': typeof StudioToolsRouteWithChildren
   '/web-design-armagh': typeof StudioWebDesignArmaghRoute
   '/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/web-design-dundalk': typeof StudioWebDesignDundalkRoute
@@ -367,30 +218,10 @@ export interface FileRoutesByTo {
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
   '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
-  '/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
-  '/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
-  '/tools/chat-lead-capture': typeof StudioToolsChatLeadCaptureRoute
-  '/tools/cookie-consent-manager': typeof StudioToolsCookieConsentManagerRoute
-  '/tools/email-signature': typeof StudioToolsEmailSignatureRoute
-  '/tools/hashtag-suggester': typeof StudioToolsHashtagSuggesterRoute
-  '/tools/invoice-creator': typeof StudioToolsInvoiceCreatorRoute
-  '/tools/opengraph-preview': typeof StudioToolsOpengraphPreviewRoute
-  '/tools/password-generator': typeof StudioToolsPasswordGeneratorRoute
-  '/tools/popup-offer-engine': typeof StudioToolsPopupOfferEngineRoute
-  '/tools/privacy-policy-builder': typeof StudioToolsPrivacyPolicyBuilderRoute
-  '/tools/qr-code-generator': typeof StudioToolsQrCodeGeneratorRoute
-  '/tools/quotation-maker': typeof StudioToolsQuotationMakerRoute
-  '/tools/review-widget': typeof StudioToolsReviewWidgetRoute
-  '/tools/social-post-sizes': typeof StudioToolsSocialPostSizesRoute
-  '/tools/social-wall': typeof StudioToolsSocialWallRoute
-  '/tools/terms-generator': typeof StudioToolsTermsGeneratorRoute
-  '/tools/trustpilot-integration': typeof StudioToolsTrustpilotIntegrationRoute
-  '/tools/utm-builder': typeof StudioToolsUtmBuilderRoute
-  '/tools/vat-calculator': typeof StudioToolsVatCalculatorRoute
+  '/tools/$': typeof StudioToolsSplatRoute
   '/work/$slug': typeof StudioWorkSlugRoute
   '/blog': typeof StudioBlogIndexRoute
   '/templates': typeof StudioTemplatesIndexRoute
-  '/tools': typeof StudioToolsIndexRoute
   '/work': typeof StudioWorkIndexRoute
 }
 export interface FileRoutesById {
@@ -404,6 +235,7 @@ export interface FileRoutesById {
   '/_studio/lovable-savings': typeof StudioLovableSavingsRoute
   '/_studio/project-planner': typeof StudioProjectPlannerRoute
   '/_studio/skills': typeof StudioSkillsRoute
+  '/_studio/tools': typeof StudioToolsRouteWithChildren
   '/_studio/web-design-armagh': typeof StudioWebDesignArmaghRoute
   '/_studio/web-design-drogheda': typeof StudioWebDesignDroghedaRoute
   '/_studio/web-design-dundalk': typeof StudioWebDesignDundalkRoute
@@ -415,30 +247,10 @@ export interface FileRoutesById {
   '/_studio/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
   '/_studio/services/$service': typeof StudioServicesServiceRoute
   '/_studio/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
-  '/_studio/tools/bookings-demos': typeof StudioToolsBookingsDemosRoute
-  '/_studio/tools/business-name-generator': typeof StudioToolsBusinessNameGeneratorRoute
-  '/_studio/tools/chat-lead-capture': typeof StudioToolsChatLeadCaptureRoute
-  '/_studio/tools/cookie-consent-manager': typeof StudioToolsCookieConsentManagerRoute
-  '/_studio/tools/email-signature': typeof StudioToolsEmailSignatureRoute
-  '/_studio/tools/hashtag-suggester': typeof StudioToolsHashtagSuggesterRoute
-  '/_studio/tools/invoice-creator': typeof StudioToolsInvoiceCreatorRoute
-  '/_studio/tools/opengraph-preview': typeof StudioToolsOpengraphPreviewRoute
-  '/_studio/tools/password-generator': typeof StudioToolsPasswordGeneratorRoute
-  '/_studio/tools/popup-offer-engine': typeof StudioToolsPopupOfferEngineRoute
-  '/_studio/tools/privacy-policy-builder': typeof StudioToolsPrivacyPolicyBuilderRoute
-  '/_studio/tools/qr-code-generator': typeof StudioToolsQrCodeGeneratorRoute
-  '/_studio/tools/quotation-maker': typeof StudioToolsQuotationMakerRoute
-  '/_studio/tools/review-widget': typeof StudioToolsReviewWidgetRoute
-  '/_studio/tools/social-post-sizes': typeof StudioToolsSocialPostSizesRoute
-  '/_studio/tools/social-wall': typeof StudioToolsSocialWallRoute
-  '/_studio/tools/terms-generator': typeof StudioToolsTermsGeneratorRoute
-  '/_studio/tools/trustpilot-integration': typeof StudioToolsTrustpilotIntegrationRoute
-  '/_studio/tools/utm-builder': typeof StudioToolsUtmBuilderRoute
-  '/_studio/tools/vat-calculator': typeof StudioToolsVatCalculatorRoute
+  '/_studio/tools/$': typeof StudioToolsSplatRoute
   '/_studio/work/$slug': typeof StudioWorkSlugRoute
   '/_studio/blog/': typeof StudioBlogIndexRoute
   '/_studio/templates/': typeof StudioTemplatesIndexRoute
-  '/_studio/tools/': typeof StudioToolsIndexRoute
   '/_studio/work/': typeof StudioWorkIndexRoute
 }
 export interface FileRouteTypes {
@@ -453,6 +265,7 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/tools'
     | '/web-design-armagh'
     | '/web-design-drogheda'
     | '/web-design-dundalk'
@@ -463,30 +276,10 @@ export interface FileRouteTypes {
     | '/blog/dundalk-seo-guide'
     | '/services/$service'
     | '/templates/takeaway-hub'
-    | '/tools/bookings-demos'
-    | '/tools/business-name-generator'
-    | '/tools/chat-lead-capture'
-    | '/tools/cookie-consent-manager'
-    | '/tools/email-signature'
-    | '/tools/hashtag-suggester'
-    | '/tools/invoice-creator'
-    | '/tools/opengraph-preview'
-    | '/tools/password-generator'
-    | '/tools/popup-offer-engine'
-    | '/tools/privacy-policy-builder'
-    | '/tools/qr-code-generator'
-    | '/tools/quotation-maker'
-    | '/tools/review-widget'
-    | '/tools/social-post-sizes'
-    | '/tools/social-wall'
-    | '/tools/terms-generator'
-    | '/tools/trustpilot-integration'
-    | '/tools/utm-builder'
-    | '/tools/vat-calculator'
+    | '/tools/$'
     | '/work/$slug'
     | '/blog/'
     | '/templates/'
-    | '/tools/'
     | '/work/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -498,6 +291,7 @@ export interface FileRouteTypes {
     | '/lovable-savings'
     | '/project-planner'
     | '/skills'
+    | '/tools'
     | '/web-design-armagh'
     | '/web-design-drogheda'
     | '/web-design-dundalk'
@@ -509,30 +303,10 @@ export interface FileRouteTypes {
     | '/blog/dundalk-seo-guide'
     | '/services/$service'
     | '/templates/takeaway-hub'
-    | '/tools/bookings-demos'
-    | '/tools/business-name-generator'
-    | '/tools/chat-lead-capture'
-    | '/tools/cookie-consent-manager'
-    | '/tools/email-signature'
-    | '/tools/hashtag-suggester'
-    | '/tools/invoice-creator'
-    | '/tools/opengraph-preview'
-    | '/tools/password-generator'
-    | '/tools/popup-offer-engine'
-    | '/tools/privacy-policy-builder'
-    | '/tools/qr-code-generator'
-    | '/tools/quotation-maker'
-    | '/tools/review-widget'
-    | '/tools/social-post-sizes'
-    | '/tools/social-wall'
-    | '/tools/terms-generator'
-    | '/tools/trustpilot-integration'
-    | '/tools/utm-builder'
-    | '/tools/vat-calculator'
+    | '/tools/$'
     | '/work/$slug'
     | '/blog'
     | '/templates'
-    | '/tools'
     | '/work'
   id:
     | '__root__'
@@ -545,6 +319,7 @@ export interface FileRouteTypes {
     | '/_studio/lovable-savings'
     | '/_studio/project-planner'
     | '/_studio/skills'
+    | '/_studio/tools'
     | '/_studio/web-design-armagh'
     | '/_studio/web-design-drogheda'
     | '/_studio/web-design-dundalk'
@@ -556,30 +331,10 @@ export interface FileRouteTypes {
     | '/_studio/blog/dundalk-seo-guide'
     | '/_studio/services/$service'
     | '/_studio/templates/takeaway-hub'
-    | '/_studio/tools/bookings-demos'
-    | '/_studio/tools/business-name-generator'
-    | '/_studio/tools/chat-lead-capture'
-    | '/_studio/tools/cookie-consent-manager'
-    | '/_studio/tools/email-signature'
-    | '/_studio/tools/hashtag-suggester'
-    | '/_studio/tools/invoice-creator'
-    | '/_studio/tools/opengraph-preview'
-    | '/_studio/tools/password-generator'
-    | '/_studio/tools/popup-offer-engine'
-    | '/_studio/tools/privacy-policy-builder'
-    | '/_studio/tools/qr-code-generator'
-    | '/_studio/tools/quotation-maker'
-    | '/_studio/tools/review-widget'
-    | '/_studio/tools/social-post-sizes'
-    | '/_studio/tools/social-wall'
-    | '/_studio/tools/terms-generator'
-    | '/_studio/tools/trustpilot-integration'
-    | '/_studio/tools/utm-builder'
-    | '/_studio/tools/vat-calculator'
+    | '/_studio/tools/$'
     | '/_studio/work/$slug'
     | '/_studio/blog/'
     | '/_studio/templates/'
-    | '/_studio/tools/'
     | '/_studio/work/'
   fileRoutesById: FileRoutesById
 }
@@ -659,6 +414,13 @@ declare module '@tanstack/react-router' {
       path: '/skills'
       fullPath: '/skills'
       preLoaderRoute: typeof StudioSkillsRouteImport
+      parentRoute: typeof StudioRoute
+    }
+    '/_studio/tools': {
+      id: '/_studio/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof StudioToolsRouteImport
       parentRoute: typeof StudioRoute
     }
     '/_studio/web-design-armagh': {
@@ -745,152 +507,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioTemplatesTakeawayHubRouteImport
       parentRoute: typeof StudioRoute
     }
-    '/_studio/tools/': {
-      id: '/_studio/tools/'
-      path: '/tools'
-      fullPath: '/tools/'
-      preLoaderRoute: typeof StudioToolsIndexRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/bookings-demos': {
-      id: '/_studio/tools/bookings-demos'
-      path: '/tools/bookings-demos'
-      fullPath: '/tools/bookings-demos'
-      preLoaderRoute: typeof StudioToolsBookingsDemosRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/business-name-generator': {
-      id: '/_studio/tools/business-name-generator'
-      path: '/tools/business-name-generator'
-      fullPath: '/tools/business-name-generator'
-      preLoaderRoute: typeof StudioToolsBusinessNameGeneratorRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/chat-lead-capture': {
-      id: '/_studio/tools/chat-lead-capture'
-      path: '/tools/chat-lead-capture'
-      fullPath: '/tools/chat-lead-capture'
-      preLoaderRoute: typeof StudioToolsChatLeadCaptureRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/cookie-consent-manager': {
-      id: '/_studio/tools/cookie-consent-manager'
-      path: '/tools/cookie-consent-manager'
-      fullPath: '/tools/cookie-consent-manager'
-      preLoaderRoute: typeof StudioToolsCookieConsentManagerRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/email-signature': {
-      id: '/_studio/tools/email-signature'
-      path: '/tools/email-signature'
-      fullPath: '/tools/email-signature'
-      preLoaderRoute: typeof StudioToolsEmailSignatureRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/hashtag-suggester': {
-      id: '/_studio/tools/hashtag-suggester'
-      path: '/tools/hashtag-suggester'
-      fullPath: '/tools/hashtag-suggester'
-      preLoaderRoute: typeof StudioToolsHashtagSuggesterRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/invoice-creator': {
-      id: '/_studio/tools/invoice-creator'
-      path: '/tools/invoice-creator'
-      fullPath: '/tools/invoice-creator'
-      preLoaderRoute: typeof StudioToolsInvoiceCreatorRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/opengraph-preview': {
-      id: '/_studio/tools/opengraph-preview'
-      path: '/tools/opengraph-preview'
-      fullPath: '/tools/opengraph-preview'
-      preLoaderRoute: typeof StudioToolsOpengraphPreviewRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/password-generator': {
-      id: '/_studio/tools/password-generator'
-      path: '/tools/password-generator'
-      fullPath: '/tools/password-generator'
-      preLoaderRoute: typeof StudioToolsPasswordGeneratorRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/popup-offer-engine': {
-      id: '/_studio/tools/popup-offer-engine'
-      path: '/tools/popup-offer-engine'
-      fullPath: '/tools/popup-offer-engine'
-      preLoaderRoute: typeof StudioToolsPopupOfferEngineRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/privacy-policy-builder': {
-      id: '/_studio/tools/privacy-policy-builder'
-      path: '/tools/privacy-policy-builder'
-      fullPath: '/tools/privacy-policy-builder'
-      preLoaderRoute: typeof StudioToolsPrivacyPolicyBuilderRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/qr-code-generator': {
-      id: '/_studio/tools/qr-code-generator'
-      path: '/tools/qr-code-generator'
-      fullPath: '/tools/qr-code-generator'
-      preLoaderRoute: typeof StudioToolsQrCodeGeneratorRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/quotation-maker': {
-      id: '/_studio/tools/quotation-maker'
-      path: '/tools/quotation-maker'
-      fullPath: '/tools/quotation-maker'
-      preLoaderRoute: typeof StudioToolsQuotationMakerRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/review-widget': {
-      id: '/_studio/tools/review-widget'
-      path: '/tools/review-widget'
-      fullPath: '/tools/review-widget'
-      preLoaderRoute: typeof StudioToolsReviewWidgetRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/social-post-sizes': {
-      id: '/_studio/tools/social-post-sizes'
-      path: '/tools/social-post-sizes'
-      fullPath: '/tools/social-post-sizes'
-      preLoaderRoute: typeof StudioToolsSocialPostSizesRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/social-wall': {
-      id: '/_studio/tools/social-wall'
-      path: '/tools/social-wall'
-      fullPath: '/tools/social-wall'
-      preLoaderRoute: typeof StudioToolsSocialWallRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/terms-generator': {
-      id: '/_studio/tools/terms-generator'
-      path: '/tools/terms-generator'
-      fullPath: '/tools/terms-generator'
-      preLoaderRoute: typeof StudioToolsTermsGeneratorRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/trustpilot-integration': {
-      id: '/_studio/tools/trustpilot-integration'
-      path: '/tools/trustpilot-integration'
-      fullPath: '/tools/trustpilot-integration'
-      preLoaderRoute: typeof StudioToolsTrustpilotIntegrationRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/utm-builder': {
-      id: '/_studio/tools/utm-builder'
-      path: '/tools/utm-builder'
-      fullPath: '/tools/utm-builder'
-      preLoaderRoute: typeof StudioToolsUtmBuilderRouteImport
-      parentRoute: typeof StudioRoute
-    }
-    '/_studio/tools/vat-calculator': {
-      id: '/_studio/tools/vat-calculator'
-      path: '/tools/vat-calculator'
-      fullPath: '/tools/vat-calculator'
-      preLoaderRoute: typeof StudioToolsVatCalculatorRouteImport
-      parentRoute: typeof StudioRoute
+    '/_studio/tools/$': {
+      id: '/_studio/tools/$'
+      path: '/$'
+      fullPath: '/tools/$'
+      preLoaderRoute: typeof StudioToolsSplatRouteImport
+      parentRoute: typeof StudioToolsRoute
     }
     '/_studio/work/': {
       id: '/_studio/work/'
@@ -909,6 +531,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface StudioToolsRouteChildren {
+  StudioToolsSplatRoute: typeof StudioToolsSplatRoute
+}
+
+const StudioToolsRouteChildren: StudioToolsRouteChildren = {
+  StudioToolsSplatRoute: StudioToolsSplatRoute,
+}
+
+const StudioToolsRouteWithChildren = StudioToolsRoute._addFileChildren(
+  StudioToolsRouteChildren,
+)
+
 interface StudioRouteChildren {
   StudioSplatRoute: typeof StudioSplatRoute
   StudioAboutRoute: typeof StudioAboutRoute
@@ -917,6 +551,7 @@ interface StudioRouteChildren {
   StudioLovableSavingsRoute: typeof StudioLovableSavingsRoute
   StudioProjectPlannerRoute: typeof StudioProjectPlannerRoute
   StudioSkillsRoute: typeof StudioSkillsRoute
+  StudioToolsRoute: typeof StudioToolsRouteWithChildren
   StudioWebDesignArmaghRoute: typeof StudioWebDesignArmaghRoute
   StudioWebDesignDroghedaRoute: typeof StudioWebDesignDroghedaRoute
   StudioWebDesignDundalkRoute: typeof StudioWebDesignDundalkRoute
@@ -927,30 +562,9 @@ interface StudioRouteChildren {
   StudioBlogDundalkSeoGuideRoute: typeof StudioBlogDundalkSeoGuideRoute
   StudioServicesServiceRoute: typeof StudioServicesServiceRoute
   StudioTemplatesTakeawayHubRoute: typeof StudioTemplatesTakeawayHubRoute
-  StudioToolsBookingsDemosRoute: typeof StudioToolsBookingsDemosRoute
-  StudioToolsBusinessNameGeneratorRoute: typeof StudioToolsBusinessNameGeneratorRoute
-  StudioToolsChatLeadCaptureRoute: typeof StudioToolsChatLeadCaptureRoute
-  StudioToolsCookieConsentManagerRoute: typeof StudioToolsCookieConsentManagerRoute
-  StudioToolsEmailSignatureRoute: typeof StudioToolsEmailSignatureRoute
-  StudioToolsHashtagSuggesterRoute: typeof StudioToolsHashtagSuggesterRoute
-  StudioToolsInvoiceCreatorRoute: typeof StudioToolsInvoiceCreatorRoute
-  StudioToolsOpengraphPreviewRoute: typeof StudioToolsOpengraphPreviewRoute
-  StudioToolsPasswordGeneratorRoute: typeof StudioToolsPasswordGeneratorRoute
-  StudioToolsPopupOfferEngineRoute: typeof StudioToolsPopupOfferEngineRoute
-  StudioToolsPrivacyPolicyBuilderRoute: typeof StudioToolsPrivacyPolicyBuilderRoute
-  StudioToolsQrCodeGeneratorRoute: typeof StudioToolsQrCodeGeneratorRoute
-  StudioToolsQuotationMakerRoute: typeof StudioToolsQuotationMakerRoute
-  StudioToolsReviewWidgetRoute: typeof StudioToolsReviewWidgetRoute
-  StudioToolsSocialPostSizesRoute: typeof StudioToolsSocialPostSizesRoute
-  StudioToolsSocialWallRoute: typeof StudioToolsSocialWallRoute
-  StudioToolsTermsGeneratorRoute: typeof StudioToolsTermsGeneratorRoute
-  StudioToolsTrustpilotIntegrationRoute: typeof StudioToolsTrustpilotIntegrationRoute
-  StudioToolsUtmBuilderRoute: typeof StudioToolsUtmBuilderRoute
-  StudioToolsVatCalculatorRoute: typeof StudioToolsVatCalculatorRoute
   StudioWorkSlugRoute: typeof StudioWorkSlugRoute
   StudioBlogIndexRoute: typeof StudioBlogIndexRoute
   StudioTemplatesIndexRoute: typeof StudioTemplatesIndexRoute
-  StudioToolsIndexRoute: typeof StudioToolsIndexRoute
   StudioWorkIndexRoute: typeof StudioWorkIndexRoute
 }
 
@@ -962,6 +576,7 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioLovableSavingsRoute: StudioLovableSavingsRoute,
   StudioProjectPlannerRoute: StudioProjectPlannerRoute,
   StudioSkillsRoute: StudioSkillsRoute,
+  StudioToolsRoute: StudioToolsRouteWithChildren,
   StudioWebDesignArmaghRoute: StudioWebDesignArmaghRoute,
   StudioWebDesignDroghedaRoute: StudioWebDesignDroghedaRoute,
   StudioWebDesignDundalkRoute: StudioWebDesignDundalkRoute,
@@ -972,30 +587,9 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioBlogDundalkSeoGuideRoute: StudioBlogDundalkSeoGuideRoute,
   StudioServicesServiceRoute: StudioServicesServiceRoute,
   StudioTemplatesTakeawayHubRoute: StudioTemplatesTakeawayHubRoute,
-  StudioToolsBookingsDemosRoute: StudioToolsBookingsDemosRoute,
-  StudioToolsBusinessNameGeneratorRoute: StudioToolsBusinessNameGeneratorRoute,
-  StudioToolsChatLeadCaptureRoute: StudioToolsChatLeadCaptureRoute,
-  StudioToolsCookieConsentManagerRoute: StudioToolsCookieConsentManagerRoute,
-  StudioToolsEmailSignatureRoute: StudioToolsEmailSignatureRoute,
-  StudioToolsHashtagSuggesterRoute: StudioToolsHashtagSuggesterRoute,
-  StudioToolsInvoiceCreatorRoute: StudioToolsInvoiceCreatorRoute,
-  StudioToolsOpengraphPreviewRoute: StudioToolsOpengraphPreviewRoute,
-  StudioToolsPasswordGeneratorRoute: StudioToolsPasswordGeneratorRoute,
-  StudioToolsPopupOfferEngineRoute: StudioToolsPopupOfferEngineRoute,
-  StudioToolsPrivacyPolicyBuilderRoute: StudioToolsPrivacyPolicyBuilderRoute,
-  StudioToolsQrCodeGeneratorRoute: StudioToolsQrCodeGeneratorRoute,
-  StudioToolsQuotationMakerRoute: StudioToolsQuotationMakerRoute,
-  StudioToolsReviewWidgetRoute: StudioToolsReviewWidgetRoute,
-  StudioToolsSocialPostSizesRoute: StudioToolsSocialPostSizesRoute,
-  StudioToolsSocialWallRoute: StudioToolsSocialWallRoute,
-  StudioToolsTermsGeneratorRoute: StudioToolsTermsGeneratorRoute,
-  StudioToolsTrustpilotIntegrationRoute: StudioToolsTrustpilotIntegrationRoute,
-  StudioToolsUtmBuilderRoute: StudioToolsUtmBuilderRoute,
-  StudioToolsVatCalculatorRoute: StudioToolsVatCalculatorRoute,
   StudioWorkSlugRoute: StudioWorkSlugRoute,
   StudioBlogIndexRoute: StudioBlogIndexRoute,
   StudioTemplatesIndexRoute: StudioTemplatesIndexRoute,
-  StudioToolsIndexRoute: StudioToolsIndexRoute,
   StudioWorkIndexRoute: StudioWorkIndexRoute,
 }
 
