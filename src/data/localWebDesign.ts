@@ -11,16 +11,23 @@ export type WebDesignLocation = LocalWebDesignMeta & {
   priorities: { title: string; text: string }[];
   projects: string[];
   faqs: { q: string; a: string }[];
-  localEvidence?: { title: string; text: string; url?: string; linkLabel?: string };
+  localEvidence?: {
+    title: string;
+    text: string;
+    url?: string;
+    linkLabel?: string;
+  };
   workNote?: string;
   projectOptions?: boolean;
   testimonial?: { quote: string; author: string; context: string };
 };
 
 const APPROVED_26_EVENTS_TESTIMONIAL = {
-  quote: "Cormac has brought a real sense of adventure to 26 Events. The platform captures the spirit of 26 Extreme while making the practical side — finding an event, choosing an entry and keeping track of tickets — feel clear and connected. The virtual challenges are a particular highlight, turning each route into an experience people can explore. It’s an ambitious piece of work that brings design, technology and our passion for getting people outdoors together.",
+  quote:
+    "Cormac has brought a real sense of adventure to 26 Events. The platform captures the spirit of 26 Extreme while making the practical side — finding an event, choosing an entry and keeping track of tickets — feel clear and connected. The virtual challenges are a particular highlight, turning each route into an experience people can explore. It’s an ambitious piece of work that brings design, technology and our passion for getting people outdoors together.",
   author: "Lucy Cumming · 26 Extreme",
-  context: "26 Events · regional client feedback, not a town-specific commission",
+  context:
+    "26 Events · regional client feedback, not a town-specific commission",
 };
 
 export const WEB_DESIGN_LOCATIONS: Record<
@@ -29,67 +36,143 @@ export const WEB_DESIGN_LOCATIONS: Record<
 > = {
   newry: {
     ...LOCAL_WEB_DESIGN_META.newry,
-    introduction: "Your customers may shop on both sides of the border. Your website should make the next step clear on either side: enquire, book or buy.",
+    introduction:
+      "Your customers may shop on both sides of the border. Your website should make the next step clear on either side: enquire, book or buy.",
     positioning: "SERVING NEWRY · DUNDALK STUDIO",
     lead: "One business. Two markets. A clearer journey.",
-    context: "For a Newry business serving customers in Northern Ireland and Ireland, a website can quickly become a tangle of delivery details, currencies and enquiries. I’m Cormac at KAMROK. We work through those decisions first, then bring the brand, website and any connected app together. KAMROK is based in Dundalk, not a Newry branch office.",
+    context:
+      "For a Newry business serving customers in Northern Ireland and Ireland, a website can quickly become a tangle of delivery details, currencies and enquiries. I’m Cormac at KAMROK. We work through those decisions first, then bring the brand, website and any connected app together. KAMROK is based in Dundalk, not a Newry branch office.",
     priorities: [
-      { title: "Make cross-border buying clear.", text: "Before building a shop, we agree which markets you serve, how prices are displayed and what customers need to know about delivery and returns. Payments and stock connections are scoped around your actual business, not a generic template." },
-      { title: "Give trade customers useful detail.", text: "A product catalogue can support an enquiry as well as a checkout. Specifications, ranges and project examples help customers shortlist what they need; a focused enquiry form gives your team enough context to respond." },
-      { title: "Connect the work behind the website.", text: "If your team is copying information between forms, spreadsheets and customer emails, a custom portal may be the next step. We define permissions, customer journeys and integrations before committing to the build." },
+      {
+        title: "Make cross-border buying clear.",
+        text: "Before building a shop, we agree which markets you serve, how prices are displayed and what customers need to know about delivery and returns. Payments and stock connections are scoped around your actual business, not a generic template.",
+      },
+      {
+        title: "Give trade customers useful detail.",
+        text: "A product catalogue can support an enquiry as well as a checkout. Specifications, ranges and project examples help customers shortlist what they need; a focused enquiry form gives your team enough context to respond.",
+      },
+      {
+        title: "Connect the work behind the website.",
+        text: "If your team is copying information between forms, spreadsheets and customer emails, a custom portal may be the next step. We define permissions, customer journeys and integrations before committing to the build.",
+      },
     ],
     projects: ["global-tiles-bathrooms", "26-events", "roco9"],
     testimonial: APPROVED_26_EVENTS_TESTIMONIAL,
-    localEvidence: { title: "Cooley Gullion Mourne: work across Newry and Armagh.", text: "Cooley Gullion Mourne is a KAMROK client covering the Newry and Armagh area. Explore their website alongside the detailed regional case studies below.", url: "https://cooleygullionmourne.com", linkLabel: "Visit Cooley Gullion Mourne" },
-    workNote: "Cooley Gullion Mourne is the confirmed Newry/Armagh-area client above. The case studies below are wider-region examples; they are not all Newry commissions.",
+    localEvidence: {
+      title: "Cooley Gullion Mourne: work across Newry and Armagh.",
+      text: "Cooley Gullion Mourne is a KAMROK client covering the Newry and Armagh area. Explore their website alongside the detailed regional case studies below.",
+      url: "https://cooleygullionmourne.com",
+      linkLabel: "Visit Cooley Gullion Mourne",
+    },
+    workNote:
+      "Cooley Gullion Mourne is the confirmed Newry/Armagh-area client above. The case studies below are wider-region examples; they are not all Newry commissions.",
     projectOptions: true,
     faqs: [
-      { q: "Do you have an office in Newry?", a: "No. KAMROK serves Newry from Dundalk. You work directly with Cormac through agreed calls and project reviews, rather than being passed between a sales team and a separate builder." },
-      { q: "Can our Newry shop sell in euros and pounds?", a: "We can plan EUR and GBP display and payment options around the ecommerce platform and payment provider. Delivery rules and tax treatment need to be agreed with your advisers before implementation." },
-      { q: "Can we start with a website and add an app later?", a: "Yes. We can scope a first website as a one-off project, identify future integrations and agree an app phase separately. A retainer is an option for ongoing work, not a requirement for every website." },
+      {
+        q: "Do you have an office in Newry?",
+        a: "No. KAMROK serves Newry from Dundalk. You work directly with Cormac through agreed calls and project reviews, rather than being passed between a sales team and a separate builder.",
+      },
+      {
+        q: "Can our Newry shop sell in euros and pounds?",
+        a: "We can plan EUR and GBP display and payment options around the ecommerce platform and payment provider. Delivery rules and tax treatment need to be agreed with your advisers before implementation.",
+      },
+      {
+        q: "Can we start with a website and add an app later?",
+        a: "Yes. We can scope a first website as a one-off project, identify future integrations and agree an app phase separately. A retainer is an option for ongoing work, not a requirement for every website.",
+      },
     ],
   },
   armagh: {
     ...LOCAL_WEB_DESIGN_META.armagh,
-    introduction: "A useful website for the business you run today. Room for the bookings, customer tools and ideas you want to build next.",
+    introduction:
+      "A useful website for the business you run today. Room for the bookings, customer tools and ideas you want to build next.",
     positioning: "SERVING ARMAGH · DUNDALK STUDIO",
     lead: "From a first enquiry to a working platform.",
-    context: "For an Armagh service business, visitor organisation or growing team, the right website depends on what people need to do. Find an answer? Book an experience? Manage information after they become a customer? I help separate those journeys before choosing WordPress or a custom app. You work with Cormac at KAMROK in Dundalk throughout.",
+    context:
+      "For an Armagh service business, visitor organisation or growing team, the right website depends on what people need to do. Find an answer? Book an experience? Manage information after they become a customer? I help separate those journeys before choosing WordPress or a custom app. You work with Cormac at KAMROK in Dundalk throughout.",
     priorities: [
-      { title: "Organise places and experiences.", text: "For visitor-facing work across Armagh and the wider Gullion area, clear information matters: what is available, where to go and how to plan the visit. We shape the content around those practical questions and connect the agreed booking or enquiry route." },
-      { title: "Make service enquiries specific.", text: "A service website should explain the work, show relevant examples and ask for the details your team actually needs. We plan the page structure and forms around your sales conversation, rather than adding a contact box and hoping for the best." },
-      { title: "Build a reason to return.", text: "An app or member area can support customers after the first visit. The 26 Events regional case study shows one approach: discovery, entry, participant accounts and ongoing challenges, all shaped around a particular audience." },
+      {
+        title: "Organise places and experiences.",
+        text: "For visitor-facing work across Armagh and the wider Gullion area, clear information matters: what is available, where to go and how to plan the visit. We shape the content around those practical questions and connect the agreed booking or enquiry route.",
+      },
+      {
+        title: "Make service enquiries specific.",
+        text: "A service website should explain the work, show relevant examples and ask for the details your team actually needs. We plan the page structure and forms around your sales conversation, rather than adding a contact box and hoping for the best.",
+      },
+      {
+        title: "Build a reason to return.",
+        text: "An app or member area can support customers after the first visit. The 26 Events regional case study shows one approach: discovery, entry, participant accounts and ongoing challenges, all shaped around a particular audience.",
+      },
     ],
     projects: ["26-events", "onyerbike", "global-tiles-bathrooms"],
     testimonial: APPROVED_26_EVENTS_TESTIMONIAL,
-    localEvidence: { title: "A confirmed client in the Armagh and Newry area.", text: "Cooley Gullion Mourne is part of KAMROK’s work across Armagh and Newry. Their site is a direct example to explore; the 26 Events and other case studies below show additional work from the wider region.", url: "https://cooleygullionmourne.com", linkLabel: "Explore Cooley Gullion Mourne" },
-    workNote: "Cooley Gullion Mourne covers Armagh and Newry. Other examples are regional work, not claims of an Armagh city office or an Armagh commission for every project.",
+    localEvidence: {
+      title: "A confirmed client in the Armagh and Newry area.",
+      text: "Cooley Gullion Mourne is part of KAMROK’s work across Armagh and Newry. Their site is a direct example to explore; the 26 Events and other case studies below show additional work from the wider region.",
+      url: "https://cooleygullionmourne.com",
+      linkLabel: "Explore Cooley Gullion Mourne",
+    },
+    workNote:
+      "Cooley Gullion Mourne covers Armagh and Newry. Other examples are regional work, not claims of an Armagh city office or an Armagh commission for every project.",
     projectOptions: true,
     faqs: [
-      { q: "Do you work with Armagh businesses from Dundalk?", a: "Yes. KAMROK serves the Armagh area from Dundalk, with no separate Armagh office. We agree how to meet, review designs and hand over the finished website at the start." },
-      { q: "Do we need a custom app or just a website?", a: "If the job is to explain services and receive enquiries, a content-led website may be enough. Customer accounts, permissions and recurring workflows can make a custom app worthwhile. We scope the simplest useful solution first." },
-      { q: "Can you help us maintain the site afterwards?", a: "We can agree a retainer for ongoing development, content or technical work. A one-off build with an agreed handover is also available; ongoing services and third-party costs are set out separately." },
+      {
+        q: "Do you work with Armagh businesses from Dundalk?",
+        a: "Yes. KAMROK serves the Armagh area from Dundalk, with no separate Armagh office. We agree how to meet, review designs and hand over the finished website at the start.",
+      },
+      {
+        q: "Do we need a custom app or just a website?",
+        a: "If the job is to explain services and receive enquiries, a content-led website may be enough. Customer accounts, permissions and recurring workflows can make a custom app worthwhile. We scope the simplest useful solution first.",
+      },
+      {
+        q: "Can you help us maintain the site afterwards?",
+        a: "We can agree a retainer for ongoing development, content or technical work. A one-off build with an agreed handover is also available; ongoing services and third-party costs are set out separately.",
+      },
     ],
   },
   drogheda: {
     ...LOCAL_WEB_DESIGN_META.drogheda,
-    introduction: "For a local service, a growing shop or a new digital product: a website that explains your offer and makes the next step straightforward.",
+    introduction:
+      "For a local service, a growing shop or a new digital product: a website that explains your offer and makes the next step straightforward.",
     positioning: "SERVING DROGHEDA · BASED IN DUNDALK, LOUTH",
     lead: "A Louth studio. A practical plan for your next move.",
-    context: "KAMROK serves Drogheda from our Dundalk base. For a redesign, I start with what already works: the pages customers use, the enquiries you want and the content worth keeping. For a new business, we build that structure together. The portfolio on this page is regional evidence from Louth and beyond, not a list of claimed Drogheda clients.",
+    context:
+      "KAMROK serves Drogheda from our Dundalk base. For a redesign, I start with what already works: the pages customers use, the enquiries you want and the content worth keeping. For a new business, we build that structure together. The portfolio on this page is regional evidence from Louth and beyond, not a list of claimed Drogheda clients.",
     priorities: [
-      { title: "Redesign without losing the useful bits.", text: "We review your existing pages, customer journeys and important links before changing the site. Content migration and redirects are part of the agreed scope, so a fresh design does not mean forgetting the work your old website already does." },
-      { title: "Make a local service easy to choose.", text: "For a Drogheda business serving south Louth and surrounding areas, service pages should make the offer and coverage clear. Relevant work, straightforward contact details and a useful enquiry route help people decide whether you are a fit." },
-      { title: "Choose the right editing workflow.", text: "A shop, hospitality website and custom app have different everyday needs. We choose WordPress, ecommerce tooling or Lovable around who updates the information and what needs to connect, with a handover scoped from the start." },
+      {
+        title: "Redesign without losing the useful bits.",
+        text: "We review your existing pages, customer journeys and important links before changing the site. Content migration and redirects are part of the agreed scope, so a fresh design does not mean forgetting the work your old website already does.",
+      },
+      {
+        title: "Make a local service easy to choose.",
+        text: "For a Drogheda business serving south Louth and surrounding areas, service pages should make the offer and coverage clear. Relevant work, straightforward contact details and a useful enquiry route help people decide whether you are a fit.",
+      },
+      {
+        title: "Choose the right editing workflow.",
+        text: "A shop, hospitality website and custom app have different everyday needs. We choose WordPress, ecommerce tooling or Lovable around who updates the information and what needs to connect, with a handover scoped from the start.",
+      },
     ],
     projects: ["mckevitts", "carlingford-arms", "onyerbike"],
-    localEvidence: { title: "County Louth work, labelled honestly.", text: "McKevitt’s Village Hotel, Carlingford Arms and OnYerBike are Carlingford projects in County Louth. They show KAMROK’s hospitality and visitor-business experience; they are not presented as Drogheda commissions." },
-    workNote: "These are Carlingford and County Louth examples. No Drogheda-specific client project or testimonial is claimed on this page.",
+    localEvidence: {
+      title: "County Louth work, labelled honestly.",
+      text: "McKevitt’s Village Hotel, Carlingford Arms and OnYerBike are Carlingford projects in County Louth. They show KAMROK’s hospitality and visitor-business experience; they are not presented as Drogheda commissions.",
+    },
+    workNote:
+      "These are Carlingford and County Louth examples. No Drogheda-specific client project or testimonial is claimed on this page.",
     projectOptions: true,
     faqs: [
-      { q: "Are you based in Drogheda?", a: "No. KAMROK is based in Dundalk, County Louth, and serves Drogheda. You work directly with Cormac; review calls and shared previews are agreed around your project." },
-      { q: "Can you move our current website to WordPress?", a: "We first check the current platform, content and required features. If WordPress is a good fit, the proposal covers the agreed migration, redirects, editing setup and handover." },
-      { q: "Do you only offer monthly retainers?", a: "No. A website or defined app phase can be a one-off project. Retainers are available where there is a regular need for development, maintenance or content work, with an agreed scope rather than an automatic commitment." },
+      {
+        q: "Are you based in Drogheda?",
+        a: "No. KAMROK is based in Dundalk, County Louth, and serves Drogheda. You work directly with Cormac; review calls and shared previews are agreed around your project.",
+      },
+      {
+        q: "Can you move our current website to WordPress?",
+        a: "We first check the current platform, content and required features. If WordPress is a good fit, the proposal covers the agreed migration, redirects, editing setup and handover.",
+      },
+      {
+        q: "Do you only offer monthly retainers?",
+        a: "No. A website or defined app phase can be a one-off project. Retainers are available where there is a regular need for development, maintenance or content work, with an agreed scope rather than an automatic commitment.",
+      },
     ],
   },
   dundalk: {
