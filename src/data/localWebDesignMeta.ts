@@ -1,6 +1,6 @@
 /** Small route-head inventory; full page stories stay in the lazy page bundle. */
 export type LocalWebDesignMeta = {
-  slug: "dundalk" | "warrenpoint" | "rostrevor";
+  slug: "dundalk" | "warrenpoint" | "rostrevor" | "newry" | "armagh" | "drogheda";
   name: string;
   region: string;
   country: "IE" | "GB";
@@ -20,6 +20,24 @@ export const LOCAL_WEB_DESIGN_META: Record<
   LocalWebDesignMeta["slug"],
   LocalWebDesignMeta
 > = {
+  newry: {
+    slug: "newry", name: "Newry", region: "County Down / County Armagh", country: "GB",
+    title: "Web Design Newry | Websites & App Development | KAMROK",
+    description: "Website design and app development for Newry businesses. Explore KAMROK’s regional work, Cooley Gullion Mourne and one-off or retainer options.",
+    feature: { slug: "global-tiles-bathrooms", name: "Global Tiles & Bathrooms", label: "REGIONAL WORK · RETAIL & TRADE", image: "global-tiles", alt: "Global Tiles and Bathrooms website and connected product catalogue", caption: "A regional retail project: brand, website and connected catalogue. See the actual scope." },
+  },
+  armagh: {
+    slug: "armagh", name: "Armagh", region: "County Armagh", country: "GB",
+    title: "Web Design Armagh | Business Websites & Custom Apps | KAMROK",
+    description: "Websites and custom apps for Armagh businesses, from Dundalk-based KAMROK. Cooley Gullion Mourne work, regional examples and flexible project options.",
+    feature: { slug: "26-events", name: "26 Events", label: "REGIONAL WORK · EVENTS & APPS", image: "26-events", alt: "26 Events website showing outdoor event discovery and participant journeys", caption: "A wider-region platform combining event discovery, entries and virtual challenges." },
+  },
+  drogheda: {
+    slug: "drogheda", name: "Drogheda", region: "County Louth", country: "IE",
+    title: "Web Design Drogheda | WordPress, Ecommerce & Apps | KAMROK",
+    description: "Web design for Drogheda businesses from KAMROK in Dundalk. WordPress, ecommerce and custom apps, with regional portfolio examples and project pricing.",
+    feature: { slug: "mckevitts", name: "McKevitt’s Village Hotel", label: "REGIONAL WORK · CARLINGFORD", image: "mckevitts", alt: "McKevitt’s Village Hotel WordPress website on desktop and laptop", caption: "A County Louth hospitality project in Carlingford, shown as regional work rather than a Drogheda commission." },
+  },
   dundalk: {
     slug: "dundalk",
     name: "Dundalk",
