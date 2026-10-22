@@ -1,3 +1,4 @@
+import WebsiteQuality from "@/components/kamrok/WebsiteQuality";
 import { useEffect, useState } from "react";
 import { Link } from "@/lib/router-compat";
 import { SiShopify, SiWordpress } from "react-icons/si";
@@ -88,6 +89,8 @@ export default function StudioHome() {
           </Link>)}</div>
         </div>
       </section>
+
+      <WebsiteQuality className="studio-container" />
 
       <section className="orbit-section orbit-about studio-container" aria-labelledby="about-title">
         <figure className="orbit-profile"><ResponsiveImage variants={homeImages[`person-${theme}`]} mobileMax={480} sizes="(max-width: 760px) min(92vw, 480px), 42vw" alt="Cormac McCann in an astronaut helmet, lit in ruby and cyan" width="720" height="899" loading="lazy" decoding="async" /><figcaption><span className="orbit-eyebrow">THE PERSON BEHIND KAMROK</span><strong>Cormac McCann</strong><span>Designer. Illustrator. Marketer.</span></figcaption></figure>

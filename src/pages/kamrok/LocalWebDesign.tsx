@@ -1,3 +1,4 @@
+import WebsiteQuality from "@/components/kamrok/WebsiteQuality";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -143,6 +144,7 @@ export default function LocalWebDesign({
         </a>
         <span>AWARD-WINNING WORDPRESS DESIGN</span>
       </div>
+      <WebsiteQuality className="studio-container" contact={contact} />
       <section
         className="local-context studio-container"
         aria-labelledby="local-context-title"

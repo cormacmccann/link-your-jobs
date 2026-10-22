@@ -1,0 +1,1267 @@
+.ownership-guide {
+  padding-top: 48px;
+  padding-bottom: 90px;
+  color: var(--studio-copy);
+  font-size: 15px;
+  line-height: 1.95;
+}
+.ownership-guide :is(p, figure, blockquote, ul, ol) {
+  margin: 0;
+}
+.ownership-guide :is(h1, h2, h3, h4) {
+  margin: 0;
+  color: var(--studio-text);
+  line-height: 1.15;
+}
+.ownership-guide a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--studio-mint);
+}
+.ownership-guide a:hover {
+  color: var(--studio-mint);
+}
+.ownership-guide :is(a, button, input, summary):focus-visible {
+  outline: 2px solid var(--studio-mint);
+  outline-offset: 5px;
+}
+.ownership-guide .ownership-label {
+  font-size: 9px;
+  letter-spacing: 1.7px;
+  line-height: 1.65;
+  color: var(--studio-mint);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.ownership-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.04fr;
+  gap: 60px;
+  align-items: center;
+  padding-bottom: 52px;
+}
+.ownership-back {
+  display: inline-block;
+  font-size: 12px;
+  margin-bottom: 38px;
+}
+.ownership-hero .ownership-label {
+  margin-bottom: 20px;
+}
+.studio-page .ownership-guide h1 {
+  font-size: clamp(48px, 6.1vw, 86px);
+  letter-spacing: -1.8px;
+  line-height: 1.08;
+}
+.ownership-guide h1 em {
+  font-style: italic;
+  color: var(--studio-mint);
+}
+.ownership-hero .ownership-deck {
+  font-size: 16px;
+  line-height: 1.85;
+  max-width: 52ch;
+  margin-top: 25px;
+}
+.ownership-guide .ownership-byline {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--studio-muted);
+  margin-top: 25px;
+}
+.ownership-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 12px;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+.ownership-hero figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--studio-line);
+}
+.ownership-guide figcaption {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--studio-muted);
+  margin-top: 14px;
+  max-width: 70ch;
+}
+.ownership-opening {
+  max-width: 850px;
+  margin: 15px auto 48px;
+}
+.ownership-opening p + p {
+  margin-top: 22px;
+}
+.ownership-guide .ownership-pullquote {
+  font-family: Oswald, sans-serif;
+  font-size: clamp(28px, 3.7vw, 49px);
+  line-height: 1.35;
+  color: var(--studio-text);
+  font-weight: 400;
+  border-block: 1px solid var(--studio-line);
+  padding: 42px 0;
+  margin-bottom: 58px;
+  text-transform: uppercase;
+}
+.ownership-pullquote em {
+  font-style: italic;
+  color: var(--studio-mint);
+}
+.ownership-reading-layout {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: clamp(35px, 6vw, 90px);
+  align-items: start;
+}
+.ownership-sidebar {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+.ownership-sidebar ol {
+  list-style: none;
+  padding: 0;
+  margin: 22px 0 25px;
+  display: grid;
+  gap: 15px;
+}
+.ownership-sidebar a {
+  display: flex;
+  gap: 13px;
+  align-items: baseline;
+  font-size: 11px;
+  line-height: 1.75;
+  text-decoration: none;
+  color: var(--studio-copy);
+}
+.ownership-sidebar li span {
+  font-size: 9px;
+  color: var(--studio-mint);
+}
+.ownership-sidebar .ownership-sidebar-end {
+  border-top: 1px solid var(--studio-line);
+  padding-top: 18px;
+  font-size: 10px;
+  text-decoration: underline;
+}
+.ownership-body {
+  min-width: 0;
+  max-width: 880px;
+}
+.ownership-chapter {
+  padding-top: 55px;
+  margin-top: 55px;
+  border-top: 1px solid var(--studio-line);
+  scroll-margin-top: 120px;
+}
+.ownership-chapter:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+.ownership-chapter > .ownership-label {
+  margin-bottom: 15px;
+}
+.studio-page .ownership-guide .ownership-chapter h2 {
+  font-size: clamp(33px, 3.6vw, 48px);
+  letter-spacing: -0.7px;
+  margin: 0 0 27px;
+  max-width: 24ch;
+}
+.ownership-chapter > p {
+  max-width: 74ch;
+  margin-bottom: 22px;
+}
+.ownership-chapter > h3 {
+  font-size: 27px;
+  margin: 32px 0 19px;
+}
+.ownership-chapter > :is(ul, ol) {
+  padding-left: 24px;
+  margin: 0 0 25px;
+  max-width: 72ch;
+}
+.ownership-chapter li + li {
+  margin-top: 12px;
+}
+.ownership-guide .ownership-reference {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--studio-muted);
+  width: fit-content;
+  line-height: 1.8;
+  margin: 9px 0;
+  text-decoration-color: var(--studio-line);
+}
+.ownership-project-photo {
+  margin: 32px 0 !important;
+}
+.ownership-project-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--studio-line);
+}
+.ownership-practical {
+  background: var(--studio-soft);
+  padding: 25px 28px;
+  border-left: 2px solid var(--studio-mint);
+  margin: 28px 0;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.ownership-practical > .ownership-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.ownership-practical p + p {
+  margin-top: 15px;
+}
+.ownership-practical :is(ul, ol) {
+  padding-left: 20px;
+}
+.ownership-provider-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--studio-line);
+  margin: 25px 0 30px;
+}
+.ownership-provider-grid > div {
+  padding: 28px;
+  background: var(--studio-soft);
+}
+.ownership-provider-grid > div + div {
+  border-top: 1px solid var(--studio-line);
+}
+.ownership-provider-grid h4 {
+  font-size: 25px;
+  margin-bottom: 17px;
+}
+.ownership-provider-grid p {
+  font-size: 14px;
+  line-height: 1.85;
+  margin-bottom: 16px;
+  max-width: 70ch;
+}
+.ownership-access-map {
+  border: 1px solid var(--studio-line);
+  background: radial-gradient(
+    ellipse at 50% 25%,
+    var(--studio-soft),
+    transparent 70%
+  );
+  padding: 28px;
+  margin: 30px 0;
+}
+.ownership-map-owner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  padding-bottom: 28px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--studio-line);
+}
+.ownership-map-owner::after {
+  content: "↓";
+  position: absolute;
+  bottom: -15px;
+  background: var(--studio-bg);
+  padding: 0 12px;
+  color: var(--studio-mint);
+}
+.ownership-map-owner svg {
+  color: var(--studio-mint);
+  margin-bottom: 9px;
+}
+.ownership-map-owner strong {
+  font-size: 18px;
+  color: var(--studio-text);
+}
+.ownership-map-owner span {
+  font-size: 11px;
+  color: var(--studio-muted);
+}
+.ownership-map-layers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.ownership-map-layers > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  background: var(--studio-soft);
+  padding: 20px 8px;
+}
+.ownership-map-layers svg {
+  color: var(--studio-mint);
+}
+.ownership-map-layers strong {
+  font-size: 11px;
+  color: var(--studio-text);
+}
+.ownership-map-layers span {
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--studio-muted);
+}
+.ownership-access-map > p {
+  text-align: center;
+  font-size: 11px;
+  margin: 23px auto 0;
+  max-width: 55ch;
+}
+.ownership-disclosure {
+  border: 1px solid var(--studio-line);
+  padding: 30px;
+  background: linear-gradient(130deg, var(--studio-soft), transparent);
+  margin: 32px 0;
+}
+.ownership-disclosure h3 {
+  font-size: 30px;
+  margin: 15px 0 20px;
+}
+.ownership-disclosure p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+.ownership-disclosure p + p {
+  margin-top: 17px;
+}
+.ownership-table-wrap {
+  overflow-x: auto;
+  margin: 28px 0;
+  border: 1px solid var(--studio-line);
+}
+.ownership-guide table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.ownership-guide caption {
+  text-align: left;
+  padding: 17px 20px;
+  font-size: 11px;
+  color: var(--studio-muted);
+}
+.ownership-guide :is(th, td) {
+  padding: 18px 20px;
+  vertical-align: top;
+  border-top: 1px solid var(--studio-line);
+}
+.ownership-guide th {
+  font-weight: 600;
+  color: var(--studio-text);
+}
+.ownership-guide tbody th {
+  width: 135px;
+}
+.ownership-guide thead {
+  background: var(--studio-soft);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.ownership-two-sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-block: 1px solid var(--studio-line);
+  margin: 30px 0;
+}
+.ownership-two-sides > div {
+  padding: 25px 22px 25px 0;
+}
+.ownership-two-sides > div + div {
+  padding-left: 25px;
+  border-left: 1px solid var(--studio-line);
+}
+.ownership-two-sides ul {
+  font-size: 13px;
+  line-height: 1.85;
+  margin-top: 18px;
+  padding-left: 18px;
+}
+.ownership-feedback {
+  margin: 30px 0;
+  border-left: 2px solid var(--studio-mint);
+  padding-left: 25px;
+}
+.ownership-feedback > div + div {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid var(--studio-line);
+}
+.ownership-feedback p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--studio-text);
+  margin-top: 12px;
+}
+.ownership-feedback > div:first-child p {
+  font-size: 14px;
+  color: var(--studio-muted);
+}
+.ownership-budget {
+  border: 1px solid var(--studio-line);
+  background: var(--studio-soft);
+  padding: 28px;
+  margin: 30px 0;
+}
+.ownership-budget h3 {
+  font-size: 30px;
+  margin: 15px 0 18px;
+}
+.ownership-budget-heading > p {
+  font-size: 12px;
+  line-height: 1.85;
+}
+.ownership-budget-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 25px;
+  margin: 27px 0;
+}
+.ownership-budget-inputs label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--studio-text);
+}
+.ownership-budget-inputs label small {
+  display: block;
+  font-size: 9px;
+  color: var(--studio-muted);
+}
+.ownership-budget-inputs input {
+  width: 110px;
+  min-width: 0;
+  border: 1px solid var(--studio-line);
+  background: var(--studio-bg);
+  border-radius: 0;
+  padding: 10px;
+  color: var(--studio-text);
+  font-family: inherit;
+  font-size: 13px;
+}
+.ownership-budget-output {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 23px;
+}
+.ownership-budget-output > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ownership-budget-output span {
+  font-size: 9px;
+  color: var(--studio-muted);
+}
+.ownership-budget-output strong {
+  font-family: Oswald, sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--studio-text);
+}
+.ownership-budget-output > div:last-child strong {
+  color: var(--studio-mint);
+}
+.ownership-guide .ownership-fine {
+  font-size: 10px;
+  line-height: 1.9;
+  color: var(--studio-muted);
+  margin-top: 23px;
+}
+.ownership-handover-list {
+  background: var(--studio-soft);
+  padding: 28px;
+  margin: 28px 0;
+}
+.ownership-handover-list h3 {
+  font-size: 27px;
+  margin-bottom: 22px;
+}
+.ownership-handover-list ul {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+}
+.ownership-handover-list li {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  line-height: 1.85;
+}
+.ownership-handover-list svg {
+  flex-shrink: 0;
+  color: var(--studio-mint);
+  margin-top: 4px;
+}
+.ownership-questions {
+  margin: 55px 0 30px;
+  padding: 35px;
+  border: 1px solid var(--studio-line);
+  background: var(--studio-soft);
+  scroll-margin-top: 120px;
+}
+.studio-page .ownership-guide .ownership-questions h2 {
+  font-size: 38px;
+  margin: 17px 0 23px;
+}
+.ownership-questions > p:not(.ownership-label) {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.ownership-guide .ownership-copy,
+.ownership-guide .ownership-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 44px;
+  border: 1px solid var(--studio-mint);
+  background: transparent;
+  color: var(--studio-text);
+  padding: 12px 19px;
+  font:
+    600 11px/1.5 Montserrat,
+    sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 24px;
+}
+.ownership-copy:hover,
+.ownership-cta:hover {
+  background: var(--studio-soft);
+}
+.ownership-questions .ownership-copy-status {
+  min-height: 24px;
+  color: var(--studio-mint);
+  font-size: 10px;
+  margin-top: 12px;
+}
+.ownership-questions details {
+  font-size: 12px;
+  line-height: 1.85;
+  margin-top: 15px;
+}
+.ownership-questions summary {
+  cursor: pointer;
+  color: var(--studio-text);
+}
+.ownership-questions pre {
+  white-space: pre-wrap;
+  font: inherit;
+  margin: 20px 0 0;
+  overflow-wrap: anywhere;
+}
+.ownership-closing {
+  font-size: 18px;
+  line-height: 1.9;
+  color: var(--studio-text);
+  max-width: 65ch;
+  margin: 32px 0 !important;
+}
+.ownership-credit {
+  margin: 45px 0;
+  padding: 32px 0;
+  border-block: 1px solid var(--studio-line);
+}
+.studio-page .ownership-guide .ownership-credit h2 {
+  font-size: 32px;
+  margin: 15px 0 24px;
+}
+.ownership-credit > p:not(.ownership-label) {
+  font-size: 13px;
+  line-height: 1.95;
+}
+.ownership-credit-link {
+  display: inline-flex;
+  gap: 22px;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 22px;
+}
+.ownership-article-footer {
+  padding: 10px 0 0;
+}
+.studio-page .ownership-guide .ownership-article-footer h2 {
+  font-size: clamp(34px, 3.6vw, 46px);
+  line-height: 1.15;
+  margin: 20px 0 25px;
+}
+.ownership-article-footer h2 em {
+  color: var(--studio-mint);
+}
+.ownership-article-footer > p:not(.ownership-label):not(.ownership-fine) {
+  font-size: 14px;
+  max-width: 65ch;
+}
+.ownership-article-footer > div {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+.ownership-article-footer > div > a:last-child {
+  font-size: 11px;
+  margin-top: 24px;
+}
+@media (min-width: 1600px) {
+  .ownership-guide {
+    max-width: 1440px;
+  }
+  .ownership-hero {
+    gap: 80px;
+  }
+  .ownership-reading-layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 100px;
+  }
+}
+@media (max-width: 1050px) {
+  .ownership-hero {
+    gap: 35px;
+  }
+  .ownership-reading-layout {
+    grid-template-columns: 165px minmax(0, 1fr);
+    gap: 35px;
+  }
+  .ownership-map-layers {
+    grid-template-columns: 1fr 1fr;
+  }
+  .ownership-budget-inputs {
+    grid-template-columns: 1fr;
+  }
+  .ownership-sidebar a {
+    font-size: 10px;
+  }
+  .ownership-two-sides {
+    grid-template-columns: 1fr;
+  }
+  .ownership-two-sides > div + div {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--studio-line);
+  }
+}
+@media (max-width: 760px) {
+  .ownership-guide {
+    font-size: 14px;
+    line-height: 1.9;
+    padding-top: 28px;
+    padding-bottom: 60px;
+  }
+  .ownership-hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding-bottom: 32px;
+  }
+  .ownership-back {
+    margin-bottom: 27px;
+  }
+  .studio-page .ownership-guide h1 {
+    font-size: clamp(43px, 12.5vw, 57px);
+    letter-spacing: -1px;
+  }
+  .ownership-hero .ownership-deck {
+    font-size: 15px;
+    margin-top: 21px;
+  }
+  .ownership-hero .ownership-byline {
+    font-size: 9px;
+  }
+  .ownership-opening {
+    margin: 0 0 32px;
+  }
+  .ownership-guide .ownership-pullquote {
+    font-size: 28px;
+    padding: 28px 0;
+    margin-bottom: 30px;
+  }
+  .ownership-reading-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .ownership-sidebar {
+    position: static;
+    border-bottom: 1px solid var(--studio-line);
+    padding-bottom: 25px;
+  }
+  .ownership-sidebar ol {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+    margin: 20px 0;
+  }
+  .ownership-sidebar a {
+    font-size: 10px;
+    gap: 9px;
+  }
+  .ownership-sidebar .ownership-sidebar-end {
+    width: fit-content;
+    font-size: 10px;
+  }
+  .ownership-chapter {
+    padding-top: 38px;
+    margin-top: 38px;
+    scroll-margin-top: 95px;
+  }
+  .studio-page .ownership-guide .ownership-chapter h2 {
+    font-size: 35px;
+    letter-spacing: -0.3px;
+  }
+  .ownership-chapter > p {
+    margin-bottom: 20px;
+  }
+  .ownership-chapter > h3 {
+    font-size: 25px;
+  }
+  .ownership-project-photo {
+    margin: 25px 0 !important;
+  }
+  .ownership-guide figcaption {
+    font-size: 10px;
+  }
+  .ownership-practical {
+    padding: 22px;
+    font-size: 13px;
+  }
+  .ownership-provider-grid > div {
+    padding: 22px;
+  }
+  .ownership-provider-grid p {
+    font-size: 13px;
+  }
+  .ownership-access-map {
+    padding: 22px;
+  }
+  .ownership-map-layers > div {
+    padding: 18px 9px;
+  }
+  .ownership-disclosure {
+    padding: 23px;
+  }
+  .ownership-disclosure h3 {
+    font-size: 28px;
+  }
+  .ownership-disclosure p {
+    font-size: 13px;
+  }
+  .ownership-guide :is(th, td) {
+    padding: 13px;
+    font-size: 12px;
+  }
+  .ownership-guide tbody th {
+    width: 90px;
+  }
+  .ownership-guide caption {
+    padding: 14px;
+    font-size: 10px;
+  }
+  .ownership-budget {
+    padding: 23px;
+  }
+  .ownership-budget h3 {
+    font-size: 28px;
+  }
+  .ownership-budget-inputs {
+    gap: 15px;
+  }
+  .ownership-budget-output {
+    gap: 10px;
+  }
+  .ownership-budget-output strong {
+    font-size: 26px;
+  }
+  .ownership-budget-output span {
+    font-size: 8px;
+    line-height: 1.7;
+  }
+  .ownership-handover-list {
+    padding: 23px;
+  }
+  .ownership-handover-list ul {
+    font-size: 12px;
+  }
+  .ownership-questions {
+    padding: 24px;
+    margin-top: 40px;
+  }
+  .studio-page .ownership-guide .ownership-questions h2 {
+    font-size: 33px;
+  }
+  .ownership-closing {
+    font-size: 16px;
+  }
+  .studio-page .ownership-guide .ownership-credit h2 {
+    font-size: 29px;
+  }
+  .ownership-credit {
+    margin: 32px 0;
+  }
+  .studio-page .ownership-guide .ownership-article-footer h2 {
+    font-size: 34px;
+  }
+  .ownership-article-footer > div {
+    gap: 5px;
+  }
+  .ownership-article-footer > div > a:last-child {
+    margin-top: 18px;
+  }
+}
+
+/* Early ownership essentials: clear, theme-aware diagrams without animation overhead. */
+.ownership-guide :is(#website-costs, #business-email, #website-uptime) {
+  scroll-margin-top: 120px;
+}
+.ownership-cost-overview {
+  border-block: 1px solid var(--studio-line);
+  padding: 44px 0;
+  margin: 0 0 55px;
+}
+.ownership-cost-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: end;
+  margin-bottom: 32px;
+}
+.studio-page
+  .ownership-guide
+  :is(.ownership-cost-intro, .ownership-email-heading)
+  h2 {
+  font-size: clamp(32px, 3.6vw, 47px);
+  margin-top: 14px;
+}
+.ownership-guide :is(.ownership-cost-intro, .ownership-email-heading) h2 em {
+  color: var(--studio-mint);
+}
+.ownership-cost-intro > p {
+  max-width: 58ch;
+}
+.ownership-cost-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--studio-line);
+}
+.ownership-cost-cards > div {
+  padding: clamp(18px, 2.3vw, 32px);
+  background: var(--studio-soft);
+}
+.ownership-cost-cards > div + div {
+  border-left: 1px solid var(--studio-line);
+}
+.ownership-cost-symbol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--studio-mint);
+  margin-bottom: 28px;
+}
+.ownership-cost-symbol span {
+  font-size: 10px;
+  color: var(--studio-muted);
+}
+.ownership-cost-cards h3 {
+  font-size: 24px;
+}
+.ownership-cost-cards p {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.ownership-cost-cards .ownership-cost-period {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--studio-mint);
+  font-size: 10px;
+  line-height: 1.6;
+  margin: 12px 0 16px;
+}
+.ownership-cost-period svg {
+  flex-shrink: 0;
+}
+.ownership-cost-care {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid var(--studio-line);
+  border-top: 0;
+  font-size: 13px;
+}
+.ownership-cost-care > svg {
+  flex-shrink: 0;
+  color: var(--studio-mint);
+  margin-top: 5px;
+}
+.ownership-cost-care strong {
+  color: var(--studio-text);
+}
+.ownership-guide .ownership-cost-note {
+  font-size: 13px;
+  max-width: 100ch;
+  margin-top: 24px;
+}
+.ownership-business-email {
+  max-width: 1000px;
+  margin: 0 auto 60px;
+}
+.ownership-email-heading {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 38px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.ownership-email-heading p:last-child {
+  margin-top: 20px;
+}
+.ownership-email-visual {
+  text-align: center;
+  color: var(--studio-mint);
+}
+.ownership-email-orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  margin: auto auto 20px;
+  border: 1px solid var(--studio-line);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--studio-mint) 9%, transparent),
+    transparent 70%
+  );
+}
+.ownership-email-orbit::before {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border: 1px dashed var(--studio-line);
+  border-radius: 50%;
+}
+.ownership-email-orbit > svg:last-child {
+  position: absolute;
+  bottom: 12px;
+  right: 6px;
+  background: var(--studio-bg);
+}
+.ownership-email-visual > span {
+  font-size: 8px;
+  letter-spacing: 1.7px;
+}
+.ownership-business-email > p {
+  margin-bottom: 22px;
+}
+.ownership-email-checks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+.ownership-email-checks > div {
+  border-top: 1px solid var(--studio-line);
+  padding-top: 20px;
+}
+.ownership-email-checks svg {
+  color: var(--studio-mint);
+  margin-bottom: 13px;
+}
+.ownership-email-checks h3 {
+  font-size: 22px;
+  margin-bottom: 13px;
+}
+.ownership-email-checks p {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.ownership-sidebar-basics {
+  display: grid;
+  gap: 9px;
+  padding-top: 18px;
+}
+.ownership-sidebar-basics a {
+  font-size: 10px;
+  color: var(--studio-mint);
+}
+.ownership-uptime {
+  border-block: 1px solid var(--studio-line);
+  padding: 30px 0;
+  margin: 38px 0;
+}
+.ownership-uptime h3 {
+  font-size: 30px;
+  margin: 14px 0 20px;
+  max-width: 30ch;
+}
+.ownership-uptime > p {
+  margin-bottom: 22px;
+}
+.ownership-uptime > p:last-child {
+  margin-bottom: 0;
+}
+.ownership-uptime .ownership-reference {
+  margin-bottom: 22px;
+}
+.ownership-uptime-explainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--studio-line);
+  margin: 28px 0;
+  background: var(--studio-soft);
+}
+.ownership-uptime-control {
+  padding: 28px;
+  min-width: 0;
+}
+.ownership-uptime-control > svg {
+  color: var(--studio-mint);
+  margin-bottom: 15px;
+}
+.ownership-uptime-control label {
+  display: block;
+  font-size: 13px;
+  color: var(--studio-text);
+  margin-bottom: 16px;
+}
+.ownership-uptime-control select {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid var(--studio-line);
+  color: var(--studio-text);
+  background: var(--studio-bg);
+  font: inherit;
+  font-size: 13px;
+  border-radius: 0;
+}
+.ownership-uptime-control select:focus-visible {
+  outline: 2px solid var(--studio-mint);
+  outline-offset: 3px;
+}
+.ownership-uptime-control p {
+  font-size: 11px;
+  margin-top: 15px;
+}
+.ownership-uptime-result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px;
+  border-left: 1px solid var(--studio-line);
+  color: var(--studio-mint);
+}
+.ownership-uptime-result > svg {
+  margin-bottom: 18px;
+}
+.ownership-uptime-result span {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--studio-copy);
+}
+.ownership-uptime-result strong {
+  font:
+    400 clamp(30px, 3.2vw, 46px)/1.7 Oswald,
+    sans-serif;
+  white-space: nowrap;
+}
+.ownership-uptime-result small {
+  font-size: 15px;
+}
+.ownership-uptime-result span:last-child {
+  color: var(--studio-muted);
+  font-size: 9px;
+}
+.ownership-uptime-response {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 28px 0;
+}
+.ownership-uptime-response > div {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--studio-line);
+  padding-top: 18px;
+}
+.ownership-uptime-response svg {
+  color: var(--studio-mint);
+  margin-bottom: 12px;
+}
+.ownership-uptime-response strong {
+  font-size: 12px;
+  color: var(--studio-text);
+}
+.ownership-uptime-response span {
+  font-size: 11px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.ownership-guide .ownership-night-shift {
+  margin: 32px 0;
+}
+.ownership-night-shift img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--studio-line);
+}
+.ownership-guide .ownership-pride {
+  border-left: 2px solid var(--studio-mint);
+  padding-left: 24px;
+  font-size: 16px;
+}
+@media (max-width: 1100px) {
+  .ownership-cost-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ownership-cost-cards > div:nth-child(3) {
+    border-left: 0;
+  }
+  .ownership-cost-cards > div:nth-child(n + 3) {
+    border-top: 1px solid var(--studio-line);
+  }
+  .ownership-uptime-explainer {
+    grid-template-columns: 1fr;
+  }
+  .ownership-uptime-result {
+    border-left: 0;
+    border-top: 1px solid var(--studio-line);
+  }
+}
+@media (max-width: 760px) {
+  .ownership-guide :is(#website-costs, #business-email, #website-uptime) {
+    scroll-margin-top: 95px;
+  }
+  .ownership-cost-overview {
+    padding: 30px 0;
+    margin-bottom: 38px;
+  }
+  .ownership-cost-intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .ownership-cost-intro > p,
+  .ownership-business-email > p,
+  .ownership-email-heading p:last-child {
+    font-size: 13px;
+  }
+  .ownership-cost-cards {
+    grid-template-columns: 1fr;
+  }
+  .ownership-cost-cards > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--studio-line);
+  }
+  .ownership-cost-cards > div {
+    padding: 24px;
+  }
+  .ownership-cost-symbol {
+    margin-bottom: 18px;
+  }
+  .ownership-cost-care {
+    padding: 22px;
+    gap: 14px;
+    font-size: 12px;
+  }
+  .ownership-business-email {
+    margin-bottom: 36px;
+  }
+  .ownership-email-heading {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .ownership-email-visual {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    text-align: left;
+  }
+  .ownership-email-orbit {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    flex-shrink: 0;
+  }
+  .ownership-email-orbit > svg:first-child {
+    width: 35px;
+  }
+  .ownership-email-visual > span {
+    max-width: 12ch;
+    line-height: 1.9;
+  }
+  .ownership-email-checks {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .ownership-email-checks > div {
+    display: grid;
+    grid-template-columns: 25px minmax(0, 1fr);
+    column-gap: 15px;
+  }
+  .ownership-email-checks p {
+    grid-column: 2;
+  }
+  .ownership-email-checks h3 {
+    font-size: 23px;
+  }
+  .ownership-sidebar-basics {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .ownership-uptime {
+    margin: 28px 0;
+  }
+  .ownership-uptime h3 {
+    font-size: 28px;
+  }
+  .ownership-uptime-control,
+  .ownership-uptime-result {
+    padding: 23px;
+  }
+  .ownership-uptime-result strong {
+    font-size: 38px;
+  }
+  .ownership-uptime-response {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .ownership-uptime-response > div {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 0 15px;
+  }
+  .ownership-uptime-response span {
+    grid-column: 2;
+    margin-top: 0;
+  }
+  .ownership-uptime-response svg {
+    grid-row: span 2;
+  }
+}

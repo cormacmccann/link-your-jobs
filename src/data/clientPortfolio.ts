@@ -13,6 +13,32 @@ export type ClientPortfolioBrief = {
 
 export const CLIENT_PORTFOLIO: ClientPortfolioBrief[] = [
   {
+    slug: "epso",
+    name: "EPSO",
+    collection: "platforms",
+    services: [
+      "Web design",
+      "Custom development",
+      "Interactive mural explorer",
+      "Mobile navigation",
+      "Performance optimisation",
+      "Content structure",
+    ],
+    tools: [
+      "Lovable",
+      "React",
+      "TypeScript",
+      "Vite",
+      "TanStack Start",
+      "Leaflet",
+      "OpenStreetMap",
+    ],
+    intro: "A town full of stories. Built to explore, wherever you are.",
+    description:
+      "The previous EPSO website established the visual aesthetic. KAMROK built on that foundation with a wider development effort spanning Lovable and custom code, prioritising speed, clearer navigation and a genuinely interactive way to discover Dundalk’s murals, artists and stories.",
+    url: "https://epso.ie/",
+  },
+  {
     slug: "airnean",
     name: "Airneán",
     collection: "identity",

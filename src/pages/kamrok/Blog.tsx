@@ -2,9 +2,18 @@ import { Link } from "@/lib/router-compat";
 import { Lightbulb, FileText } from "lucide-react";
 import ActionFeedback from "@/components/kamrok/ActionFeedback";
 
+import ResponsiveImage from "@/components/kamrok/ResponsiveImage";
+import { ownershipImages } from "@/assets/blog/website-ownership/images";
+import "@/styles/blog-notes.css";
 import KamrokLayout from "@/components/kamrok/KamrokLayout";
 
 const NOTES = [
+  {
+    date: "22 OCT 2026",
+    title: "Your website. Your business. Your keys.",
+    body: "Buy your own domain, understand your hosting and keep control of your website or app. My take on ownership, fair payment, useful feedback and a proper handover — with examples, a cost calculator and questions to copy.",
+    to: "/blog/own-your-website",
+  },
   {
     date: "OCT 2026",
     title: "How to get found on Google in Dundalk",
@@ -33,32 +42,55 @@ export default function Blog() {
   return (
     <KamrokLayout
       title="Field Notes — KAMROK"
-      description="Short notes from the KAMROK studio — what we're building, what we're learning, and the occasional opinion."
+      description="Practical guides and notes from the KAMROK studio — websites, ownership, design and the work behind them."
     >
       <div className="kk-eyebrow">FROM THE STUDIO</div>
       <h1>Field notes.</h1>
       <p className="kk-lead-text">
-        Short notes from the studio — what we're building, what we're learning,
-        and the occasional opinion. New entries as they happen.
+        Practical guides, studio notes and a few opinions from experience. The
+        design, the build and the things worth knowing before you begin.
       </p>
 
       <div className="kk-notes">
         {NOTES.map((n) => (
-          <article className="kk-note" key={n.title}>
-            <div className="kk-note__date">{n.date}</div>
-            <h2>{n.title}</h2>
-            <p>{n.body}</p>
-            {n.to && (
+          <article
+            className={`kk-note${n.to === "/blog/own-your-website" ? " kk-note--illustrated" : ""}`}
+            key={n.title}
+          >
+            {n.to === "/blog/own-your-website" && (
               <Link
-                className="kk-visit kk-visit--solid cinematic-action"
+                className="blog-note-art"
                 to={n.to}
+                aria-label="Read Your website. Your business. Your keys."
               >
-                {n.to.startsWith("/work/")
-                  ? "Read the case study"
-                  : "Read the guide"}{" "}
-                <ActionFeedback icon={FileText} />
+                <ResponsiveImage
+                  variants={ownershipImages.keys}
+                  mobileMax={480}
+                  sizes="(max-width: 760px) 92vw, 35vw"
+                  width={1536}
+                  height={1024}
+                  loading="lazy"
+                  decoding="async"
+                  alt="The KAMROK astronaut chimp holding a silver key beside floating website panels"
+                />
               </Link>
             )}
+            <div>
+              <div className="kk-note__date">{n.date}</div>
+              <h2>{n.title}</h2>
+              <p>{n.body}</p>
+              {n.to && (
+                <Link
+                  className="kk-visit kk-visit--solid cinematic-action"
+                  to={n.to}
+                >
+                  {n.to.startsWith("/work/")
+                    ? "Read the case study"
+                    : "Read the guide"}{" "}
+                  <ActionFeedback icon={FileText} />
+                </Link>
+              )}
+            </div>
           </article>
         ))}
       </div>

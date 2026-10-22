@@ -1,0 +1,15 @@
+{
+  "mode": "Built-in image_gen edit",
+  "generated": "2026-10-22",
+  "prompt": "Edit target: Image 1 is the current KAMROK website-ownership article cover. Identity reference: Image 2 is KAMROK's established astronaut chimp mascot; use this exact character identity, realistic chimp facial features, dark weathered spacesuit, clear spherical visor, metal helmet fittings and cyan/ruby rim lighting. Update the cover to prominently include this chimp, rather than leaving it as a still life of objects. Compose a polished cinematic 3:2 landscape scene: chimp chest-up on the left/centre, holding the original sculptural brushed-metal key in a gloved hand across the foreground, with the elegant frosted-glass website panels receding on the right. The key remains immediately recognisable as a physical house key with a round head, not a weapon or a tool. Preserve the cover's quiet nearly-black navy backdrop, silver metal, cyan/mint and subtle lilac highlights, warm ivory reflections, premium studio lighting, clean composition and breathing space. The chimp should feel naturally integrated into the scene, not pasted on, with realistic anatomy and a calm thoughtful expression. Keep the recognisable brand character from Image 2; do not turn it into a cartoon, a robot, a human or another animal. Keep all subjects entirely inside the composition with space around the helmet and the key. Remove tiny decorative clutter; use just the chimp, key and two or three simple glass browser panels. No text, no captions, no little labels, no logos, no letters, no watermark. Maintain the same sophisticated art direction as the original cover.",
+  "referenceImages": [
+    "src/assets/blog/website-ownership/website-keys-1440.webp",
+    "public/art/brand/chimp-front-dark.webp"
+  ],
+  "files": [
+    "src/assets/blog/website-ownership/website-keys-chimp-480.webp",
+    "src/assets/blog/website-ownership/website-keys-chimp-840.webp",
+    "src/assets/blog/website-ownership/website-keys-chimp-1440.webp",
+    "public/blog/website-ownership/website-keys-chimp-social.webp"
+  ]
+}

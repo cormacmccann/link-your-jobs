@@ -1,0 +1,21 @@
+.kk-note--illustrated {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 38px;
+}
+.blog-note-art {
+  display: block;
+  border: 1px solid var(--studio-line);
+}
+.blog-note-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 760px) {
+  .kk-note--illustrated {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}

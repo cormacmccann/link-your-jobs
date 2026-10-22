@@ -1,0 +1,10 @@
+{
+  "mode": "built-in imagegen; new illustration using character identity reference",
+  "prompt": "Create a premium cinematic landscape editorial illustration for KAMROK design studio's website ownership guide, about a website working for a business after hours. Reference image is ONLY character identity and visual treatment: preserve this realistic thoughtful chimp, weathered charcoal astronaut suit and clear dome helmet, cyan and restrained ruby rim lighting; never cartoon. New composition: chimp on left third in profile at a beautifully sparse mission-control desk, studying one floating translucent website window with abstract layout blocks, and an adjacent small business email envelope symbol with a subtle security shield. Two compact physical server modules at right with tiny cyan indicator lights, outside a panoramic window a quiet moonlit landscape. Atmosphere: calm, dependable, capable, warm curiosity. Charcoal navy, soft silver, cyan, muted ruby. Photorealistic crafted detail on subject, uncluttered empty upper-right space; elegant editorial art, not stock corporate clip art. Wide 3:2 image, no text, no numbers, no logos, no watermark, no pseudo-lettering. Keep all essential subjects within central 85% of frame for responsive use.",
+  "reference": "public/art/brand/chimp-front-dark.webp",
+  "assets": [
+    "src/assets/blog/website-ownership/website-night-shift-480.webp",
+    "src/assets/blog/website-ownership/website-night-shift-840.webp",
+    "src/assets/blog/website-ownership/website-night-shift-1440.webp"
+  ]
+}
