@@ -1,3 +1,4 @@
+import WebsiteQuality from "@/components/kamrok/WebsiteQuality";
 import {
   ArrowLeft,
   ArrowRight,
@@ -71,6 +72,7 @@ export default function ServiceDetail({
           </figcaption>
         </figure>
       </header>
+      {service.slug === "websites-landing-pages" && <WebsiteQuality contact={contact} />}
       <section className="service-fit" aria-label="Who this is for">
         <span>A GOOD FIT</span>
         <p>{service.fit}</p>

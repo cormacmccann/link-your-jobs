@@ -1,3 +1,4 @@
+import WebsiteQuality from "@/components/kamrok/WebsiteQuality";
 import { Link } from "@/lib/router-compat";
 import { ArrowDown, Award, Check, LayoutGrid, MessageCircle, Plus, ShoppingBag, Workflow, Wrench } from "lucide-react";
 import { SiWordpress } from "react-icons/si";
@@ -50,6 +51,8 @@ export default function Skills() {
         </section>
 
         <div className="services-trust"><span><Award size={20} aria-hidden="true" /> Award-winning WordPress designer</span><span><Check size={20} aria-hidden="true" /> Certified Lovable expert</span><span><MessageCircle size={20} aria-hidden="true" /> Work directly with Cormac</span></div>
+
+        <WebsiteQuality />
 
         <section id="platforms" className="services-section" aria-labelledby="platforms-title">
           <div className="services-section-heading"><div><p className="services-kicker">THE RIGHT FOUNDATION</p><h2 id="platforms-title">Your ambition.<br />Your platform.</h2></div><p>Choose WordPress or Lovable. Not sure yet? Tell me what you need to achieve and I’ll help you make an informed choice.</p></div>

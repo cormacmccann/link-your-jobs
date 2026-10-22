@@ -577,7 +577,8 @@ export default function Work() {
             <p className="work-contact-note">
               Web design, app development and branding for businesses across
               Louth, Down and Armagh — including Dundalk, Newry, Armagh,
-              Banbridge and Newcastle, County Down — and across Ireland and the UK.
+              Banbridge and Newcastle, County Down — and across Ireland and the
+              UK.
             </p>
           </div>
           <script

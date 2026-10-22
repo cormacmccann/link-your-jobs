@@ -2,6 +2,7 @@ import { BRAND_ARTWORK } from "./brandArtwork";
 import { CLIENT_PORTFOLIO } from "./clientPortfolio";
 import { PORTFOLIO_CAPTURES } from "./portfolioCaptures";
 import { buildMckevittsChapters } from "./mckevittsStory";
+import { EPSO_CASE } from "./epsoStory";
 
 export type ProjectImage = {
   src: string;
@@ -21,6 +22,8 @@ export type CaseData = {
   category: string;
   url?: string;
   intro: string;
+  brief?: string;
+  platformLabel?: string;
   year?: string;
   surface: string;
   hero: ProjectImage;
@@ -51,6 +54,8 @@ export type CaseData = {
 };
 export type CaseChapter = {
   id: string;
+  navLabel?: string;
+  layout?: "phones";
   eyebrow: string;
   title: string;
   paragraphs: string[];
@@ -61,6 +66,7 @@ export type CaseChapter = {
 };
 
 export const PROJECT_CASES: Record<string, CaseData> = {
+  epso: EPSO_CASE,
   airnean: {
     name: "Airneán",
     category: "Irish culture · Brand identity",
@@ -754,6 +760,8 @@ export const CLIENT_BRAND_COUNT = CLIENT_PORTFOLIO.length;
 PROJECT_CASES["mckevitts"]!.chapters = buildMckevittsChapters(
   PROJECT_CASES["mckevitts"]!,
 );
+PROJECT_CASES["mckevitts"]!.brief =
+  "A connected identity and website for a family-run hotel, restaurant and bar in the heart of Carlingford.";
 // Covers change with browsing context; the case study always keeps the full project.
 export const getProjectCover = (
   project: CaseData,

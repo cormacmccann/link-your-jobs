@@ -29,6 +29,7 @@ import { Route as StudioWebDesignWarrenpointRouteImport } from './routes/_studio
 import { Route as ApiSitemapAuditRouteImport } from './routes/api/sitemap-audit'
 import { Route as StudioBlogIndexRouteImport } from './routes/_studio/blog/index'
 import { Route as StudioBlogDundalkSeoGuideRouteImport } from './routes/_studio/blog/dundalk-seo-guide'
+import { Route as StudioBlogOwnYourWebsiteRouteImport } from './routes/_studio/blog/own-your-website'
 import { Route as StudioServicesServiceRouteImport } from './routes/_studio/services/$service'
 import { Route as StudioTemplatesIndexRouteImport } from './routes/_studio/templates/index'
 import { Route as StudioTemplatesTakeawayHubRouteImport } from './routes/_studio/templates/takeaway-hub'
@@ -138,6 +139,12 @@ const StudioBlogDundalkSeoGuideRoute =
     path: '/blog/dundalk-seo-guide',
     getParentRoute: () => StudioRoute,
   } as any)
+const StudioBlogOwnYourWebsiteRoute =
+  StudioBlogOwnYourWebsiteRouteImport.update({
+    id: '/blog/own-your-website',
+    path: '/blog/own-your-website',
+    getParentRoute: () => StudioRoute,
+  } as any)
 const StudioServicesServiceRoute = StudioServicesServiceRouteImport.update({
   id: '/services/$service',
   path: '/services/$service',
@@ -189,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/web-design-warrenpoint': typeof StudioWebDesignWarrenpointRoute
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/blog/own-your-website': typeof StudioBlogOwnYourWebsiteRoute
   '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/tools/$': typeof StudioToolsSplatRoute
@@ -216,6 +224,7 @@ export interface FileRoutesByTo {
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/': typeof StudioIndexRoute
   '/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/blog/own-your-website': typeof StudioBlogOwnYourWebsiteRoute
   '/services/$service': typeof StudioServicesServiceRoute
   '/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/tools/$': typeof StudioToolsSplatRoute
@@ -245,6 +254,7 @@ export interface FileRoutesById {
   '/api/sitemap-audit': typeof ApiSitemapAuditRoute
   '/_studio/': typeof StudioIndexRoute
   '/_studio/blog/dundalk-seo-guide': typeof StudioBlogDundalkSeoGuideRoute
+  '/_studio/blog/own-your-website': typeof StudioBlogOwnYourWebsiteRoute
   '/_studio/services/$service': typeof StudioServicesServiceRoute
   '/_studio/templates/takeaway-hub': typeof StudioTemplatesTakeawayHubRoute
   '/_studio/tools/$': typeof StudioToolsSplatRoute
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/web-design-warrenpoint'
     | '/api/sitemap-audit'
     | '/blog/dundalk-seo-guide'
+    | '/blog/own-your-website'
     | '/services/$service'
     | '/templates/takeaway-hub'
     | '/tools/$'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/api/sitemap-audit'
     | '/'
     | '/blog/dundalk-seo-guide'
+    | '/blog/own-your-website'
     | '/services/$service'
     | '/templates/takeaway-hub'
     | '/tools/$'
@@ -329,6 +341,7 @@ export interface FileRouteTypes {
     | '/api/sitemap-audit'
     | '/_studio/'
     | '/_studio/blog/dundalk-seo-guide'
+    | '/_studio/blog/own-your-website'
     | '/_studio/services/$service'
     | '/_studio/templates/takeaway-hub'
     | '/_studio/tools/$'
@@ -486,6 +499,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioBlogDundalkSeoGuideRouteImport
       parentRoute: typeof StudioRoute
     }
+    '/_studio/blog/own-your-website': {
+      id: '/_studio/blog/own-your-website'
+      path: '/blog/own-your-website'
+      fullPath: '/blog/own-your-website'
+      preLoaderRoute: typeof StudioBlogOwnYourWebsiteRouteImport
+      parentRoute: typeof StudioRoute
+    }
     '/_studio/services/$service': {
       id: '/_studio/services/$service'
       path: '/services/$service'
@@ -560,6 +580,7 @@ interface StudioRouteChildren {
   StudioWebDesignWarrenpointRoute: typeof StudioWebDesignWarrenpointRoute
   StudioIndexRoute: typeof StudioIndexRoute
   StudioBlogDundalkSeoGuideRoute: typeof StudioBlogDundalkSeoGuideRoute
+  StudioBlogOwnYourWebsiteRoute: typeof StudioBlogOwnYourWebsiteRoute
   StudioServicesServiceRoute: typeof StudioServicesServiceRoute
   StudioTemplatesTakeawayHubRoute: typeof StudioTemplatesTakeawayHubRoute
   StudioWorkSlugRoute: typeof StudioWorkSlugRoute
@@ -585,6 +606,7 @@ const StudioRouteChildren: StudioRouteChildren = {
   StudioWebDesignWarrenpointRoute: StudioWebDesignWarrenpointRoute,
   StudioIndexRoute: StudioIndexRoute,
   StudioBlogDundalkSeoGuideRoute: StudioBlogDundalkSeoGuideRoute,
+  StudioBlogOwnYourWebsiteRoute: StudioBlogOwnYourWebsiteRoute,
   StudioServicesServiceRoute: StudioServicesServiceRoute,
   StudioTemplatesTakeawayHubRoute: StudioTemplatesTakeawayHubRoute,
   StudioWorkSlugRoute: StudioWorkSlugRoute,

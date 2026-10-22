@@ -41,7 +41,9 @@ describe("Local service pages", () => {
       }
     }
     expect(titles.size).toBe(locations.length);
-    expect(new Set(locations.map((location) => location.context)).size).toBe(locations.length);
+    expect(new Set(locations.map((location) => location.context)).size).toBe(
+      locations.length,
+    );
   });
 
   it("describes Northern Ireland as a service area without inventing local offices", () => {
@@ -54,8 +56,12 @@ describe("Local service pages", () => {
   });
 
   it("uses approved regional feedback without inventing a Drogheda testimonial", () => {
-    expect(WEB_DESIGN_LOCATIONS.newry.testimonial?.author).toBe("Lucy Cumming · 26 Extreme");
-    expect(WEB_DESIGN_LOCATIONS.armagh.testimonial?.context).toContain("not a town-specific commission");
+    expect(WEB_DESIGN_LOCATIONS.newry.testimonial?.author).toBe(
+      "Lucy Cumming · 26 Extreme",
+    );
+    expect(WEB_DESIGN_LOCATIONS.armagh.testimonial?.context).toContain(
+      "not a town-specific commission",
+    );
     expect(WEB_DESIGN_LOCATIONS.drogheda.testimonial).toBeUndefined();
   });
 });

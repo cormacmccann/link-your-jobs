@@ -15,14 +15,12 @@ export default function ProcessCaseStudy({ data }: { data: CaseData }) {
         </div>
         <div className="process-brief">
           <span className="process-platform">
-            {data.tools?.includes("WordPress")
-              ? "WordPress website"
-              : "Website & identity"}
+            {data.platformLabel ??
+              (data.tools?.includes("WordPress")
+                ? "WordPress website"
+                : "Interactive website")}
           </span>
-          <p>
-            A connected identity and website for a family-run hotel, restaurant
-            and bar in the heart of Carlingford.
-          </p>
+          <p>{data.brief ?? data.description[0] ?? data.intro}</p>
           <dl>
             <div>
               <dt>Our role</dt>
@@ -54,15 +52,16 @@ export default function ProcessCaseStudy({ data }: { data: CaseData }) {
             resetScroll={false}
             hashScrollIntoView={{ block: "start", behavior: "instant" }}
           >
-            {chapter.id === "website"
-              ? "Website design"
-              : chapter.id === "before"
-                ? "Earlier logos"
-                : chapter.id === "process"
-                  ? "Design process"
-                  : chapter.id === "identity"
-                    ? "Brand identity"
-                    : "In the world"}
+            {chapter.navLabel ??
+              (chapter.id === "website"
+                ? "Website design"
+                : chapter.id === "before"
+                  ? "Earlier logos"
+                  : chapter.id === "process"
+                    ? "Design process"
+                    : chapter.id === "identity"
+                      ? "Brand identity"
+                      : "In the world")}
             <ArrowDown size={13} />
           </Link>
         ))}
@@ -74,6 +73,7 @@ export default function ProcessCaseStudy({ data }: { data: CaseData }) {
           width={data.hero.width}
           height={data.hero.height}
           loading="eager"
+          fetchPriority="high"
         />
         <figcaption>{data.hero.caption}</figcaption>
       </figure>
@@ -95,18 +95,22 @@ export default function ProcessCaseStudy({ data }: { data: CaseData }) {
               ))}
             </div>
           </div>
-          <div
-            className={
-              chapter.paired
-                ? "process-images process-images--pair"
-                : "process-images"
-            }
-          >
-            <CaseImageGallery
-              images={chapter.images}
-              name={`${data.name} — ${chapter.title}`}
-            />
-          </div>
+          {!!chapter.images.length && (
+            <div
+              className={
+                chapter.layout === "phones"
+                  ? "process-images process-images--phones"
+                  : chapter.paired
+                    ? "process-images process-images--pair"
+                    : "process-images"
+              }
+            >
+              <CaseImageGallery
+                images={chapter.images}
+                name={`${data.name} — ${chapter.title}`}
+              />
+            </div>
+          )}
           {!!chapter.supportingImages?.length && (
             <details className="process-supporting">
               <summary>

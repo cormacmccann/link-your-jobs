@@ -1,0 +1,12 @@
+{
+  "mode": "Built-in image_gen",
+  "purpose": "Original editorial cover for KAMROK’s website ownership guide",
+  "generated": "2026-10-22",
+  "prompt": "Use case: stylized-concept. Asset type: editorial cover for KAMROK's long-form guide about owning your website and collaborating fairly with a web designer. Create a polished cinematic 3D still life: one sculptural brushed-metal house key with a simple circular head, floating through a small elegant loop beside three floating thin browser-window-shaped glass panels with abstract interface lines, all resting in a quiet dark navy space. The key symbolizes control of the domain and business accounts; the panels symbolize the website, hosting and app data. Strong visual hierarchy: the key is unmistakable and dominant, panels are secondary. Art directed like a premium independent design studio: tactile silver metal, softly frosted glass, cyan/mint edge light and restrained lilac highlights, subtle warm ivory reflections. Wide landscape 3:2 composition, single coherent scene, deep almost-black navy background with a faint atmospheric gradient, plenty of breathing room, no crowded tech dashboard. Beautiful controlled studio lighting, sharp material detail, calm confident mood. No text, no letters, no numbers, no logos, no padlock, no stock-photo people, no watermark. This is a conceptual editorial illustration, not a screenshot. It must look sophisticated on both a dark website and as a dark photographic panel in a light website.",
+  "files": [
+    "src/assets/blog/website-ownership/website-keys-480.webp",
+    "src/assets/blog/website-ownership/website-keys-840.webp",
+    "src/assets/blog/website-ownership/website-keys-1440.webp",
+    "public/blog/website-ownership/website-keys-social.webp"
+  ]
+}
