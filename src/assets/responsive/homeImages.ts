@@ -52,10 +52,10 @@ import asset15_960 from "./branding-light-453e76ec-960.webp?no-inline";
 import asset16_480 from "./cormac-mccann-light-845ad00b-480.webp?no-inline";
 import asset16_720 from "./cormac-mccann-light-845ad00b-720.webp?no-inline";
 import { imacImages } from "../mockups/images";
-import asset18_480 from "./brand-presentation-61db6df1-480.webp?no-inline";
-import asset18_640 from "./brand-presentation-61db6df1-640.webp?no-inline";
-import asset18_840 from "./brand-presentation-61db6df1-840.webp?no-inline";
-import asset18_1200 from "./brand-presentation-61db6df1-1200.webp?no-inline";
+import asset18_480 from "./website-cover-f9a87e00-480.webp?no-inline";
+import asset18_640 from "./website-cover-f9a87e00-640.webp?no-inline";
+import asset18_840 from "./website-cover-f9a87e00-840.webp?no-inline";
+import asset18_1200 from "./website-cover-f9a87e00-1200.webp?no-inline";
 
 export const homeImages = {
   "chimp-dark": [{ src: asset0_480, width: 480 }, { src: asset0_640, width: 640 }, { src: asset0_800, width: 800 }, { src: asset0_1200, width: 1200 }],
