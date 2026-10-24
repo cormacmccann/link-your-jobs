@@ -1,12 +1,15 @@
-"""Composite untouched homepage screenshots into a shared generated iMac plate."""
+"""Perspective-composite original screenshots into cinematic device mockups."""
 from pathlib import Path
 import hashlib
-from PIL import Image
+from PIL import Image, ImageDraw
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 DESTINATION = ROOT / "src/assets/mockups"
-PLATE = DESTINATION / "imac-dark-base.jpg"
-SCREEN = (226, 118, 1039, 574)
+SCREENS = {
+    "epso": [(242, 129), (1046, 105), (1046, 563), (237, 574)],
+    "clubrovia": [(309, 136), (952, 152), (953, 546), (309, 555)],
+}
 SOURCES = {
     "epso": "public/projects/epso/desktop-homepage.webp",
     "clubrovia": "public/projects/clubrovia/landing.webp",
@@ -14,14 +17,25 @@ SOURCES = {
 
 imports, entries = [], []
 for name, source in SOURCES.items():
-    plate = Image.open(PLATE).convert("RGB")
+    plate = Image.open(DESTINATION / f"{name}-cinematic.jpg").convert("RGB")
     shot = Image.open(ROOT / source).convert("RGB")
-    width, height = SCREEN[2] - SCREEN[0], SCREEN[3] - SCREEN[1]
+    corners = SCREENS[name]
+    width = np.linalg.norm(np.subtract(corners[1], corners[0]))
+    height = np.linalg.norm(np.subtract(corners[3], corners[0]))
     # Keep the screenshot's proportions and its complete width; crop only below
     # the first viewport rather than stretching text or regenerating the artwork.
     crop_height = round(shot.width * height / width)
     shot = shot.crop((0, 0, shot.width, crop_height))
-    plate.paste(shot.resize((width, height), Image.Resampling.LANCZOS), SCREEN[:2])
+    source_corners = [(0, 0), (shot.width, 0), (shot.width, shot.height), (0, shot.height)]
+    matrix, target = [], []
+    for (x, y), (u, v) in zip(corners, source_corners):
+        matrix.extend([[x, y, 1, 0, 0, 0, -u*x, -u*y], [0, 0, 0, x, y, 1, -v*x, -v*y]])
+        target.extend([u, v])
+    coefficients = np.linalg.solve(np.array(matrix), np.array(target))
+    screen = shot.transform(plate.size, Image.Transform.PERSPECTIVE, coefficients, Image.Resampling.BICUBIC)
+    mask = Image.new("L", plate.size)
+    ImageDraw.Draw(mask).polygon(corners, fill=255)
+    plate.paste(screen, (0, 0), mask)
     full = ROOT / f"public/projects/{name}/imac-dark.webp"
     plate.save(full, quality=90, method=6)
     digest = hashlib.sha256(plate.tobytes()).hexdigest()[:8]
