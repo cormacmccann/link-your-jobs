@@ -356,8 +356,10 @@ export const PROJECT_CASES: Record<string, CaseData> = {
     presentation: "screens",
     categories: ["websites", "apps"],
     hero: {
-      src: "/projects/clubrovia/landing.webp",
-      alt: "Clubrovia landing page with the headline Less admin. More club. and connected club management screens",
+      src: "/projects/clubrovia/imac-dark.webp",
+      alt: "Clubrovia homepage displayed on a graphite and chrome iMac against a dark studio background",
+      width: 1264,
+      height: 848,
       caption:
         "The connected sports club platform, from the first introduction.",
     },

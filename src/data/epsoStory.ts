@@ -45,11 +45,14 @@ export const EPSO_CASE: CaseData = {
   description: [
     "The previous EPSO website established the visual aesthetic. KAMROK built on that foundation with a wider development effort spanning Lovable and custom code, prioritising speed, clearer navigation and a genuinely interactive way to discover Dundalk’s murals, artists and stories.",
   ],
-  hero: shot(
-    "framed-desktop-homepage",
-    "EPSO — an open invitation to explore Dundalk’s art, language and culture.",
-    "EPSO homepage in a browser frame, with bold typography, colourful accents and the Cúchulainn mural",
-  ),
+  hero: {
+    src: "/projects/epso/imac-dark.webp",
+    width: 1264,
+    height: 848,
+    caption: "EPSO — an open invitation to explore Dundalk’s art, language and culture.",
+    alt: "EPSO homepage displayed on a graphite and chrome iMac against a dark studio background",
+    kind: "website",
+  },
   chapters: [
     {
       id: "direction",
