@@ -758,6 +758,21 @@ for (const [slug, artwork] of Object.entries(BRAND_ARTWORK)) {
   );
 }
 
+// Device presentations lead these two projects after capture and brand merges.
+for (const slug of ["epso", "clubrovia"]) {
+  const project = PROJECT_CASES[slug];
+  if (!project) continue;
+  project.hero = {
+    src: `/projects/${slug}/imac-dark.webp`,
+    alt: `${project.name} homepage displayed on a graphite and chrome iMac against a dark studio background`,
+    caption: `${project.name} — the homepage, presented on iMac.`,
+    width: 1264,
+    height: 848,
+    kind: "website",
+  };
+  project.covers = { ...project.covers, websites: project.hero };
+}
+
 export const CLIENT_BRAND_COUNT = CLIENT_PORTFOLIO.length;
 PROJECT_CASES["mckevitts"]!.chapters = buildMckevittsChapters(
   PROJECT_CASES["mckevitts"]!,
