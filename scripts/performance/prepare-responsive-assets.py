@@ -54,7 +54,7 @@ for theme in ("dark", "light"):
     for service in ("websites", "apps", "automation", "branding"):
         home.append((f"{service}-{theme}", f"services/{service}-{theme}.webp", (320, 640, 960), 74))
     home.append((f"person-{theme}", f"people/cormac-mccann-{theme}.webp", (480, 720), 74))
-for name, source in (("clubrovia", "projects/clubrovia/imac-dark.webp"), ("mckevitts", "projects/mckevitts/brand-presentation.jpg")):
+for name, source in (("clubrovia", "projects/clubrovia/imac-dark.webp"), ("mckevitts", "projects/mckevitts/website-cover.png")):
     home.append((name, source, (480, 640, 840, 1200), 78))
 manifest("homeImages", home)
 

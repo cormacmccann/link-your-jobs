@@ -101,9 +101,8 @@
 .orbit-projects { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; }
 .orbit-project { min-width: 0; }
 .orbit-project--hotel { margin-top: 86px; }
-.orbit-project-visual { position: relative; background: #11151d; border-radius: 8px; overflow: hidden; aspect-ratio: 1.22; }
-.orbit-project-visual img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .5s; }
-.orbit-project--hotel img { object-position: top left; }
+.orbit-project-visual { position: relative; background: var(--studio-surface); border-radius: 8px; overflow: hidden; }
+.orbit-project-visual img { display: block; width: 100%; height: auto; object-fit: contain; object-position: center; transition: transform .5s; }
 .orbit-project:hover img { transform: scale(1.035); }
 .orbit-project-tag { position: absolute; top: 20px; left: 20px; z-index: 1; background: #f7f2e5; color: #1a3234; border-radius: 3px; font-size: 8px; padding: 8px 11px; letter-spacing: .08em; }
 .orbit-project-open { position: absolute; bottom: 20px; right: 20px; display: grid; place-items: center; width: 47px; height: 47px; border-radius: 50%; color: #203638; background: #f6efde; transition: transform .2s; }
@@ -235,7 +234,6 @@
   .orbit-eyebrow { font-size: 8px; letter-spacing: .1em; margin-bottom: 16px; }
   .orbit-projects { grid-template-columns: 1fr; gap: 36px; }
   .orbit-project--hotel { margin: 0; }
-  .orbit-project-visual { aspect-ratio: 1.2; }
   .orbit-project-caption { padding-top: 18px; }
   .studio-page .orbit-project h3 { font-size: 20px; }
   .orbit-work-note { flex-direction: column; gap: 12px; margin-top: 34px; }
