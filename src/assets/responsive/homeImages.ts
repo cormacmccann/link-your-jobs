@@ -51,10 +51,7 @@ import asset15_640 from "./branding-light-453e76ec-640.webp?no-inline";
 import asset15_960 from "./branding-light-453e76ec-960.webp?no-inline";
 import asset16_480 from "./cormac-mccann-light-845ad00b-480.webp?no-inline";
 import asset16_720 from "./cormac-mccann-light-845ad00b-720.webp?no-inline";
-import asset17_480 from "./landing-ad047a1b-480.webp?no-inline";
-import asset17_640 from "./landing-ad047a1b-640.webp?no-inline";
-import asset17_840 from "./landing-ad047a1b-840.webp?no-inline";
-import asset17_1200 from "./landing-ad047a1b-1200.webp?no-inline";
+import { imacImages } from "../mockups/images";
 import asset18_480 from "./brand-presentation-61db6df1-480.webp?no-inline";
 import asset18_640 from "./brand-presentation-61db6df1-640.webp?no-inline";
 import asset18_840 from "./brand-presentation-61db6df1-840.webp?no-inline";
@@ -78,6 +75,6 @@ export const homeImages = {
   "automation-light": [{ src: asset14_320, width: 320 }, { src: asset14_640, width: 640 }, { src: asset14_960, width: 960 }],
   "branding-light": [{ src: asset15_320, width: 320 }, { src: asset15_640, width: 640 }, { src: asset15_960, width: 960 }],
   "person-light": [{ src: asset16_480, width: 480 }, { src: asset16_720, width: 720 }],
-  "clubrovia": [{ src: asset17_480, width: 480 }, { src: asset17_640, width: 640 }, { src: asset17_840, width: 840 }, { src: asset17_1200, width: 1200 }],
+  "clubrovia": imacImages["/projects/clubrovia/imac-dark.webp"],
   "mckevitts": [{ src: asset18_480, width: 480 }, { src: asset18_640, width: 640 }, { src: asset18_840, width: 840 }, { src: asset18_1200, width: 1200 }],
 };
