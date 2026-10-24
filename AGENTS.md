@@ -6,4 +6,4 @@
 - The moon engine lives in `moonEngine.js` with a `.d.ts` API declaration, because the original file was untyped and strict TypeScript would otherwise block builds.
 - Backend functions stay on the existing backend runtime (none are called from the public site); move them only with an explicit cutover plan.
 - Local service pages use dedicated route files with a small metadata inventory and shared evidence-driven page data, including approved testimonials with explicit regional attribution; this keeps towns independently crawlable without duplicating layout or claiming false local evidence.
-- Device mockups composite original screenshots into a shared plate via the performance preparation script and serve responsive variants; this preserves real website text instead of AI-redrawing it.
+- Device mockups perspective-composite original screenshots into generated device scenes via the performance preparation script and serve responsive variants; this preserves real website text instead of AI-redrawing it.
