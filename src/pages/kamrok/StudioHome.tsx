@@ -17,6 +17,8 @@ import { homeImages } from "@/assets/responsive/homeImages";
 import lovableDark from "@/assets/responsive/lovable-dark.svg?no-inline";
 import lovableLight from "@/assets/responsive/lovable-light.svg?no-inline";
 import { BRAND_ARTWORK } from "@/data/brandArtwork";
+import { EPSO_CASE } from "@/data/epsoStory";
+import { imacImages } from "@/assets/mockups/images";
 import "@/styles/service-illustrations.css";
 
 const SERVICES = [
@@ -72,6 +74,7 @@ export default function StudioHome() {
         <div className="orbit-projects">
           <Link className="action-trigger orbit-project orbit-project--club" to="/work/clubrovia"><div className="orbit-project-visual"><span className="orbit-project-tag">OUR OWN PRODUCT</span><ResponsiveImage variants={homeImages["clubrovia"]} sizes="(max-width: 760px) 92vw, 50vw" alt="Clubrovia: Less admin. More club. — the connected sports club platform" width="1202" height="827" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>Clubrovia</h3><p>Less club admin. More time for the game.</p></div><span>PRODUCT DESIGN & BUILD</span></div></Link>
           <Link className="action-trigger orbit-project orbit-project--hotel" to="/work/mckevitts"><div className="orbit-project-visual"><span className="orbit-project-tag">HOSPITALITY</span><ResponsiveImage variants={homeImages["mckevitts"]} sizes="(max-width: 760px) 92vw, 50vw" alt={BRAND_ARTWORK["mckevitts"]!.hero.alt} width="1920" height="990" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>McKevitt’s Village Hotel</h3><p>A proper welcome, before you arrive.</p></div><span>BRANDING & WORDPRESS</span></div></Link>
+          <Link className="action-trigger orbit-project" to="/work/epso"><div className="orbit-project-visual"><span className="orbit-project-tag">ARTS & CULTURE</span><ResponsiveImage variants={imacImages["/projects/epso/imac-dark.webp"]} sizes="(max-width: 760px) 92vw, 50vw" alt={EPSO_CASE.hero.alt} width="1264" height="848" loading="lazy" /><span className="orbit-project-open cinematic-action"><ActionFeedback icon={FileText} size={21} /></span></div><div className="orbit-project-caption"><div><h3>EPSO</h3><p>Dundalk’s murals, artists and stories, explored.</p></div><span>LOVABLE BUILD & MURAL EXPLORER</span></div></Link>
         </div>
         <div className="orbit-work-note"><span>LOCAL FAVOURITES. AMBITIOUS START-UPS. GOOD PEOPLE.</span><p>Different businesses. The same care in every detail.</p></div>
       </section>
